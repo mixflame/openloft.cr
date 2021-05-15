@@ -112,6 +112,10 @@ shards:
     git: https://github.com/stefanwille/crystal-redis.git
     version: 2.6.0
 
+  sanitize:
+    git: https://github.com/straight-shoota/sanitize.git
+    version: 0.1.0+git.commit.38c73669b274b77020025562549c6abf026001c6
+
   selenium:
     git: https://github.com/paulcsmith/selenium-webdriver-crystal.git
     version: 0.3.0+git.commit.427376b990dc361702044fa3997ad02de85bf0a7

@@ -1,7 +1,9 @@
 require "redis"
+require "sanitize"
 
 class LivepixelController < ApplicationController
   def canvas
+    sanitizer = Sanitize::Policy::HTMLSanitizer.common
     random_number = Random.rand(10000).to_i
     room = params[:room] rescue ""
     redis = Redis.new
@@ -13,11 +15,12 @@ class LivepixelController < ApplicationController
     counter = redis.incr("counter")
 
     ad = ""
+    banner_link = ""
     while ad == ""
       order_id = redis.srandmember("banner_order_ids").to_s
       break if order_id == ""
-      ad = redis.get(order_id)
-      banner_link = redis.get("#{order_id}_link")
+      ad = redis.get(order_id) || ""
+      banner_link = redis.get("#{order_id}_link") || ""
       if ad == ""
         redis.srem("banner_order_ids", order_id)
       else

@@ -1,7 +1,232 @@
-Cam chat id: <%= random_number %>
-Room: <%= room %>
-TTL: <%= ttl %>
-Counter: <%= counter %>
-Ad: <%= ad %>
+<noscript>Please enable Javascript to use this website!</noscript>
 
-<p><%= chats %></p>
+<% if room != "" && room != nil %>
+  <p>You are in private room: <%= room %></p>
+<% end %>
+
+<div id="toolbox" style="display: block; font-size: 10px;">
+  <div id="last-colors" style="float: left;">
+    <% (0..15).each do |num| %>
+    <div class="swatch" id="last-color-<%= num %>"></div>
+    <% end %>
+  </div>
+
+
+
+  
+  <div id="color_tool" style="float: left; border: lightblue 3px solid; height: 33px;">
+    <i class="fas fa-palette" style="padding-left: 10px; padding-right: 10px" title="Color" id="color_icon"></i>
+    <input type="color" id="color" value="#000000" />
+  </div>
+
+  <div id="brush_type_tool" style="float: left; border: lightblue 3px solid; height: 33px;">
+  <i class="fas fa-paint-brush" style="padding-left: 10px; padding-right: 10px" title="Size" id="brush_type_icon"></i>
+    <select name="brush_type" id="brush_type">
+      <option value="round">Round</option>
+      <option value="bevel">Bevel</option>
+      <option value="miter">Miter</option>
+    </select>
+  </div>
+
+  
+  <div id="size_tool" style="float: left; border: lightblue 3px solid; height: 33px; border-left: none;">
+    <i class="fas fa-ruler" style="padding-left: 10px; padding-right: 10px" title="Size" id="brush_size_icon"></i>
+    rand: <input type="checkbox" id="random-brush-size" checked=false>
+    <input style="width: 50px;" type="range" min="1" max="35" value="3" class="slider" id="brush-size">
+  </div>
+
+
+
+  <div id="name_changer" style="float: left; border: lightblue 3px solid; height: 33px; border-left: none;"><strong style="padding-left: 10px; padding-right: 10px"></strong> <input style="width: 100px;" type="text" id="name" maxlength=30 /></div>
+
+  <div id="rainbow-pen-tool" style="float: left; border: lightblue 3px solid; height: 33px; border-left: none;">
+    <i class="fas fa-rainbow" style="padding-left: 10px; padding-right: 10px" title="Rainbow" id="rainbow_icon"></i>
+    <input type="checkbox" id="rainbow" checked=false>
+  </div>
+
+  <div id="rainbow-pen-tool-style" style="float: left; border: lightblue 3px solid; height: 33px; border-left: none;">
+    <select name="themes" id="themes">
+      <option value="rain">Rainbow</option>
+      <option value="camo">Camoflauge</option>
+      <option value="bluesky">Blue Sky</option>
+      <option value="summerwave">Summer Wave</option>
+      <option value="relaxing">Relaxing</option>
+      <option value="sunrise">Sunrise</option>
+      <option value="pinksunrise">Pink Sunrise</option>
+      <option value="beigesky">Beige Sky</option>
+      <option value="oldschoolpixel">Oldschool Pixel</option>
+      <option value="orangesunrise">Orange Sunrise</option>
+      <option value="purplesunset">Purple Sunset</option>
+      <option value="grayhorizon">Gray Horizon</option>
+      <option value="earlymorning">Early Morning</option>
+      <option value="crimsonnight">Crimson Night</option>
+      <option value="twilightforest">Twilight Forest</option>
+      <option value="forestmoon">Forest Moon</option>
+      <option value="burntsun">Burnt Sun</option>
+      <option value="beforenight">Before Night</option>
+    </select>
+  </div>
+
+  <div id="shape_tool" style="float: left; border: lightblue 3px solid; height: 33px; border-left: none;">
+    <i class="fas fa-shapes" style="padding-left: 10px; padding-right: 10px" title="Shape Tool" id="shape_tool_icon"></i>
+    fill: <input type="checkbox" id="shape_fill" checked=false>
+    <select name="shape_type" id="shape_type">
+        <option value="none">none</option>
+        <option value="rect">rectangle</option>
+        <option value="circle">circle</option>
+        <option value="triangle">triangle</option>
+    </select>
+    <p id="a_param" style="display: inline; width: 50px;"><span id="a_label">w</span> <input type="text" id="shape_width" name="shape_width" style="display: inline; width: 50px;" value="200"/></p>
+    <p id="b_param" style="display: inline; width: 50px;"><span id="b_label">h</span> <input type="text" id="shape_height" name="shape_height" style="display: inline; width: 50px;" value="200"/></p>
+    <p id="c_param" style="display: inline; width: 50px;"><span id="c_label">c</span> <input type="text" id="shape_angle" name="shape_angle" style="display: inline; width: 50px;" value="160"/></p>
+  
+  </div>
+
+  <div id="text-tool-holder" style="float: left; border: lightblue 3px solid; height: 33px; border-left: none;">
+    <i class="fas fa-paragraph" style="padding-left: 10px; padding-right: 10px" title="Text" id="text_tool_icon"></i>
+    <input type="checkbox" id="text-tool" checked=false>
+    <input style="width: 100px;" type="text" id="text-to-write" maxlength=100 />
+  </div>
+
+  <div id="eyedropper-tool" style="float: left; border: lightblue 3px solid; height: 33px; border-left: none;">
+    <i class="fas fa-eye-dropper" style="padding-left: 10px; padding-right: 10px" title="Eyedropper" id="eyedropper_icon"></i>
+    <input type="checkbox" id="eyedropper" checked=false>
+  </div>
+
+  <div id="eraser_tool" style="float: left; border: lightblue 3px solid; height: 33px; border-left: none;">
+    <i class="fas fa-eraser" style="padding-left: 10px; padding-right: 10px" title="Eraser" id="eraser_icon"></i>
+    <input type="checkbox" id="eraser" checked=false>
+  </div>
+
+  <div id="paintbucket_tool" style="float: left; border: lightblue 3px solid; height: 33px; border-left: none;">
+    <i class="fas fa-fill" style="padding-left: 10px; padding-right: 10px" title="Paint bucket" id="paintbucket_icon"></i>
+    <input type="checkbox" id="paintbucket" checked=false>
+  </div>
+
+  <div id="undo_tool" style="float: left; border: lightblue 3px solid; height: 33px; border-left: none;">
+    <i class="fas fa-undo" style="padding-left: 10px; padding-right: 10px" title="Undo" id="undo_icon"></i>
+    <button id="undo">Undo</button>
+  </div>
+
+
+</div>
+
+<div id="links">
+
+  <div id="private_box"><a href="#" id="private_room">create a private room</a></div>
+
+  <div id="downbox"><a href="#" id="downloader" download="image.png">download this image</a></div>
+
+  <div id="apiuploadbox"><a href="#" id="uploader">upload this image to imgur</a></div>
+
+  <div id="gallery"><a href="/gallery" id="gallery_link" target="_blank">gallery</a></div>
+  
+  <div id="discord"><a href="https://discord.gg/354vSWQDaf" id="discord_link" target="_blank">discord</a></div>
+
+  <div id="stats"><a href="/stats" target="_blank">stats</a></div>
+
+  <div id="ad"><a href="/buy_ad" target="_blank">advertise here for $10/month</a></div>
+
+  <div id="privacy_policy"><a href="/privacy_policy" id="privacy_policy_link" target="_blank">privacy policy</a></div>
+
+  <% unless room == "" %><div id="clear_canvas_holder"><a href="#" id="clear_canvas">clear canvas</a></div><% end %>
+
+</div>
+
+<div class="clear"></div>
+
+<div id="bgCanvasDiv"></div>
+
+<div id="canvasDiv" style="float: left; display: inline; margin-top: 10px;"></div>
+
+<% if ad != nil && banner_link != nil %>
+    <div id="ad" style="float: left; display: inline; margin-left: 20px;">
+      <a href="<%= sanitizer.process(banner_link) %>" target="_new"><img src="data:image/png;base64,<%= sanitizer.process(ad) %>"></a>
+    </div>
+<% end %>
+
+<div id="video_chat" style="float: left; width: 35%; display: inline; padding-left: 20px;">
+
+  <div style="visibility: hidden">Random User ID:
+    <span id="current-user"><%= random_number %></span>
+  </div>
+
+  <div id="remote-video-container"></div>
+  <div id="local-video-container" style="float: left; width: 25%; height: 25%;">
+    <p id="cam-name"></p>
+    <video id="local-video" autoplay style="width: 100%; height: 100%; padding-left: 10px;"></video>
+  </div>
+
+  <div class="clear"></div>
+
+  <select id="input">
+    <option value="cam" selected>cam</option>
+    <option value="screen">screen</option>
+  </select>
+
+  <div id="cam_buttons_holder" style="padding-top: 10px;">
+    <button id="join-button">Join Room</button>
+    <button id="leave-button" disabled=true>Leave Room</button>
+    <button id="mute-button">Mute mic</button>
+    <button id="video-mute-button">Stop camera</button>
+    <input type="range" min="0.0" max="1.0" value="1.0" step="0.01" class="slider" id="call-volume">
+  </div>
+
+  <div id="chat_area_holder" style="width: 100%">
+    <p>
+    <div id="online_list" style="width: 20%; height: 300px; overflow: scroll; float: left;"><ul id="connected_users"></ul></div>
+    <div id="chat_area" name="chat_area" style="width: 80%; height: 300px; overflow: scroll; float: left; resize: both; max-width: 80%"><% chats.each do |c| -%><p style='margin: 0px'>&lt<%= sanitizer.process "#{JSON.parse(c.to_s)["name"]}" %>&gt <%= sanitizer.process "#{JSON.parse(c.to_s)["chat_message"]}" %></p><% end -%></div>
+    </p>
+    <div class="clear"></div>
+    <p>
+      <div class="actions" style="display: inline">
+        <input type="color" id="text_back_color" value="#000000" />
+        <input type="color" id="text_color" value="#000000" />
+        <button data-action="bold">bold</button>
+        <button data-action="italic">italic</button>
+        <button data-action="createLink">link</button>
+        <button data-action="insertImage">image</button>
+        <button data-action="searchGiphy">giphy</button>
+        <button data-action="insertHTML">html</button>
+      </div>
+      <button style="display: inline-block" id="emoji-trigger">emoji</button>
+    </p>
+    <p><div contenteditable="true" id="chat_message" name="chat_message" style="width: 90%; border: lightblue 1px solid; display: inline-block;"></div><button style="display: inline-block;" id="send_message">Send</button></p>
+  </div>
+
+  <div id="whos-drawing-holder" style="background-color: white;">
+  <p>
+  <p style="color: black; font-weight: bold;">currently drawing</p>
+  <ul id="whos-drawing" style="list-style-type: none">
+  </ul>
+  </p>
+</div>
+
+</div>
+
+
+
+
+<div class="clear"></div>
+
+<div id="status-holder" style="font-size: 10px;">
+  status:
+  <div id="status">
+
+  </div>
+</div>
+
+<div id="dark-mode-holder" style="font-size: 10px; margin-top: -10px;">
+  <i class="fas fa-moon" style="padding-left: 10px; padding-right: 10px"></i>
+  <input type="checkbox" id="dark-mode" checked=true />
+</div>
+
+<div id="ttl-holder" style="font-size: 10px;">
+  <script>
+    window.t = <%= ttl %>;
+    window.original_ttl = <%= ttl %>;
+  </script>
+  <div id="ttl"></div>
+</div>
+
+<div id="counter" style="font-size: 10px;"><%= counter %> views</div>
