@@ -28,6 +28,7 @@ Amber::Server.configure do
   end
 
   routes :web do
+    websocket "/cable", CableSocket
     get "/", LivepixelController, :canvas
   end
 
