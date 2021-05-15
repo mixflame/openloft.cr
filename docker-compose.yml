@@ -1,0 +1,39 @@
+version: '2'
+
+services:
+  app:
+    build: .
+    image: gbaldraw.cr
+    command: amber watch
+    environment:
+      DATABASE_URL: sqlite3:./db/gbaldraw.cr_development.db
+    ports:
+      - 3000:3000
+    links:
+      - db
+    volumes:
+    - .:/app
+    - nodes:/app/node_modules
+    - shards:/app/lib
+
+  migrate:
+    build: .
+    image: gbaldraw.cr
+    command: bash -c 'amber db migrate seed'
+    environment:
+      DATABASE_URL: sqlite3:./db/gbaldraw.cr_development.db
+    volumes:
+      - .:/app
+    links:
+      - db
+
+  db:
+    image: gbaldraw.cr
+    command: 'bash -c "ls > /dev/null"'
+    volumes:
+    - db:/app/local/db
+
+volumes:
+  db:
+  nodes:
+  shards:
