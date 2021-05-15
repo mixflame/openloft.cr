@@ -2,6 +2,8 @@
 import Amber from 'amber';
 //import Logo from '../images/logo.svg';
 
+require("./livepixel")
+
 import { library, dom } from "@fortawesome/fontawesome-svg-core";
 import { faEyeDropper, 
     faEraser, 
