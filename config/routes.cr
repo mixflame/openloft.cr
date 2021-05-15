@@ -28,6 +28,7 @@ Amber::Server.configure do
   end
 
   routes :web do
+    get "/", LivepixelController, :canvas
   end
 
   routes :api do
