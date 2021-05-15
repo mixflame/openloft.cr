@@ -1,11 +1,13 @@
+<!DOCTYPE html>
 <html>
   <head>
+    <title>Gbaldraw Public Whiteboard</title>
+    <link rel="stylesheet" media="all" href="/application.css" />
+    <script src="/application.js"></script>
+    <%= csrf_metatag %>
   </head>
+
   <body>
-    <table>
-      <tr>
-      <td><%= content %></td>
-      </tr>
-    </table>
+    <%= content %>
   </body>
 </html>
