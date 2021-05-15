@@ -45,6 +45,6 @@ class LivepixelController < ApplicationController
       end
     end
 
-    render "canvas.ecr", layout: "livepixel.ecr"
+    render "canvas.ecr"
   end
 end

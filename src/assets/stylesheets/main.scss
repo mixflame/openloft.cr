@@ -1,0 +1,200 @@
+// $primary: #f4994b;
+
+// @import '~bootstrap/scss/bootstrap';
+
+body {
+  margin: 0;
+  background-color: #000;
+  color: #fff;
+}
+
+canvas {
+  image-rendering: optimizeSpeed;             /* Older versions of FF          */
+  image-rendering: -moz-crisp-edges;          /* FF 6.0+                       */
+  image-rendering: -webkit-optimize-contrast; /* Safari                        */
+  image-rendering: -o-crisp-edges;            /* OS X & Windows Opera (12.02+) */
+  image-rendering: pixelated;                 /* Awesome future-browsers       */
+  -ms-interpolation-mode: nearest-neighbor;   /* IE                            */
+  z-index: 0;
+  // border: 1px solid black;
+  border-bottom: 20px solid transparent;
+  border-right: 20px solid transparent;
+  max-height: 90%;
+  touch-action: pinch-zoom;
+ 
+  // max-width: 100%;
+}
+
+.pumpkin {
+  -webkit-border-image: url(../images/pumpkin_border.png) 30 round; /* Safari 3.1-5 */
+  -o-border-image: url(../images/pumpkin_border.png) 30 round; /* Opera 11-12.1 */
+  border-image: url(../images/pumpkin_border.png) 30 round;
+}
+
+.spiderweb {
+  -webkit-border-image: url(../images/spiderweb_border.png) 30 round; /* Safari 3.1-5 */
+  -o-border-image: url(../images/spiderweb_border.png) 30 round; /* Opera 11-12.1 */
+  border-image: url(../images/spiderweb_border.png) 30 round;
+}
+
+.tomb {
+  -webkit-border-image: url(../images/tomb_border.png) 30 round; /* Safari 3.1-5 */
+  -o-border-image: url(../images/tomb_border.png) 30 round; /* Opera 11-12.1 */
+  border-image: url(../images/tomb_border.png) 30 round;
+}
+
+.bat {
+  -webkit-border-image: url(../images/bat_border.png) 30 round; /* Safari 3.1-5 */
+  -o-border-image: url(../images/bat_border.png) 30 round; /* Opera 11-12.1 */
+  border-image: url(../images/bat_border.png) 30 round;
+}
+
+.feather {
+  -webkit-border-image: url(../images/feather_border.png) 30 round; /* Safari 3.1-5 */
+  -o-border-image: url(../images/feather_border.png) 30 round; /* Opera 11-12.1 */
+  border-image: url(../images/feather_border.png) 30 round;
+}
+
+.pilgrim_hat {
+  -webkit-border-image: url(../images/pilgrim_hat_border.png) 30 round; /* Safari 3.1-5 */
+  -o-border-image: url(../images/pilgrim_hat_border.png) 30 round; /* Opera 11-12.1 */
+  border-image: url(../images/pilgrim_hat_border.png) 30 round;
+}
+
+.pumpkin_pie {
+  -webkit-border-image: url(../images/pumpkin_pie_border.png) 30 round; /* Safari 3.1-5 */
+  -o-border-image: url(../images/pumpkin_pie_border.png) 30 round; /* Opera 11-12.1 */
+  border-image: url(../images/pumpkin_pie_border.png) 30 round;
+}
+
+
+input#color {
+  display: inline;
+}
+
+div#color_tool {
+  float: left;
+}
+
+input#brush-size {
+  display: inline;
+}
+
+div#size_tool {
+  float: left;
+}
+
+div#name_changer {
+  float: left;
+}
+
+div#rainbow-pen-tool {
+  float: left;
+}
+
+div#eyedropper-tool {
+  float: left;
+}
+
+div#eraser_tool {
+  float: left;
+}
+
+div#status-holder {
+  display: inline;
+  float: left;
+  margin-left: 20px;
+}
+
+div#status {
+  display: inline;
+}
+
+input#show-debug {
+  display: inline;
+}
+
+div#bgCanvasDiv {
+  display: none;
+}
+
+div#dark-mode-holder {
+  display: inline;
+  float: left;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+div#monero-holder {
+  display: inline;
+  float: right;
+  margin-right: 20px;
+}
+
+div#ttl {
+  display: inline;
+}
+
+div#ttl-holder {
+  display: inline;
+  float: left;
+  margin-left: 20px;
+}
+
+div.clear {
+  clear: both;
+}
+
+div#counter {
+  display: inline;
+  float: left;
+  margin-left: 20px;
+}
+
+div#stats, div#store, div#twitter, div#downbox, div#ad, div#private_box, div#privacy_policy, div#crypto, div#apiuploadbox, div#clear_canvas_holder, div#gallery, div#discord {
+  display: inline;
+  float: left;
+  margin-left: 20px;
+}
+
+body {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+a {
+  color: lightblue;
+  font-size: 16pt;
+}
+
+a:visited {
+  color: lightblue;
+  font-size: 16pt;
+}
+
+.no_selection {
+  user-select: none; /* standard syntax */
+  -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+  -moz-user-select: none; /* mozilla browsers */
+  -khtml-user-select: none; /* webkit (konqueror) browsers */
+  -ms-user-select: none; /* IE10+ */
+}
+
+.mobileShow {
+  display: none;
+}
+
+@media (max-width: 1024px) { 
+  .mobileShow {display: block;}
+}
+
+.swatch {
+  height: 30px;
+  width: 30px;
+  background-color: lightgray;
+  border: 1px solid white;
+  float: left;
+}
+
+#whos-drawing li {
+  -webkit-text-stroke: 1px black;
+}
