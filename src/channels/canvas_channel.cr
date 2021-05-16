@@ -31,8 +31,7 @@ class CanvasChannel < Amber::WebSockets::Channel
         return
       end
       if data.has_key?("ping") && data["ping"] == true
-        puts message
-        # rebroadcast!(message)
+        sleep 1.second
         CanvasSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", data)
         return
       end
@@ -65,6 +64,7 @@ class CanvasChannel < Amber::WebSockets::Channel
         return
       end
       if data.has_key?("ping") && data["ping"] == true
+        sleep 1.second
         CanvasSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", data)
         return
       end
