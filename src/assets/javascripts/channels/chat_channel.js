@@ -8,7 +8,7 @@ window.chat_socket = new Amber.Socket('/chat')
 chat_socket.connect()
     .then(() => {
         console.log("connected to /chat")
-        window.chat_channel = chat_socket.channel('chat:' + room)
+        window.chat_channel = chat_socket.channel('chat:' + window.room)
         window.chat_channel.join()
         if (!window.dontLog) console.log("Connected to chat channel");
 

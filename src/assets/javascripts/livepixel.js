@@ -29,7 +29,7 @@
 import Amber from 'amber';
 
 var urlParams = new URLSearchParams(window.location.search);
-    var room = urlParams.get('room');
+window.room = urlParams.get('room');
 
 function setMediaBitrates(sdp) {
     return setMediaBitrate(setMediaBitrate(sdp, "video", 96), "audio", 50);
@@ -311,7 +311,7 @@ function setMediaBitrates(sdp) {
       camera_socket.connect()
         .then(() => {
             console.log("connected to /session")
-            window.camera_session = camera_socket.channel('session:' + room)
+            window.camera_session = camera_socket.channel('session:' + window.room)
             window.camera_session.join()
             
             window.camera_session.on('message_new', (data) => {
@@ -1982,5 +1982,4 @@ function setMediaBitrates(sdp) {
   
   window.start_pinging = () => {
     window.canvas_channel.push("message_new", {name: window.name, ping: true, room: room});
-    setTimeout(window.start_pinging, 1000);
   }

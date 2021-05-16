@@ -48,7 +48,7 @@ class CanvasChannel < Amber::WebSockets::Channel
       CanvasSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", data)
     else
       redis = Redis.new
-      if data.has_key?("undo") && data["undo"] == true
+      if data.has_key?("undo") && data["undo"].as_bool == true
         puts "undoing"
         all_packets = [] of String
         amt_packets = redis.llen("packets_#{room}")

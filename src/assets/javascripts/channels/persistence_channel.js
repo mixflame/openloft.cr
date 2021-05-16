@@ -16,7 +16,7 @@ window.persistence_socket = new Amber.Socket('/persistence')
 persistence_socket.connect()
     .then(() => {
         console.log("connected to /persistence")
-        window.persistence_channel = persistence_socket.channel('persistence:' + room + "_" + uuid)
+        window.persistence_channel = persistence_socket.channel('persistence:' + window.room + "_" + uuid)
         window.persistence_channel.join()
         if (!window.dontLog) console.log("Connected to persistence channel");
         $("#status").text("loading canvas");
@@ -37,6 +37,7 @@ persistence_socket.connect()
                     $("#status").text("canvas loaded");
                     window.disabled = false;
                     $("#join-button").click();
+                    setTimeout(window.start_pinging, 1000);
                 }, 1000);
             } else {
 
@@ -52,6 +53,7 @@ persistence_socket.connect()
                             window.start_pinging();
                             window.disabled = false;
                             $("#join-button").click();
+                            setTimeout(window.start_pinging, 1000);
                         }, 1000);
                     } else {
                         $("#status").text("canvas loading... " + index + "/" + count);

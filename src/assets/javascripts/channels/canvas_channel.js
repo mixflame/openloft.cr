@@ -1,8 +1,5 @@
 import Amber from 'amber';
 
-var urlParams = new URLSearchParams(window.location.search);
-var room = urlParams.get('room');
-
 function arrayRemove(arr, value) {
 
     return arr.filter(function (ele) {
@@ -14,7 +11,8 @@ window.canvas_socket = new Amber.Socket('/canvas')
 canvas_socket.connect()
     .then(() => {
         console.log("connected to /canvas")
-        window.canvas_channel = canvas_socket.channel('canvas:' + room)
+        console.log("canvas room: " + window.room);
+        window.canvas_channel = canvas_socket.channel('canvas:' + window.room)
         window.canvas_channel.join()
 
         if (!window.dontLog) console.log("Connected to Canvas channel!");
@@ -102,6 +100,7 @@ canvas_socket.connect()
             // }
 
             if (data["ping"]) {
+                setTimeout(window.start_pinging, 1000);
                 window.last_ping[data['name']] = Date.now();
                 setTimeout(() => {
                     if (window.last_ping[data['name']] < Date.now() - 5000)
