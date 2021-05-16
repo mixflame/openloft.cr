@@ -168,7 +168,7 @@ function setMediaBitrates(sdp) {
             context.fillStyle = curColor;
             context.fill();
             addClick(undefined, undefined, undefined, false, name, curColor, undefined, undefined, path, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill);
-            window.canvas_channel.send({ x: undefined, y: undefined, dragging: false, name: name, color: curColor, size: undefined, text: undefined, path: path, line_join: curLineJoin, shape_type: curShapeType, shape_width: curShapeWidth, shape_height: curShapeHeight, shape_fill: curShapeFill });
+            window.canvas_channel.push("message_new", { x: undefined, y: undefined, dragging: false, name: name, color: curColor, size: undefined, text: undefined, path: path, line_join: curLineJoin, shape_type: curShapeType, shape_width: curShapeWidth, shape_height: curShapeHeight, shape_fill: curShapeFill });
             
             break;
           }
@@ -212,7 +212,7 @@ function setMediaBitrates(sdp) {
   }
   
   window.connectVideo = function() {
-    app.closeAudio()
+    // app.closeAudio()
     
     currentUser = $("#current-user")[0].innerHTML;
     window.currentUser = currentUser;
@@ -303,31 +303,34 @@ function setMediaBitrates(sdp) {
     var urlParams = new URLSearchParams(window.location.search);
     var room = urlParams.get('room');
     if(window.camera_session == null || window.camera_session == undefined) {
-      window.camera_session = consumer.subscriptions.create({channel: "SessionChannel", room: room}, {
-        connected: () => {
-          broadcastData({
-            type: JOIN_ROOM,
-            from: currentUser,
-            name: window.name,
-            polite: window.polite,
-          });
-        },
-        received: (data) => {
-          if(!window.dontLog) console.log("received", data);
-          if (data.from === currentUser) return;
-          switch (data.type) {
-          case JOIN_ROOM:
-            return joinRoom(data);
-          case EXCHANGE:
-            if (data.to !== currentUser) return;
-            return exchange(data);
-          case REMOVE_USER:
-            return removeUser(data);
-          default:
-            return;
-          }
-        },
+      window.camera_session = socket.channel('session:' + room)
+      window.camera_session.join()
+      broadcastData({
+        type: JOIN_ROOM,
+        from: currentUser,
+        name: window.name,
+        polite: window.polite,
       });
+      window.camera_session.on('message_new', (data) => {
+        if(!window.dontLog) console.log("received", data);
+        if (data.from === currentUser) return;
+        switch (data.type) {
+        case JOIN_ROOM:
+          return joinRoom(data);
+        case EXCHANGE:
+          if (data.to !== currentUser) return;
+          return exchange(data);
+        case REMOVE_USER:
+          return removeUser(data);
+        default:
+          return;
+        }
+      })
+      
+      window.camera_session.on('user_join', (data) => {
+        console.log(data);
+      })
+
     } else {
       broadcastData({
             type: JOIN_ROOM,
@@ -571,7 +574,7 @@ function setMediaBitrates(sdp) {
     /**
      * Add CSRF protection: https://stackoverflow.com/questions/8503447/rails-how-to-add-csrf-protection-to-forms-created-in-javascript
      */
-    const csrfToken = document.querySelector("[name=csrf-token]").content;
+    const csrfToken = document.querySelector("[name=_csrf]").content;
     const headers = new Headers({
       "content-type": "application/json",
       "X-CSRF-TOKEN": csrfToken,
@@ -1043,9 +1046,9 @@ function setMediaBitrates(sdp) {
       window.redraw(true, false);
     }
     if($("#text-tool").is(":checked"))
-      window.canvas_channel.send({ x: mouseX, y: mouseY, dragging: false, name: name, color: curColor, size: curSize, text: curText, line_join: curLineJoin, shape_type: curShapeType, shape_width: curShapeWidth, shape_height: curShapeHeight, shape_fill: curShapeFill, shape_angle: curShapeAngle });
+      window.canvas_channel.push("message_new", { x: mouseX, y: mouseY, dragging: false, name: name, color: curColor, size: curSize, text: curText, line_join: curLineJoin, shape_type: curShapeType, shape_width: curShapeWidth, shape_height: curShapeHeight, shape_fill: curShapeFill, shape_angle: curShapeAngle });
     else
-      window.canvas_channel.send({ x: mouseX, y: mouseY, dragging: false, name: name, color: curColor, size: curSize, text: undefined, line_join: curLineJoin, shape_type: curShapeType, shape_width: curShapeWidth, shape_height: curShapeHeight, shape_fill: curShapeFill, shape_angle: curShapeAngle });
+      window.canvas_channel.push("message_new", { x: mouseX, y: mouseY, dragging: false, name: name, color: curColor, size: curSize, text: undefined, line_join: curLineJoin, shape_type: curShapeType, shape_width: curShapeWidth, shape_height: curShapeHeight, shape_fill: curShapeFill, shape_angle: curShapeAngle });
       e.preventDefault();
   }
   
@@ -1134,9 +1137,9 @@ function setMediaBitrates(sdp) {
           window.redraw(true, false);
       }
       if($("#text-tool").is(":checked"))
-        window.canvas_channel.send({ x: mouseX, y: mouseY, dragging: true, name: name, color: curColor, size: curSize, text: curText, line_join: curLineJoin, shape_type: curShapeType, shape_width: curShapeWidth, shape_height: curShapeHeight, shape_fill: curShapeFill, shape_angle: curShapeAngle });
+        window.canvas_channel.push("message_new", { x: mouseX, y: mouseY, dragging: true, name: name, color: curColor, size: curSize, text: curText, line_join: curLineJoin, shape_type: curShapeType, shape_width: curShapeWidth, shape_height: curShapeHeight, shape_fill: curShapeFill, shape_angle: curShapeAngle });
       else
-      window.canvas_channel.send({ x: mouseX, y: mouseY, dragging: true, name: name, color: curColor, size: curSize, text: undefined, line_join: curLineJoin, shape_type: curShapeType, shape_width: curShapeWidth, shape_height: curShapeHeight, shape_fill: curShapeFill, shape_angle: curShapeAngle });
+      window.canvas_channel.push("message_new", { x: mouseX, y: mouseY, dragging: true, name: name, color: curColor, size: curSize, text: undefined, line_join: curLineJoin, shape_type: curShapeType, shape_width: curShapeWidth, shape_height: curShapeHeight, shape_fill: curShapeFill, shape_angle: curShapeAngle });
     }
   
     mouseBrushPt[0] = mouseX;
@@ -1366,17 +1369,17 @@ function setMediaBitrates(sdp) {
     $('#canvas').mouseup(function(e){
       window.edits = window.edits + 1;
       paint = false;
-      window.canvas_channel.send({ mouseUp: true, name: name });
+      window.canvas_channel.push("message_new", { mouseUp: true, name: name });
     });
   
     $('#canvas').bind("touchend", function(e){
       paint = false;
-      window.canvas_channel.send({ mouseUp: true, name: name });
+      window.canvas_channel.push("message_new", { mouseUp: true, name: name });
     });
   
     $('#canvas').mouseleave(function(e){
       paint = false;
-      window.canvas_channel.send({ mouseUp: true, name: name });
+      window.canvas_channel.push("message_new", { mouseUp: true, name: name });
     });
   
     $(document).keydown(function(e){
@@ -1684,7 +1687,7 @@ function setMediaBitrates(sdp) {
       var chat_message = $("#chat_message").html();
       if(chat_message != "") {
         if(window.last_message != chat_message) {
-          window.chat_channel.send({name: name, chat_message: chat_message});
+          window.chat_channel.push("message_new", {name: name, chat_message: chat_message});
           $("#chat_message").html("");
           window.last_message = chat_message
         } else {
@@ -1711,39 +1714,7 @@ function setMediaBitrates(sdp) {
     chat_area.scrollTop(chat_area[0].scrollHeight - chat_area.height());
   
     // onload
-    var drag = $("#dpad")[0];
-    drag.style.left = window.innerWidth + window.pageXOffset - 125 + 'px';
-    drag.style.top = window.innerHeight + window.pageYOffset - 125 + 'px';
-  
-    window.onzoom = function() {
-      var drag = $("#dpad")[0];
-      drag.style.left = window.innerWidth + window.pageXOffset - 125 + 'px';
-      drag.style.top = window.innerHeight + window.pageYOffset - 125 + 'px';
-    }
-  
-    window.onscroll = function() {
-      var drag = $("#dpad")[0];
-      drag.style.left = window.innerWidth + window.pageXOffset - 125 + 'px';
-      drag.style.top = window.innerHeight + window.pageYOffset - 125 + 'px';
-    }
-  
-    $("#right").click(function(){
-      window.scrollTo(window.scrollX + 100, window.scrollY)
-    });
-  
-    $("#left").click(function(){
-      window.scrollTo(window.scrollX - 100, window.scrollY)
-    });
-  
-    $("#up").click(function(){
-      window.scrollTo(window.scrollX, window.scrollY - 100)
-    });
-  
-    $("#down").click(function(){
-      window.scrollTo(window.scrollX, window.scrollY + 100)
-    });
-  
-    $("#up").click();
+    
   
     $("#name").val(name);
   
@@ -1938,7 +1909,7 @@ function setMediaBitrates(sdp) {
   
     $("#undo").click(() => {
       // if(window.edits <= 0) return;
-      window.canvas_channel.send({name: window.name, undo: true});
+      window.canvas_channel.push("message_new", {name: window.name, undo: true});
     })
   
     $("#text_color").change(function(){
@@ -2006,11 +1977,11 @@ function setMediaBitrates(sdp) {
   })
   
   window.start_pinging = () => {
-    window.canvas_channel.send({name: window.name, ping: true});
+    window.canvas_channel.push("message_new", {name: window.name, ping: true});
     setTimeout(window.start_pinging, 1000);
   }
   
   window.Stream = { reload: (key) => {
-      window.chat_channel.send({reload: true, key: key})
+      window.chat_channel.push("message_new", {reload: true, key: key})
     }
   }

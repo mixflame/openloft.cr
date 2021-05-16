@@ -28,6 +28,7 @@ Amber::Server.configure do
   end
 
   routes :web do
+    post "/sessions", SessionsController, :create
     websocket "/cable", CableSocket
     get "/", LivepixelController, :canvas
   end

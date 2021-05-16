@@ -13,7 +13,10 @@
   },
   "devDependencies": {
     "@babel/core": "^7.14.0",
+    "@babel/plugin-transform-runtime": "^7.14.2",
     "@babel/preset-env": "^7.14.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^5.2.4",
@@ -24,18 +27,17 @@
     "sass-loader": "^11.0.1",
     "webpack": "^5.36.2",
     "webpack-cli": "^4.6.0",
-    "webpack-merge": "^5.7.3",
-    "@fortawesome/fontawesome-svg-core": "^1.2.35",
-    "@fortawesome/free-solid-svg-icons": "^5.15.3"
+    "webpack-merge": "^5.7.3"
   },
   "dependencies": {
+    "@babel/runtime": "^7.14.0",
     "@giphy/js-components": "^4.4.0",
     "@giphy/js-fetch-api": "^3.0.0",
     "@joeattardi/emoji-button": "^4.6.0",
     "bad-words": "^3.0.3",
-    "pressure": "^2.2.0",
     "bootstrap": "^4.2.1",
     "jquery": "^3.3.1",
-    "popper.js": "^1.14.6"
+    "popper.js": "^1.14.6",
+    "pressure": "^2.2.0"
   }
 }
