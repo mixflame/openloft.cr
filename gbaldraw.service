@@ -6,7 +6,7 @@ After=network.target
 Type=simple
 User=deploy
 WorkingDirectory=/home/gbaldraw/gbaldraw.cr
-Environment="SSL_KEY_FILE=/etc/letsencrypt/live/gbaldraw.fun/privkey.pem SSL_CERT_FILE=/etc/letsencrypt/live/gbaldraw.fun/fullchain.pem AMBER_ENV=production"
+Environment="AMBER_ENCRYPTION_KEY=odzCnBFRMFwITASkUq_cOThhaxDc0zkjYTM_67O15AM AMBER_ENV=production"
 ExecStart=/home/gbaldraw/gbaldraw.cr/bin/gbaldraw.cr
 Restart=always
 
