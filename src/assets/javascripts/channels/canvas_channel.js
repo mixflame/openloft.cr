@@ -18,7 +18,7 @@ window.canvas_socket.connect()
         if (!window.dontLog) console.log("Connected to Canvas channel!");
 
         canvas_channel.on('message_new', (data) => {
-            console.log(data);
+            // console.log(data);
             if (data["clear"] == true) {
                 if (!window.dontLog) console.log("clearing");
                 window.mpLayerOrder = [];
