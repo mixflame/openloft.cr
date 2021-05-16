@@ -6,7 +6,7 @@ After=network.target
 Type=simple
 User=gbaldraw
 WorkingDirectory=/home/gbaldraw/gbaldraw.cr
-Environment="AMBER_ENCRYPTION_KEY=odzCnBFRMFwITASkUq_cOThhaxDc0zkjYTM_67O15AM AMBER_ENV=production"
+Environment="AMBER_ENCRYPTION_KEY=odzCnBFRMFwITASkUq_cOThhaxDc0zkjYTM_67O15AM" "AMBER_ENV=production"
 ExecStart=/home/gbaldraw/gbaldraw.cr/bin/gbaldraw.cr
 Restart=always
 
