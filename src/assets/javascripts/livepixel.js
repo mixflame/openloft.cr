@@ -309,7 +309,7 @@ function setMediaBitrates(sdp) {
       window.camera_socket = new Amber.Socket('/session')
       camera_socket.connect()
         .then(() => {
-            console.log("connected to /cable")
+            console.log("connected to /session")
             window.camera_session = camera_socket.channel('session:' + room)
             window.camera_session.join()
             broadcastData({

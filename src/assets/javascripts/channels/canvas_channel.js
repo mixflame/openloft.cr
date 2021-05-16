@@ -13,7 +13,7 @@ function arrayRemove(arr, value) {
 window.canvas_socket = new Amber.Socket('/canvas')
 canvas_socket.connect()
     .then(() => {
-        console.log("connected to /cable")
+        console.log("connected to /canvas")
         window.canvas_channel = canvas_socket.channel('canvas:' + room)
         window.canvas_channel.join()
 
