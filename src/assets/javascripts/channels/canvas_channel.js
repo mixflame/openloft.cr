@@ -8,11 +8,11 @@ function arrayRemove(arr, value) {
 }
 
 window.canvas_socket = new Amber.Socket('/canvas')
-canvas_socket.connect()
+window.canvas_socket.connect()
     .then(() => {
         console.log("connected to /canvas")
         console.log("canvas room: " + window.room);
-        window.canvas_channel = canvas_socket.channel('canvas:' + window.room)
+        window.canvas_channel = window.canvas_socket.channel('canvas:' + window.room)
         window.canvas_channel.join()
 
         if (!window.dontLog) console.log("Connected to Canvas channel!");
@@ -152,7 +152,9 @@ canvas_socket.connect()
             }
         })
 
-        canvas_channel.on('user_join', (data) => { })
+        canvas_channel.on('user_join', (data) => { 
+            
+        })
 
     })
 

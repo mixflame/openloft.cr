@@ -37,7 +37,8 @@ persistence_socket.connect()
                     $("#status").text("canvas loaded");
                     window.disabled = false;
                     $("#join-button").click();
-                    setTimeout(window.start_pinging, 1000);
+                    console.log("canvas session joined")
+                    window.start_pinging();
                 }, 1000);
             } else {
 
@@ -50,10 +51,9 @@ persistence_socket.connect()
                         window.redraw(true, true);
                         setTimeout(function () {
                             $("#status").text("canvas loaded");
-                            window.start_pinging();
                             window.disabled = false;
                             $("#join-button").click();
-                            setTimeout(window.start_pinging, 1000);
+                            window.start_pinging();
                         }, 1000);
                     } else {
                         $("#status").text("canvas loading... " + index + "/" + count);

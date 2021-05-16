@@ -1,6 +1,8 @@
 class CanvasChannel < Amber::WebSockets::Channel
   def handle_joined(client_socket, message)
     puts "canvas joined"
+    puts message
+    CanvasSocket.broadcast("join", message.as_h["topic"].to_s, "user_join", {} of String => String)
   end
 
   def handle_message(client_socket, message)
@@ -12,6 +14,7 @@ class CanvasChannel < Amber::WebSockets::Channel
     if data.has_key?("ping")
       if data["ping"].as_bool == true
         # puts "broadcasting ping"
+        sleep 4.seconds
         rebroadcast!(message)
         return
       end
