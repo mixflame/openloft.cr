@@ -1,0 +1,14 @@
+[Unit]
+Description=Run gbaldraw.cr executable for gbaldraw.fun
+After=network.target
+
+[Service]
+Type=simple
+User=deploy
+WorkingDirectory=/home/gbaldraw/gbaldraw.cr
+Environment="AMBER_ENV=production"
+ExecStart=/home/gbaldraw/gbaldraw.cr/bin/gbaldraw.cr
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
