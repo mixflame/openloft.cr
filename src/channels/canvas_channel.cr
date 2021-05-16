@@ -12,7 +12,7 @@ class CanvasChannel < Amber::WebSockets::Channel
     if data.has_key?("ping")
       if data["ping"].as_bool == true
         puts "broadcasting ping"
-        CanvasSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", data)
+        rebroadcast!(message)
         return
       end
     end

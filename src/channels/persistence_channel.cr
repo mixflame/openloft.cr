@@ -22,7 +22,7 @@ class PersistenceChannel < Amber::WebSockets::Channel
           packets = redis.lrange("packets", 0, -1)
         end
 
-        puts packets
+        # puts packets
 
         PersistenceSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", {canvas: packets, packets: packets.size}.to_h)
         
