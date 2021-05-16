@@ -14,7 +14,7 @@ class CanvasChannel < Amber::WebSockets::Channel
     if data.has_key?("ping")
       if data["ping"].as_bool == true
         # puts "broadcasting ping"
-        Fiber.yield
+        # Fiber.yield
         rebroadcast!(message)
         return
       end
