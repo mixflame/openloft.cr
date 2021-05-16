@@ -1,9 +1,6 @@
-struct CableSocket < Amber::WebSockets::ClientSocket
+struct CanvasSocket < Amber::WebSockets::ClientSocket
 
   channel "canvas:*", CanvasChannel
-  channel "chat:*", ChatChannel
-  channel "persistence:*", PersistenceChannel
-  channel "session:*", SessionChannel
 
   def on_connect
     # do some authentication here

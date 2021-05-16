@@ -2,13 +2,8 @@
 import Amber from 'amber';
 //import Logo from '../images/logo.svg';
 
-window.socket = new Amber.Socket('/cable')
-socket.connect()
-  .then(() => {
-      console.log("connected to /cable")
-  })
-
 require("./livepixel")
+require("./channels/canvas_channel")
 
 import { library, dom } from "@fortawesome/fontawesome-svg-core";
 import { faEyeDropper, 

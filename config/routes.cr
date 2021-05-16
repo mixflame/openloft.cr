@@ -29,7 +29,10 @@ Amber::Server.configure do
 
   routes :web do
     post "/sessions", SessionsController, :create
-    websocket "/cable", CableSocket
+    websocket "/session", SessionSocket
+    websocket "/chat", ChatSocket
+    websocket "/persistence", PersistenceSocket
+    websocket "/canvas", CanvasSocket
     get "/", LivepixelController, :canvas
   end
 

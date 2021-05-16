@@ -25,6 +25,9 @@
 //     return sdp;
 // }
 
+
+import Amber from 'amber';
+
 function setMediaBitrates(sdp) {
     return setMediaBitrate(setMediaBitrate(sdp, "video", 96), "audio", 50);
   }
@@ -303,33 +306,38 @@ function setMediaBitrates(sdp) {
     var urlParams = new URLSearchParams(window.location.search);
     var room = urlParams.get('room');
     if(window.camera_session == null || window.camera_session == undefined) {
-      window.camera_session = socket.channel('session:' + room)
-      window.camera_session.join()
-      broadcastData({
-        type: JOIN_ROOM,
-        from: currentUser,
-        name: window.name,
-        polite: window.polite,
-      });
-      window.camera_session.on('message_new', (data) => {
-        if(!window.dontLog) console.log("received", data);
-        if (data.from === currentUser) return;
-        switch (data.type) {
-        case JOIN_ROOM:
-          return joinRoom(data);
-        case EXCHANGE:
-          if (data.to !== currentUser) return;
-          return exchange(data);
-        case REMOVE_USER:
-          return removeUser(data);
-        default:
-          return;
-        }
-      })
-      
-      window.camera_session.on('user_join', (data) => {
-        console.log(data);
-      })
+      window.camera_socket = new Amber.Socket('/session')
+      camera_socket.connect()
+        .then(() => {
+            console.log("connected to /cable")
+            window.camera_session = camera_socket.channel('session:' + room)
+            window.camera_session.join()
+            broadcastData({
+              type: JOIN_ROOM,
+              from: currentUser,
+              name: window.name,
+              polite: window.polite,
+            });
+            window.camera_session.on('message_new', (data) => {
+              if(!window.dontLog) console.log("received", data);
+              if (data.from === currentUser) return;
+              switch (data.type) {
+              case JOIN_ROOM:
+                return joinRoom(data);
+              case EXCHANGE:
+                if (data.to !== currentUser) return;
+                return exchange(data);
+              case REMOVE_USER:
+                return removeUser(data);
+              default:
+                return;
+              }
+            })
+            
+            window.camera_session.on('user_join', (data) => {
+              console.log(data);
+            })
+        })
 
     } else {
       broadcastData({
