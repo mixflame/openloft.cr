@@ -11,13 +11,11 @@ class CanvasChannel < Amber::WebSockets::Channel
     room = data["room"].to_s rescue ""
     # puts "canvas room: #{room.inspect}"
     # puts "data: #{data}"
-    if data.has_key?("ping")
-      if data["ping"].as_bool == true
-        # puts "broadcasting ping"
-        sleep 4.seconds
-        rebroadcast!(message)
-        return
-      end
+    if data["ping"].as_bool == true
+      # puts "broadcasting ping"
+      sleep 1.second
+      rebroadcast!(message)
+      return
     end
     if room == "" || room == nil
       puts "global room"
