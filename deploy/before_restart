@@ -1,4 +1,7 @@
 #!/usr/bin/env ruby
+
+# deploy script
+
 oldrev, newrev = ARGV
 
 def run(cmd)
