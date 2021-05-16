@@ -8,6 +8,10 @@ class CanvasChannel < Amber::WebSockets::Channel
     room = data["room"] rescue ""
     puts "canvas room: #{room.inspect}"
     puts "data: #{data}"
+    if data["ping"] == true
+      CanvasSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", data)
+      return
+    end
     if room == "" || room == nil
       puts "global room"
       redis = Redis.new
@@ -27,11 +31,6 @@ class CanvasChannel < Amber::WebSockets::Channel
           redis.lrem("packets", le, all_packets[le]) if le >= first_edit
         end
         # ActionCable.server.broadcast("canvas", data)
-        CanvasSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", data)
-        return
-      end
-      if data.has_key?("ping") && data["ping"] == true
-        sleep 2.seconds
         CanvasSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", data)
         return
       end
@@ -60,11 +59,6 @@ class CanvasChannel < Amber::WebSockets::Channel
         last_edit.each do |le|
           redis.lrem("packets_#{room}", le, all_packets[le]) if le >= first_edit
         end
-        CanvasSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", data)
-        return
-      end
-      if data.has_key?("ping") && data["ping"] == true
-        sleep 2.seconds
         CanvasSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", data)
         return
       end
