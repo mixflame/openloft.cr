@@ -5,6 +5,7 @@ import Amber from 'amber';
 require("./livepixel")
 require("./channels/canvas_channel")
 require("./channels/chat_channel")
+require("./channels/persistence_channel")
 
 import { library, dom } from "@fortawesome/fontawesome-svg-core";
 import { faEyeDropper, 

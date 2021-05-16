@@ -28,6 +28,9 @@
 
 import Amber from 'amber';
 
+var urlParams = new URLSearchParams(window.location.search);
+    var room = urlParams.get('room');
+
 function setMediaBitrates(sdp) {
     return setMediaBitrate(setMediaBitrate(sdp, "video", 96), "audio", 50);
   }
@@ -171,7 +174,7 @@ function setMediaBitrates(sdp) {
             context.fillStyle = curColor;
             context.fill();
             addClick(undefined, undefined, undefined, false, name, curColor, undefined, undefined, path, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill);
-            window.canvas_channel.push("message_new", { x: undefined, y: undefined, dragging: false, name: name, color: curColor, size: undefined, text: undefined, path: path, line_join: curLineJoin, shape_type: curShapeType, shape_width: curShapeWidth, shape_height: curShapeHeight, shape_fill: curShapeFill });
+            window.canvas_channel.push("message_new", {room: room, x: undefined, y: undefined, dragging: false, name: name, color: curColor, size: undefined, text: undefined, path: path, line_join: curLineJoin, shape_type: curShapeType, shape_width: curShapeWidth, shape_height: curShapeHeight, shape_fill: curShapeFill });
             
             break;
           }
@@ -303,8 +306,6 @@ function setMediaBitrates(sdp) {
   
   const handleJoinSession = async () => {
     if(!window.dontLog) console.log("joining session")
-    var urlParams = new URLSearchParams(window.location.search);
-    var room = urlParams.get('room');
     if(window.camera_session == null || window.camera_session == undefined) {
       window.camera_socket = new Amber.Socket('/session')
       camera_socket.connect()
@@ -587,9 +588,6 @@ function setMediaBitrates(sdp) {
       "content-type": "application/json",
       "X-CSRF-TOKEN": csrfToken,
     });
-  
-    var urlParams = new URLSearchParams(window.location.search);
-    var room = urlParams.get('room');
   
     data["room"] = room;
     
@@ -1054,9 +1052,9 @@ function setMediaBitrates(sdp) {
       window.redraw(true, false);
     }
     if($("#text-tool").is(":checked"))
-      window.canvas_channel.push("message_new", { x: mouseX, y: mouseY, dragging: false, name: name, color: curColor, size: curSize, text: curText, line_join: curLineJoin, shape_type: curShapeType, shape_width: curShapeWidth, shape_height: curShapeHeight, shape_fill: curShapeFill, shape_angle: curShapeAngle });
+      window.canvas_channel.push("message_new", {room: room, x: mouseX, y: mouseY, dragging: false, name: name, color: curColor, size: curSize, text: curText, line_join: curLineJoin, shape_type: curShapeType, shape_width: curShapeWidth, shape_height: curShapeHeight, shape_fill: curShapeFill, shape_angle: curShapeAngle });
     else
-      window.canvas_channel.push("message_new", { x: mouseX, y: mouseY, dragging: false, name: name, color: curColor, size: curSize, text: undefined, line_join: curLineJoin, shape_type: curShapeType, shape_width: curShapeWidth, shape_height: curShapeHeight, shape_fill: curShapeFill, shape_angle: curShapeAngle });
+      window.canvas_channel.push("message_new", {room: room, x: mouseX, y: mouseY, dragging: false, name: name, color: curColor, size: curSize, text: undefined, line_join: curLineJoin, shape_type: curShapeType, shape_width: curShapeWidth, shape_height: curShapeHeight, shape_fill: curShapeFill, shape_angle: curShapeAngle });
       e.preventDefault();
   }
   
@@ -1145,9 +1143,9 @@ function setMediaBitrates(sdp) {
           window.redraw(true, false);
       }
       if($("#text-tool").is(":checked"))
-        window.canvas_channel.push("message_new", { x: mouseX, y: mouseY, dragging: true, name: name, color: curColor, size: curSize, text: curText, line_join: curLineJoin, shape_type: curShapeType, shape_width: curShapeWidth, shape_height: curShapeHeight, shape_fill: curShapeFill, shape_angle: curShapeAngle });
+        window.canvas_channel.push("message_new", {room: room, x: mouseX, y: mouseY, dragging: true, name: name, color: curColor, size: curSize, text: curText, line_join: curLineJoin, shape_type: curShapeType, shape_width: curShapeWidth, shape_height: curShapeHeight, shape_fill: curShapeFill, shape_angle: curShapeAngle });
       else
-      window.canvas_channel.push("message_new", { x: mouseX, y: mouseY, dragging: true, name: name, color: curColor, size: curSize, text: undefined, line_join: curLineJoin, shape_type: curShapeType, shape_width: curShapeWidth, shape_height: curShapeHeight, shape_fill: curShapeFill, shape_angle: curShapeAngle });
+      window.canvas_channel.push("message_new", {room: room, x: mouseX, y: mouseY, dragging: true, name: name, color: curColor, size: curSize, text: undefined, line_join: curLineJoin, shape_type: curShapeType, shape_width: curShapeWidth, shape_height: curShapeHeight, shape_fill: curShapeFill, shape_angle: curShapeAngle });
     }
   
     mouseBrushPt[0] = mouseX;
@@ -1350,8 +1348,6 @@ function setMediaBitrates(sdp) {
     })
   
     $("#clear_canvas").click(function(e) {
-      var urlParams = new URLSearchParams(window.location.search);
-      var room = urlParams.get('room');
       $.get("/clear_canvas?room=" + room, function() {
   
       });
@@ -1377,17 +1373,17 @@ function setMediaBitrates(sdp) {
     $('#canvas').mouseup(function(e){
       window.edits = window.edits + 1;
       paint = false;
-      window.canvas_channel.push("message_new", { mouseUp: true, name: name });
+      window.canvas_channel.push("message_new", { mouseUp: true, name: name, room: room });
     });
   
     $('#canvas').bind("touchend", function(e){
       paint = false;
-      window.canvas_channel.push("message_new", { mouseUp: true, name: name });
+      window.canvas_channel.push("message_new", { mouseUp: true, name: name, room: room });
     });
   
     $('#canvas').mouseleave(function(e){
       paint = false;
-      window.canvas_channel.push("message_new", { mouseUp: true, name: name });
+      window.canvas_channel.push("message_new", { mouseUp: true, name: name, room: room });
     });
   
     $(document).keydown(function(e){
@@ -1695,7 +1691,7 @@ function setMediaBitrates(sdp) {
       var chat_message = $("#chat_message").html();
       if(chat_message != "") {
         if(window.last_message != chat_message) {
-          window.chat_channel.push("message_new", {name: name, chat_message: chat_message});
+          window.chat_channel.push("message_new", {name: name, chat_message: chat_message, room: room});
           $("#chat_message").html("");
           window.last_message = chat_message
         } else {
@@ -1917,7 +1913,7 @@ function setMediaBitrates(sdp) {
   
     $("#undo").click(() => {
       // if(window.edits <= 0) return;
-      window.canvas_channel.push("message_new", {name: window.name, undo: true});
+      window.canvas_channel.push("message_new", {name: window.name, undo: true, room: room});
     })
   
     $("#text_color").change(function(){
@@ -1985,11 +1981,6 @@ function setMediaBitrates(sdp) {
   })
   
   window.start_pinging = () => {
-    window.canvas_channel.push("message_new", {name: window.name, ping: true});
+    window.canvas_channel.push("message_new", {name: window.name, ping: true, room: room});
     setTimeout(window.start_pinging, 1000);
-  }
-  
-  window.Stream = { reload: (key) => {
-      window.chat_channel.push("message_new", {reload: true, key: key})
-    }
   }

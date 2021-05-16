@@ -3,12 +3,12 @@ class CanvasChannel < Amber::WebSockets::Channel
   end
 
   def handle_message(client_socket, message)
-    data = message
-    room = data["room"]
+    data = message.as_h
+    room = data["room"] rescue ""
     puts "data: #{data}"
     if room != "" && room != nil
       redis = Redis.new
-      if data["undo"] == true
+      if data.has_key?("undo") && data["undo"] == true
         puts "undoing"
         all_packets = [] of String
         amt_packets = redis.llen("packets")
@@ -27,7 +27,7 @@ class CanvasChannel < Amber::WebSockets::Channel
         rebroadcast!(data)
         return
       end
-      if data["ping"] == true
+      if data.has_key?("ping") && data["ping"] == true
         rebroadcast!(data)
         return
       end
@@ -41,32 +41,32 @@ class CanvasChannel < Amber::WebSockets::Channel
       rebroadcast!(data)
     else
       redis = Redis.new
-      if data["undo"] == true
+      if data.has_key?("undo") && data["undo"] == true
         puts "undoing"
         all_packets = [] of String
-        amt_packets = redis.llen("packets_#{data["room"]}")
+        amt_packets = redis.llen("packets_#{room}")
         if amt_packets >= 50000
-          all_packets = redis.lrange("packets_#{data["room"]}", -50000, -1)
+          all_packets = redis.lrange("packets_#{room}", -50000, -1)
         else
-          all_packets = redis.lrange("packets_#{data["room"]}", 0, -1)
+          all_packets = redis.lrange("packets_#{room}", 0, -1)
         end
         first_edit = all_packets.each_index.select { |i| all_packets[i] =~ /dragging":false.+"name":"#{data["name"]}"/}.to_a.last
         last_edit = all_packets.each_index.select { |i| all_packets[i] =~ /dragging":true.+"name":"#{data["name"]}"/}.to_a
-        redis.lrem("packets_#{data["room"]}", first_edit, all_packets[first_edit])
+        redis.lrem("packets_#{room}", first_edit, all_packets[first_edit])
         last_edit.each do |le|
-          redis.lrem("packets_#{data["room"]}", le, all_packets[le]) if le >= first_edit
+          redis.lrem("packets_#{room}", le, all_packets[le]) if le >= first_edit
         end
         rebroadcast!(data)
         return
       end
-      if data["ping"] == true
+      if data.has_key?("ping") && data["ping"] == true
         rebroadcast!(data)
         return
       end
-      redis.rpush "packets_#{data["room"]}", data.to_json
-      puts "TTL packets: #{redis.ttl("packets_#{data["room"]}")}"
-      if redis.ttl("packets_#{data["room"]}") == -1
-        redis.expire("packets_#{data["room"]}", 24 * 3600 * 7)
+      redis.rpush "packets_#{room}", data.to_json
+      puts "TTL packets: #{redis.ttl("packets_#{room}")}"
+      if redis.ttl("packets_#{room}") == -1
+        redis.expire("packets_#{room}", 24 * 3600 * 7)
         redis.incr("balda_counter")
       end
       rebroadcast!(data)

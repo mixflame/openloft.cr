@@ -4,7 +4,7 @@ class ChatChannel < Amber::WebSockets::Channel
 
   def handle_message(client_socket, message)
     data = message.as_h
-    room = data["room"]
+    room = data["room"] rescue ""
     sanitizer = Sanitize::Policy::HTMLSanitizer.common
     if(!data["name"].nil? && !data["chat_message"].nil?)
       data["name"] = JSON::Any.new(sanitizer.process(data["name"].to_s))
