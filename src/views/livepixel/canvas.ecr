@@ -173,10 +173,14 @@
   </div>
 
   <div id="chat_area_holder" style="width: 100%">
-    <p>
-    <div id="online_list" style="width: 20%; height: 300px; overflow: scroll; float: left;"><ul id="connected_users"></ul></div>
-    <div id="chat_area" name="chat_area" style="width: 80%; height: 300px; overflow: scroll; float: left; resize: both; max-width: 80%"><% chats.each do |c| -%><p style='margin: 0px'>&lt<%= sanitizer.process "#{JSON.parse(c.to_s)["name"]}" %>&gt <%= sanitizer.process "#{JSON.parse(c.to_s)["chat_message"]}" %></p><% end -%></div>
-    </p>
+    <div>
+        <div id="online_list" style="width: 20%; height: 300px; overflow: scroll; float: left;"><ul id="connected_users"></ul></div>
+        <div id="chat_area" name="chat_area" style="width: 80%; height: 300px; overflow: scroll; float: left; resize: both; max-width: 80%">
+        <% chats.each do |c| -%>
+        <p style='margin: 0px'>&lt<%= sanitizer.process "#{JSON.parse(c.to_s)["name"]}" %>&gt <%= sanitizer.process "#{JSON.parse(c.to_s)["chat_message"]}" %></p>
+        <% end -%>
+        </div>
+    </div>
     <div class="clear"></div>
     <p>
       <div class="actions" style="display: inline">

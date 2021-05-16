@@ -1704,6 +1704,7 @@ function setMediaBitrates(sdp) {
       if(e.keyCode == 13)
       {
           $("#send_message").trigger("click");
+          e.preventDefault();
       }
     });
   
