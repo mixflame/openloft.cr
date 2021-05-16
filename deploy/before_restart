@@ -1,7 +1,4 @@
 #!/usr/bin/env ruby
-
-# deploy script
-
 oldrev, newrev = ARGV
 
 def run(cmd)
@@ -12,4 +9,4 @@ run "shards install --production --ignore-crystal-version"
 
 run "shards build gbaldraw.cr --release --ignore-crystal-version"
 
-run "/home/gbaldraw/node-v14.15.0-linux-x64/bin/npm install . && /home/gbaldraw/node-v14.15.0-linux-x64/bin/npm run release"
+run "PATH=$PATH:/home/gbaldraw/node-v14.15.0-linux-x64/bin npm install . && npm run release"
