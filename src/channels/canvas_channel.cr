@@ -27,11 +27,13 @@ class CanvasChannel < Amber::WebSockets::Channel
           redis.lrem("packets", le, all_packets[le]) if le >= first_edit
         end
         # ActionCable.server.broadcast("canvas", data)
-        rebroadcast!(message)
+        CanvasSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", data)
         return
       end
       if data.has_key?("ping") && data["ping"] == true
-        rebroadcast!(message)
+        puts message
+        # rebroadcast!(message)
+        CanvasSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", data)
         return
       end
       redis.rpush "packets", data.to_json
@@ -41,7 +43,7 @@ class CanvasChannel < Amber::WebSockets::Channel
         redis.incr("balda_counter")
       end
       redis.hincrby("all_time", data["name"], 1) if data.has_key?("name")
-      rebroadcast!(message)
+      CanvasSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", data)
     else
       redis = Redis.new
       if data.has_key?("undo") && data["undo"] == true
@@ -59,11 +61,11 @@ class CanvasChannel < Amber::WebSockets::Channel
         last_edit.each do |le|
           redis.lrem("packets_#{room}", le, all_packets[le]) if le >= first_edit
         end
-        rebroadcast!(message)
+        CanvasSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", data)
         return
       end
       if data.has_key?("ping") && data["ping"] == true
-        rebroadcast!(message)
+        CanvasSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", data)
         return
       end
       redis.rpush "packets_#{room}", data.to_json
@@ -72,7 +74,7 @@ class CanvasChannel < Amber::WebSockets::Channel
         redis.expire("packets_#{room}", 24 * 3600 * 7)
         redis.incr("balda_counter")
       end
-      rebroadcast!(message)
+      CanvasSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", data)
     end
   end
 
