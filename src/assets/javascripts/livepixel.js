@@ -313,12 +313,7 @@ function setMediaBitrates(sdp) {
             console.log("connected to /session")
             window.camera_session = camera_socket.channel('session:' + room)
             window.camera_session.join()
-            broadcastData({
-              type: JOIN_ROOM,
-              from: currentUser,
-              name: window.name,
-              polite: window.polite,
-            });
+            
             window.camera_session.on('message_new', (data) => {
               if(!window.dontLog) console.log("received", data);
               if (data.from === currentUser) return;
@@ -337,6 +332,12 @@ function setMediaBitrates(sdp) {
             
             window.camera_session.on('user_join', (data) => {
               console.log(data);
+              broadcastData({
+                type: JOIN_ROOM,
+                from: currentUser,
+                name: window.name,
+                polite: window.polite,
+              });
             })
         })
 

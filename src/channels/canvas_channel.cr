@@ -7,11 +7,11 @@ class CanvasChannel < Amber::WebSockets::Channel
     puts message
     data = message.as_h["payload"].as_h
     room = data["room"].to_s rescue ""
-    puts "canvas room: #{room.inspect}"
-    puts "data: #{data}"
+    # puts "canvas room: #{room.inspect}"
+    # puts "data: #{data}"
     if data.has_key?("ping")
       if data["ping"].as_bool == true
-        puts "broadcasting ping"
+        # puts "broadcasting ping"
         rebroadcast!(message)
         return
       end
