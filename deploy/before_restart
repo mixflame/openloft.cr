@@ -12,3 +12,9 @@ run "shards build gbaldraw.cr --release --ignore-crystal-version"
 run "PATH=$PATH:/home/gbaldraw/node-v14.15.0-linux-x64/bin npm install"
 
 run "PATH=$PATH:/home/gbaldraw/node-v14.15.0-linux-x64/bin npm run release"
+
+run "export SSL_KEY_FILE=/etc/letsencrypt/live/gbaldraw.fun/privkey.pem"
+
+run "export SSL_CERT_FILE=/etc/letsencrypt/live/gbaldraw.fun/fullchain.pem"
+
+run "systemctl restart gbaldraw"
