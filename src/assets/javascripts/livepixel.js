@@ -1978,6 +1978,10 @@ function setMediaBitrates(sdp) {
   
   $(document).on("unload", function() {
     handleLeaveSession();
+    window.camera_socket.close();
+    window.canvas_socket.close();
+    window.persistence_socket.close()
+    window.session_socket.close();
   })
   
   window.start_pinging = () => {
