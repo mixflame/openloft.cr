@@ -1973,8 +1973,6 @@ function setMediaBitrates(sdp) {
   
     // require("livepixel/somafm")
   
-    $("#join-button").click();
-  
   })
   
   $(document).on("unload", function() {

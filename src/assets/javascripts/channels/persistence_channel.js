@@ -36,6 +36,7 @@ persistence_socket.connect()
                 setTimeout(function () {
                     $("#status").text("canvas loaded");
                     window.disabled = false;
+                    $("#join-button").click();
                 }, 1000);
             } else {
 
@@ -50,6 +51,7 @@ persistence_socket.connect()
                             $("#status").text("canvas loaded");
                             window.start_pinging();
                             window.disabled = false;
+                            $("#join-button").click();
                         }, 1000);
                     } else {
                         $("#status").text("canvas loading... " + index + "/" + count);
