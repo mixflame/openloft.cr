@@ -6,17 +6,18 @@ class CanvasChannel < Amber::WebSockets::Channel
   def handle_message(client_socket, message)
     puts message
     data = message.as_h["payload"].as_h
-    room = data["room"] rescue ""
+    room = data["room"].to_s rescue ""
     puts "canvas room: #{room.inspect}"
     puts "data: #{data}"
-    if data["ping"] == true
+    if data.has_key?("ping") && data["ping"].as_bool == true
+      puts "broadcasting ping"
       CanvasSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", data)
       return
     end
     if room == "" || room == nil
       puts "global room"
       redis = Redis.new
-      if data.has_key?("undo") && data["undo"] == true
+      if data.has_key?("undo") && data["undo"].as_bool == true
         puts "undoing"
         all_packets = [] of String
         amt_packets = redis.llen("packets")
