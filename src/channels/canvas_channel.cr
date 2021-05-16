@@ -1,12 +1,15 @@
 class CanvasChannel < Amber::WebSockets::Channel
   def handle_joined(client_socket, message)
+    puts "canvas joined"
   end
 
   def handle_message(client_socket, message)
-    data = message.as_h
+    data = message.as_h["payload"].as_h
     room = data["room"] rescue ""
+    puts "canvas room: #{room.inspect}"
     puts "data: #{data}"
-    if room != "" && room != nil
+    if room == "" || room == nil
+      puts "global room"
       redis = Redis.new
       if data.has_key?("undo") && data["undo"] == true
         puts "undoing"
@@ -24,11 +27,11 @@ class CanvasChannel < Amber::WebSockets::Channel
           redis.lrem("packets", le, all_packets[le]) if le >= first_edit
         end
         # ActionCable.server.broadcast("canvas", data)
-        rebroadcast!(data)
+        rebroadcast!(message)
         return
       end
       if data.has_key?("ping") && data["ping"] == true
-        rebroadcast!(data)
+        rebroadcast!(message)
         return
       end
       redis.rpush "packets", data.to_json
@@ -37,8 +40,8 @@ class CanvasChannel < Amber::WebSockets::Channel
         redis.expire("packets", 7 * 24 * 3600)
         redis.incr("balda_counter")
       end
-      redis.hincrby("all_time", data["name"], 1)
-      rebroadcast!(data)
+      redis.hincrby("all_time", data["name"], 1) if data.has_key?("name")
+      rebroadcast!(message)
     else
       redis = Redis.new
       if data.has_key?("undo") && data["undo"] == true
@@ -56,11 +59,11 @@ class CanvasChannel < Amber::WebSockets::Channel
         last_edit.each do |le|
           redis.lrem("packets_#{room}", le, all_packets[le]) if le >= first_edit
         end
-        rebroadcast!(data)
+        rebroadcast!(message)
         return
       end
       if data.has_key?("ping") && data["ping"] == true
-        rebroadcast!(data)
+        rebroadcast!(message)
         return
       end
       redis.rpush "packets_#{room}", data.to_json
@@ -69,7 +72,7 @@ class CanvasChannel < Amber::WebSockets::Channel
         redis.expire("packets_#{room}", 24 * 3600 * 7)
         redis.incr("balda_counter")
       end
-      rebroadcast!(data)
+      rebroadcast!(message)
     end
   end
 

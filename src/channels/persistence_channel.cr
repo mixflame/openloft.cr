@@ -1,60 +1,18 @@
 class PersistenceChannel < Amber::WebSockets::Channel
   def handle_joined(client_socket, message)
-    puts "persistence handle joined"
-    data = message
-    room = data["room"] rescue ""
-    if room != "" && room != nil
-      puts ">>> running connected method"
-      puts "data: #{data}"
-      redis = Redis.new
-      packets = [] of String
-      amt_packets = redis.llen("packets")
-      if amt_packets >= 50000
-        packets = redis.lrange("packets", -50000, -1)
-      else
-        packets = redis.lrange("packets", 0, -1)
-      end
-  
-
-
-      # packets.each_slice(5000) do |slice|
-      #   ActionCable.server.broadcast("persistence_#{data['id']}", {canvas: slice, packets: packets.length})
-      # end
-
-      # ActionCable.server.broadcast("persistence_#{data['id']}", {done: true})
-
-      rebroadcast!({topic: "message_new", canvas: packets, packets: packets.size})
-      
-    else
-      puts ">>> running connected method"
-      puts "data: #{data}"
-      redis = Redis.new
-      packets = nil
-      # amt_packets = redis.llen("packets_#{params[:room]}")
-      # if amt_packets >= 50000
-        # packets = redis.lrange("packets_#{params[:room]}", -50000, -1)
-      # else
-      packets = redis.lrange("packets_#{data["room"]}", 0, -1)
-      # end
-
-
-      # packets.each_slice(5000) do |slice|
-      #   ActionCable.server.broadcast("persistence_#{data['id']}_#{params[:room]}", {canvas: slice, packets: packets.length})
-      # end
-
-      # ActionCable.server.broadcast("persistence_#{data['id']}_#{params[:room]}", {done: true})
-
-      rebroadcast!({topic: "message_new", canvas: packets, packets: packets.size})
-    end
+    puts "persistence joined"
   end
 
   def handle_message(client_socket, message)
-    data = message
-    room = data["room"]
-    if data["reload"] == true
-      if room != "" && room != nil
-        puts ">>> running reload method"
-        puts "data: #{data}"
+    puts "data: #{message}"
+    data = message.as_h["payload"].as_h
+    room = message.as_h["topic"].to_s.split(":")[1].split("_")[0] rescue ""
+    room = room == "null" ? nil : room
+    puts "persistence room: #{room}"
+    if data.has_key?("connected") && data["connected"] == true
+      if room == "" || room == nil
+        puts ">>> running connected method"
+        
         redis = Redis.new
         packets = [] of String
         amt_packets = redis.llen("packets")
@@ -63,19 +21,18 @@ class PersistenceChannel < Amber::WebSockets::Channel
         else
           packets = redis.lrange("packets", 0, -1)
         end
-  
-        rebroadcast!({topic: "message_new", canvas: packets, packets: packets.size})
+
+        puts packets
+
+        PersistenceSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", {canvas: packets, packets: packets.size}.to_h)
         
       else
         puts ">>> running connected method"
-        puts "data: #{data}"
         redis = Redis.new
         packets = [] of String
+        packets = redis.lrange("packets_#{room}", 0, -1)
 
-        packets = redis.lrange("packets_#{data["room"]}", 0, -1)
-
-  
-        rebroadcast!({topic: "message_new", canvas: packets, packets: packets.size})
+        PersistenceSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", {canvas: packets, packets: packets.size}.to_h)
       end
     end
   end

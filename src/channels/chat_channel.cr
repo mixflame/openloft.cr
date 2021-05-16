@@ -1,9 +1,11 @@
 class ChatChannel < Amber::WebSockets::Channel
   def handle_joined(client_socket, message)
+    puts "chat joined"
   end
 
   def handle_message(client_socket, message)
-    data = message.as_h
+    data = message.as_h["payload"].as_h
+    msg = message.as_h
     room = data["room"] rescue ""
     sanitizer = Sanitize::Policy::HTMLSanitizer.common
     if(!data["name"].nil? && !data["chat_message"].nil?)
@@ -11,20 +13,22 @@ class ChatChannel < Amber::WebSockets::Channel
       data["chat_message"] = JSON::Any.new(sanitizer.process(data["chat_message"].to_s))
       data["chat_message"] = JSON::Any.new(" [#{Time.utc.month}/#{Time.utc.day}/#{Time.utc.year} #{Time.utc.hour}:#{Time.utc.minute}:#{Time.utc.second}] #{data["chat_message"]}")
     end
-    if room != "" && room != nil
+    if room == "" || room == nil
       redis = Redis.new
       redis.rpush "chats", data.to_json
       if redis.ttl("chats") == -1
         redis.expire("chats", 7 * 24 * 3600)
       end
-      rebroadcast!(data)
+      msg["payload"] = JSON::Any.new(data)
+      rebroadcast!(msg)
     else
       redis = Redis.new
-      redis.rpush "chats_#{data["room"]}", data.to_json
-      if redis.ttl("chats_#{data["room"]}") == -1
-        redis.expire("chats_#{data["room"]}", 7 * 24 * 3600)
+      redis.rpush "chats_#{room}", data.to_json
+      if redis.ttl("chats_#{room}") == -1
+        redis.expire("chats_#{room}", 7 * 24 * 3600)
       end
-      rebroadcast!(data)
+      msg["payload"] = JSON::Any.new(data)
+      rebroadcast!(msg)
     end
   end
 

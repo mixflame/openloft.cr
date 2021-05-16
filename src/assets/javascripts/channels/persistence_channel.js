@@ -16,11 +16,13 @@ window.persistence_socket = new Amber.Socket('/persistence')
 persistence_socket.connect()
     .then(() => {
         console.log("connected to /persistence")
-        window.persistence_channel = persistence_socket.channel('persistence:' + room + ':' + uuid)
+        window.persistence_channel = persistence_socket.channel('persistence:' + room + "_" + uuid)
         window.persistence_channel.join()
         if (!window.dontLog) console.log("Connected to persistence channel");
         $("#status").text("loading canvas");
         // this.perform('connected', {id: uuid});
+
+        persistence_channel.push("message_new", {connected: true});
 
         persistence_channel.on('message_new', (data) => {
             // handle new message here
