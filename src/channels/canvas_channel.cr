@@ -4,6 +4,7 @@ class CanvasChannel < Amber::WebSockets::Channel
   end
 
   def handle_message(client_socket, message)
+    puts message
     data = message.as_h["payload"].as_h
     room = data["room"] rescue ""
     puts "canvas room: #{room.inspect}"
