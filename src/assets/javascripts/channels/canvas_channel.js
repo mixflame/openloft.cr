@@ -100,7 +100,6 @@ window.canvas_socket.connect()
             // }
 
             if (data["ping"]) {
-                setTimeout(window.start_pinging, 1000);
                 window.last_ping[data['name']] = Date.now();
                 setTimeout(() => {
                     if (window.last_ping[data['name']] < Date.now() - 5000)

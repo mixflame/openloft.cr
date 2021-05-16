@@ -1986,4 +1986,5 @@ function setMediaBitrates(sdp) {
   
   window.start_pinging = () => {
     window.canvas_channel.push("message_new", {name: window.name, ping: true, room: room});
+    setTimeout(window.start_pinging, 1000);
   }
