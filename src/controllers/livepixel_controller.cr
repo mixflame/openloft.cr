@@ -135,7 +135,7 @@ class LivepixelController < ApplicationController
     names.each { |n| layers[n.to_s] = packets.select {|pac| js = JSON.parse(pac.to_s); js["name"] == n && js.as_h.has_key?("dragging") && js["dragging"] == false}.size.to_s }
     #all_layers = 0
     #all_layers = layers.inject(0) { |sum, tuple| sum += tuple[1] }
-    names = names.sort { |a,b| points[b] <=> points[a] }
+    names = names.sort { |a,b| points[b.to_s].to_i <=> points[a.to_s].to_i }
     all_time = {} of String => String
     redis.hgetall("all_time").each_slice(2) { |drawer| all_time[drawer[0].to_s] = drawer[1].to_s }
     puts all_time
