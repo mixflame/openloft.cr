@@ -36,6 +36,7 @@ Amber::Server.configure do
     get "/", LivepixelController, :canvas
     post "/upload_to_imgur", LivepixelController, :upload_to_imgur
     get "/gallery", LivepixelController, :gallery
+    get "/clear_canvas", LivepixelController, :clear_canvas
   end
 
   routes :api do
