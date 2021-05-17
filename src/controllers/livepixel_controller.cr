@@ -53,7 +53,7 @@ class LivepixelController < ApplicationController
       response = client.post("/3/image")
 
       puts "Response code #{response.status_code}"
-      puts "File path: #{response.body}"
+      puts response.body
 
       id = JSON.parse(response.body).as_h["data"].as_h["id"].to_s
 
