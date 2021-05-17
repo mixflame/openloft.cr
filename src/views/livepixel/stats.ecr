@@ -1,0 +1,43 @@
+    <div align="center">
+    <h1>Stats Page</h1>
+    <div class="box">
+    <h1>Gbaldraw Stats</h1>
+    <% if Amber.env == :development %>
+    <p>Connections: <%=  %></p>
+    <p>Active users (open tabs): <%= %></p>
+    <% else %>
+    <p>Connections: <%=  %></p>
+    <p>Active users (number of open tabs): <%=  %></p>
+    <% end %>
+    <p>Points in the global canvas: <%= redis.llen("packets") %></p>
+    <p>All time visitors: <%= redis.get("counter") %></p>
+    <p>Layers in the global canvas: <%=  %></p>
+    <p>Global canvas expires in: <%= redis.ttl("packets") %> seconds</p>
+    <p>Amount of times that global canvas was recreated: <%= redis.get("balda_counter") == nil ? 0 : redis.get("balda_counter") %></p>
+    <p>Keys in database: <%= redis.keys("*").size %></p>
+    <p>Canvases that exist: <%= redis.keys("*").reject { |a| (a =~ /packets/) != 0}.size %></p>
+    <p>Ads in rotation: <%= redis.hlen("completed_orders") %></p>
+    </div>
+
+
+  <div class="boxu">
+    <h1>Todays drawers</h1>
+        <ol>
+        <% names[0...10].each do |n| %>
+            <li><strong><%= n.to_s.gsub(/[kK]ike/i, "****").gsub(/[nN]igger/i, "******") %></strong> - <%= points[n] %> points - <%= layers[n] %> layers</li>
+        <% end %>
+        </ol>
+    </div>
+    <div class="boxu">
+    <h1>All time drawers</h1>
+    <p>Since 11/3/2020</p>  
+        <ol>
+        <% all_time.values.sort {|a,b| b.to_i <=> a.to_i}[0...10].each do |n| %>
+            <li><strong><%= all_time.key_for?(n.to_s).to_s.gsub(/[kK]ike/i, "****").gsub(/[nN]igger/i, "******") %></strong> - <%= n %> points</lo>
+        <% end %>
+        </ol>
+    </div>
+    <div class="btn">
+        <a href="https://gbaldraw.fun"><input type="button" value="Back to Gbaldraw"></a>
+    </div>
+  </div>

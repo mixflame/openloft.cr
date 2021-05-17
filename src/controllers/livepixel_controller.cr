@@ -118,4 +118,28 @@ class LivepixelController < ApplicationController
 
     render "canvas.ecr"
   end
+
+
+  def stats
+    redis = Redis.new
+    amt_packets = redis.llen("packets")
+    if amt_packets >= 50000
+      packets = redis.lrange("packets", -50000, -1)
+    else
+      packets = redis.lrange("packets", 0, -1)
+    end
+    names = packets.map { |p| JSON.parse(p.to_s)["name"] }.uniq
+    points = {} of String => String
+    names.each { |n| points[n.to_s] = packets.reject {|pa| JSON.parse(pa.to_s)["name"] != n}.size.to_s }
+    layers = {} of String => String
+    names.each { |n| layers[n.to_s] = packets.select {|pac| js = JSON.parse(pac.to_s); js["name"] == n && js.as_h.has_key?("dragging") && js["dragging"] == false}.size.to_s }
+    #all_layers = 0
+    #all_layers = layers.inject(0) { |sum, tuple| sum += tuple[1] }
+    names = names.sort { |a,b| points[b] <=> points[a] }
+    all_time = {} of String => String
+    redis.hgetall("all_time").each_slice(2) { |drawer| all_time[drawer[0].to_s] = drawer[1].to_s }
+    puts all_time
+    render("stats.ecr")
+  end
+
 end
