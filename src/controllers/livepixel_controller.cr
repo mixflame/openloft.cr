@@ -16,6 +16,8 @@ class LivepixelController < ApplicationController
   # imgur client id 3e035ba859d6add
   def upload_to_imgur
 
+    redis = Redis.new
+
     path = params.files["picture"].file.path
 
     url = URI.parse("https://api.imgur.com/3/image")
@@ -50,6 +52,12 @@ class LivepixelController < ApplicationController
 
       puts "Response code #{response.status_code}"
       puts "File path: #{response.body}"
+
+      id = JSON.parse(response.body).as_h["data"].as_h["id"].to_s
+
+      redis.rpush("gallery", id)
+
+      response.body.to_s
     end
     
   end
