@@ -142,4 +142,8 @@ class LivepixelController < ApplicationController
     render("stats.ecr")
   end
 
+  def privacy_policy
+    render("privacy_policy.ecr")
+  end
+
 end

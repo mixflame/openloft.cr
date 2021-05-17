@@ -38,6 +38,7 @@ Amber::Server.configure do
     get "/gallery", LivepixelController, :gallery
     get "/clear_canvas", LivepixelController, :clear_canvas
     get "/stats", LivepixelController, :stats
+    get "/privacy_policy", LivepixelController, :privacy_policy
   end
 
   routes :api do
