@@ -6,11 +6,13 @@ require "uri"
 class LivepixelController < ApplicationController
 
 
-  # def gallery
-  #   redis = Redis.new
+  def gallery
+    redis = Redis.new
 
-  #   @image_ids = redis.lrange("gallery", 0, -1)
-  # end
+    image_ids = redis.lrange("gallery", 0, -1)
+
+    render("gallery.ecr")
+  end
 
 
   # imgur client id 3e035ba859d6add

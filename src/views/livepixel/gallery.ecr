@@ -1,0 +1,9 @@
+<h1>Gbaldraw Gallery</h1>
+
+<p>
+<% image_ids.each do |image_id| %>
+
+<a href="https://imgur.com/<%= image_id %>" target=_blank><img style="width: 25%; height: 25%;" src="https://i.imgur.com/<%= image_id %>.png" /></a>
+
+<% end %>
+</p>

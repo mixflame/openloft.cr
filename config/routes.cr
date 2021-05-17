@@ -35,6 +35,7 @@ Amber::Server.configure do
     websocket "/canvas", CanvasSocket
     get "/", LivepixelController, :canvas
     post "/upload_to_imgur", LivepixelController, :upload_to_imgur
+    get "/gallery", LivepixelController, :gallery
   end
 
   routes :api do
