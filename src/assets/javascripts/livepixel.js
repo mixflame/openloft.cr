@@ -1332,9 +1332,15 @@ function setMediaBitrates(sdp) {
       var blob = base64ToBlob(base64ImageContent, 'image/png');                
       var formData = new FormData();
       formData.append('picture', blob);
+
+      const csrfToken = document.querySelector("[name=_csrf]").content;
+      const headers = {
+        "X-CSRF-TOKEN": csrfToken,
+      }
   
       $.ajax({
-          url: url, 
+          url: url,
+          headers: headers, 
           type: "POST", 
           cache: false,
           contentType: false,

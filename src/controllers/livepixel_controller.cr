@@ -1,7 +1,59 @@
 require "redis"
 require "sanitize"
+require "http"
+require "uri"
 
 class LivepixelController < ApplicationController
+
+
+  # def gallery
+  #   redis = Redis.new
+
+  #   @image_ids = redis.lrange("gallery", 0, -1)
+  # end
+
+
+  # imgur client id 3e035ba859d6add
+  def upload_to_imgur
+
+    path = params.files["picture"].file.path
+
+    url = URI.parse("https://api.imgur.com/3/image")
+
+    IO.pipe do |reader, writer|
+      channel = Channel(String).new(1)
+
+      spawn do
+        HTTP::FormData.build(writer) do |formdata|
+          channel.send(formdata.content_type)
+
+          formdata.field("name", "foo")
+          File.open(path) do |file|
+            metadata = HTTP::FormData::FileMetadata.new(filename: "foo.png")
+            headers = HTTP::Headers{"Content-Type" => "image/png"}
+            formdata.file("image", file, metadata, headers)
+          end
+        end
+
+        writer.close
+      end
+
+      client = HTTP::Client.new url
+
+      client.before_request do |request|
+          request.headers["Authorization"] = "Client-ID 3e035ba859d6add"
+          request.headers["Content-Type"] = channel.receive
+          request.body = reader.gets_to_end
+          request.content_length = request.body.to_s.bytesize
+      end
+      response = client.post("/3/image")
+
+      puts "Response code #{response.status_code}"
+      puts "File path: #{response.body}"
+    end
+    
+  end
+
   def canvas
     sanitizer = Sanitize::Policy::HTMLSanitizer.common
     random_number = Random.rand(10000).to_i
