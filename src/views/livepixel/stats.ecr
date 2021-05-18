@@ -3,15 +3,15 @@
     <div class="box">
     <h1>Gbaldraw Stats</h1>
     <% if Amber.env == :development %>
-    <p>Connections: <%=  %></p>
-    <p>Active users (open tabs): <%= %></p>
+    <p>Connections: <%= Amber::WebSockets::ClientSockets.client_sockets.size %></p>
+    <p>Active users (open tabs): <%= Amber::WebSockets::ClientSockets.client_sockets.size / 4 %></p>
     <% else %>
-    <p>Connections: <%=  %></p>
-    <p>Active users (number of open tabs): <%=  %></p>
+    <p>Connections: <%= Amber::WebSockets::ClientSockets.client_sockets.size %></p>
+    <p>Active users (number of open tabs): <%= Amber::WebSockets::ClientSockets.client_sockets.size / 4 %></p>
     <% end %>
     <p>Points in the global canvas: <%= redis.llen("packets") %></p>
     <p>All time visitors: <%= redis.get("counter") %></p>
-    <p>Layers in the global canvas: <%=  %></p>
+    <p>Layers in the global canvas: <%= all_layers %></p>
     <p>Global canvas expires in: <%= redis.ttl("packets") %> seconds</p>
     <p>Amount of times that global canvas was recreated: <%= redis.get("balda_counter") == nil ? 0 : redis.get("balda_counter") %></p>
     <p>Keys in database: <%= redis.keys("*").size %></p>
