@@ -541,9 +541,7 @@ function setMediaBitrates(sdp) {
     if (data.candidate) {
       pc.addIceCandidate(new RTCIceCandidate(JSON.parse(data.candidate)))
         .then(() => console.log("Ice candidate added"))
-        .catch(() => {
-          pc.restartIce();
-        });
+        .catch(logError);
     }
   
     if (data.sdp) {
