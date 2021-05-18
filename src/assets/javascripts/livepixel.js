@@ -186,9 +186,9 @@ function setMediaBitrates(sdp) {
 //   import consumer from "../channels/consumer";
   
   // Broadcast Types
-  window.JOIN_ROOM = "JOIN_ROOM";
-  window.EXCHANGE = "EXCHANGE";
-  window.REMOVE_USER = "REMOVE_USER";
+  const JOIN_ROOM = "JOIN_ROOM";
+  const EXCHANGE = "EXCHANGE";
+  const REMOVE_USER = "REMOVE_USER";
   
   // DOM Elements
   let currentUser;
@@ -196,8 +196,8 @@ function setMediaBitrates(sdp) {
   let remoteVideoContainer;
   
   // Objects
-  window.pcPeers = {};
-  window.userIds = {};
+  let pcPeers = {};
+  var userIds = {};
   var polite = Math.random() < 0.5;
   window.polite = polite;
   
@@ -499,9 +499,13 @@ function setMediaBitrates(sdp) {
     };
   
     pc.oniceconnectionstatechange = () => {
-      if (pc.iceConnectionState == "disconnected" || pc.iceConnectionState == "failed") {
+      if (pc.iceConnectionState == "disconnected") {
         if(!window.dontLog) console.log("Disconnected:", userId);
-        // pc.restartIce();
+        broadcastData({
+          type: REMOVE_USER,
+          from: userId,
+          name: name
+        }); 
       }
     };
   
@@ -575,7 +579,7 @@ function setMediaBitrates(sdp) {
     }
   };
   
-  window.broadcastData = (data) => {
+  const broadcastData = (data) => {
     if(!window.dontLog) console.log("broadcast data")
     /**
      * Add CSRF protection: https://stackoverflow.com/questions/8503447/rails-how-to-add-csrf-protection-to-forms-created-in-javascript
