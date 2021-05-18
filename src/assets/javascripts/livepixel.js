@@ -499,14 +499,14 @@ function setMediaBitrates(sdp) {
     };
   
     pc.oniceconnectionstatechange = () => {
-      if (pc.iceConnectionState == "disconnected") {
-        if(!window.dontLog) console.log("Disconnected:", userId);
-        broadcastData({
-          type: REMOVE_USER,
-          from: userId,
-          name: name
-        }); 
-      }
+      // if (pc.iceConnectionState == "disconnected") {
+      //   if(!window.dontLog) console.log("Disconnected:", userId);
+      //   broadcastData({
+      //     type: REMOVE_USER,
+      //     from: userId,
+      //     name: name
+      //   }); 
+      // }
     };
   
     pc.onnegotiationneeded = function () {
