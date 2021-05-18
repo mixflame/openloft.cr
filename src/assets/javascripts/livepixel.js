@@ -186,9 +186,9 @@ function setMediaBitrates(sdp) {
 //   import consumer from "../channels/consumer";
   
   // Broadcast Types
-  const JOIN_ROOM = "JOIN_ROOM";
-  const EXCHANGE = "EXCHANGE";
-  const REMOVE_USER = "REMOVE_USER";
+  window.JOIN_ROOM = "JOIN_ROOM";
+  window.EXCHANGE = "EXCHANGE";
+  window.REMOVE_USER = "REMOVE_USER";
   
   // DOM Elements
   let currentUser;
@@ -499,14 +499,19 @@ function setMediaBitrates(sdp) {
     };
   
     pc.oniceconnectionstatechange = () => {
-      // if (pc.iceConnectionState == "disconnected") {
-      //   if(!window.dontLog) console.log("Disconnected:", userId);
-      //   broadcastData({
-      //     type: REMOVE_USER,
-      //     from: userId,
-      //     name: name
-      //   }); 
-      // }
+      if (pc.iceConnectionState == "disconnected") {
+        if(!window.dontLog) console.log("Disconnected:", userId);
+        broadcastData({
+          type: REMOVE_USER,
+          from: userId,
+          name: name
+        });
+        broadcastData({
+          type: JOIN_ROOM,
+          from: userId,
+          name: name
+        });
+      }
     };
   
     pc.onnegotiationneeded = function () {
@@ -579,7 +584,7 @@ function setMediaBitrates(sdp) {
     }
   };
   
-  const broadcastData = (data) => {
+  window.broadcastData = (data) => {
     if(!window.dontLog) console.log("broadcast data")
     /**
      * Add CSRF protection: https://stackoverflow.com/questions/8503447/rails-how-to-add-csrf-protection-to-forms-created-in-javascript
