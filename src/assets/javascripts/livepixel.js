@@ -499,13 +499,14 @@ function setMediaBitrates(sdp) {
     };
   
     pc.oniceconnectionstatechange = () => {
-      if (pc.iceConnectionState == "disconnected" || pc.iceConnectionState == "failed") {
+      if (pc.iceConnectionState == "disconnected") {
         if(!window.dontLog) console.log("Disconnected:", userId);
-        // broadcastData({
-        //   type: REMOVE_USER,
-        //   from: userId,
-        //   name: name
-        // }); 
+        broadcastData({
+          type: REMOVE_USER,
+          from: userId,
+          name: name
+        }); 
+      } else if (pc.iceConnectionState == "failed") {
         pc.restartIce();
       }
     };
