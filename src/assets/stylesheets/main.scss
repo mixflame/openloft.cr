@@ -4,6 +4,12 @@
 
 @import "stats";
 
+
+* {
+  background-color: #000000;
+  color: #FFFFFF;
+}
+
 body {
   margin: 0;
   background-color: #000;
@@ -169,12 +175,12 @@ body {
 }
 
 a {
-  color: lightblue;
+  color: white;
   font-size: 16pt;
 }
 
 a:visited {
-  color: lightblue;
+  color: white;
   font-size: 16pt;
 }
 

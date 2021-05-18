@@ -1684,11 +1684,11 @@ function setMediaBitrates(sdp) {
   
     $("#dark-mode").change(function() {
       if($("#dark-mode").is(":checked")) {
-        $("body").css("background-color", "#000000");
-        $("body").css("color", "#FFFFFF");
+        $("*").css("background-color", "#000000");
+        $("*").css("color", "#FFFFFF");
       } else {
-        $("body").css("background-color", "#FFFFFF");
-        $("body").css("color", "#000000");
+        $("*").css("background-color", "#FFFFFF");
+        $("*").css("color", "#000000");
       }
     })
   

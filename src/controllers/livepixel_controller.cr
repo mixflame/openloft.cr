@@ -134,7 +134,6 @@ class LivepixelController < ApplicationController
     layers = {} of String => String
     names.each { |n| layers[n.to_s] = packets.select {|pac| js = JSON.parse(pac.to_s); js["name"] == n && js.as_h.has_key?("dragging") && js["dragging"] == false}.size.to_s }
     all_layers = 0
-    #all_layers = layers.inject(0) { |sum, tuple| sum += tuple[1] }
     layers.each do |layer|
       all_layers += layer[1].to_i
     end
