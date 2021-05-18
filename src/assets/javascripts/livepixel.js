@@ -506,11 +506,11 @@ function setMediaBitrates(sdp) {
           from: userId,
           name: name
         });
-        broadcastData({
-          type: JOIN_ROOM,
-          from: userId,
-          name: name
-        });
+        // broadcastData({
+        //   type: JOIN_ROOM,
+        //   from: userId,
+        //   name: name
+        // });
       }
     };
   
