@@ -20,7 +20,7 @@ class CanvasChannel < Amber::WebSockets::Channel
       end
     end
     if room == "" || room == nil
-      puts "global room"
+      # puts "global room"
       redis = Redis.new
       if data.has_key?("undo") && data["undo"].as_bool == true
         puts "undoing"
@@ -42,7 +42,7 @@ class CanvasChannel < Amber::WebSockets::Channel
         return
       end
       redis.rpush "packets", data.to_json
-      puts "TTL packets: #{redis.ttl("packets")}"
+      # puts "TTL packets: #{redis.ttl("packets")}"
       if redis.ttl("packets") == -1
         redis.expire("packets", 7 * 24 * 3600)
         redis.incr("balda_counter")
@@ -70,7 +70,7 @@ class CanvasChannel < Amber::WebSockets::Channel
         return
       end
       redis.rpush "packets_#{room}", data.to_json
-      puts "TTL packets: #{redis.ttl("packets_#{room}")}"
+      # puts "TTL packets: #{redis.ttl("packets_#{room}")}"
       if redis.ttl("packets_#{room}") == -1
         redis.expire("packets_#{room}", 24 * 3600 * 7)
         redis.incr("balda_counter")
