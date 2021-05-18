@@ -499,7 +499,7 @@ function setMediaBitrates(sdp) {
     };
   
     pc.oniceconnectionstatechange = () => {
-      if (pc.iceConnectionState == "disconnected" || pc.iceConnectionState == "closed" || pc.iceConnectionState == "failed") {
+      if (pc.iceConnectionState == "disconnected" || pc.iceConnectionState == "failed") {
         if(!window.dontLog) console.log("Disconnected:", userId);
         pc.restartIce();
       }
@@ -523,7 +523,7 @@ function setMediaBitrates(sdp) {
       }).then(() => {
         window.makingOffer = false;
       })
-      .catch(e => console.log(e));
+      .catch(e => {pc.restartIce();});
   }
   
     return pc;
@@ -541,7 +541,7 @@ function setMediaBitrates(sdp) {
     if (data.candidate) {
       pc.addIceCandidate(new RTCIceCandidate(JSON.parse(data.candidate)))
         .then(() => console.log("Ice candidate added"))
-        .catch(logError);
+        .catch(() => {pc.restartIce();});
     }
   
     if (data.sdp) {
@@ -571,7 +571,7 @@ function setMediaBitrates(sdp) {
               });
           }
         })
-        .catch(logError);
+        .catch(() => {pc.restartIce();});
     }
   };
   
