@@ -196,8 +196,8 @@ function setMediaBitrates(sdp) {
   let remoteVideoContainer;
   
   // Objects
-  let pcPeers = {};
-  var userIds = {};
+  window.pcPeers = {};
+  window.userIds = {};
   var polite = Math.random() < 0.5;
   window.polite = polite;
   
@@ -499,18 +499,9 @@ function setMediaBitrates(sdp) {
     };
   
     pc.oniceconnectionstatechange = () => {
-      if (pc.iceConnectionState == "disconnected") {
+      if (pc.iceConnectionState == "disconnected" || pc.iceConnectionState == "closed" || pc.iceConnectionState == "failed") {
         if(!window.dontLog) console.log("Disconnected:", userId);
-        broadcastData({
-          type: REMOVE_USER,
-          from: userId,
-          name: name
-        });
-        // broadcastData({
-        //   type: JOIN_ROOM,
-        //   from: userId,
-        //   name: name
-        // });
+        pc.restartIce();
       }
     };
   
