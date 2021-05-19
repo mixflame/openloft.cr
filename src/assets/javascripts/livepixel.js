@@ -28,6 +28,15 @@
 
 import Amber from 'amber';
 
+function scaledPositionX (x) {
+  let scaleFactor = (window.canvas.width / window.canvas.clientWidth);
+  return scaleFactor * x;
+}
+function scaledPositionY (y) {
+  let scaleFactor = (window.canvas.height / window.canvas.clientHeight);
+  return scaleFactor * y;
+}
+
 var urlParams = new URLSearchParams(window.location.search);
 window.room = urlParams.get('room');
 
@@ -1019,6 +1028,9 @@ function setMediaBitrates(sdp) {
       }
   
     }
+
+    mouseX = scaledPositionX(mouseX);
+    mouseY = scaledPositionY(mouseY);
   
     if($("#eyedropper").is(":checked")) {
       var canvasElement = $("#canvas")[0];
@@ -1070,6 +1082,9 @@ function setMediaBitrates(sdp) {
         return true;
       }
     }
+
+    mouseX = scaledPositionX(mouseX);
+    mouseY = scaledPositionY(mouseY);
   
     if($("#random-brush-size").is(":checked")) {
       curSize = Math.floor(Math.random() * 35 + 1)
@@ -1976,6 +1991,26 @@ function setMediaBitrates(sdp) {
     window.scroll_to_bottom();
   
     // require("livepixel/somafm")
+
+    $("#full-screen").click(function() {
+      $(window).bind("resize", function(){
+        var w = $(window).width();
+        var h = $(window).height();
+    
+        $("canvas").css("width", w + "px");
+        $("canvas").css("height", h + "px"); 
+      });
+    
+    //using HTML5 for fullscreen (only newest Chrome + FF)
+    
+    $("canvas")[0].requestFullscreen(); //Firefox
+    
+    //...
+    
+    //now i want to cancel fullscreen
+    
+    
+    })
   
   })
   
