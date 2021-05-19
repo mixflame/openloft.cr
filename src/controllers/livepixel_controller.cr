@@ -4,6 +4,10 @@ require "http"
 require "uri"
 require "base64"
 
+#paypal
+CLIENT_ID=AXEHRTl5y4XYIOuuIJ7CT5TE5v0CLNViXwk7CD8F5DhAT6JTKoF9jWJMr71f5W_BsSS9gnp8hjSPunFL
+CLIENT_SECRET=ENuzq-_Qx1_N-wmaB_Io5ajTJAjucGzd3bqaKStziSksTfWJqkg-cNT4uIppBWIL4txlc9WEwGKjRvLq
+
 class LivepixelController < ApplicationController
 
 
@@ -179,8 +183,8 @@ class LivepixelController < ApplicationController
       ]
     
     }.to_h.to_json
-    headers = HTTP::Headers{"Prefer" => "return=representation", "Content-Type" => "application/json", "Authorization" => "Basic #{Base64.strict_encode("Aa2go6c2he4XPU-vrwTzb3X2F4AHsZYRX9MsRR-alLzWxxM0V_RiV0vbfQT3LdIZiphgkkqRhQ8HSmU-:EHI6j2vssDeg_ww8DLQ_MNBnDXG_ia-QUH9M_fsv4WSNLEVywuZ6vFyKCocFifaToO2wdjwzcNvLSBqu")}"}
-    response = HTTP::Client.post("https://api.sandbox.paypal.com/v2/checkout/orders", headers, body)
+    headers = HTTP::Headers{"Prefer" => "return=representation", "Content-Type" => "application/json", "Authorization" => "Basic #{Base64.strict_encode("#{CLIENT_ID}:#{CLIENT_SECRET}")}"}
+    response = HTTP::Client.post("https://api.paypal.com/v2/checkout/orders", headers, body)
     
     puts response.body
 
@@ -191,8 +195,8 @@ class LivepixelController < ApplicationController
     def capture_order
       debug = true
       order_id = params["orderID"]
-      headers = HTTP::Headers{"Prefer" => "return=representation", "Content-Type" => "application/json", "Authorization" => "Basic #{Base64.strict_encode("Aa2go6c2he4XPU-vrwTzb3X2F4AHsZYRX9MsRR-alLzWxxM0V_RiV0vbfQT3LdIZiphgkkqRhQ8HSmU-:EHI6j2vssDeg_ww8DLQ_MNBnDXG_ia-QUH9M_fsv4WSNLEVywuZ6vFyKCocFifaToO2wdjwzcNvLSBqu")}"}
-      response = HTTP::Client.post("https://api.sandbox.paypal.com/v2/checkout/orders/#{order_id}/capture", headers)
+      headers = HTTP::Headers{"Prefer" => "return=representation", "Content-Type" => "application/json", "Authorization" => "Basic #{Base64.strict_encode("#{CLIENT_ID}:#{CLIENT_SECRET}")}"}
+      response = HTTP::Client.post("https://api.paypal.com/v2/checkout/orders/#{order_id}/capture", headers)
       
       json = JSON.parse(response.body)
       id = json["id"]
