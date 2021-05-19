@@ -165,7 +165,13 @@ div#counter {
   margin-left: 20px;
 }
 
-div#stats, div#store, div#twitter, div#downbox, div#ad, div#private_box, div#privacy_policy, div#crypto, div#apiuploadbox, div#clear_canvas_holder, div#gallery, div#discord, div#full_screen_holder {
+div#stats, div#store, div#twitter, div#downbox, div#ad, div#private_box, div#privacy_policy, div#crypto, div#apiuploadbox, div#clear_canvas_holder, div#gallery, div#discord {
+  display: inline;
+  float: left;
+  margin-left: 20px;
+}
+
+div#full_screen_holder {
   display: inline;
   float: left;
   margin-left: 20px;
