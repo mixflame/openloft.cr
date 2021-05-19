@@ -1994,8 +1994,8 @@ function setMediaBitrates(sdp) {
 
     $("#full-screen").click(function() {
       $(window).bind("resize", function(){
-        var w = $(window).width();
-        var h = $(window).height();
+        var w = $(screen).width() * 0.60;
+        var h = $(screen).height() * 0.60;
     
         $("canvas").css("width", w + "px");
         $("canvas").css("height", h + "px"); 
