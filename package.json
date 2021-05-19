@@ -34,7 +34,6 @@
     "@giphy/js-components": "^4.4.0",
     "@giphy/js-fetch-api": "^3.0.0",
     "@joeattardi/emoji-button": "^4.6.0",
-    "bad-words": "^3.0.3",
     "bootstrap": "^4.2.1",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.6",

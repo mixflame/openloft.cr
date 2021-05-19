@@ -612,11 +612,6 @@ function setMediaBitrates(sdp) {
   var Pressure = require('pressure');
   window.Pressure = Pressure;
   
-  var Filter = require('bad-words'),
-      filter = new Filter();
-  
-  window.filter = filter;
-  
   // imports
   import $ from 'jquery';
   import { faArrowAltCircleDown } from '@fortawesome/free-solid-svg-icons';
@@ -691,7 +686,7 @@ function setMediaBitrates(sdp) {
   var match_index = 0
   
   var name = localStorage.getItem("name");
-  while(name == undefined || name == "" || name.length > 30 || !name.match(/^[a-z0-9]+$/i) || filter.clean(name).match(/\*/i)) {
+  while(name == undefined || name == "" || name.length > 30 || !name.match(/^[a-z0-9]+$/i)) {
     name = prompt("What is your name? (alphanumeric, less than 30 characters, no spaces, no cursewords)");
   }
   localStorage.setItem("name", name);
@@ -1733,7 +1728,7 @@ function setMediaBitrates(sdp) {
     $("#name").val(name);
   
     $("#name").keyup(function(){
-      if($("#name").val() != undefined && $("#name").val() != "" && $("#name").val().length < 30 && $("#name").val().match(/^[a-z0-9]+$/i) && !filter.clean($("#name").val()).match(/\*/i)) {
+      if($("#name").val() != undefined && $("#name").val() != "" && $("#name").val().length < 30 && $("#name").val().match(/^[a-z0-9]+$/i)) {
         name = $("#name").val()
         window.name = name;
         localStorage.setItem("name", name);
