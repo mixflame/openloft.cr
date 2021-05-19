@@ -82,13 +82,15 @@
                 //Your ajax code here to submit from via AJAX. refer jquery site . I gave sample eg.
                     method: "POST",
                     url : "/upload",
-                    "X-CSRF-TOKEN": csrfToken,
+                    headers: { "X-CSRF-TOKEN": csrfToken },
                     data : formData,
                     async: true,
                     cache: false,
                     contentType: false,
                     enctype: 'multipart/form-data',
                     processData: false,
+                }).done(function(e){
+                    eval(e);
                 });
             })
         }

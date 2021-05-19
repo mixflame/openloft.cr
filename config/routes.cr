@@ -42,6 +42,7 @@ Amber::Server.configure do
     get "/buy_ad", LivepixelController, :buy_ad
     post "/create_order", LivepixelController, :create_order
     post "/capture_order", LivepixelController, :capture_order
+    post "/upload", LivepixelController, :upload
   end
 
   routes :api do

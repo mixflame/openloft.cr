@@ -203,6 +203,46 @@ class LivepixelController < ApplicationController
       redis.hset("completed_orders", email, id)
   
       response.body.to_json
+    end
+
+    def upload
+      # require 'dimensions'
+      path = params.files["banner"].file.path
+      # if uploaded_io.size > 2.megabytes
+      #   Rails.logger.info "Someone attempted to upload an ad with a file size too big."
+      #   render js: 'alert("Uploaded file is too big. Limit 2 megabytes.")'
+      #   return
+      # end
+      # size = Dimensions.dimensions(uploaded_io.path)
+      # if size[0] > 468 || size[1] > 60
+      #   Rails.logger.info "Someone attempted to upload an ad with a dimensions too big."
+      #   render js: 'alert("Uploaded file dimensions too big. Limit 468x60.")'
+      #   return
+      # end
+      email = params[:email]
+      link = params[:link]
+      order_id = params[:order_id]
+      redis = Redis.new
+      paid = redis.hget("completed_orders", email)
+      puts paid
+      if paid != nil
+        # write image to redis
+        base64 = Base64.strict_encode(File.read(path))
+        puts base64
+        redis.set(order_id, base64)
+        redis.set("#{order_id}_link", link)
+        redis.expire("#{order_id}_link", 2592000)
+        redis.expire(order_id, 2592000)
+        redis.sadd("banner_order_ids", order_id)
+        "alert('Your ad was successfully added to the rotation.')"
+      else
+        puts "Hack attempt? No order id found for #{email}"
+        "alert('Order id not found. Your ad was not successfully added to the rotation.')"
       end
+      # File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'w') do |file|
+      #   file.write(uploaded_io.read)
+      # end
+      # create base64 image from uploaded_io
+    end
 
 end
