@@ -1,0 +1,98 @@
+
+    <script src="https://www.paypal.com/sdk/js?client-id=Aa2go6c2he4XPU-vrwTzb3X2F4AHsZYRX9MsRR-alLzWxxM0V_RiV0vbfQT3LdIZiphgkkqRhQ8HSmU-">
+    </script>
+
+    <div align="center">
+    <div id="text">
+    <h1>Buy an ad on this site</h1>
+    <p>Ten dollars (jQuery10.00) for one month of rotation (30 days).</p>
+    <p>After that your banner will expire.</p>
+    <p>Banners are chosen at random.</p>
+    <p>Banners are displayed on the front page (canvas) of this site.</p>
+    <p>Banner must be 468 x 60 pixels or smaller.</p>
+    <p>Banner cannot be larger than 2mb.</p>
+    <hr />
+    <p style="color: red">Select an image and a url to link to, and then pay using the Paypal links that will become activated after configuring your ad.</p>
+    <p><strong style="color: lightblue">Make sure to double check your image and link before paying.</strong></p>
+
+   <p>
+        <form id="upload_form" enctype="multipart/form-data" action="/upload" accept-charset="UTF-8" data-remote="true" method="post">
+            <p>
+                <label for="banner">Banner image: </label>
+                <input type="file" name="banner" id="banner" onchange="if (jQuery('#banner').val() != '' && jQuery('#link').val() != '') { jQuery('#paypal-button-container').css('pointer-events', '');  jQuery('#paypal-button-container').css('opacity', ''); } if(jQuery('#banner')[0].files[0].size > 2048000) { alert('Image file size too big, limit 2mb.'); jQuery('#banner').val(''); } let img = new Image(); img.src = window.URL.createObjectURL(jQuery('#banner')[0].files[0]); img.onload = function() { if(img.width > 468 || img.height > 60) { alert('Image must be 468x60 pixels or smaller.'); jQuery('#banner').val(''); } };" />
+            </p>
+            <p>
+                <label for="link">Banner link: </label>
+                <input type="text" name="link" id="link" value="" onkeyup="if (jQuery('#banner').val() != '' && jQuery('#link').val() != '') { jQuery('#paypal-button-container').css('pointer-events', '');  jQuery('#paypal-button-container').css('opacity', ''); }" />
+            </p>
+            <input type="hidden" name="order_id" id="order_id" value="" />
+            <input type="hidden" name="email" id="email" value="" />
+        </form>
+    </p>
+
+    <div id="paypal-button-container" style="pointer-events: none; opacity: 0.4;"></div>
+
+    <!-- Add the checkout buttons, set up the order and approve the order -->
+    <script>
+      paypal.Buttons({
+        createOrder: function() {
+            const csrfToken = document.querySelector("[name=_csrf]").content;
+            return fetch('/create_order', {
+                method: 'post',
+                headers: {
+                'content-type': 'application/json',
+                "X-CSRF-TOKEN": csrfToken
+                }
+            }).then(function(res) {
+                return res.json();
+            }).then(function(data) {
+                data = JSON.parse(data);
+                // console.log(data.table.result.table.id)
+                console.log(data["id"]);
+                return data["id"];
+                // return data.table.result.table.id; // Use the same key name for order ID on the client and server
+            });
+        },
+        onApprove: function(data) {
+            const csrfToken = document.querySelector("[name=_csrf]").content;
+            // console.log(data);
+            return fetch('/capture_order', {
+                method: 'post',
+                headers: {
+                'content-type': 'application/json',
+                "X-CSRF-TOKEN": csrfToken
+                },
+                body: JSON.stringify({
+                orderID: data.orderID
+                })
+            }).then(function(res) {
+                return res.json();
+            }).then(function(details) {
+                details = JSON.parse(details);
+                const csrfToken = document.querySelector("[name=_csrf]").content;
+                if (details.error === 'INSTRUMENT_DECLINED') {
+                    return actions.restart();
+                }
+                //console.log('Transaction funds captured from ' + details.table.result.table.payer.table.email_address);
+                // console.log(details)
+                jQuery("#order_id").val(details["id"]);
+                jQuery("#email").val(details["payer"]["email_address"]);
+                var formData = new FormData(jQuery("#upload_form")[0]);
+                jQuery.ajax({
+                //Your ajax code here to submit from via AJAX. refer jquery site . I gave sample eg.
+                    method: "POST",
+                    url : "/upload",
+                    "X-CSRF-TOKEN": csrfToken,
+                    data : formData,
+                    async: true,
+                    cache: false,
+                    contentType: false,
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                });
+            })
+        }
+      }).render('#paypal-button-container'); // Display payment options on your web page
+    </script>
+    </div>
+</div>

@@ -2,6 +2,7 @@ require "redis"
 require "sanitize"
 require "http"
 require "uri"
+require "base64"
 
 class LivepixelController < ApplicationController
 
@@ -141,11 +142,67 @@ class LivepixelController < ApplicationController
     all_time = {} of String => String
     redis.hgetall("all_time").each_slice(2) { |drawer| all_time[drawer[0].to_s] = drawer[1].to_s }
     puts all_time
-    render("stats.ecr")
+    render("stats.ecr", layout: "stats.ecr")
   end
 
   def privacy_policy
     render("privacy_policy.ecr")
   end
+
+  def buy_ad
+    render("buy_ad.ecr", layout: "buy_ad.ecr")
+  end
+
+  def create_order
+    puts params.inspect
+
+    debug = true
+
+    body = {
+  
+      "intent": "CAPTURE",
+    
+      "purchase_units": [
+    
+        {
+    
+          "amount": {
+    
+            "currency_code": "USD",
+    
+            "value": "10.00"
+    
+          }
+    
+        }
+    
+      ]
+    
+    }.to_h.to_json
+    headers = HTTP::Headers{"Prefer" => "return=representation", "Content-Type" => "application/json", "Authorization" => "Basic #{Base64.strict_encode("Aa2go6c2he4XPU-vrwTzb3X2F4AHsZYRX9MsRR-alLzWxxM0V_RiV0vbfQT3LdIZiphgkkqRhQ8HSmU-:EHI6j2vssDeg_ww8DLQ_MNBnDXG_ia-QUH9M_fsv4WSNLEVywuZ6vFyKCocFifaToO2wdjwzcNvLSBqu")}"}
+    response = HTTP::Client.post("https://api.sandbox.paypal.com/v2/checkout/orders", headers, body)
+    
+    puts response.body
+
+    response.body.to_json
+
+    end
+
+    def capture_order
+      debug = true
+      order_id = params["orderID"]
+      headers = HTTP::Headers{"Prefer" => "return=representation", "Content-Type" => "application/json", "Authorization" => "Basic #{Base64.strict_encode("Aa2go6c2he4XPU-vrwTzb3X2F4AHsZYRX9MsRR-alLzWxxM0V_RiV0vbfQT3LdIZiphgkkqRhQ8HSmU-:EHI6j2vssDeg_ww8DLQ_MNBnDXG_ia-QUH9M_fsv4WSNLEVywuZ6vFyKCocFifaToO2wdjwzcNvLSBqu")}"}
+      response = HTTP::Client.post("https://api.sandbox.paypal.com/v2/checkout/orders/#{order_id}/capture", headers)
+      
+      json = JSON.parse(response.body)
+      id = json["id"]
+
+      email = json["payer"]["email_address"]
+  
+      redis = Redis.new
+      redis.hset("completed_orders", email, id)
+  
+      response.body.to_json
+      end
 
 end

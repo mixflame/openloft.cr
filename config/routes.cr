@@ -39,6 +39,9 @@ Amber::Server.configure do
     get "/clear_canvas", LivepixelController, :clear_canvas
     get "/stats", LivepixelController, :stats
     get "/privacy_policy", LivepixelController, :privacy_policy
+    get "/buy_ad", LivepixelController, :buy_ad
+    post "/create_order", LivepixelController, :create_order
+    post "/capture_order", LivepixelController, :capture_order
   end
 
   routes :api do
