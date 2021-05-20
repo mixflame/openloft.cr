@@ -205,8 +205,8 @@ function setMediaBitrates(sdp) {
   let remoteVideoContainer;
   
   // Objects
-  let pcPeers = {};
-  var userIds = {};
+  window.pcPeers = {};
+  window.userIds = {};
   var polite = Math.random() < 0.5;
   window.polite = polite;
   
@@ -382,11 +382,11 @@ function setMediaBitrates(sdp) {
     // if all true, make self impolite
     // if all false, make self polite
     polite_arr.push(data.polite);
-    var checker = polite_arr => polite_arr.every(v => v === true)
+    var checker = polite_arr => polite_arr.every(v => v === "true")
     if(checker == true) {
       polite = false;
     } else {
-      checker = polite_arr => polite_arr.every(v => v === false)
+      checker = polite_arr => polite_arr.every(v => v === "false")
       if(checker == true) {
         polite = true;
       }
@@ -450,12 +450,12 @@ function setMediaBitrates(sdp) {
     })
     container.append(video_mute);
     container.append(audio_mute);
-    // $(`.camUser-${n}`).remove();
     container.id = `remoteVideoContainer-${userId}`;
     container.style = "float: left; display: inline; width: 25%; height: 25%; padding-left: 10px;"
     remoteVideoContainer.appendChild(container);
     $(container).addClass(`camUser-${n}`);
   
+    // console.log(`adding ${userId} to pcPeers`)
     pcPeers[userId] = pc;
     userIds[n] = userId;
   
@@ -511,11 +511,22 @@ function setMediaBitrates(sdp) {
     pc.oniceconnectionstatechange = () => {
       if (pc.iceConnectionState == "disconnected") {
         if(!window.dontLog) console.log("Disconnected:", userId);
-        broadcastData({
-          type: REMOVE_USER,
-          from: userId,
-          name: name
-        }); 
+        $(`remoteVideoContainer-${userId}`).remove();
+        // $("video").each(function(i, e){
+        //   if($(e)[0].duration != Infinity) {
+        //     $(e).remove();
+        //   }
+        // })
+        // broadcastData({
+        //   type: REMOVE_USER,
+        //   from: userId,
+        //   name: name
+        // }); 
+      } else if (pc.iceConnectionState == "failed") {
+        console.log("connection failed")
+        pc.restartIce();
+        // ghost remover
+
       }
     };
   
