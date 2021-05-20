@@ -521,11 +521,11 @@ function setMediaBitrates(sdp) {
         //     $(e).remove();
         //   }
         // })
-        broadcastData({
-          type: REMOVE_USER,
-          from: userId,
-          name: name
-        });
+        // broadcastData({
+        //   type: REMOVE_USER,
+        //   from: userId,
+        //   name: name
+        // });
       } else if (pc.iceConnectionState == "failed") {
         console.log("connection failed")
         pc.restartIce();
