@@ -523,7 +523,8 @@ function setMediaBitrates(sdp) {
         //   type: REMOVE_USER,
         //   from: userId,
         //   name: name
-        // }); 
+        // });
+        
       } else if (pc.iceConnectionState == "failed") {
         pc.restartIce();
       }
@@ -535,8 +536,8 @@ function setMediaBitrates(sdp) {
   
     pc.onnegotiationneeded = function () {
       if (isNegotiating) {
-        console.log("SKIP nested negotiations");
-        return;
+        // console.log("SKIP nested negotiations");
+        // return;
       }
       isNegotiating = true;
       if(!window.dontLog) console.log('negotiationstarted');
