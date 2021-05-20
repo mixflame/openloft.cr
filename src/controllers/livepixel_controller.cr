@@ -121,7 +121,7 @@ class LivepixelController < ApplicationController
       end
     end
 
-    render "canvas.ecr"
+    render "canvas.ecr", layout: "gbaldraw.ecr"
   end
 
 
