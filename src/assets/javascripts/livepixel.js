@@ -226,6 +226,9 @@ function setMediaBitrates(sdp) {
     window.localVideo.muted = false;
   
     handleLeaveSession();
+
+    $("#chat_message").html(window.name + " disconnected from video.");
+    $("#send_message").click();
   }
   
   window.connectVideo = function() {
@@ -313,6 +316,10 @@ function setMediaBitrates(sdp) {
         })
       }
     })
+
+
+    $("#chat_message").html(window.name + " connected to video.");
+    $("#send_message").click();
   }
   
   const handleJoinSession = async () => {
