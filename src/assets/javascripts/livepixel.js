@@ -454,6 +454,10 @@ function setMediaBitrates(sdp) {
     container.style = "float: left; display: inline; width: 25%; height: 25%; padding-left: 10px;"
     remoteVideoContainer.appendChild(container);
     $(container).addClass(`camUser-${n}`);
+    $(container).hide();
+    $(`#video-${userId}`).on("play", function(e){
+      $(`#remoteVideoContainer-${userId}`).show();
+    })
   
     // console.log(`adding ${userId} to pcPeers`)
     pcPeers[userId] = pc;
@@ -517,15 +521,17 @@ function setMediaBitrates(sdp) {
         //     $(e).remove();
         //   }
         // })
-        // broadcastData({
-        //   type: REMOVE_USER,
-        //   from: userId,
-        //   name: name
-        // }); 
+        broadcastData({
+          type: REMOVE_USER,
+          from: userId,
+          name: name
+        });
       } else if (pc.iceConnectionState == "failed") {
         console.log("connection failed")
         pc.restartIce();
         // ghost remover
+
+      } else if (pc.iceConnectionState == "connected") {
 
       }
     };
