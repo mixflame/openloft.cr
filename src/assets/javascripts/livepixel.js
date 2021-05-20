@@ -458,7 +458,7 @@ function setMediaBitrates(sdp) {
     })
     container.append(video_mute);
     container.append(audio_mute);
-    $(`.camUser-${n}`).remove();
+    $(`#remoteVideoContainer-${userId}`).remove();
     container.id = `remoteVideoContainer-${userId}`;
     container.style = "float: left; display: inline; width: 25%; height: 25%; padding-left: 10px;"
     remoteVideoContainer.appendChild(container);
@@ -519,11 +519,11 @@ function setMediaBitrates(sdp) {
     pc.oniceconnectionstatechange = () => {
       if (pc.iceConnectionState == "disconnected") {
         if(!window.dontLog) console.log("Disconnected:", userId);
-        // broadcastData({
-        //   type: REMOVE_USER,
-        //   from: userId,
-        //   name: name
-        // });
+        broadcastData({
+          type: REMOVE_USER,
+          from: userId,
+          name: name
+        });
         
       } else if (pc.iceConnectionState == "failed") {
         pc.restartIce();
@@ -574,22 +574,20 @@ function setMediaBitrates(sdp) {
   
     if (data.candidate) {
       console.log("signaling state addicecandidate: " + pc.signalingState)
-      if(pc.signalingState == "stable") return;
+      if(pc.signalingState != "stable") return;
       pc.addIceCandidate(new RTCIceCandidate(JSON.parse(data.candidate)))
         .then(() => console.log("Ice candidate added"))
-        .catch(() => { 
-          console.log("Error adding Ice Candidate");
-          pc.restartIce();
-      });
+        .catch(logError);
     }
   
     if (data.sdp) {
       const offerCollision = (data.sdp.type == "offer") &&
                                (window.makingOffer || pc.signalingState != "stable");
       ignoreOffer = !polite && offerCollision;
-      if (ignoreOffer || pc.signalingState != "have-local-offer") {
+      if (ignoreOffer) {
         return;
       }
+      if(pc.signalingState != "have-local-offer") return;
       console.log("signaling state: " + pc.signalingState);
       const sdp = JSON.parse(data.sdp);
       pc.setRemoteDescription(new RTCSessionDescription(sdp))
