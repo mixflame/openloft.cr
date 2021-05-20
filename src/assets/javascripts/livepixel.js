@@ -581,9 +581,10 @@ function setMediaBitrates(sdp) {
       const offerCollision = (data.sdp.type == "offer") &&
                                (window.makingOffer || pc.signalingState != "stable");
       ignoreOffer = !polite && offerCollision;
-      if (ignoreOffer) {
+      if (ignoreOffer || pc.signalingState != "have-local-offer") {
         return;
       }
+      console.log("signaling state: " + pc.signalingState);
       const sdp = JSON.parse(data.sdp);
       pc.setRemoteDescription(new RTCSessionDescription(sdp))
         .then(() => {
