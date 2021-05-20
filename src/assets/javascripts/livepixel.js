@@ -515,7 +515,7 @@ function setMediaBitrates(sdp) {
     pc.oniceconnectionstatechange = () => {
       if (pc.iceConnectionState == "disconnected") {
         if(!window.dontLog) console.log("Disconnected:", userId);
-        $(`remoteVideoContainer-${userId}`).remove();
+        $(`#remoteVideoContainer-${userId}`).remove();
         // $("video").each(function(i, e){
         //   if($(e)[0].duration != Infinity) {
         //     $(e).remove();
