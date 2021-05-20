@@ -530,7 +530,7 @@ function setMediaBitrates(sdp) {
     };
 
     pc.onsignalingstatechange = (e) => {  // Workaround for Chrome: skip nested negotiations
-      isNegotiating = (pc.signalingState != "stable");
+      isNegotiating = (pc.signalingState == "stable");
     }
   
     pc.onnegotiationneeded = function () {
