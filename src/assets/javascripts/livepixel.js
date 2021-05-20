@@ -473,7 +473,7 @@ function setMediaBitrates(sdp) {
       }
     }
   
-    if(isOffer){
+    if(isOffer && pc.signalingState != "stable"){
       window.makingOffer = true;
       pc
         .createOffer()
@@ -572,6 +572,8 @@ function setMediaBitrates(sdp) {
     }
   
     if (data.candidate) {
+      console.log("signaling state addicecandidate: " + pc.signalingState)
+      if(pc.signalingState == "stable") return;
       pc.addIceCandidate(new RTCIceCandidate(JSON.parse(data.candidate)))
         .then(() => console.log("Ice candidate added"))
         .catch(() => { 
