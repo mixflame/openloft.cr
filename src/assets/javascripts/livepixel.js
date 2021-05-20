@@ -226,13 +226,9 @@ function setMediaBitrates(sdp) {
     window.localVideo.muted = false;
   
     handleLeaveSession();
-
-    $("#chat_message").html(window.name + " disconnected from video.");
-    $("#send_message").click();
   }
   
   window.connectVideo = function() {
-    // app.closeAudio()
     
     currentUser = $("#current-user")[0].innerHTML;
     window.currentUser = currentUser;
@@ -316,10 +312,6 @@ function setMediaBitrates(sdp) {
         })
       }
     })
-
-
-    $("#chat_message").html(window.name + " connected to video.");
-    $("#send_message").click();
   }
   
   const handleJoinSession = async () => {
@@ -458,7 +450,7 @@ function setMediaBitrates(sdp) {
     })
     container.append(video_mute);
     container.append(audio_mute);
-    $(`.camUser-${n}`).remove();
+    // $(`.camUser-${n}`).remove();
     container.id = `remoteVideoContainer-${userId}`;
     container.style = "float: left; display: inline; width: 25%; height: 25%; padding-left: 10px;"
     remoteVideoContainer.appendChild(container);
@@ -519,26 +511,15 @@ function setMediaBitrates(sdp) {
     pc.oniceconnectionstatechange = () => {
       if (pc.iceConnectionState == "disconnected") {
         if(!window.dontLog) console.log("Disconnected:", userId);
-        // broadcastData({
-        //   type: REMOVE_USER,
-        //   from: userId,
-        //   name: name
-        // }); 
-      } else if (pc.iceConnectionState == "failed") {
-        pc.restartIce();
+        broadcastData({
+          type: REMOVE_USER,
+          from: userId,
+          name: name
+        }); 
       }
     };
-
-    pc.onsignalingstatechange = (e) => {  // Workaround for Chrome: skip nested negotiations
-      isNegotiating = (pc.signalingState != "stable");
-    }
   
     pc.onnegotiationneeded = function () {
-      if (isNegotiating) {
-        console.log("SKIP nested negotiations");
-        return;
-      }
-      isNegotiating = true;
       if(!window.dontLog) console.log('negotiationstarted');
       window.makingOffer = true;
       pc.createOffer().then(function (offer) {
@@ -618,6 +599,9 @@ function setMediaBitrates(sdp) {
       "content-type": "application/json",
       "X-CSRF-TOKEN": csrfToken,
     });
+  
+    var urlParams = new URLSearchParams(window.location.search);
+    var room = urlParams.get('room');
   
     data["room"] = room;
     
