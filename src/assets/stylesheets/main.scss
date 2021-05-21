@@ -1,15 +1,25 @@
-// $primary: #f4994b;
+$primary: #f4994b;
 
-// @import '~bootstrap/scss/bootstrap';
+@import '~bootstrap/scss/bootstrap';
 
 @import "stats";
 @import "buy_ad";
 
 
-// * {
-//   background-color: #000000;
-//   color: #FFFFFF;
-// }
+*, *::before, *::after {
+  box-sizing: content-box;
+}
+
+.container {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+@media (min-width: 1200px) {
+  .container, .container-sm, .container-md, .container-lg, .container-xl {
+    max-width: 100%;
+  }
+} 
 
 body {
   margin: 0;
