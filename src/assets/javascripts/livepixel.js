@@ -491,7 +491,7 @@ function setMediaBitrates(sdp) {
         })
         .catch(e => {
           logError(e)
-          pc.restartIce();
+          if(pc.restartIce) pc.restartIce();
         });
     }
   
@@ -520,7 +520,7 @@ function setMediaBitrates(sdp) {
       if (pc.iceConnectionState == "disconnected") {
         if(!window.dontLog) console.log("Disconnected:", userId);
         $(`#remoteVideoContainer-${userId}`).remove();
-        pc.restartIce();
+        if(pc.restartIce) pc.restartIce();
         // $("video").each(function(i, e){
         //   if($(e)[0].duration != Infinity) {
         //     $(e).remove();
@@ -533,7 +533,7 @@ function setMediaBitrates(sdp) {
         // });
       } else if (pc.iceConnectionState == "failed") {
         console.log("connection failed")
-        pc.restartIce();
+        if(pc.restartIce) pc.restartIce();
         // ghost remover
 
       } else if (pc.iceConnectionState == "connected") {
@@ -570,7 +570,7 @@ function setMediaBitrates(sdp) {
       })
       .catch(e => {
         logError(e)
-        pc.restartIce();
+        if(pc.restartIce) pc.restartIce();
       });
   }
   
@@ -591,7 +591,7 @@ function setMediaBitrates(sdp) {
         .then(() => console.log("Ice candidate added"))
         .catch(e => {
           logError(e)
-          pc.restartIce();
+          if(pc.restartIce) pc.restartIce();
         });
     }
   
@@ -621,12 +621,12 @@ function setMediaBitrates(sdp) {
                 });
               }).catch((e) => {
                 logError(e)
-                pc.restartIce();
+                if(pc.restartIce) pc.restartIce();
               });
           }
         }).catch(e => {
           logError(e)
-          pc.restartIce();
+          if(pc.restartIce) pc.restartIce();
         });
     }
   };
