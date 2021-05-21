@@ -515,7 +515,7 @@ function setMediaBitrates(sdp) {
     pc.oniceconnectionstatechange = () => {
       if (pc.iceConnectionState == "disconnected") {
         if(!window.dontLog) console.log("Disconnected:", userId);
-        $(`#remoteVideoContainer-${userId}`).hide();
+        $(`#remoteVideoContainer-${userId}`).remove();
         pc.restartIce();
         // $("video").each(function(i, e){
         //   if($(e)[0].duration != Infinity) {
@@ -533,7 +533,7 @@ function setMediaBitrates(sdp) {
         // ghost remover
 
       } else if (pc.iceConnectionState == "connected") {
-        $(`#remoteVideoContainer-${userId}`).show();
+        // $(`#remoteVideoContainer-${userId}`).show();
       }
     };
   
