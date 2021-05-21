@@ -13,13 +13,42 @@ $primary: #f4994b;
 .container {
   margin-left: 0px;
   margin-right: 0px;
+  padding-right: 0px;
+  padding-left: 0px;
 }
 
-@media (min-width: 1200px) {
-  .container, .container-sm, .container-md, .container-lg, .container-xl {
+@media (min-width: 576px) {
+  .container {
     max-width: 100%;
   }
-} 
+  #video_chat {
+    width: 60%;
+    padding-left: 0px;
+  }
+  #chat_area_holder {
+    width: 30%;
+    padding-left: 0px;
+  }
+
+
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 100%;
+  }
+  #video_chat {
+    width: 35%;
+    padding-left: 20px;
+  }
+  #chat_area_holder {
+    width: 100%;
+  }
+
+
+}
+
+
 
 body {
   margin: 0;
