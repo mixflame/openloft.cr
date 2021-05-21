@@ -647,7 +647,7 @@ function setMediaBitrates(sdp) {
   
   const logError = (error) => {
     if (!ignoreOffer) {
-      throw error;
+      console.log(error.message);
     }
     
   };
