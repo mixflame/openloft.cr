@@ -1893,7 +1893,7 @@ function setMediaBitrates(sdp) {
     // cam
     $("#input").val("cam");
   
-    $("#cam-name").html(window.name);
+    $("#cam-name").html(`you: ${window.name}`);
   
     if(context) {
       redraw();
