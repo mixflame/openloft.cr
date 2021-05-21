@@ -237,7 +237,7 @@ function setMediaBitrates(sdp) {
     remoteVideoContainer = $("#remote-video-container")[0];
     window.remoteVideoContainer = remoteVideoContainer;
   
-  
+    if(!navigator.mediaDevices) return;
     navigator.mediaDevices
     .getUserMedia({
       audio: true,
@@ -425,6 +425,7 @@ function setMediaBitrates(sdp) {
     })
     element.id = `video-${userId}`
     element.autoplay = "autoplay";
+    element.playsInline = true;
     $(element).css("height","100%");
     $(element).css("width","100%");
     const container = document.createElement("div");
