@@ -107,9 +107,13 @@ window.canvas_socket.connect()
                 }, 6000);
                 if (!window.nicks.includes(data["name"])) {
                     window.nicks.push(data["name"]);
-                    var ding = new Audio("/ding.wav")
-                    ding.volume = 0.25;
-                    ding.play()
+                    try {
+                        var ding = new Audio("/ding.wav")
+                        ding.volume = 0.25;
+                        ding.play()
+                    } catch {
+                        console.log("failed to online ding")
+                    }
                 }
                 if ($(".online-" + data['name']).length == 0) {
                     $("#connected_users").html($("#connected_users").html() + `<li class='online-${data['name']}'>${data['name']}</li>`)
