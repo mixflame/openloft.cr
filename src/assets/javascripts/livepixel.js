@@ -488,7 +488,7 @@ function setMediaBitrates(sdp) {
         }).then(() => {
           window.makingOffer = false;
         })
-        .catch((e) => {
+        .catch(e => {
           logError(e)
           pc.restartIce();
         });
@@ -558,7 +558,7 @@ function setMediaBitrates(sdp) {
       }).then(() => {
         window.makingOffer = false;
       })
-      .catch((e) => {
+      .catch(e => {
         logError(e)
         pc.restartIce();
       });
@@ -579,7 +579,7 @@ function setMediaBitrates(sdp) {
     if (data.candidate) {
       pc.addIceCandidate(new RTCIceCandidate(JSON.parse(data.candidate)))
         .then(() => console.log("Ice candidate added"))
-        .catch((e) => {
+        .catch(e => {
           logError(e)
           pc.restartIce();
         });
@@ -609,10 +609,12 @@ function setMediaBitrates(sdp) {
                   sdp: JSON.stringify(pc.localDescription),
                   name: data.name
                 });
+              }).catch((e) => {
+                logError(e)
+                pc.restartIce();
               });
           }
-        })
-        .catch((e) => {
+        }).catch(e => {
           logError(e)
           pc.restartIce();
         });
