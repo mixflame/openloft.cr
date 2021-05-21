@@ -540,8 +540,17 @@ function setMediaBitrates(sdp) {
         // $(`#remoteVideoContainer-${userId}`).show();
       }
     };
+
+    pc.onsignalingstatechange = (e) => {  // Workaround for Chrome: skip nested negotiations
+      isNegotiating = (pc.signalingState != "stable");
+    }
   
     pc.onnegotiationneeded = function () {
+      if (isNegotiating) {
+        console.log("SKIP nested negotiations");
+        return;
+      }
+      isNegotiating = true;
       if(!window.dontLog) console.log('negotiationstarted');
       window.makingOffer = true;
       pc.createOffer().then(function (offer) {
