@@ -488,7 +488,10 @@ function setMediaBitrates(sdp) {
         }).then(() => {
           window.makingOffer = false;
         })
-        .catch(logError);
+        .catch((e) => {
+          logError(e)
+          pc.restartIce();
+        });
     }
   
     pc.onicecandidate = (event) => {
@@ -555,7 +558,10 @@ function setMediaBitrates(sdp) {
       }).then(() => {
         window.makingOffer = false;
       })
-      .catch(e => console.log(e));
+      .catch((e) => {
+        logError(e)
+        pc.restartIce();
+      });
   }
   
     return pc;
@@ -573,7 +579,10 @@ function setMediaBitrates(sdp) {
     if (data.candidate) {
       pc.addIceCandidate(new RTCIceCandidate(JSON.parse(data.candidate)))
         .then(() => console.log("Ice candidate added"))
-        .catch(logError);
+        .catch((e) => {
+          logError(e)
+          pc.restartIce();
+        });
     }
   
     if (data.sdp) {
@@ -603,7 +612,10 @@ function setMediaBitrates(sdp) {
               });
           }
         })
-        .catch(logError);
+        .catch((e) => {
+          logError(e)
+          pc.restartIce();
+        });
     }
   };
   
@@ -635,6 +647,7 @@ function setMediaBitrates(sdp) {
     if (!ignoreOffer) {
       throw error;
     }
+    
   };
   
   
