@@ -135,6 +135,9 @@ class Client
     @server = "irc.rizon.io"
     @port = 6667
     @nick = "gbaldraw-bridge"
+    if Amber.env == :development
+        @nick = "gbaldraw-bridge-dev"
+    end
     @user = "gbaldraw-bridge"
     @password = "none"
     @channels = ["#gbaldraw"]
