@@ -599,7 +599,7 @@ function setMediaBitrates(sdp) {
       const offerCollision = (data.sdp.type == "offer") &&
                                (window.makingOffer || pc.signalingState != "stable");
       ignoreOffer = !polite && offerCollision;
-      if (ignoreOffer || isNegotiating) {
+      if (ignoreOffer) {
         return;
       }
       const sdp = JSON.parse(data.sdp);
