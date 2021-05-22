@@ -24,7 +24,7 @@
       </div>
     </div>
 
-    <script src="/dist/main.bundle.js"></script>
+    <script src="/dist/main.bundle.js?version=<%= Digest::SHA1.hexdigest(VERSION) %>"></script>
 
     <%- if Amber.settings.auto_reload? -%><script src="/js/client_reload.js"></script><%- end -%>
   </body>

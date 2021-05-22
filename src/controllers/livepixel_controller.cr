@@ -3,6 +3,7 @@ require "sanitize"
 require "http"
 require "uri"
 require "base64"
+require "digest"
 
 #paypal
 CLIENT_ID = "AXEHRTl5y4XYIOuuIJ7CT5TE5v0CLNViXwk7CD8F5DhAT6JTKoF9jWJMr71f5W_BsSS9gnp8hjSPunFL"
