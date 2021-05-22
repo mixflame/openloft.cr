@@ -455,7 +455,7 @@ function setMediaBitrates(sdp) {
     container.style = "float: left; display: inline; width: 25%; height: 25%; padding-left: 10px;"
     remoteVideoContainer.appendChild(container);
     $(container).addClass(`camUser-${n}`);
-    $(container).hide();
+    // $(container).hide();
     $(`#video-${userId}`).on("play", function(e){
       $(`#remoteVideoContainer-${userId}`).show();
     })
