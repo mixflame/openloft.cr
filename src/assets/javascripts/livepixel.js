@@ -548,7 +548,7 @@ function setMediaBitrates(sdp) {
     pc.onnegotiationneeded = function () {
       if (isNegotiating) {
         console.log("SKIP nested negotiations");
-        // return;
+        return;
       }
       isNegotiating = true;
       if(!window.dontLog) console.log('negotiationstarted');
