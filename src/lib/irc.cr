@@ -2,7 +2,7 @@ require "json"
 require "socket"
 
 class Client
-  getter version : String = "crystal-irc-bot v0.0.1"
+  getter version : String = "gbaldraw-bridge v0.0.2"
 
   property server : String = ""
   property port : Int32 = 0
@@ -26,9 +26,12 @@ class Client
       response = get_response
       next unless response
 
+      pong(response)
+
       login
       privmsg(response)
       join_channels
+
       break if logged_in && version_sent && channels_joined
     end
 
@@ -38,9 +41,35 @@ class Client
       next unless response
 
       pong(response)
+
+      get_message(response)
+
+      spawn do
+        while true
+            message = IRC_CHANNEL.receive
+
+            puts "message #{message}"
+
+            name = message.first
+
+            chat = message.last
+
+            say("#gbaldraw", "#{name} -> #{chat}")
+        end
+      end
     end
     
     client.close
+  end
+
+
+  def get_message(response)
+    return unless response.includes?("PRIVMSG")
+    parts = response.split(":")
+    message = parts.last.to_s
+    name = parts[1].split(" ").first.split("!").first
+    puts "name #{name}"
+    ChatSocket.broadcast("message", "chat:null", "message_new", {name: name, chat_message: parts.last}.to_h)
   end
 
   def login
@@ -89,6 +118,10 @@ class Client
     @channels_joined = true
   end
 
+  def say(channel, what)
+    client << "PRIVMSG #{channel} :#{what}\r\n"
+  end
+
   def configure
     # json = JSON.parse(File.read("config.json"))
     # @server = json["server"].to_s
@@ -99,7 +132,7 @@ class Client
     # json["channels"].as_a.each do |channel|
     #   @channels.push(channel.as_s)
     # end
-    @server = "irc.rizon.net"
+    @server = "irc.rizon.io"
     @port = 6667
     @nick = "gbaldraw-bridge"
     @user = "gbaldraw-bridge"
