@@ -69,7 +69,8 @@ class Client
     message = parts.last.to_s
     name = parts[1].split(" ").first.split("!").first
     puts "name #{name}"
-    ChatSocket.broadcast("message", "chat:null", "message_new", {name: name, chat_message: parts.last}.to_h)
+    sanitizer = Sanitize::Policy::HTMLSanitizer.common
+    ChatSocket.broadcast("message", "chat:null", "message_new", {name: sanitizer.process(name), chat_message: sanitizer.process(parts.last)}.to_h)
   end
 
   def login
