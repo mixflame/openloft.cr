@@ -470,7 +470,7 @@ function setMediaBitrates(sdp) {
       }
     }
   
-    if(isOffer && !isNegotiating[pc]){
+    if(isOffer){
       window.makingOffer = true;
       pc
         .createOffer()
@@ -608,8 +608,8 @@ function setMediaBitrates(sdp) {
           if (sdp.type === "offer") {
             pc.createAnswer()
               .then((answer) => {
-                answer.sdp = setMediaBitrate(answer.sdp);
-                return pc.setLocalDescription(answer);
+                  answer.sdp = setMediaBitrate(answer.sdp);
+                  return pc.setLocalDescription(answer);
               })
               .then(() => {
                 broadcastData({
