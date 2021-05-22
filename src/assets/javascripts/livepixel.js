@@ -470,7 +470,7 @@ function setMediaBitrates(sdp) {
       }
     }
   
-    if(isOffer){
+    if(isOffer && !isNegotiating){
       window.makingOffer = true;
       pc
         .createOffer()
