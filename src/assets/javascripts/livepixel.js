@@ -212,7 +212,7 @@ function setMediaBitrates(sdp) {
   
   var ignoreOffer = false;
 
-  var isNegotiating = false; 
+  var isNegotiating = {}; 
   
   // Ice Credentials
   const ice = { iceServers: [{ urls: ["stun:stun.l.google.com:19302", "stun:45.79.48.199:5349", "turn:45.79.48.199:5349?transport=tcp"], username: "guest", credential: "password442" }] };
@@ -470,7 +470,7 @@ function setMediaBitrates(sdp) {
       }
     }
   
-    if(isOffer && !isNegotiating){
+    if(isOffer && !isNegotiating[pc]){
       window.makingOffer = true;
       pc
         .createOffer()
@@ -542,15 +542,15 @@ function setMediaBitrates(sdp) {
     };
 
     pc.onsignalingstatechange = (e) => {  // Workaround for Chrome: skip nested negotiations
-      isNegotiating = (pc.signalingState != "stable");
+      isNegotiating[pc] = (pc.signalingState != "stable");
     }
   
     pc.onnegotiationneeded = function () {
-      if (isNegotiating) {
+      if (isNegotiating[pc]) {
         console.log("SKIP nested negotiations");
         return;
       }
-      isNegotiating = true;
+      isNegotiating[pc] = true;
       if(!window.dontLog) console.log('negotiationstarted');
       window.makingOffer = true;
       pc.createOffer().then(function (offer) {
