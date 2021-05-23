@@ -2063,11 +2063,6 @@ function setMediaBitrates(sdp) {
     
     
     })
-
-    if (typeof screen.orientation !== 'undefined') {
-      $("canvas").hide();
-      $("#toolbox").hide();
-    }
   
   })
   
