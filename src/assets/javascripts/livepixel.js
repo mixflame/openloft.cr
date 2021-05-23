@@ -1930,13 +1930,6 @@ function setMediaBitrates(sdp) {
   
     $("#mute-button").click(() => {
       toggleMic(window.localstream, "#mute-button");
-      if($("#mute-button").html().includes("Unmute")){
-        $("#chat_message").html(window.name + " muted his mic.");
-        $("#send_message").click();
-      } else {
-        $("#chat_message").html(window.name + " unmuted his mic.");
-        $("#send_message").click();
-      }
     })
   
     $("#video-mute-button").click(() => {
