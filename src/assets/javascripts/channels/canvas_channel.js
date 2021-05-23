@@ -15,7 +15,8 @@ window.canvas_socket.connect()
         window.canvas_channel = window.canvas_socket.channel('canvas:' + window.room)
         window.canvas_channel.join()
 
-        setInterval(window.start_pinging, 1000);
+        window.start_pinging();
+        setInterval(window.start_pinging, 5000);
 
         if (!window.dontLog) console.log("Connected to Canvas channel!");
 

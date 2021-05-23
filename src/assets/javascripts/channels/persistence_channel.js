@@ -33,13 +33,11 @@ persistence_socket.connect()
             if (count == 0) {
                 window.redraw(true, true);
                 // window.redraw(false, false);
-                setTimeout(function () {
-                    $("#status").text("canvas loaded");
-                    window.disabled = false;
-                    $("#join-button").click();
-                    console.log("canvas session joined")
-                    // window.start_pinging();
-                }, 1000);
+                $("#status").text("canvas loaded");
+                window.disabled = false;
+                $("#join-button").click();
+                console.log("canvas session joined")
+
             } else {
 
                 data['canvas'].forEach(function (json, index) {
@@ -49,12 +47,9 @@ persistence_socket.connect()
                     window.total = window.total + 1;
                     if (packets_length == window.total) {
                         window.redraw(true, true);
-                        setTimeout(function () {
-                            $("#status").text("canvas loaded");
-                            window.disabled = false;
-                            $("#join-button").click();
-                            // window.start_pinging();
-                        }, 1000);
+                        $("#status").text("canvas loaded");
+                        window.disabled = false;
+                        $("#join-button").click();
                     } else {
                         $("#status").text("canvas loading... " + index + "/" + count);
                     }
