@@ -6,6 +6,10 @@ $secondary: #949494;
 @import "stats";
 @import "buy_ad";
 
+.bg-black {
+  background-color: black;
+}
+
 .navbar {
   position: static;
   display: block;
