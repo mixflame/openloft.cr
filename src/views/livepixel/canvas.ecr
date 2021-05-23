@@ -105,7 +105,7 @@
 
   <div id="undo_tool" class="tool" style="border-left: none;">
     <i class="fas fa-undo" style="padding-left: 10px; padding-right: 10px" title="Undo" id="undo_icon"></i>
-    <button id="undo">Undo</button>
+    <button class="btn btn-secondary btn-sm" id="undo">Undo</button>
   </div>
 
 
@@ -114,9 +114,6 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 97.5%">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Gbaldraw.fun</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
@@ -185,10 +182,10 @@
   </select>
 
   <div id="cam_buttons_holder" style="padding-top: 10px;">
-    <button id="join-button">Join Room</button>
-    <button id="leave-button" disabled=true>Leave Room</button>
-    <button id="mute-button">Mute mic</button>
-    <button id="video-mute-button">Stop camera</button>
+    <button class="btn btn-primary" id="join-button">Join Room</button>
+    <button class="btn btn-secondary" id="leave-button" disabled=true>Leave Room</button>
+    <button class="btn btn-secondary" id="mute-button">Mute mic</button>
+    <button class="btn btn-secondary" id="video-mute-button">Stop camera</button>
     <input type="range" min="0.0" max="1.0" value="1.0" step="0.01" class="slider" id="call-volume">
   </div>
 
@@ -206,16 +203,16 @@
       <div class="actions" style="display: inline">
         <input type="color" id="text_back_color" value="#000000" />
         <input type="color" id="text_color" value="#000000" />
-        <button data-action="bold">bold</button>
-        <button data-action="italic">italic</button>
-        <button data-action="createLink">link</button>
-        <button data-action="insertImage">image</button>
-        <button data-action="searchGiphy">giphy</button>
-        <button data-action="insertHTML">html</button>
+        <button class="btn btn-primary" data-action="bold">bold</button>
+        <button class="btn btn-primary" data-action="italic">italic</button>
+        <button class="btn btn-primary" data-action="createLink">link</button>
+        <button class="btn btn-primary" data-action="insertImage">image</button>
+        <button class="btn btn-primary" data-action="searchGiphy">giphy</button>
+        <button class="btn btn-primary" data-action="insertHTML">html</button>
       </div>
-      <button style="display: inline-block" id="emoji-trigger">emoji</button>
+      <button class="btn btn-primary" style="display: inline-block" id="emoji-trigger">emoji</button>
     </p>
-    <p><div contenteditable="true" id="chat_message" name="chat_message" style="width: 90%; border: lightblue 1px solid; display: inline-block;"></div><button style="display: inline-block;" id="send_message">Send</button></p>
+    <p><div contenteditable="true" id="chat_message" name="chat_message" style="width: 90%; border: lightblue 1px solid; display: inline-block;"></div><button class="btn btn-primary" style="display: inline-block;" id="send_message">Send</button></p>
   </div>
 
   <div id="whos-drawing-holder" style="background-color: white;">
