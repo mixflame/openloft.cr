@@ -262,4 +262,8 @@ class LivepixelController < ApplicationController
       # create base64 image from uploaded_io
     end
 
+    def active_users
+      {active_users: Amber::WebSockets::ClientSockets.client_sockets.size / 4}.to_h.to_json
+    end
+
 end

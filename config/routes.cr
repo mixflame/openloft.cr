@@ -43,6 +43,7 @@ Amber::Server.configure do
     post "/create_order", LivepixelController, :create_order
     post "/capture_order", LivepixelController, :capture_order
     post "/upload", LivepixelController, :upload
+    get "/active_users", LivepixelController, :active_users
   end
 
   routes :api do
