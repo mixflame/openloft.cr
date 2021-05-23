@@ -265,8 +265,8 @@ a:visited {
   float: left;
 }
 
-#whos-drawing li {
-  -webkit-text-stroke: 1px black;
+#connected_users li {
+  -webkit-text-stroke: 1px white;
 }
 
 
@@ -277,7 +277,7 @@ a:visited {
   padding: 3px;
   padding-left: 1px;
   padding-right: 1px;
-  background-color: white;
+  background-color: rgb(226, 226, 226);
 }
 
 #last-colors {
@@ -306,7 +306,7 @@ a:visited {
 .nav-item {
   float: left;
   padding-left: 15px;
-  background-color: white;
+  background-color: rgb(226, 226, 226);
 }
 
 .nav-link:hover {

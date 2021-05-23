@@ -764,22 +764,10 @@ function setMediaBitrates(sdp) {
   var mouseDown = function(mousedown_name, color, size) {
     if(mousedown_name.match(/^[a-z0-9]+$/i)) {
       $("#status").text(mousedown_name + " is drawing");
-      if($("#"+mousedown_name).length == 0)
-        $("#whos-drawing").append('<li id="' + mousedown_name + '" style="color:' + color + '; font-size:' + ((size * 3) + 10) + 'pt; ">' + mousedown_name + '</div>')
+      $(".online-" + mousedown_name).html('<li class="online-'+ mousedown_name +'" style="color:' + color + ';">' + mousedown_name + '</div>')
     }
   }
   window.mouseDown = mouseDown;
-  
-  var mouseUp = function(mousedown_name) {
-    if(mousedown_name.match(/^[a-z0-9]+$/i)) {
-      if($("#"+mousedown_name).length > 0) {
-        setTimeout(function(){
-          $("#"+mousedown_name).remove()
-        }, 1000)
-      }
-    }
-  }
-  window.mouseUp = mouseUp;
   
   // add a click, either to local variables or to multiplayer hash
   var addClick = function(x, y, dragging, mp, click_name, color, size, text, path, line_join, shape_type, shape_width, shape_height, shape_fill, shape_angle)

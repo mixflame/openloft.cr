@@ -137,6 +137,9 @@ window.canvas_socket.connect()
                         // one by one move to the end in correct order
                         parent.appendChild(item);
                     });
+                } else {
+                    var mousedown_name = data['name'];
+                    $(".online-" + mousedown_name).html(`<li class='online-${data['name']}'>${data['name']}</li>`)
                 }
                 return;
             }
@@ -155,8 +158,6 @@ window.canvas_socket.connect()
                 }
 
                 window.mouseDown(data["name"], data["color"], data['size']);
-            } else {
-                window.mouseUp(data["name"]);
             }
         })
 
