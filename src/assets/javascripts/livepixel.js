@@ -90,9 +90,9 @@ function setMediaBitrates(sdp) {
       audioTracks[i].enabled = !audioTracks[i].enabled;
       muted = !audioTracks[i].enabled;
       if(muted) {
-        $(id).html("Unmute mic");
+        $(id).html("Unmute");
       } else {
-        $(id).html("Mute mic");
+        $(id).html("Mute");
       }
     }
   }
@@ -104,9 +104,9 @@ function setMediaBitrates(sdp) {
       videoTracks[i].enabled = !videoTracks[i].enabled;
       muted = !videoTracks[i].enabled;
       if(muted) {
-        $(id).html("Start camera");
+        $(id).html("Start cam");
       } else {
-        $(id).html("Stop camera");
+        $(id).html("Stop cam");
       }
     }
   }
@@ -436,7 +436,8 @@ function setMediaBitrates(sdp) {
     const video_mute = document.createElement("button");
     video_mute.id = `video-mute-${userId}`
     $(video_mute).prop("user_id", userId);
-    $(video_mute).html("Stop camera")
+    $(video_mute).html("Stop cam")
+    $(video_mute).addClass("btn btn-secondary btn-sm d-inline");
     $(video_mute).click(function(e){
       var el = e.currentTarget;
       toggleCamera($("#video-" + $(el).prop("user_id"))[0].srcObject, video_mute);
@@ -444,7 +445,8 @@ function setMediaBitrates(sdp) {
     const audio_mute = document.createElement("button");
     audio_mute.id = `audio-mute-${userId}`
     $(audio_mute).prop("user_id", userId);
-    $(audio_mute).html("Mute mic")
+    $(audio_mute).html("Mute")
+    $(audio_mute).addClass("btn btn-secondary btn-sm d-inline");
     $(audio_mute).click(function(e){
       var el = e.currentTarget;
       toggleMic($("#video-" + $(el).prop("user_id"))[0].srcObject, audio_mute);
