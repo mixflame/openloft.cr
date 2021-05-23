@@ -1,10 +1,15 @@
 $primary: #f4994b;
+$secondary: #4be9f4;
 
 @import '~bootstrap/scss/bootstrap';
 
 @import "stats";
 @import "buy_ad";
 
+.navbar {
+  position: static;
+  display: block;
+}
 
 *, *::before, *::after {
   box-sizing: content-box;
@@ -48,18 +53,20 @@ $primary: #f4994b;
 
 }
 
-
+#toolbox {
+  color: black;
+}
 
 body {
   margin: 0;
-  background-color: #000;
-  color: #fff;
+  // background-color: #000;
+  color: $primary;
 }
 
-div {
-  background: #000000;
-	color: white;
-}
+// div {
+//   // background: #000000;
+// 	// color: white;
+// }
 
 canvas {
   image-rendering: optimizeSpeed;             /* Older versions of FF          */
@@ -221,12 +228,12 @@ body {
 }
 
 a {
-  color: white;
+  color: #4b56f4 !important;
   font-size: 16pt;
 }
 
 a:visited {
-  color: white;
+  color: $secondary;
   font-size: 16pt;
 }
 
@@ -256,4 +263,21 @@ a:visited {
 
 #whos-drawing li {
   -webkit-text-stroke: 1px black;
+}
+
+
+.tool {
+  float: left;
+  border: lightblue 3px solid;
+  height: 33px;
+  padding: 3px;
+}
+
+#last-colors {
+  float: left;
+  padding-top: 5px;
+  padding-left: 5px;
+  padding-bottom: 5px;
+  padding-right: 5px;
+  border-bottom: solid lightblue 3px;
 }

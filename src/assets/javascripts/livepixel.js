@@ -1737,13 +1737,15 @@ function setMediaBitrates(sdp) {
         curSize = 35;
     })
   
-    $("#dark-mode").change(function() {
-      if($("#dark-mode").is(":checked")) {
-        $("*").css("background-color", "#000000");
-        $("*").css("color", "#FFFFFF");
+    $("#dark-mode").click(function() {
+      if(!$("#dark-mode").is(":checked")) {
+        var bgDark = $("body");
+        bgDark.removeClass("bg-dark")
+        bgDark.addClass("bg-light")
       } else {
-        $("*").css("background-color", "#FFFFFF");
-        $("*").css("color", "#000000");
+        var bgLight = $("body");
+        bgLight.removeClass("bg-light")
+        bgLight.addClass("bg-dark")
       }
     })
   

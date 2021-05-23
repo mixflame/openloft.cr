@@ -5,7 +5,7 @@
 <% end %>
 
 <div id="toolbox" style="display: block; font-size: 10px;">
-  <div id="last-colors" style="float: left;">
+  <div id="last-colors">
     <% (0..15).each do |num| %>
     <div class="swatch" id="last-color-<%= num %>"></div>
     <% end %>
@@ -14,13 +14,13 @@
 
 
   
-  <div id="color_tool" style="float: left; border: lightblue 3px solid; height: 33px;">
-    <i class="fas fa-palette" style="padding-left: 10px; padding-right: 10px" title="Color" id="color_icon"></i>
+  <div id="color_tool" class="tool">
+    <i class="fas fa-palette" style="padding-left: 10px; padding-right: 10px;" title="Color" id="color_icon"></i>
     <input type="color" id="color" value="#000000" />
   </div>
 
-  <div id="brush_type_tool" style="float: left; border: lightblue 3px solid; height: 33px;">
-  <i class="fas fa-paint-brush" style="padding-left: 10px; padding-right: 10px" title="Size" id="brush_type_icon"></i>
+  <div id="brush_type_tool" class="tool" style="border-left: none;">
+  <i class="fas fa-paint-brush" style="padding-left: 10px; padding-right: 10px;" title="Size" id="brush_type_icon"></i>
     <select name="brush_type" id="brush_type">
       <option value="round">Round</option>
       <option value="bevel">Bevel</option>
@@ -29,7 +29,7 @@
   </div>
 
   
-  <div id="size_tool" style="float: left; border: lightblue 3px solid; height: 33px; border-left: none;">
+  <div id="size_tool" class="tool" style="border-left: none;">
     <i class="fas fa-ruler" style="padding-left: 10px; padding-right: 10px" title="Size" id="brush_size_icon"></i>
     rand: <input type="checkbox" id="random-brush-size" checked=false>
     <input style="width: 50px;" type="range" min="1" max="35" value="3" class="slider" id="brush-size">
@@ -37,14 +37,14 @@
 
 
 
-  <div id="name_changer" style="float: left; border: lightblue 3px solid; height: 33px; border-left: none;"><strong style="padding-left: 10px; padding-right: 10px"></strong> <input style="width: 100px;" type="text" id="name" maxlength=30 /></div>
+  <div id="name_changer" class="tool" style="border-left: none;"><strong style="padding-left: 10px; padding-right: 10px"></strong> <input style="width: 100px;" type="text" id="name" maxlength=30 /></div>
 
-  <div id="rainbow-pen-tool" style="float: left; border: lightblue 3px solid; height: 33px; border-left: none;">
+  <div id="rainbow-pen-tool" class="tool" style="border-left: none;">
     <i class="fas fa-rainbow" style="padding-left: 10px; padding-right: 10px" title="Rainbow" id="rainbow_icon"></i>
     <input type="checkbox" id="rainbow" checked=false>
   </div>
 
-  <div id="rainbow-pen-tool-style" style="float: left; border: lightblue 3px solid; height: 33px; border-left: none;">
+  <div id="rainbow-pen-tool-style" class="tool" style="border-left: none;">
     <select name="themes" id="themes">
       <option value="rain">Rainbow</option>
       <option value="camo">Camoflauge</option>
@@ -67,7 +67,7 @@
     </select>
   </div>
 
-  <div id="shape_tool" style="float: left; border: lightblue 3px solid; height: 33px; border-left: none;">
+  <div id="shape_tool" class="tool" style="border-left: none;">
     <i class="fas fa-shapes" style="padding-left: 10px; padding-right: 10px" title="Shape Tool" id="shape_tool_icon"></i>
     fill: <input type="checkbox" id="shape_fill" checked=false>
     <select name="shape_type" id="shape_type">
@@ -82,28 +82,28 @@
   
   </div>
 
-  <div id="text-tool-holder" style="float: left; border: lightblue 3px solid; height: 33px; border-left: none;">
+  <div id="text-tool-holder" class="tool" style="border-left: none;">
     <i class="fas fa-paragraph" style="padding-left: 10px; padding-right: 10px" title="Text" id="text_tool_icon"></i>
     <input type="checkbox" id="text-tool" checked=false>
     <input style="width: 100px;" type="text" id="text-to-write" maxlength=100 />
   </div>
 
-  <div id="eyedropper-tool" style="float: left; border: lightblue 3px solid; height: 33px; border-left: none;">
+  <div id="eyedropper-tool" class="tool" style="border-left: none;">
     <i class="fas fa-eye-dropper" style="padding-left: 10px; padding-right: 10px" title="Eyedropper" id="eyedropper_icon"></i>
     <input type="checkbox" id="eyedropper" checked=false>
   </div>
 
-  <div id="eraser_tool" style="float: left; border: lightblue 3px solid; height: 33px; border-left: none;">
+  <div id="eraser_tool" class="tool" style="border-left: none;">
     <i class="fas fa-eraser" style="padding-left: 10px; padding-right: 10px" title="Eraser" id="eraser_icon"></i>
     <input type="checkbox" id="eraser" checked=false>
   </div>
 
-  <div id="paintbucket_tool" style="float: left; border: lightblue 3px solid; height: 33px; border-left: none;">
+  <div id="paintbucket_tool" class="tool" style="border-left: none;">
     <i class="fas fa-fill" style="padding-left: 10px; padding-right: 10px" title="Paint bucket" id="paintbucket_icon"></i>
     <input type="checkbox" id="paintbucket" checked=false>
   </div>
 
-  <div id="undo_tool" style="float: left; border: lightblue 3px solid; height: 33px; border-left: none;">
+  <div id="undo_tool" class="tool" style="border-left: none;">
     <i class="fas fa-undo" style="padding-left: 10px; padding-right: 10px" title="Undo" id="undo_icon"></i>
     <button id="undo">Undo</button>
   </div>
@@ -113,25 +113,47 @@
 
 <div id="links">
 
-  <div id="private_box"><a href="#" id="private_room">create a private room</a></div>
-
-  <div id="downbox"><a href="#" id="downloader" download="image.png">download this image</a></div>
-
-  <div id="apiuploadbox"><a href="#" id="uploader">upload this image to imgur</a></div>
-
-  <div id="gallery"><a href="/gallery" id="gallery_link" target="_blank">gallery</a></div>
-  
-  <div id="discord"><a href="https://discord.gg/354vSWQDaf" id="discord_link" target="_blank">discord</a></div>
-
-  <div id="stats"><a href="/stats?room=<%= room %>" target="_blank">stats</a></div>
-
-  <div id="ad"><a href="/buy_ad" target="_blank">advertise here for $10/month</a></div>
-
-  <div id="privacy_policy"><a href="/privacy_policy" id="privacy_policy_link" target="_blank">privacy policy</a></div>
-
-  <% unless room == "" %><div id="clear_canvas_holder"><a href="#" id="clear_canvas">clear canvas</a></div><% end %>
-
-  <div id="full_screen_holder"><a href="#" id="full-screen">full screen</a></div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Gbaldraw.fun</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a href="#" class="nav-link" id="private_room">create a private room</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link" id="downloader" download="image.png">download this image</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link" id="uploader">upload this image to imgur</a>
+          </li>
+          <li class="nav-item">
+            <a href="/gallery" class="nav-link" id="gallery_link" target="_blank">gallery</a>
+          </li>
+          <li class="nav-item">
+            <a href="https://discord.gg/354vSWQDaf" class="nav-link" id="discord_link" target="_blank">discord</a>
+          </li>
+          <li class="nav-item">
+            <a href="/stats?room=<%= room %>" class="nav-link" target="_blank">stats</a>
+          </li>
+          <li class="nav-item">
+            <a href="/buy_ad" class="nav-link" target="_blank">advertise here for $10/month</a>
+          </li>
+          <% unless room == "" %>
+          <li class="nav-item">
+            <a href="#" class="nav-link" id="clear_canvas">clear canvas</a>
+          </li>
+          <% end %>
+          <li class="nav-item">
+            <a href="#" class="nav-link" id="full-screen">full screen</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
 </div>
 
