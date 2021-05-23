@@ -2064,7 +2064,7 @@ function setMediaBitrates(sdp) {
     
     })
 
-    if (typeof window.orientation !== 'undefined') {
+    if (typeof screen.orientation !== 'undefined') {
       $("canvas").hide();
       $("#toolbox").hide();
     }
