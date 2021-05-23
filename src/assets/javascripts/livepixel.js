@@ -437,7 +437,7 @@ function setMediaBitrates(sdp) {
     video_mute.id = `video-mute-${userId}`
     $(video_mute).prop("user_id", userId);
     $(video_mute).html("Stop cam")
-    $(video_mute).addClass("btn btn-secondary btn-sm d-inline mr-1");
+    $(video_mute).addClass("btn btn-secondary btn-sm d-inline mr-1 mb-1");
     $(video_mute).click(function(e){
       var el = e.currentTarget;
       toggleCamera($("#video-" + $(el).prop("user_id"))[0].srcObject, video_mute);
@@ -446,7 +446,7 @@ function setMediaBitrates(sdp) {
     audio_mute.id = `audio-mute-${userId}`
     $(audio_mute).prop("user_id", userId);
     $(audio_mute).html("Mute")
-    $(audio_mute).addClass("btn btn-secondary btn-sm d-inline mr-1");
+    $(audio_mute).addClass("btn btn-secondary btn-sm d-inline mr-1 mb-1");
     $(audio_mute).click(function(e){
       var el = e.currentTarget;
       toggleMic($("#video-" + $(el).prop("user_id"))[0].srcObject, audio_mute);
@@ -2064,6 +2064,13 @@ function setMediaBitrates(sdp) {
     
     
     
+    })
+
+    $(".dropdown-item").click((e) => {
+      var type = $(e.currentTarget).html();
+      console.log(type);
+      $("#input").val(type);
+      $("#input").change();
     })
   
   })

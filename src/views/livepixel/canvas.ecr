@@ -171,10 +171,20 @@
 
   <div class="clear"></div>
 
-  <select id="input">
-    <option value="cam" selected>cam</option>
-    <option value="screen">screen</option>
-  </select>
+
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Input
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" href="#">cam</a>
+      <a class="dropdown-item" href="#">screen</a>
+    </div>
+    <select id="input" style="display: none">
+      <option value="cam" selected>cam</option>
+      <option value="screen">screen</option>
+    </select>
+  </div>
 
   <div id="cam_buttons_holder" style="padding-top: 10px;">
     <button class="btn btn-primary" id="join-button">Join Room</button>
