@@ -1,4 +1,4 @@
-$primary: #e4e4e4;
+$primary: #f0f0f0;
 $secondary: #dddddd;
 
 @import '~bootstrap/scss/bootstrap';
@@ -232,7 +232,7 @@ body {
 }
 
 a {
-  color: #4b56f4 !important;
+  color: #922121 !important;
   font-size: 16pt;
 }
 
@@ -306,7 +306,7 @@ a:visited {
 .nav-item {
   float: left;
   padding-left: 15px;
-  background-color: rgb(226, 226, 226);
+  background-color: rgb(241, 241, 241);
 }
 
 .nav-link:hover {
