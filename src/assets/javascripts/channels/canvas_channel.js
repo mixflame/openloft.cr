@@ -139,7 +139,8 @@ window.canvas_socket.connect()
                     });
                 } else {
                     var mousedown_name = data['name'];
-                    $(".online-" + mousedown_name).html(`<li class='online-${data['name']}'>${data['name']}</li>`)
+                    // $(".online-" + mousedown_name).remove();
+                    $(".online-" + mousedown_name).replaceWith('<li class="online-'+ mousedown_name +'">' + mousedown_name + '</li>')
                 }
                 return;
             }
