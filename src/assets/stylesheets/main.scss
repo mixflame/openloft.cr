@@ -273,6 +273,7 @@ a:visited {
   padding: 3px;
   padding-left: 1px;
   padding-right: 1px;
+  background-color: $secondary;
 }
 
 #last-colors {
@@ -282,6 +283,7 @@ a:visited {
   padding-bottom: 5px;
   padding-right: 3px;
   border-bottom: solid lightblue 3px;
+  background-color: $secondary;
 }
 
 #ad {
@@ -289,4 +291,28 @@ a:visited {
   display: inline;
   margin-left: 20px;
   margin-top: 10px;
+}
+
+
+.navbar-nav {
+  display: block;
+  
+}
+
+.nav-item {
+  float: left;
+  padding-left: 15px;
+  background-color: white;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+.nav-link {
+  text-decoration: none;
+}
+
+.nav-item-end {
+  padding-right: 5px;
 }
