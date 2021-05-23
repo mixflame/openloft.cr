@@ -763,8 +763,9 @@ function setMediaBitrates(sdp) {
   
   var mouseDown = function(mousedown_name, color, size) {
     if(mousedown_name.match(/^[a-z0-9]+$/i)) {
-      $("#status").text(mousedown_name + " is drawing");
-      $(".online-" + mousedown_name).html('<li class="online-'+ mousedown_name +'" style="color:' + color + ';">' + mousedown_name + '</div>')
+      $("#status").html("<font class='who-drew' color='" + color + "'>" + mousedown_name + "</font> is drawing");
+      $(".online-" + mousedown_name).remove();
+      $("#connected_users").html($("#connected_users").html() + '<li class="online-'+ mousedown_name +'" style="color:' + color + ';">' + mousedown_name + '</div>')
     }
   }
   window.mouseDown = mouseDown;

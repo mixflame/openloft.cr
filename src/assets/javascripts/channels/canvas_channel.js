@@ -118,7 +118,6 @@ window.canvas_socket.connect()
                         })
                 }
                 if ($(".online-" + data['name']).length == 0) {
-                    $(".online-" + data['name']).remove();
                     $("#connected_users").html($("#connected_users").html() + `<li class='online-${data['name']}'>${data['name']}</li>`)
 
                     var parent = $("#connected_users")[0],
