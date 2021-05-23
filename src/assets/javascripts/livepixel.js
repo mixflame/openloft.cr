@@ -228,7 +228,7 @@ function setMediaBitrates(sdp) {
     handleLeaveSession();
   }
   
-  window.connectVideo = function() {
+  window.connectVideo = function(videoIncluded = true) {
     
     currentUser = $("#current-user")[0].innerHTML;
     window.currentUser = currentUser;
@@ -241,7 +241,7 @@ function setMediaBitrates(sdp) {
     navigator.mediaDevices
     .getUserMedia({
       audio: true,
-      video: true,
+      video: videoIncluded,
     })
     .then((stream) => {
       window.localstream = stream;
@@ -1918,12 +1918,21 @@ function setMediaBitrates(sdp) {
   
     $("#join-button").click(function() {
       $("#join-button").prop("disabled", true);
+      $("#join-audio-button").prop("disabled", true);
       $("#leave-button").prop("disabled", false);
       window.connectVideo();
+    })
+
+    $("#join-audio-button").click(function() {
+      $("#join-button").prop("disabled", true);
+      $("#join-audio-button").prop("disabled", true);
+      $("#leave-button").prop("disabled", false);
+      window.connectVideo(false);
     })
   
     $("#leave-button").click(function() {
       $("#join-button").prop("disabled", false);
+      $("#join-audio-button").prop("disabled", false);
       $("#leave-button").prop("disabled", true);
       window.disconnectVideo();
     })
