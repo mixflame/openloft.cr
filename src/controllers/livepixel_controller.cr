@@ -127,12 +127,24 @@ class LivepixelController < ApplicationController
 
 
   def stats
+    room = params[:room] rescue nil
     redis = Redis.new
-    amt_packets = redis.llen("packets")
-    if amt_packets >= 50000
-      packets = redis.lrange("packets", -50000, -1)
+    if room == "" || room == nil
+      redis_packets_str = "packets"
+      amt_packets = redis.llen(redis_packets_str)
+      if amt_packets >= 50000
+        packets = redis.lrange(redis_packets_str, -50000, -1)
+      else
+        packets = redis.lrange(redis_packets_str, 0, -1)
+      end
     else
-      packets = redis.lrange("packets", 0, -1)
+      redis_packets_str = "packets_#{room}"
+      amt_packets = redis.llen(redis_packets_str)
+      if amt_packets >= 50000
+        packets = redis.lrange(redis_packets_str, -50000, -1)
+      else
+        packets = redis.lrange(redis_packets_str, 0, -1)
+      end
     end
     names = packets.map { |p| JSON.parse(p.to_s)["name"] }.uniq
     points = {} of String => String

@@ -1,18 +1,18 @@
     <div align="center">
-    <h1>Stats Page</h1>
+    <h1>Stats page for room: <%= room %></h1>
     <div class="box">
     <h1>Gbaldraw Stats</h1>
     <% if Amber.env == :development %>
-    <p>Connections: <%= Amber::WebSockets::ClientSockets.client_sockets.size %></p>
-    <p>Active users (open tabs): <%= Amber::WebSockets::ClientSockets.client_sockets.size / 4 %></p>
+    <p>(Serverwide) Connections: <%= Amber::WebSockets::ClientSockets.client_sockets.size %></p>
+    <p>(Serverwide) Active users (open tabs): <%= Amber::WebSockets::ClientSockets.client_sockets.size / 4 %></p>
     <% else %>
-    <p>Connections: <%= Amber::WebSockets::ClientSockets.client_sockets.size %></p>
-    <p>Active users (number of open tabs): <%= Amber::WebSockets::ClientSockets.client_sockets.size / 4 %></p>
+    <p>(Serverwide) Connections: <%= Amber::WebSockets::ClientSockets.client_sockets.size %></p>
+    <p>(Serverwide) Active users (number of open tabs): <%= Amber::WebSockets::ClientSockets.client_sockets.size / 4 %></p>
     <% end %>
-    <p>Points in the global canvas: <%= redis.llen("packets") %></p>
-    <p>All time visitors: <%= redis.get("counter") %></p>
-    <p>Layers in the global canvas: <%= all_layers %></p>
-    <p>Global canvas expires in: <%= redis.ttl("packets") %> seconds</p>
+    <p>Points in the canvas: <%= redis.llen(redis_packets_str) %></p>
+    <p>All time number of visitors to site: <%= redis.get("counter") %></p>
+    <p>Layers in the canvas: <%= all_layers %></p>
+    <p>Canvas expires in: <%= redis.ttl(redis_packets_str) %> seconds</p>
     <p>Amount of times that global canvas was recreated: <%= redis.get("balda_counter") == nil ? 0 : redis.get("balda_counter") %></p>
     <p>Keys in database: <%= redis.keys("*").size %></p>
     <p>Canvases that exist: <%= redis.keys("*").reject { |a| (a =~ /packets/) != 0}.size %></p>
