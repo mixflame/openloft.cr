@@ -143,12 +143,6 @@
   </li>
 </ul>
 
-<% if ad != "" && banner_link != "" %>
-    <div id="ad">
-      <a href="<%= sanitizer.process(banner_link) %>" target="_new"><img src="data:image/png;base64,<%= sanitizer.process(ad) %>"></a>
-    </div>
-<% end %>
-
 <div id="bgCanvasDiv"></div>
 
 <div id="canvasDiv" style="float: left; display: inline; margin-top: 10px;"></div>
@@ -246,3 +240,9 @@
 </div>
 
 <div id="counter"><%= counter %> views</div>
+
+<% if ad != "" && banner_link != "" %>
+    <div id="ad">
+      <a href="<%= sanitizer.process(banner_link) %>" target="_new"><img src="data:image/png;base64,<%= sanitizer.process(ad) %>"></a>
+    </div>
+<% end %>
