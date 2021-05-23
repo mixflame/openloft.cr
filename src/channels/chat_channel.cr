@@ -23,7 +23,8 @@ class ChatChannel < Amber::WebSockets::Channel
       ChatSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", msg["payload"].as_h)
       # client.say("#gbaldraw", "<#{data["name"]}> #{data["chat_message"]}")
       if(IRC_CHANNEL)
-        IRC_CHANNEL.send([data["name"].to_s, data["chat_message"].to_s])
+        message = data["chat_message"].to_s.gsub("<br/>", "").squeeze(' ').to_s
+        IRC_CHANNEL.send([data["name"].to_s, message])
       end
     else
       redis = Redis.new
