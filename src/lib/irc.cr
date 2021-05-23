@@ -46,7 +46,7 @@ class Client
 
       spawn do
         while true
-            message = IRC_CHANNEL.receive
+            message = IrcChannel.receive
 
             puts "message #{message}"
 
@@ -66,7 +66,7 @@ class Client
   def get_message(response)
     return unless response.includes?("PRIVMSG")
     parts = response.split(":")
-    message = parts.last.to_s
+    message = response.split("PRIVMSG #gbaldraw :").last.to_s
     name = parts[1].split(" ").first.split("!").first
     puts "name #{name}"
     sanitizer = Sanitize::Policy::HTMLSanitizer.common
