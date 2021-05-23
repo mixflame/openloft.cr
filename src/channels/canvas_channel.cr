@@ -2,7 +2,8 @@ class CanvasChannel < Amber::WebSockets::Channel
   def handle_joined(client_socket, message)
     puts "canvas joined"
     puts message
-    CanvasSocket.broadcast("join", message.as_h["topic"].to_s, "user_join", {} of String => String)
+    CanvasSocket.broadcast(message.as_h["event"].to_s, message.as_h["topic"].to_s, "user_join", {} of String => String)
+    # rebroadcast!(message)
   end
 
   def handle_message(client_socket, message)

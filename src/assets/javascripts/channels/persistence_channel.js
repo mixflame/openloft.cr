@@ -38,7 +38,7 @@ persistence_socket.connect()
                     window.disabled = false;
                     $("#join-button").click();
                     console.log("canvas session joined")
-                    window.start_pinging();
+                    // window.start_pinging();
                 }, 1000);
             } else {
 
@@ -53,7 +53,7 @@ persistence_socket.connect()
                             $("#status").text("canvas loaded");
                             window.disabled = false;
                             $("#join-button").click();
-                            window.start_pinging();
+                            // window.start_pinging();
                         }, 1000);
                     } else {
                         $("#status").text("canvas loading... " + index + "/" + count);

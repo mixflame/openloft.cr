@@ -15,9 +15,11 @@ window.canvas_socket.connect()
         window.canvas_channel = window.canvas_socket.channel('canvas:' + window.room)
         window.canvas_channel.join()
 
+        setInterval(window.start_pinging, 1000);
+
         if (!window.dontLog) console.log("Connected to Canvas channel!");
 
-        canvas_channel.on('message_new', (data) => {
+        window.canvas_channel.on('message_new', (data) => {
             // console.log(data);
             if (data["clear"] == true) {
                 if (!window.dontLog) console.log("clearing");
@@ -157,8 +159,8 @@ window.canvas_socket.connect()
             }
         })
 
-        canvas_channel.on('user_join', (data) => { 
-            
+        window.canvas_channel.on('user_join', (data) => {
+            console.log("user_join canvas: " + data);
         })
 
     })

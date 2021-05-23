@@ -2057,9 +2057,7 @@ function setMediaBitrates(sdp) {
     
     $("canvas")[0].requestFullscreen(); //Firefox
     
-    //...
     
-    //now i want to cancel fullscreen
     
     
     })
@@ -2075,6 +2073,5 @@ function setMediaBitrates(sdp) {
   })
   
   window.start_pinging = () => {
-    setTimeout(window.start_pinging, 1000);
-    window.canvas_channel.push("message_new", {name: window.name, ping: true, room: room});
+    if(window.canvas_channel) window.canvas_channel.push("message_new", {name: window.name, ping: true, room: room});
   }
