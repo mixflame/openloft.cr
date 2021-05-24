@@ -1,0 +1,17 @@
+<h1>Welcome to Gbaldraw.fun!</h1>
+
+<p>Currently there is no user sign up process necessary to use the site.</p>
+
+<p><a href="/canvas?room=">Join main room</a></p>
+
+<p><a href="#" id="private_room">Create private room</a></p>
+
+<script>
+
+document.getElementById("private_room").onclick = function() {
+      var code = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+      window.open("/canvas?room=" + code);
+      return false;
+    };
+
+</script>

@@ -1767,10 +1767,28 @@ function setMediaBitrates(sdp) {
   
     $("#private_room").click(function() {
       var code = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-      window.open("/?room=" + code);
+      window.open("/canvas?room=" + code);
       return false;
     });
+
+    $("#site_link").val(window.location);
   
+    $("#copy_link").click(function() {
+      var copyText = document.getElementById("site_link");
+
+      /* Select the text field */
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+      /* Copy the text inside the text field */
+      document.execCommand("copy");
+
+      /* Alert the copied text */
+      $("#copy_link").html("copied!")
+      setTimeout(function(){
+        $("#copy_link").html("copy link")
+      }, 3000)
+    })
   
     var chat_area = $('#chat_area');
     chat_area.scrollTop(chat_area[0].scrollHeight - chat_area.height());

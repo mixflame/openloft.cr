@@ -11,6 +11,10 @@ CLIENT_SECRET = "ENuzq-_Qx1_N-wmaB_Io5ajTJAjucGzd3bqaKStziSksTfWJqkg-cNT4uIppBWI
 
 class LivepixelController < ApplicationController
 
+  def landing
+    render("landing.ecr")
+  end
+
 
   def gallery
     redis = Redis.new
