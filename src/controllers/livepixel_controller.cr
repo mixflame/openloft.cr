@@ -129,6 +129,25 @@ class LivepixelController < ApplicationController
     render "canvas.ecr", layout: "gbaldraw.ecr"
   end
 
+  def random_ad
+    redis = Redis.new
+    sanitizer = Sanitize::Policy::HTMLSanitizer.common
+    ad = ""
+    banner_link = ""
+    while ad == ""
+      order_id = redis.srandmember("banner_order_ids").to_s
+      break if order_id == ""
+      ad = redis.get(order_id) || ""
+      banner_link = redis.get("#{order_id}_link") || ""
+      if ad == ""
+        redis.srem("banner_order_ids", order_id)
+      else
+        break
+      end
+    end
+    {ad: sanitizer.process(ad), banner_link: sanitizer.process(banner_link)}.to_h.to_json
+  end
+
 
   def stats
     room = params[:room] rescue nil

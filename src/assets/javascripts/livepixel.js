@@ -2081,6 +2081,15 @@ function setMediaBitrates(sdp) {
       $("#input").val(type);
       $("#input").change();
     })
+
+    setInterval(function() {
+      $.getJSON("/random_ad", "", function(data) {
+        let ad = data["ad"];
+        let link = data["banner_link"];
+        $("#ad_link").prop("href", link);
+        $("#ad_img").prop("src", ad);
+      })
+    }, 30000);
   
   })
   

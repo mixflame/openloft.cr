@@ -147,7 +147,7 @@
 
 <% if ad != "" && banner_link != "" %>
     <div id="ad">
-      <a href="<%= sanitizer.process(banner_link) %>" target="_new"><img src="data:image/png;base64,<%= sanitizer.process(ad) %>"></a>
+      <a href="<%= sanitizer.process(banner_link) %>" id="ad_link" target="_new"><img id="ad_img" src="data:image/png;base64,<%= sanitizer.process(ad) %>"></a>
     </div>
 <% end %>
 
