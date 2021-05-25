@@ -2088,7 +2088,7 @@ function setMediaBitrates(sdp) {
         let link = data["banner_link"];
         if(ad != "" && link != "") {
           $("#ad_link").prop("href", link);
-          $("#ad_img").prop("src", ad);
+          $("#ad_img").prop("src", `data:image/png;base64,${ad}`);
         }
       })
     }, 30000);
