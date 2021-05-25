@@ -15,6 +15,8 @@ class DiscordBot
             name = payload.author.username
 
             next if name == "Gbaldraw"
+
+            name = "#{name}@discord"
         
             puts "#{name} said #{message}"
             sanitizer = Sanitize::Policy::HTMLSanitizer.common

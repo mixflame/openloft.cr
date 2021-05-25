@@ -71,6 +71,7 @@ class Client
     parts = response.split(":")
     message = response.split("PRIVMSG #gbaldraw :").last.to_s
     name = parts[1].split(" ").first.split("!").first
+    name = "#{name}@irc"
     puts "name #{name}"
     sanitizer = Sanitize::Policy::HTMLSanitizer.common
     name = sanitizer.process(name.to_s)
