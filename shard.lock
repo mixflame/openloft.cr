@@ -36,6 +36,10 @@ shards:
     git: https://github.com/crystal-lang/crystal-db.git
     version: 0.10.1
 
+  discordcr:
+    git: https://github.com/shardlab/discordcr.git
+    version: 0.4.0+git.commit.c0adeeacd5ac9e1faba29cc65f4bb1435e4b9865
+
   email:
     git: https://github.com/arcage/crystal-email.git
     version: 0.6.3
@@ -79,6 +83,10 @@ shards:
   liquid:
     git: https://github.com/techmagister/liquid.cr.git
     version: 0.3.4
+
+  logger:
+    git: https://github.com/crystal-lang/logger.cr.git
+    version: 0.1.0
 
   markd:
     git: https://github.com/icyleaf/markd.git
@@ -126,7 +134,7 @@ shards:
 
   slang:
     git: https://github.com/jeromegn/slang.git
-    version: 1.7.2
+    version: 1.7.3
 
   sqlite3:
     git: https://github.com/crystal-lang/crystal-sqlite3.git

@@ -23,6 +23,8 @@ class ChatChannel < Amber::WebSockets::Channel
       ChatSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", msg["payload"].as_h)
       # client.say("#gbaldraw", "<#{data["name"]}> #{data["chat_message"]}")
       IrcChannel.send([data["name"].to_s, data["chat_message"].to_s])
+
+      DiscordChannel.send([data["name"].to_s, data["chat_message"].to_s])
     else
       redis = Redis.new
       redis.rpush "chats_#{room}", data.to_json

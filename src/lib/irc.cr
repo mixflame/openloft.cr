@@ -22,6 +22,7 @@ class Client
     @client = TCPSocket.new(server, port)
     
     while true
+      Fiber.yield
       sleep 0.1
       response = get_response
       next unless response
@@ -36,6 +37,7 @@ class Client
     end
 
     while true
+      Fiber.yield
       sleep 0.1
       response = get_response
       next unless response
@@ -46,6 +48,7 @@ class Client
 
       spawn do
         while true
+          Fiber.yield
             message = IrcChannel.receive
 
             puts "message #{message}"
@@ -78,7 +81,8 @@ class Client
     if redis.ttl("chats") == -1
       redis.expire("chats", 7 * 24 * 3600)
     end
-    ChatSocket.broadcast("message", "chat:null", "message_new", {name: name, chat_message: message}.to_h)
+    ChatSocket.broadcast("message", "chat:", "message_new", {name: name, chat_message: message}.to_h)
+    DiscordChannel.send([name, message])
   end
 
   def login
@@ -112,7 +116,7 @@ class Client
   def get_response
     response = @client.gets
     if response
-      puts response
+      # puts response
       @response_count += 1
     end
     response

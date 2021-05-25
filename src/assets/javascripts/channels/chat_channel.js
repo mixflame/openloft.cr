@@ -13,6 +13,7 @@ chat_socket.connect()
         if (!window.dontLog) console.log("Connected to chat channel");
 
         chat_channel.on('message_new', (data) => {
+            console.log(data);
             if (data["reload"] == true && window.name == "stream") {
                 location.reload();
             } else if (data["reload"] == true && window.name != "stream") {
