@@ -2086,8 +2086,10 @@ function setMediaBitrates(sdp) {
       $.getJSON("/random_ad", "", function(data) {
         let ad = data["ad"];
         let link = data["banner_link"];
-        $("#ad_link").prop("href", link);
-        $("#ad_img").prop("src", ad);
+        if(ad != "" && link != "") {
+          $("#ad_link").prop("href", link);
+          $("#ad_img").prop("src", ad);
+        }
       })
     }, 30000);
   
