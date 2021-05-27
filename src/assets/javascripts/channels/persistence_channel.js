@@ -42,7 +42,7 @@ persistence_socket.connect()
 
                 data['canvas'].forEach(function (json, index) {
                     var point = JSON.parse(json);
-                    window.addClick(point["x"], point["y"], point["dragging"], true, point["name"], point["color"], point['size'], point['text'], point['path'], point['line_join'], point['shape_type'], point['shape_width'], point['shape_height'], point['shape_fill'], point["shape_angle"]);
+                    window.addClick(point["x"], point["y"], point["dragging"], true, point["name"], point["color"], point['size'], point['text'], point['path'], point['line_join'], point['shape_type'], point['shape_width'], point['shape_height'], point['shape_fill'], point["shape_angle"], point["brush_style"]);
                     // window.redraw(true, false);
                     window.total = window.total + 1;
                     if (packets_length == window.total) {

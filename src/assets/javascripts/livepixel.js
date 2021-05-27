@@ -686,6 +686,7 @@ function setMediaBitrates(sdp) {
   var curShapeHeight = "200";
   var curShapeFill = false;
   var curShapeAngle = "160";
+  var curBrushStyle = "none";
   var oldSize;
   window.oldSize = oldSize;
   window.mpClickHash = {};
@@ -694,6 +695,7 @@ function setMediaBitrates(sdp) {
   window.backupMpClickHash = {};
   window.backupMpNameHash = {};
   window.backupMpLayerOrder = [];
+  // window.curColor = curColor;
   var paint;
   var context;
   var canvas;
@@ -710,6 +712,8 @@ function setMediaBitrates(sdp) {
   window.last_ping = {};
   window.polite_arr = [];
   window.nicks = [];
+
+  var count = 0;
   
   var camos = ["#604439", "#9e9a75", "#1c222e", "#41533b", "#554840"];
   var bluesky = ["#ffffff", "#a3b7ff", "#5189ff", "#2458c5", "#09175c"];
@@ -771,7 +775,7 @@ function setMediaBitrates(sdp) {
   window.mouseDown = mouseDown;
   
   // add a click, either to local variables or to multiplayer hash
-  var addClick = function(x, y, dragging, mp, click_name, color, size, text, path, line_join, shape_type, shape_width, shape_height, shape_fill, shape_angle)
+  var addClick = function(x, y, dragging, mp, click_name, color, size, text, path, line_join, shape_type, shape_width, shape_height, shape_fill, shape_angle, brush_style)
   {
     if(x == undefined && 
       y == undefined &&
@@ -800,13 +804,13 @@ function setMediaBitrates(sdp) {
         layer = 0;
         window.mpNameHash[click_name] = layer;
         layerName = click_name + "_" + layer;
-        window.mpClickHash[layerName] = {clickX: new Array(), clickY: new Array(), clickDrag: new Array(), clickColor: new Array(), clickSize: new Array(), clickText: new Array(), clickPath: new Array(), clickLineJoin: new Array(), clickShapeType: new Array(), clickShapeWidth: new Array(), clickShapeHeight: new Array(), clickShapeFill: new Array(), clickShapeAngle: new Array()};
+        window.mpClickHash[layerName] = {clickX: new Array(), clickY: new Array(), clickDrag: new Array(), clickColor: new Array(), clickSize: new Array(), clickText: new Array(), clickPath: new Array(), clickLineJoin: new Array(), clickShapeType: new Array(), clickShapeWidth: new Array(), clickShapeHeight: new Array(), clickShapeFill: new Array(), clickShapeAngle: new Array(), clickBrushStyle: new Array()};
       } else {
         if(dragging == false) {
           layer = window.mpNameHash[click_name] + 1;
           window.mpNameHash[click_name] = layer;
           layerName = click_name + "_" + layer;
-          window.mpClickHash[layerName] = {clickX: new Array(), clickY: new Array(), clickDrag: new Array(), clickColor: new Array(), clickSize: new Array(), clickText: new Array(), clickPath: new Array(), clickLineJoin: new Array(), clickShapeType: new Array(), clickShapeWidth: new Array(), clickShapeHeight: new Array(), clickShapeFill: new Array(), clickShapeAngle: new Array()};
+          window.mpClickHash[layerName] = {clickX: new Array(), clickY: new Array(), clickDrag: new Array(), clickColor: new Array(), clickSize: new Array(), clickText: new Array(), clickPath: new Array(), clickLineJoin: new Array(), clickShapeType: new Array(), clickShapeWidth: new Array(), clickShapeHeight: new Array(), clickShapeFill: new Array(), clickShapeAngle: new Array(), clickBrushStyle: new Array()};
         } else {
           layer = window.mpNameHash[click_name];
           window.mpNameHash[click_name] = layer;
@@ -835,6 +839,7 @@ function setMediaBitrates(sdp) {
       window.mpClickHash[layerName]["clickShapeHeight"].push(shape_height);
       window.mpClickHash[layerName]["clickShapeFill"].push(shape_fill);
       window.mpClickHash[layerName]["clickShapeAngle"].push(shape_angle);
+      window.mpClickHash[layerName]["clickBrushStyle"].push(brush_style);
       window.backupMpClickHash[click_name + "_" + window.backupMpNameHash[click_name]] = window.mpClickHash[layerName];
       if(!window.mpLayerOrder.includes(layerName)) {
         window.mpLayerOrder.push(layerName);
@@ -850,13 +855,13 @@ function setMediaBitrates(sdp) {
         var layer = 0;
         window.mpNameHash[click_name] = layer;
         layerName = click_name + "_" + layer;
-        window.mpClickHash[layerName] = {clickX: new Array(), clickY: new Array(), clickDrag: new Array(), clickColor: new Array(), clickSize: new Array(), clickText: new Array(), clickPath: new Array(), clickLineJoin: new Array(), clickShapeType: new Array(), clickShapeWidth: new Array(), clickShapeHeight: new Array(), clickShapeFill: new Array(), clickShapeAngle: new Array()};
+        window.mpClickHash[layerName] = {clickX: new Array(), clickY: new Array(), clickDrag: new Array(), clickColor: new Array(), clickSize: new Array(), clickText: new Array(), clickPath: new Array(), clickLineJoin: new Array(), clickShapeType: new Array(), clickShapeWidth: new Array(), clickShapeHeight: new Array(), clickShapeFill: new Array(), clickShapeAngle: new Array(), clickBrushStyle: new Array()};
       } else {
         if(dragging == false) {
           var layer = window.mpNameHash[click_name] + 1;
           window.mpNameHash[click_name] = layer;
           layerName = click_name + "_" + layer;
-          window.mpClickHash[layerName] = {clickX: new Array(), clickY: new Array(), clickDrag: new Array(), clickColor: new Array(), clickSize: new Array(), clickText: new Array(), clickPath: new Array(), clickLineJoin: new Array(), clickShapeType: new Array(), clickShapeWidth: new Array(), clickShapeHeight: new Array(), clickShapeFill: new Array(), clickShapeAngle: new Array()};
+          window.mpClickHash[layerName] = {clickX: new Array(), clickY: new Array(), clickDrag: new Array(), clickColor: new Array(), clickSize: new Array(), clickText: new Array(), clickPath: new Array(), clickLineJoin: new Array(), clickShapeType: new Array(), clickShapeWidth: new Array(), clickShapeHeight: new Array(), clickShapeFill: new Array(), clickShapeAngle: new Array(), clickBrushStyle: new Array()};
         } else {
           var layer = window.mpNameHash[click_name];
           window.mpNameHash[click_name] = layer;
@@ -885,6 +890,7 @@ function setMediaBitrates(sdp) {
       window.mpClickHash[layerName]["clickShapeHeight"].push(shape_height);
       window.mpClickHash[layerName]["clickShapeFill"].push(shape_fill);
       window.mpClickHash[layerName]["clickShapeAngle"].push(shape_angle);
+      window.mpClickHash[layerName]["clickBrushStyle"].push(brush_style);
       window.backupMpClickHash[click_name + "_" + window.backupMpNameHash[click_name]] = window.mpClickHash[layerName];
       if(!window.mpLayerOrder.includes(layerName)) {
         window.mpLayerOrder.push(layerName);
@@ -937,6 +943,7 @@ function setMediaBitrates(sdp) {
       var mpShapeHeight = hash["clickShapeHeight"];
       var mpShapeFill = hash["clickShapeFill"];
       var mpShapeAngle = hash["clickShapeAngle"];
+      var mpBrushStyle = hash["clickBrushStyle"];
       for(var i=0; i < mpClickX.length; i++) {
           if(mpShapeType[i] == "rect" || mpShapeType[i] == "circle" || mpShapeType[i] == "triangle") {
             switch(mpShapeType[i]) {
@@ -1005,18 +1012,41 @@ function setMediaBitrates(sdp) {
                 context.font = (mpClickSize[i] * 2).toString() + "px Arial";
                 context.fillText(mpClickText[i], mpClickX[i], mpClickY[i]);
               } else {
-                context.lineJoin = mpLineJoin[i];
-                context.beginPath();
-                if(mpClickDrag[i] && i) {
-                  context.moveTo(mpClickX[i-1], mpClickY[i-1]);
+                if(mpBrushStyle[i] && mpBrushStyle == "chrome") {
+                  var m, dx, dy, d;
+
+
+                    dx = mpClickX[i] - mpClickX[count];
+                    dy = mpClickY[i] - mpClickY[count];
+                    d = dx * dx + dy * dy;
+              
+                    if (d < 1000)
+                    {
+                      // console.log(mpClickColor[i]);
+                      context.strokeStyle = "rgba(" + hexToRgb(mpClickColor[i]).r + ", " + hexToRgb(mpClickColor[i]).g + ", " + hexToRgb(mpClickColor[i]).b + ", " + 0.1 * mpClickSize[i] + " )";
+                      // context.strokeStyle = mpClickColor[i];
+                      context.beginPath();
+                      context.moveTo( mpClickX[i] + (dx * 0.2), mpClickY[i] + (dy * 0.2));
+                      context.lineTo( mpClickX[i] - (dx * 0.2), mpClickY[i] - (dy * 0.2));
+                      context.stroke();
+                    }
+
+                    count = count + 1;
+
                 } else {
-                  context.moveTo(mpClickX[i]-1, mpClickY[i]);
-                }
-                context.lineTo(mpClickX[i], mpClickY[i]);
-                context.closePath();
-                context.strokeStyle = mpClickColor[i];
-                context.lineWidth = mpClickSize[i];
-                context.stroke();
+                  context.lineJoin = mpLineJoin[i];
+                  context.beginPath();
+                  if(mpClickDrag[i] && i) {
+                    context.moveTo(mpClickX[i-1], mpClickY[i-1]);
+                  } else {
+                    context.moveTo(mpClickX[i]-1, mpClickY[i]);
+                  }
+                  context.lineTo(mpClickX[i], mpClickY[i]);
+                  context.closePath();
+                  context.strokeStyle = mpClickColor[i];
+                  context.lineWidth = mpClickSize[i];
+                  context.stroke();
+              }
               }
             }
           }
@@ -1047,6 +1077,15 @@ function setMediaBitrates(sdp) {
     if (r > 255 || g > 255 || b > 255)
         throw "Invalid color component";
     return ((r << 16) | (g << 8) | b).toString(16);
+    }
+
+  window.hexToRgb = function (hex) {
+      var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+      } : null;
     }
   
   var tap = function(e) {
@@ -1079,6 +1118,16 @@ function setMediaBitrates(sdp) {
       e.preventDefault();
       return false;
     }
+
+    if($("#brush_style").val() != "none") {
+      switch($("#brush_style").val()) {
+        case "chrome":
+          
+          var color = rgbToHex(Math.floor(Math.random() * hexToRgb($("#color").val()).r), Math.floor(Math.random() * hexToRgb($("#color").val()).g), Math.floor(Math.random() * hexToRgb($("#color").val()).b));
+          var hex = "#" + ("000000" + color).slice(-6);
+          curColor = hex;
+        }
+    }
   
     if($("#paintbucket").is(":checked")) {
       // var imageData = window.context.getImageData(0, 0, 1180, 690);
@@ -1088,10 +1137,10 @@ function setMediaBitrates(sdp) {
   
     paint = true;
     if($("#text-tool").is(":checked"))
-      addClick(mouseX, mouseY, false, false, name, curColor, curSize, curText, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle);
+      addClick(mouseX, mouseY, false, false, name, curColor, curSize, curText, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle, curBrushStyle);
     else
-      addClick(mouseX, mouseY, false, false, name, curColor, curSize, undefined, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle);
-    if(getTotalSizeOfCanvas() > 2000) {
+      addClick(mouseX, mouseY, false, false, name, curColor, curSize, undefined, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle, curBrushStyle);
+    if(getTotalSizeOfCanvas() > 200) {
       window.redraw(true, true);
       // window.redraw(false, false);
     } else {
@@ -1179,13 +1228,23 @@ function setMediaBitrates(sdp) {
         e.preventDefault();
         return false;
       }
+
+      if($("#brush_style").val() != "none") {
+        switch($("#brush_style").val()) {
+          case "chrome":
+            
+            var color = rgbToHex(Math.floor(Math.random() * hexToRgb($("#color").val()).r), Math.floor(Math.random() * hexToRgb($("#color").val()).g), Math.floor(Math.random() * hexToRgb($("#color").val()).b));
+            var hex = "#" + ("000000" + color).slice(-6);
+            curColor = hex;
+          }
+      }
   
   
       if($("#text-tool").is(":checked"))
-        addClick(mouseX, mouseY, true, false, name, curColor, curSize, curText, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle);
+        addClick(mouseX, mouseY, true, false, name, curColor, curSize, curText, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle, curBrushStyle);
       else 
-        addClick(mouseX, mouseY, true, false, name, curColor, curSize, undefined, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle);
-      if(getTotalSizeOfCanvas() > 2000) {
+        addClick(mouseX, mouseY, true, false, name, curColor, curSize, undefined, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle, curBrushStyle);
+      if(getTotalSizeOfCanvas() > 200) {
           window.redraw(true, true);
         // window.redraw(false, false);
       } else {
@@ -2092,6 +2151,10 @@ function setMediaBitrates(sdp) {
         }
       })
     }, 30000);
+
+    $("#brush_style").change(function() {
+      curBrushStyle = $("#brush_style").val();
+    })
   
   })
   

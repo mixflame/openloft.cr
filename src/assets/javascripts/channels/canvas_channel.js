@@ -147,7 +147,7 @@ window.canvas_socket.connect()
 
             if (!data["mouseUp"]) {
                 if (data["name"] != window.name && !window.locked) {
-                    window.addClick(data["x"], data["y"], data["dragging"], true, data["name"], data["color"], data['size'], data['text'], data['path'], data['line_join'], data['shape_type'], data['shape_width'], data['shape_height'], data['shape_fill'], data["shape_angle"]);
+                    window.addClick(data["x"], data["y"], data["dragging"], true, data["name"], data["color"], data['size'], data['text'], data['path'], data['line_join'], data['shape_type'], data['shape_width'], data['shape_height'], data['shape_fill'], data["shape_angle"], data["brush_style"]);
                     if (window.getTotalSizeOfCanvas() > 200) {
                         window.redraw(true, true);
                         // window.redraw(false, false);
