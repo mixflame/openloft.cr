@@ -1515,6 +1515,7 @@ function setMediaBitrates(sdp) {
     $('#canvas').mousemove(tapDrag);
   
     $('#canvas').mouseup(function(e){
+      count = 0;
       window.edits = window.edits + 1;
       paint = false;
       window.canvas_channel.push("message_new", { mouseUp: true, name: name, room: room });
