@@ -714,6 +714,8 @@ function setMediaBitrates(sdp) {
   window.nicks = [];
 
   var count = 0;
+  window.points = [];
+
   
   var camos = ["#604439", "#9e9a75", "#1c222e", "#41533b", "#554840"];
   var bluesky = ["#ffffff", "#a3b7ff", "#5189ff", "#2458c5", "#09175c"];
@@ -775,7 +777,7 @@ function setMediaBitrates(sdp) {
   window.mouseDown = mouseDown;
   
   // add a click, either to local variables or to multiplayer hash
-  var addClick = function(x, y, dragging, mp, click_name, color, size, text, path, line_join, shape_type, shape_width, shape_height, shape_fill, shape_angle, brush_style)
+  var addClick = function(x, y, dragging, mp, click_name, color, size, text, path, line_join, shape_type, shape_width, shape_height, shape_fill, shape_angle, brush_style, count)
   {
     if(x == undefined && 
       y == undefined &&
@@ -796,6 +798,7 @@ function setMediaBitrates(sdp) {
     if(shape_angle > 360 || shape_angle < 1) {
       shape_angle = 360;
     }
+    points.push([x,y]);
     if(!mp) {
       var layerName;
       var layer;
@@ -804,13 +807,13 @@ function setMediaBitrates(sdp) {
         layer = 0;
         window.mpNameHash[click_name] = layer;
         layerName = click_name + "_" + layer;
-        window.mpClickHash[layerName] = {clickX: new Array(), clickY: new Array(), clickDrag: new Array(), clickColor: new Array(), clickSize: new Array(), clickText: new Array(), clickPath: new Array(), clickLineJoin: new Array(), clickShapeType: new Array(), clickShapeWidth: new Array(), clickShapeHeight: new Array(), clickShapeFill: new Array(), clickShapeAngle: new Array(), clickBrushStyle: new Array()};
+        window.mpClickHash[layerName] = {clickX: new Array(), clickY: new Array(), clickDrag: new Array(), clickColor: new Array(), clickSize: new Array(), clickText: new Array(), clickPath: new Array(), clickLineJoin: new Array(), clickShapeType: new Array(), clickShapeWidth: new Array(), clickShapeHeight: new Array(), clickShapeFill: new Array(), clickShapeAngle: new Array(), clickBrushStyle: new Array(), clickCount: new Array()};
       } else {
         if(dragging == false) {
           layer = window.mpNameHash[click_name] + 1;
           window.mpNameHash[click_name] = layer;
           layerName = click_name + "_" + layer;
-          window.mpClickHash[layerName] = {clickX: new Array(), clickY: new Array(), clickDrag: new Array(), clickColor: new Array(), clickSize: new Array(), clickText: new Array(), clickPath: new Array(), clickLineJoin: new Array(), clickShapeType: new Array(), clickShapeWidth: new Array(), clickShapeHeight: new Array(), clickShapeFill: new Array(), clickShapeAngle: new Array(), clickBrushStyle: new Array()};
+          window.mpClickHash[layerName] = {clickX: new Array(), clickY: new Array(), clickDrag: new Array(), clickColor: new Array(), clickSize: new Array(), clickText: new Array(), clickPath: new Array(), clickLineJoin: new Array(), clickShapeType: new Array(), clickShapeWidth: new Array(), clickShapeHeight: new Array(), clickShapeFill: new Array(), clickShapeAngle: new Array(), clickBrushStyle: new Array(), clickCount: new Array()};
         } else {
           layer = window.mpNameHash[click_name];
           window.mpNameHash[click_name] = layer;
@@ -840,6 +843,7 @@ function setMediaBitrates(sdp) {
       window.mpClickHash[layerName]["clickShapeFill"].push(shape_fill);
       window.mpClickHash[layerName]["clickShapeAngle"].push(shape_angle);
       window.mpClickHash[layerName]["clickBrushStyle"].push(brush_style);
+      window.mpClickHash[layerName]["clickCount"].push(count);
       window.backupMpClickHash[click_name + "_" + window.backupMpNameHash[click_name]] = window.mpClickHash[layerName];
       if(!window.mpLayerOrder.includes(layerName)) {
         window.mpLayerOrder.push(layerName);
@@ -855,13 +859,13 @@ function setMediaBitrates(sdp) {
         var layer = 0;
         window.mpNameHash[click_name] = layer;
         layerName = click_name + "_" + layer;
-        window.mpClickHash[layerName] = {clickX: new Array(), clickY: new Array(), clickDrag: new Array(), clickColor: new Array(), clickSize: new Array(), clickText: new Array(), clickPath: new Array(), clickLineJoin: new Array(), clickShapeType: new Array(), clickShapeWidth: new Array(), clickShapeHeight: new Array(), clickShapeFill: new Array(), clickShapeAngle: new Array(), clickBrushStyle: new Array()};
+        window.mpClickHash[layerName] = {clickX: new Array(), clickY: new Array(), clickDrag: new Array(), clickColor: new Array(), clickSize: new Array(), clickText: new Array(), clickPath: new Array(), clickLineJoin: new Array(), clickShapeType: new Array(), clickShapeWidth: new Array(), clickShapeHeight: new Array(), clickShapeFill: new Array(), clickShapeAngle: new Array(), clickBrushStyle: new Array(), clickCount: new Array()};
       } else {
         if(dragging == false) {
           var layer = window.mpNameHash[click_name] + 1;
           window.mpNameHash[click_name] = layer;
           layerName = click_name + "_" + layer;
-          window.mpClickHash[layerName] = {clickX: new Array(), clickY: new Array(), clickDrag: new Array(), clickColor: new Array(), clickSize: new Array(), clickText: new Array(), clickPath: new Array(), clickLineJoin: new Array(), clickShapeType: new Array(), clickShapeWidth: new Array(), clickShapeHeight: new Array(), clickShapeFill: new Array(), clickShapeAngle: new Array(), clickBrushStyle: new Array()};
+          window.mpClickHash[layerName] = {clickX: new Array(), clickY: new Array(), clickDrag: new Array(), clickColor: new Array(), clickSize: new Array(), clickText: new Array(), clickPath: new Array(), clickLineJoin: new Array(), clickShapeType: new Array(), clickShapeWidth: new Array(), clickShapeHeight: new Array(), clickShapeFill: new Array(), clickShapeAngle: new Array(), clickBrushStyle: new Array(), clickCount: new Array()};
         } else {
           var layer = window.mpNameHash[click_name];
           window.mpNameHash[click_name] = layer;
@@ -891,6 +895,7 @@ function setMediaBitrates(sdp) {
       window.mpClickHash[layerName]["clickShapeFill"].push(shape_fill);
       window.mpClickHash[layerName]["clickShapeAngle"].push(shape_angle);
       window.mpClickHash[layerName]["clickBrushStyle"].push(brush_style);
+      window.mpClickHash[layerName]["clickCount"].push(count);
       window.backupMpClickHash[click_name + "_" + window.backupMpNameHash[click_name]] = window.mpClickHash[layerName];
       if(!window.mpLayerOrder.includes(layerName)) {
         window.mpLayerOrder.push(layerName);
@@ -944,6 +949,7 @@ function setMediaBitrates(sdp) {
       var mpShapeFill = hash["clickShapeFill"];
       var mpShapeAngle = hash["clickShapeAngle"];
       var mpBrushStyle = hash["clickBrushStyle"];
+      var mpClickCount = hash["clickCount"];
       for(var i=0; i < mpClickX.length; i++) {
           if(mpShapeType[i] == "rect" || mpShapeType[i] == "circle" || mpShapeType[i] == "triangle") {
             switch(mpShapeType[i]) {
@@ -1012,18 +1018,36 @@ function setMediaBitrates(sdp) {
                 context.font = (mpClickSize[i] * 2).toString() + "px Arial";
                 context.fillText(mpClickText[i], mpClickX[i], mpClickY[i]);
               } else {
-                if(mpBrushStyle[i] && mpBrushStyle == "chrome") {
+                if(mpBrushStyle[i] && mpBrushStyle[i] == "chrome") {
                   // harmony chrome brush
                   var m, dx, dy, d;
 
+                  
 
-                    dx = mpClickX[i] - mpClickX[count % mpClickX.length];
-                    dy = mpClickY[i] - mpClickY[count % mpClickY.length];
+
+                    context.lineJoin = mpLineJoin[i];
+                    context.beginPath();
+                    if(mpClickDrag[i] && i) {
+                      context.moveTo(mpClickX[i-1], mpClickY[i-1]);
+                    } else {
+                      context.moveTo(mpClickX[i]-1, mpClickY[i]);
+                    }
+                    context.lineTo(mpClickX[i], mpClickY[i]);
+                    context.closePath();
+                    context.strokeStyle = mpClickColor[i];
+                    context.lineWidth = mpClickSize[i];
+                    context.stroke();
+
+
+                    dx = points[i][0] - points[mpClickCount[i]][0];
+			              dy = points[i][1] - points[mpClickCount[i]][1];
+                    console.log(mpClickX[mpClickX.length - 2]);
                     d = dx * dx + dy * dy;
+                    console.log(d);
                     if (d < 1000)
                     {
                       // console.log(mpClickColor[i]);
-                      context.strokeStyle = "rgba(" + hexToRgb(mpClickColor[i]).r + ", " + hexToRgb(mpClickColor[i]).g + ", " + hexToRgb(mpClickColor[i]).b + ", " + 0.1 * mpClickSize[i] + " )";
+                      // context.strokeStyle = "rgba(" + hexToRgb(mpClickColor[i]).r + ", " + hexToRgb(mpClickColor[i]).g + ", " + hexToRgb(mpClickColor[i]).b + ", " + 0.1 * mpClickSize[i] + " )";
                       // context.strokeStyle = mpClickColor[i];
                       context.beginPath();
                       context.moveTo( mpClickX[i] + (dx * 0.2), mpClickY[i] + (dy * 0.2));
@@ -1031,8 +1055,14 @@ function setMediaBitrates(sdp) {
                       context.stroke();
                     }
 
-                    count = count + 1;
+                    
 
+                // } else if(mpBrushStyle[i] && mpBrushStyle[i] == "circles") {
+
+                //   var i, dx, dy, d, cx, cy, steps, step_delta;
+
+                //   context.lineWidth = mpClickSize[i];
+                  
                 } else {
                   context.lineJoin = mpLineJoin[i];
                   context.beginPath();
@@ -1122,7 +1152,7 @@ function setMediaBitrates(sdp) {
     if($("#brush_style").val() != "none") {
       switch($("#brush_style").val()) {
         case "chrome":
-          
+          count = count + 1;
           var color = rgbToHex(Math.floor(Math.random() * hexToRgb($("#color").val()).r), Math.floor(Math.random() * hexToRgb($("#color").val()).g), Math.floor(Math.random() * hexToRgb($("#color").val()).b));
           var hex = "#" + ("000000" + color).slice(-6);
           curColor = hex;
@@ -1137,9 +1167,9 @@ function setMediaBitrates(sdp) {
   
     paint = true;
     if($("#text-tool").is(":checked"))
-      addClick(mouseX, mouseY, false, false, name, curColor, curSize, curText, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle, curBrushStyle);
+      addClick(mouseX, mouseY, false, false, name, curColor, curSize, curText, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle, curBrushStyle, count);
     else
-      addClick(mouseX, mouseY, false, false, name, curColor, curSize, undefined, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle, curBrushStyle);
+      addClick(mouseX, mouseY, false, false, name, curColor, curSize, undefined, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle, curBrushStyle, count);
     if(getTotalSizeOfCanvas() > 200) {
       window.redraw(true, true);
       // window.redraw(false, false);
@@ -1147,9 +1177,9 @@ function setMediaBitrates(sdp) {
       window.redraw(true, false);
     }
     if($("#text-tool").is(":checked"))
-      window.canvas_channel.push("message_new", {room: room, x: mouseX, y: mouseY, dragging: false, name: name, color: curColor, size: curSize, text: curText, line_join: curLineJoin, shape_type: curShapeType, shape_width: curShapeWidth, shape_height: curShapeHeight, shape_fill: curShapeFill, shape_angle: curShapeAngle });
+      window.canvas_channel.push("message_new", {room: room, x: mouseX, y: mouseY, dragging: false, name: name, color: curColor, size: curSize, text: curText, line_join: curLineJoin, shape_type: curShapeType, shape_width: curShapeWidth, shape_height: curShapeHeight, shape_fill: curShapeFill, shape_angle: curShapeAngle, brush_style: curBrushStyle, count: count });
     else
-      window.canvas_channel.push("message_new", {room: room, x: mouseX, y: mouseY, dragging: false, name: name, color: curColor, size: curSize, text: undefined, line_join: curLineJoin, shape_type: curShapeType, shape_width: curShapeWidth, shape_height: curShapeHeight, shape_fill: curShapeFill, shape_angle: curShapeAngle });
+      window.canvas_channel.push("message_new", {room: room, x: mouseX, y: mouseY, dragging: false, name: name, color: curColor, size: curSize, text: undefined, line_join: curLineJoin, shape_type: curShapeType, shape_width: curShapeWidth, shape_height: curShapeHeight, shape_fill: curShapeFill, shape_angle: curShapeAngle, brush_style: curBrushStyle, count: count });
       e.preventDefault();
   }
   
@@ -1232,7 +1262,7 @@ function setMediaBitrates(sdp) {
       if($("#brush_style").val() != "none") {
         switch($("#brush_style").val()) {
           case "chrome":
-            
+            count = count + 1;
             var color = rgbToHex(Math.floor(Math.random() * hexToRgb($("#color").val()).r), Math.floor(Math.random() * hexToRgb($("#color").val()).g), Math.floor(Math.random() * hexToRgb($("#color").val()).b));
             var hex = "#" + ("000000" + color).slice(-6);
             curColor = hex;
@@ -1241,9 +1271,9 @@ function setMediaBitrates(sdp) {
   
   
       if($("#text-tool").is(":checked"))
-        addClick(mouseX, mouseY, true, false, name, curColor, curSize, curText, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle, curBrushStyle);
+      addClick(mouseX, mouseY, true, false, name, curColor, curSize, curText, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle, curBrushStyle, count);
       else 
-        addClick(mouseX, mouseY, true, false, name, curColor, curSize, undefined, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle, curBrushStyle);
+        addClick(mouseX, mouseY, true, false, name, curColor, curSize, undefined, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle, curBrushStyle, count);
       if(getTotalSizeOfCanvas() > 200) {
           window.redraw(true, true);
         // window.redraw(false, false);
@@ -1251,9 +1281,9 @@ function setMediaBitrates(sdp) {
           window.redraw(true, false);
       }
       if($("#text-tool").is(":checked"))
-        window.canvas_channel.push("message_new", {room: room, x: mouseX, y: mouseY, dragging: true, name: name, color: curColor, size: curSize, text: curText, line_join: curLineJoin, shape_type: curShapeType, shape_width: curShapeWidth, shape_height: curShapeHeight, shape_fill: curShapeFill, shape_angle: curShapeAngle });
+        window.canvas_channel.push("message_new", {room: room, x: mouseX, y: mouseY, dragging: true, name: name, color: curColor, size: curSize, text: curText, line_join: curLineJoin, shape_type: curShapeType, shape_width: curShapeWidth, shape_height: curShapeHeight, shape_fill: curShapeFill, shape_angle: curShapeAngle, brush_style: curBrushStyle, count: count });
       else
-      window.canvas_channel.push("message_new", {room: room, x: mouseX, y: mouseY, dragging: true, name: name, color: curColor, size: curSize, text: undefined, line_join: curLineJoin, shape_type: curShapeType, shape_width: curShapeWidth, shape_height: curShapeHeight, shape_fill: curShapeFill, shape_angle: curShapeAngle });
+      window.canvas_channel.push("message_new", {room: room, x: mouseX, y: mouseY, dragging: true, name: name, color: curColor, size: curSize, text: undefined, line_join: curLineJoin, shape_type: curShapeType, shape_width: curShapeWidth, shape_height: curShapeHeight, shape_fill: curShapeFill, shape_angle: curShapeAngle, brush_style: curBrushStyle, count: count });
     }
   
     mouseBrushPt[0] = mouseX;
@@ -2154,7 +2184,12 @@ function setMediaBitrates(sdp) {
 
     $("#brush_style").change(function() {
       curBrushStyle = $("#brush_style").val();
+      count = 0;
     })
+
+    $("#brush_style").val("none");
+
+    $("#brush_style").change();
   
   })
   
