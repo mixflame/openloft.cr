@@ -779,14 +779,11 @@ function setMediaBitrates(sdp) {
   // add a click, either to local variables or to multiplayer hash
   var addClick = function(x, y, dragging, mp, click_name, color, size, text, path, line_join, shape_type, shape_width, shape_height, shape_fill, shape_angle, brush_style, count)
   {
-    if(x == undefined && 
-      y == undefined &&
-      dragging == undefined &&
-      mp == undefined &&
-      click_name == undefined &&
-      color == undefined &&
-      text == undefined && 
-      path == undefined) return;
+    if(x == undefined || y == undefined) return;
+    if( dragging == undefined ) return;
+    if(mp == undefined) return;
+    if(click_name == undefined) return;
+    if(color == undefined) return;
     if(size > 35 || size < 1)
       size = 35;
     if(shape_width > 360 || shape_width < 1) {
@@ -798,7 +795,7 @@ function setMediaBitrates(sdp) {
     if(shape_angle > 360 || shape_angle < 1) {
       shape_angle = 360;
     }
-    points.push([x,y]);
+    points.push([x,y])
     if(!mp) {
       var layerName;
       var layer;
@@ -1039,12 +1036,14 @@ function setMediaBitrates(sdp) {
                     context.stroke();
 
 
-                    dx = points[i][0] - points[mpClickCount[i]][0];
-			              dy = points[i][1] - points[mpClickCount[i]][1];
+                    // dx = points[i][0] - points[mpClickCount[i]][0];
+			              // dy = points[i][1] - points[mpClickCount[i]][1];
                     // console.log(mpClickX[mpClickX.length - 2]);
+                    dx = mpClickX[i] - mpClickX[mpClickX.length - 1];
+                    dy = mpClickY[i] - mpClickY[mpClickY.length - 1];
                     d = dx * dx + dy * dy;
                     // console.log(d);
-                    if (d < 5000)
+                    if (d < 1000)
                     {
                       // console.log(mpClickColor[i]);
                       // context.strokeStyle = "rgba(" + hexToRgb(mpClickColor[i]).r + ", " + hexToRgb(mpClickColor[i]).g + ", " + hexToRgb(mpClickColor[i]).b + ", " + 0.1 * mpClickSize[i] + " )";
