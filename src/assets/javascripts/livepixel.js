@@ -1041,9 +1041,9 @@ function setMediaBitrates(sdp) {
 
                     dx = points[i][0] - points[mpClickCount[i]][0];
 			              dy = points[i][1] - points[mpClickCount[i]][1];
-                    console.log(mpClickX[mpClickX.length - 2]);
+                    // console.log(mpClickX[mpClickX.length - 2]);
                     d = dx * dx + dy * dy;
-                    console.log(d);
+                    // console.log(d);
                     if (d < 1000)
                     {
                       // console.log(mpClickColor[i]);
