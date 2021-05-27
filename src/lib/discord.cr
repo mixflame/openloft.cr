@@ -14,7 +14,7 @@ class DiscordBot
             message = payload.content
             name = payload.author.username
 
-            next if name == "Gbaldraw"
+            next if name == "Gbaldraw" || name == "gbaldraw-bridge" || name == "gbaldraw-bridge-dev"
 
             name = "#{name}@discord"
         
