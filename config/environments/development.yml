@@ -14,7 +14,7 @@ port_reuse: true
 process_count: 1
 # ssl_key_file:
 # ssl_cert_file:
-redis_url: "redis://localhost:6379"
+redis_url: "redis://127.0.0.1:6379"
 database_url: sqlite3:./db/gbaldraw.cr_development.db
 auto_reload: true
 
