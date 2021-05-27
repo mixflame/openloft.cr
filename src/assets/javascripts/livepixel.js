@@ -1036,11 +1036,13 @@ function setMediaBitrates(sdp) {
                     context.stroke();
 
 
-                    // dx = points[i][0] - points[mpClickCount[i]][0];
-			              // dy = points[i][1] - points[mpClickCount[i]][1];
+                    dx = points[i][0] - points[mpClickCount[i]][0];
+			              dy = points[i][1] - points[mpClickCount[i]][1];
                     // console.log(mpClickX[mpClickX.length - 2]);
-                    dx = mpClickX[i] - mpClickX[mpClickX.length - 1];
-                    dy = mpClickY[i] - mpClickY[mpClickY.length - 1];
+                    // dx = mpClickX[i] - mpClickX[mpClickX.length - 1];
+                    // dy = mpClickY[i] - mpClickY[mpClickY.length - 1];
+                    // dx = points[i][0] - mpClickX[mpClickX.length - 1];
+			              // dy = points[i][1] - mpClickY[mpClickY.length - 1];
                     d = dx * dx + dy * dy;
                     // console.log(d);
                     if (d < 20000)
