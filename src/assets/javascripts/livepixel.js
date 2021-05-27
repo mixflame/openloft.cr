@@ -1169,7 +1169,7 @@ function setMediaBitrates(sdp) {
       addClick(mouseX, mouseY, false, false, name, curColor, curSize, curText, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle, curBrushStyle, count);
     else
       addClick(mouseX, mouseY, false, false, name, curColor, curSize, undefined, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle, curBrushStyle, count);
-    if(getTotalSizeOfCanvas() > 200) {
+    if(getTotalSizeOfCanvas() > 100) {
       window.redraw(true, true);
       // window.redraw(false, false);
     } else {
@@ -1205,6 +1205,16 @@ function setMediaBitrates(sdp) {
       curShapeWidth = Math.floor(Math.random() * 360 + 1)
       curShapeHeight = Math.floor(Math.random() * 360 + 1)
       curShapeAngle = Math.floor(Math.random() * 360 + 1)
+    }
+
+    if($("#brush_style").val() != "none") {
+      switch($("#brush_style").val()) {
+        case "chrome":
+          window.count = (window.count + 1) % 75;
+          var color = rgbToHex(Math.floor(Math.random() * hexToRgb($("#color").val()).r), Math.floor(Math.random() * hexToRgb($("#color").val()).g), Math.floor(Math.random() * hexToRgb($("#color").val()).b));
+          var hex = "#" + ("000000" + color).slice(-6);
+          curColor = hex;
+        }
     }
   
     if($("#rainbow").is(':checked')) {
@@ -1257,23 +1267,13 @@ function setMediaBitrates(sdp) {
         e.preventDefault();
         return false;
       }
-
-      if($("#brush_style").val() != "none") {
-        switch($("#brush_style").val()) {
-          case "chrome":
-            window.count = (window.count + 1) % 75;
-            var color = rgbToHex(Math.floor(Math.random() * hexToRgb($("#color").val()).r), Math.floor(Math.random() * hexToRgb($("#color").val()).g), Math.floor(Math.random() * hexToRgb($("#color").val()).b));
-            var hex = "#" + ("000000" + color).slice(-6);
-            curColor = hex;
-          }
-      }
   
   
       if($("#text-tool").is(":checked"))
       addClick(mouseX, mouseY, true, false, name, curColor, curSize, curText, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle, curBrushStyle, count);
       else 
         addClick(mouseX, mouseY, true, false, name, curColor, curSize, undefined, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle, curBrushStyle, count);
-      if(getTotalSizeOfCanvas() > 200) {
+      if(getTotalSizeOfCanvas() > 100) {
           window.redraw(true, true);
         // window.redraw(false, false);
       } else {
