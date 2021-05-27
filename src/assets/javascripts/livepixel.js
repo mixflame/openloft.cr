@@ -1013,13 +1013,13 @@ function setMediaBitrates(sdp) {
                 context.fillText(mpClickText[i], mpClickX[i], mpClickY[i]);
               } else {
                 if(mpBrushStyle[i] && mpBrushStyle == "chrome") {
+                  // harmony chrome brush
                   var m, dx, dy, d;
 
 
-                    dx = mpClickX[i] - mpClickX[count];
-                    dy = mpClickY[i] - mpClickY[count];
+                    dx = mpClickX[i] - mpClickX[count % mpClickX.length];
+                    dy = mpClickY[i] - mpClickY[count % mpClickY.length];
                     d = dx * dx + dy * dy;
-              
                     if (d < 1000)
                     {
                       // console.log(mpClickColor[i]);
