@@ -71,6 +71,7 @@ class Client
     parts = response.split(":")
     message = response.split("PRIVMSG #gbaldraw :").last.to_s
     name = parts[1].split(" ").first.split("!").first
+    return if name == "gbaldraw-bridge" || name == "gbaldraw-bridge-dev"
     name = "#{name}@irc"
     puts "name #{name}"
     sanitizer = Sanitize::Policy::HTMLSanitizer.common
