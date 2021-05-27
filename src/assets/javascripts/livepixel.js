@@ -713,7 +713,7 @@ function setMediaBitrates(sdp) {
   window.polite_arr = [];
   window.nicks = [];
 
-  var count = 0;
+  window.count = 0;
   window.points = [];
 
   
@@ -1152,7 +1152,7 @@ function setMediaBitrates(sdp) {
     if($("#brush_style").val() != "none") {
       switch($("#brush_style").val()) {
         case "chrome":
-          count = count + 1;
+          window.count = (window.count + 1) % 75;
           var color = rgbToHex(Math.floor(Math.random() * hexToRgb($("#color").val()).r), Math.floor(Math.random() * hexToRgb($("#color").val()).g), Math.floor(Math.random() * hexToRgb($("#color").val()).b));
           var hex = "#" + ("000000" + color).slice(-6);
           curColor = hex;
@@ -1262,7 +1262,7 @@ function setMediaBitrates(sdp) {
       if($("#brush_style").val() != "none") {
         switch($("#brush_style").val()) {
           case "chrome":
-            count = count + 1;
+            window.count = (window.count + 1) % 75;
             var color = rgbToHex(Math.floor(Math.random() * hexToRgb($("#color").val()).r), Math.floor(Math.random() * hexToRgb($("#color").val()).g), Math.floor(Math.random() * hexToRgb($("#color").val()).b));
             var hex = "#" + ("000000" + color).slice(-6);
             curColor = hex;
@@ -1515,7 +1515,7 @@ function setMediaBitrates(sdp) {
     $('#canvas').mousemove(tapDrag);
   
     $('#canvas').mouseup(function(e){
-      count = 0;
+      // count = 0;
       window.edits = window.edits + 1;
       paint = false;
       window.canvas_channel.push("message_new", { mouseUp: true, name: name, room: room });
