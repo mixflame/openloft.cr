@@ -1045,7 +1045,7 @@ function setMediaBitrates(sdp) {
 			              // dy = points[i][1] - mpClickY[mpClickY.length - 1];
                     d = dx * dx + dy * dy;
                     // console.log(d);
-                    if (d < 20000)
+                    if (d < 1000)
                     {
                       // console.log(mpClickColor[i]);
                       // context.strokeStyle = "rgba(" + hexToRgb(mpClickColor[i]).r + ", " + hexToRgb(mpClickColor[i]).g + ", " + hexToRgb(mpClickColor[i]).b + ", " + 0.1 * mpClickSize[i] + " )";
