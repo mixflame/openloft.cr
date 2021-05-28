@@ -16,7 +16,7 @@
     <p>Amount of times that global canvas was recreated: <%= redis.get("balda_counter") == nil ? 0 : redis.get("balda_counter") %></p>
     <p>Keys in database: <%= redis.keys("*").size %></p>
     <p>Canvases that exist: <%= redis.keys("*").reject { |a| (a =~ /packets/) != 0}.size %></p>
-    <p>Ads in rotation: <%= redis.hlen("completed_orders") %></p>
+    <p>Amount of ads on server: <%= redis.keys("*_link").size %></p>
     </div>
 
 
