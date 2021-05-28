@@ -312,6 +312,50 @@ function setMediaBitrates(sdp) {
         })
       }
     })
+
+
+    $("#cameras").change(updateStreamSource);
+
+    $("#audio_inputs").change(updateStreamSource);
+  }
+
+  const updateStreamSource = function() {
+    var type = $("#cameras").val();
+    var audio_type = $("#audio_inputs").val();
+
+    const videoConstraints = {};
+    const audioConstraints = {};
+    if (type === '') {
+      videoConstraints.facingMode = 'environment';
+    } else {
+      videoConstraints.deviceId = { exact: type };
+    }
+
+    audioConstraints.deviceId = { exact: audio_type };
+    const constraints = {
+      video: videoConstraints,
+      audio: audioConstraints
+    };
+
+
+      navigator.mediaDevices
+      .getUserMedia(constraints)
+      .then(function(stream) {
+        window.localstream = stream;
+        window.localVideo.srcObject = stream;
+        window.localVideo.muted = true;
+        for (const peerConnection in pcPeers) {
+          if (Object.hasOwnProperty.call(pcPeers, peerConnection)) {
+            const pc = pcPeers[peerConnection];
+            stream.getVideoTracks().forEach(function(track) {
+              var sender = pc.getSenders().find(function(s) {
+                return s.track.kind == track.kind;
+              });
+              sender.replaceTrack(track);
+            });
+          }
+        }
+      })
   }
   
   const handleJoinSession = async () => {
@@ -2195,8 +2239,35 @@ function setMediaBitrates(sdp) {
     $("#brush_style").val("none");
 
     $("#brush_style").change();
+
+    navigator.mediaDevices.enumerateDevices().then(gotDevices);
   
   })
+
+  window.gotDevices = (mediaDevices) =>  {
+    var select = $("#cameras")[0];
+    var audio_select = $("#audio_inputs")[0];
+    select.innerHTML = '';
+    select.appendChild(document.createElement('option'));
+    let count = 1;
+    mediaDevices.forEach(mediaDevice => {
+      if (mediaDevice.kind === 'videoinput') {
+        const option = document.createElement('option');
+        option.value = mediaDevice.deviceId;
+        const label = mediaDevice.label || `Camera ${count++}`;
+        const textNode = document.createTextNode(label);
+        option.appendChild(textNode);
+        select.appendChild(option);
+      } else {
+        const option = document.createElement('option');
+        option.value = mediaDevice.deviceId;
+        const label = mediaDevice.label || `Audio Input ${count++}`;
+        const textNode = document.createTextNode(label);
+        option.appendChild(textNode);
+        audio_select.appendChild(option);
+      }
+    });
+  }
   
   $(document).on("unload", function() {
     handleLeaveSession();
