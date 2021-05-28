@@ -84,7 +84,7 @@ class LivepixelController < ApplicationController
   end
 
   def canvas
-    sanitizer = Sanitize::Policy::HTMLSanitizer.common
+    sanitizer = Sanitize::Policy::HTMLSanitizer.basic
     random_number = Random.rand(10000).to_i
     room = params[:room] rescue ""
     redis = Redis.new
@@ -131,7 +131,7 @@ class LivepixelController < ApplicationController
 
   def random_ad
     redis = Redis.new
-    sanitizer = Sanitize::Policy::HTMLSanitizer.common
+    sanitizer = Sanitize::Policy::HTMLSanitizer.basic
     ad = ""
     banner_link = ""
     while ad == ""

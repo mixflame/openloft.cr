@@ -74,7 +74,7 @@ class Client
     return if name == "gbaldraw-bridge" || name == "gbaldraw-bridge-dev"
     name = "#{name}@irc"
     puts "name #{name}"
-    sanitizer = Sanitize::Policy::HTMLSanitizer.common
+    sanitizer = Sanitize::Policy::HTMLSanitizer.basic
     name = sanitizer.process(name.to_s)
     message = sanitizer.process(message.to_s)
     message = " [#{Time.utc.month}/#{Time.utc.day}/#{Time.utc.year} #{Time.utc.hour}:#{Time.utc.minute}:#{Time.utc.second}] #{message}"
