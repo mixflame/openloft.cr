@@ -182,8 +182,8 @@ function setMediaBitrates(sdp) {
             context.closePath();
             context.fillStyle = curColor;
             context.fill();
-            addClick(undefined, undefined, undefined, false, name, curColor, undefined, undefined, path, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill);
-            window.canvas_channel.push("message_new", {room: room, x: undefined, y: undefined, dragging: false, name: name, color: curColor, size: undefined, text: undefined, path: path, line_join: curLineJoin, shape_type: curShapeType, shape_width: curShapeWidth, shape_height: curShapeHeight, shape_fill: curShapeFill });
+            addClick(undefined, undefined, undefined, false, name, curColor, undefined, undefined, path, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle, curBrushStyle, count);
+            window.canvas_channel.push("message_new", {room: room, x: undefined, y: undefined, dragging: false, name: name, color: curColor, size: undefined, text: undefined, path: path, line_join: curLineJoin, shape_type: curShapeType, shape_width: curShapeWidth, shape_height: curShapeHeight, shape_fill: curShapeFill, shape_angle: curShapeAngle, brush_style: curBrushStyle, count: count });
             
             break;
           }
@@ -779,11 +779,14 @@ function setMediaBitrates(sdp) {
   // add a click, either to local variables or to multiplayer hash
   var addClick = function(x, y, dragging, mp, click_name, color, size, text, path, line_join, shape_type, shape_width, shape_height, shape_fill, shape_angle, brush_style, count)
   {
-    if(x == undefined || y == undefined) return;
-    if( dragging == undefined ) return;
-    if(mp == undefined) return;
-    if(click_name == undefined) return;
-    if(color == undefined) return;
+    if(x == undefined && 
+    y == undefined &&
+    dragging == undefined &&
+    mp == undefined &&
+    click_name == undefined &&
+    color == undefined &&
+    text == undefined && 
+    path == undefined) return;
     if(size > 35 || size < 1)
       size = 35;
     if(shape_width > 360 || shape_width < 1) {
