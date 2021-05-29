@@ -1214,15 +1214,15 @@ function setMediaBitrates(sdp) {
       return false;
     }
 
-    if($("#brush_style").val() != "none") {
-      switch($("#brush_style").val()) {
-        case "chrome":
-          window.count = (window.count + 1) % 75;
-          var color = rgbToHex(Math.floor(Math.random() * hexToRgb($("#color").val()).r), Math.floor(Math.random() * hexToRgb($("#color").val()).g), Math.floor(Math.random() * hexToRgb($("#color").val()).b));
-          var hex = "#" + ("000000" + color).slice(-6);
-          curColor = hex;
-        }
-    }
+    // if($("#brush_style").val() != "none") {
+    //   switch($("#brush_style").val()) {
+    //     case "chrome":
+    //       window.count = (window.count + 1) % 75;
+    //       var color = rgbToHex(Math.floor(Math.random() * hexToRgb($("#color").val()).r), Math.floor(Math.random() * hexToRgb($("#color").val()).g), Math.floor(Math.random() * hexToRgb($("#color").val()).b));
+    //       var hex = "#" + ("000000" + color).slice(-6);
+    //       curColor = hex;
+    //     }
+    // }
   
     if($("#paintbucket").is(":checked")) {
       // var imageData = window.context.getImageData(0, 0, 1180, 690);
@@ -1273,15 +1273,15 @@ function setMediaBitrates(sdp) {
       curShapeAngle = Math.floor(Math.random() * 360 + 1)
     }
 
-    if($("#brush_style").val() != "none") {
-      switch($("#brush_style").val()) {
-        case "chrome":
-          window.count = (window.count + 1) % 75;
-          var color = rgbToHex(Math.floor(Math.random() * hexToRgb($("#color").val()).r), Math.floor(Math.random() * hexToRgb($("#color").val()).g), Math.floor(Math.random() * hexToRgb($("#color").val()).b));
-          var hex = "#" + ("000000" + color).slice(-6);
-          curColor = hex;
-        }
-    }
+    // if($("#brush_style").val() != "none") {
+    //   switch($("#brush_style").val()) {
+    //     case "chrome":
+    //       window.count = (window.count + 1) % 75;
+    //       var color = rgbToHex(Math.floor(Math.random() * hexToRgb($("#color").val()).r), Math.floor(Math.random() * hexToRgb($("#color").val()).g), Math.floor(Math.random() * hexToRgb($("#color").val()).b));
+    //       var hex = "#" + ("000000" + color).slice(-6);
+    //       curColor = hex;
+    //     }
+    // }
   
     if($("#rainbow").is(':checked')) {
       if($("#themes").val() == "rain")
