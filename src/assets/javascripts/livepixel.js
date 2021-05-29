@@ -1095,8 +1095,13 @@ function setMediaBitrates(sdp) {
                     if (d < 1000)
                     {
                       // console.log(mpClickColor[i]);
-                      context.strokeStyle = "rgba(" + hexToRgb(mpClickColor[i]).r + ", " + hexToRgb(mpClickColor[i]).g + ", " + hexToRgb(mpClickColor[i]).b + ", " + 0.1 * mpClickSize[i] + " )";
-                      // context.strokeStyle = mpClickColor[i];
+                      try {
+                        context.strokeStyle = "rgba(" + hexToRgb(mpClickColor[i]).r + ", " + hexToRgb(mpClickColor[i]).g + ", " + hexToRgb(mpClickColor[i]).b + ", " + 0.1 * mpClickSize[i] + " )";
+                      } catch {
+                        context.strokeStyle = mpClickColor[i];
+                      }
+                      
+                      
                       context.beginPath();
                       context.moveTo( mpClickX[i] + (dx * 0.2), mpClickY[i] + (dy * 0.2));
                       context.lineTo( mpClickX[i] - (dx * 0.2), mpClickY[i] - (dy * 0.2));
