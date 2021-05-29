@@ -1086,8 +1086,8 @@ function setMediaBitrates(sdp) {
                     // dx = points[i][0] - points[mpClickCount[i]][0];
 			              // dy = points[i][1] - points[mpClickCount[i]][1];
                     // console.log(mpClickX[mpClickX.length - 2]);
-                    dx = mpClickX[0] - mpClickX[i];
-                    dy = mpClickY[0] - mpClickY[i];
+                    dx = (mpClickX[i - 5] ? mpClickX[i - 5] : mpClickX[0]) - mpClickX[i];
+                    dy = (mpClickY[i - 5] ? mpClickY[i - 5] : mpClickY[0]) - mpClickY[i];
                     // dx = points[i][0] - mpClickX[mpClickX.length - 1];
 			              // dy = points[i][1] - mpClickY[mpClickY.length - 1];
                     d = dx * dx + dy * dy;
@@ -1100,6 +1100,18 @@ function setMediaBitrates(sdp) {
                       context.beginPath();
                       context.moveTo( mpClickX[i] + (dx * 0.2), mpClickY[i] + (dy * 0.2));
                       context.lineTo( mpClickX[i] - (dx * 0.2), mpClickY[i] - (dy * 0.2));
+                      context.stroke();
+                      context.beginPath();
+                      context.moveTo( mpClickX[i] - 1 + (dx * 0.4), mpClickY[i] - 1 + (dy * 0.4));
+                      context.lineTo( mpClickX[i] - 1 - (dx * 0.4), mpClickY[i] - 1 - (dy * 0.4));
+                      context.stroke();
+                      context.beginPath();
+                      context.moveTo( mpClickX[i] - 2 + (dx * 0.6), mpClickY[i] - 2 + (dy * 0.6));
+                      context.lineTo( mpClickX[i] - 2 - (dx * 0.6), mpClickY[i] - 2 - (dy * 0.6));
+                      context.stroke();
+                      context.beginPath();
+                      context.moveTo( mpClickX[i] - 3 + (dx * 0.8), mpClickY[i] - 3 + (dy * 0.8));
+                      context.lineTo( mpClickX[i] - 3 - (dx * 0.8), mpClickY[i] - 3 - (dy * 0.8));
                       context.stroke();
                     }
 
@@ -1566,17 +1578,17 @@ function setMediaBitrates(sdp) {
       // count = 0;
       window.edits = window.edits + 1;
       paint = false;
-      window.canvas_channel.push("message_new", { mouseUp: true, name: name, room: room });
+      // window.canvas_channel.push("message_new", { mouseUp: true, name: name, room: room });
     });
   
     $('#canvas').bind("touchend", function(e){
       paint = false;
-      window.canvas_channel.push("message_new", { mouseUp: true, name: name, room: room });
+      // window.canvas_channel.push("message_new", { mouseUp: true, name: name, room: room });
     });
   
     $('#canvas').mouseleave(function(e){
       paint = false;
-      window.canvas_channel.push("message_new", { mouseUp: true, name: name, room: room });
+      // window.canvas_channel.push("message_new", { mouseUp: true, name: name, room: room });
     });
   
     $(document).keydown(function(e){

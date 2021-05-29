@@ -145,7 +145,7 @@ window.canvas_socket.connect()
                 return;
             }
 
-            if (!data["mouseUp"]) {
+            // if (!data["mouseUp"]) {
                 if (data["name"] != window.name && !window.locked) {
                     window.addClick(data["x"], data["y"], data["dragging"], true, data["name"], data["color"], data['size'], data['text'], data['path'], data['line_join'], data['shape_type'], data['shape_width'], data['shape_height'], data['shape_fill'], data["shape_angle"], data["brush_style"], data["count"]);
                     if (window.getTotalSizeOfCanvas() > 100) {
@@ -159,7 +159,7 @@ window.canvas_socket.connect()
                 }
 
                 window.mouseDown(data["name"], data["color"], data['size']);
-            }
+            // }
         })
 
         window.canvas_channel.on('user_join', (data) => {
