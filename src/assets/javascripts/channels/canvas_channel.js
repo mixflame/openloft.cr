@@ -35,72 +35,72 @@ window.canvas_socket.connect()
                 return false;
             }
 
-            // if (data['undo'] == true) {
-            //     // set values to backups
-            //     window.mpNameHash = window.backupMpNameHash;
-            //     window.mpLayerOrder = window.backupMpLayerOrder;
-            //     window.mpClickHash = window.backupMpClickHash;
-            //     // get top layer number
-            //     var topLayerNum = window.mpNameHash[data['name']];
-            //     if (topLayerNum == null || topLayerNum == undefined) return;
-            //     // console.log(`deleting ${data['name']}'s ${topLayerNum}`)
-            //     // decrement layer in name hash
-            //     window.mpNameHash[data['name']] = window.mpNameHash[data['name']] - 1;
-            //     // get top layer index
-            //     var topLayerIndex = window.mpLayerOrder.indexOf(data['name'] + "_" + topLayerNum);
+            if (data['undo'] == true) {
+                // set values to backups
+                window.mpNameHash = window.backupMpNameHash;
+                window.mpLayerOrder = window.backupMpLayerOrder;
+                window.mpClickHash = window.backupMpClickHash;
+                // get top layer number
+                var topLayerNum = window.mpNameHash[data['name']];
+                if (topLayerNum == null || topLayerNum == undefined) return;
+                // console.log(`deleting ${data['name']}'s ${topLayerNum}`)
+                // decrement layer in name hash
+                window.mpNameHash[data['name']] = window.mpNameHash[data['name']] - 1;
+                // get top layer index
+                var topLayerIndex = window.mpLayerOrder.indexOf(data['name'] + "_" + topLayerNum);
 
-            //     // console.log(`deleting ${topLayerIndex}`)
-            //     // console.log(window.mpLayerOrder);
+                // console.log(`deleting ${topLayerIndex}`)
+                // console.log(window.mpLayerOrder);
 
-            //     // remove from layer order
-            //     window.mpLayerOrder.splice(topLayerIndex, 1);
-            //     // window.mpLayerOrder = arrayRemove(window.mpLayerOrder, data['name'] + "_" + topLayerNum);
-            //     // console.log(window.mpLayerOrder);
+                // remove from layer order
+                window.mpLayerOrder.splice(topLayerIndex, 1);
+                // window.mpLayerOrder = arrayRemove(window.mpLayerOrder, data['name'] + "_" + topLayerNum);
+                // console.log(window.mpLayerOrder);
 
-            //     // get top layer
-            //     var topLayer = window.mpClickHash[data['name'] + "_" + topLayerNum];
-            //     // console.log(topLayer);
+                // get top layer
+                var topLayer = window.mpClickHash[data['name'] + "_" + topLayerNum];
+                // console.log(topLayer);
 
-            //     // delete top layer
-            //     delete window.mpClickHash[data['name'] + "_" + topLayerNum];
+                // delete top layer
+                delete window.mpClickHash[data['name'] + "_" + topLayerNum];
 
-            //     // set backups back to modified version
-            //     window.backupMpNameHash = window.mpNameHash;
-            //     window.backupMpLayerOrder = window.mpLayerOrder;
-            //     window.backupMpClickHash = window.mpClickHash;
+                // set backups back to modified version
+                window.backupMpNameHash = window.mpNameHash;
+                window.backupMpLayerOrder = window.mpLayerOrder;
+                window.backupMpClickHash = window.mpClickHash;
 
-            //     // clear bg canvas
-            //     var destCtx = window.bgCanvas.getContext('2d');
-            //     destCtx.clearRect(0, 0, destCtx.canvas.width, destCtx.canvas.height); // Clears the canvas
-            //     destCtx.fillStyle = "#FFFFFF";
-            //     destCtx.fillRect(0, 0, 0.60 * screen.width, 0.60 * screen.height);
+                // clear bg canvas
+                var destCtx = window.bgCanvas.getContext('2d');
+                destCtx.clearRect(0, 0, destCtx.canvas.width, destCtx.canvas.height); // Clears the canvas
+                destCtx.fillStyle = "#FFFFFF";
+                destCtx.fillRect(0, 0, 0.60 * screen.width, 0.60 * screen.height);
 
-            //     // redraw
-            //     window.redraw(false, true);
-            //     // window.redraw(false, true);
-            //     window.edits = window.edits - 1;
-            //     return false;
-            // }
-
-            if(data['undo'] == true) {
-              window.mpNameHash = {};
-              window.mpLayerOrder = [];
-              window.mpClickHash = {};
-              window.backupMpNameHash = {};
-              window.backupMpClickHash = {};
-              window.backupMpLayerOrder = [];
-              var context = window.canvas.getContext('2d');
-              context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
-              context.fillStyle = "#FFFFFF";
-              context.fillRect(0, 0,  0.60 * screen.width,  0.60 * screen.height);
-              // clear bg canvas
-              var destCtx = window.bgCanvas.getContext('2d');
-              destCtx.clearRect(0, 0, destCtx.canvas.width, destCtx.canvas.height); // Clears the canvas
-              destCtx.fillStyle = "#FFFFFF";
-              destCtx.fillRect(0, 0,  0.60 * screen.width,  0.60 * screen.height);
-              window.persistence_channel.push("message_new", {connected: true});
-              window.redraw(false, true);
+                // redraw
+                window.redraw(false, true);
+                // window.redraw(false, true);
+                window.edits = window.edits - 1;
+                return false;
             }
+
+            // if(data['undo'] == true) {
+            //   window.mpNameHash = {};
+            //   window.mpLayerOrder = [];
+            //   window.mpClickHash = {};
+            //   window.backupMpNameHash = {};
+            //   window.backupMpClickHash = {};
+            //   window.backupMpLayerOrder = [];
+            //   var context = window.canvas.getContext('2d');
+            //   context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
+            //   context.fillStyle = "#FFFFFF";
+            //   context.fillRect(0, 0,  0.60 * screen.width,  0.60 * screen.height);
+            //   // clear bg canvas
+            //   var destCtx = window.bgCanvas.getContext('2d');
+            //   destCtx.clearRect(0, 0, destCtx.canvas.width, destCtx.canvas.height); // Clears the canvas
+            //   destCtx.fillStyle = "#FFFFFF";
+            //   destCtx.fillRect(0, 0,  0.60 * screen.width,  0.60 * screen.height);
+            //   window.persistence_channel.push("message_new", {connected: true});
+            //   window.redraw(false, true);
+            // }
 
             if (data["ping"]) {
                 window.last_ping[data['name']] = Date.now();
