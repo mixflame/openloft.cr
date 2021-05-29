@@ -1,8 +1,8 @@
 version: 2.0
 shards:
   amber:
-    git: https://github.com/amberframework/amber.git
-    version: 0.36.0+git.commit.8841e1ccbc2afb5c75f30c1dc5973025bc92b764
+    git: https://github.com/mixflame/amber.git
+    version: 0.36.0+git.commit.086b937f456545a6645faf88d5a7df893f578523
 
   amber_router:
     git: https://github.com/amberframework/amber-router.git
@@ -38,7 +38,7 @@ shards:
 
   discordcr:
     git: https://github.com/shardlab/discordcr.git
-    version: 0.4.0+git.commit.c0adeeacd5ac9e1faba29cc65f4bb1435e4b9865
+    version: 0.4.0+git.commit.df22ea8f9499756949dfa16ed629bd1724b77e05
 
   email:
     git: https://github.com/arcage/crystal-email.git
