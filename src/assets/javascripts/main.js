@@ -19,24 +19,7 @@ import { faEyeDropper,
     faUndo, 
     faPaintBrush, 
     faShapes,
-    faBars,
-    faHeadphones,
-    // faTwitter,
-    faDownload,
-    faPlug,
-    // faRefresh,
-    faCircleNotch,
-    faStop,
-    faPlay,
-    faVolumeDown,
-    faVolumeUp,
-    faSearch,
-    faTimesCircle,
-    faSortAmountDown,
-    faSortAmountUp,
-    faFont,
-    faHeart,
-    faMusic } from "@fortawesome/free-solid-svg-icons";
+    faRulerCombined } from "@fortawesome/free-solid-svg-icons";
 
 
 library.add(faEyeDropper);
@@ -50,23 +33,7 @@ library.add(faPalette);
 library.add(faUndo);
 library.add(faPaintBrush);
 library.add(faShapes);
-library.add(faBars)
-library.add(faHeadphones)
-// library.add(faTwitter)
-library.add(faDownload)
-library.add(faPlug)
-// library.add(faRefresh)
-library.add(faCircleNotch)
-library.add(faStop)
-library.add(faPlay)
-library.add(faVolumeDown)
-library.add(faVolumeUp)
-library.add(faSearch)
-library.add(faTimesCircle)
-library.add(faSortAmountDown)
-library.add(faSortAmountUp)
-library.add(faFont)
-library.add(faHeart)
-library.add(faMusic)
+library.add(faRulerCombined);
+
 
 dom.watch();
