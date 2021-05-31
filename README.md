@@ -2,7 +2,7 @@
 
 [![Amber Framework](https://img.shields.io/badge/using-amber_framework-orange.svg)](https://amberframework.org)
 
-This is a project written using [Amber](https://amberframework.org). Enjoy!
+This is Gbaldraw, a project written using [Amber](https://amberframework.org). Enjoy!
 
 ## Getting Started
 
