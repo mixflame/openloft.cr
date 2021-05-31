@@ -6,7 +6,6 @@ class SessionChannel < Amber::WebSockets::Channel
   end
 
   def handle_message(client_socket, message)
-    puts "data sent to session channel"
     rebroadcast!(message)
   end
 

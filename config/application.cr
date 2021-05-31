@@ -25,6 +25,3 @@ require "../src/channels/**"
 require "../src/controllers/application_controller"
 require "../src/controllers/**"
 require "./routes"
-
-Amber::Server.instance.subscribe_channels = ["canvas", "chat", "persistence", "session"]
-Amber::Server.instance.pubsub_adapter = Amber::WebSockets::Adapters::RedisAdapter

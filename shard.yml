@@ -17,7 +17,7 @@ targets:
 
 dependencies:
   amber:
-    github: mixflame/amber
+    github: amberframework/amber
     #version: 0.36.0
     branch: master
 

@@ -4,8 +4,6 @@ class ChatChannel < Amber::WebSockets::Channel
   end
 
   def handle_message(client_socket, message)
-    puts "data sent to chat channel"
-    puts message
     data = message.as_h["payload"].as_h
     msg = message.as_h
     room = data["room"].to_s rescue ""

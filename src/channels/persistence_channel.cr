@@ -1,12 +1,10 @@
 class PersistenceChannel < Amber::WebSockets::Channel
   def handle_joined(client_socket, message)
     puts "persistence joined"
-    # PersistenceSocket.broadcast("join", message.as_h["topic"].to_s, "user_join", {} of String => String)
   end
 
   def handle_message(client_socket, message)
-    puts "data sent to persistence channel"
-    puts message
+    puts "data: #{message}"
     data = message.as_h["payload"].as_h
     room = message.as_h["topic"].to_s.split(":")[1].split("_")[0].to_s rescue ""
     room = room == "null" ? nil : room

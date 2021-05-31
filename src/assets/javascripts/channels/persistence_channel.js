@@ -22,10 +22,8 @@ persistence_socket.connect()
         $("#status").text("loading canvas");
         // this.perform('connected', {id: uuid});
 
-        // window.persistence_channel.push("message_new", {join: true, name: window.name});
-
         persistence_channel.push("message_new", {connected: true});
-        
+
         persistence_channel.on('message_new', (data) => {
             // handle new message here
             console.log(data);
@@ -59,8 +57,5 @@ persistence_socket.connect()
             }
         })
 
-        persistence_channel.on('user_join', (data) => {
-
-            
-         })
+        persistence_channel.on('user_join', (data) => { })
     })
