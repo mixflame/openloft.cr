@@ -26,6 +26,36 @@ require "../src/controllers/application_controller"
 require "../src/controllers/**"
 require "./routes"
 
+INLINE_SAFELIST = {"a" => Set {"href", "hreflang"}, 
+"abbr" => Set(String).new, 
+"acronym" => Set(String).new, 
+"b" => Set(String).new, 
+"code" => Set(String).new, 
+"em" => Set(String).new, 
+"i" => Set(String).new, 
+"strong" => Set(String).new,
+"font" => Set(String).new, 
+"*" => Set {"dir", "lang", "title", "class", "color"}}
+
+Policy = INLINE_SAFELIST.merge({
+"blockquote" => Set {"cite"}, 
+"br" => Set(String).new, 
+"h1" => Set(String).new, 
+"h2" => Set(String).new, 
+"h3" => Set(String).new, 
+"h4" => Set(String).new, 
+"h5" => Set(String).new, 
+"h6" => Set(String).new, 
+"hr" => Set(String).new, 
+"img" => Set {"alt", "src", "longdesc", "width", "height", "align"}, 
+"li" => Set(String).new, 
+"ol" => Set {"start"}, 
+"p" => Set {"align"}, 
+"pre" => Set(String).new, 
+"ul" => Set(String).new})
+
+Sanitizer = Sanitize::Policy::Whitelist.new(Policy)
+
 IrcChannel = Channel(Array(String)).new
 
 require "../src/lib/irc"
@@ -41,3 +71,4 @@ require "../src/lib/discord"
 spawn do
   discord_client = DiscordBot.new
 end
+

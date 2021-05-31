@@ -7,10 +7,10 @@ class ChatChannel < Amber::WebSockets::Channel
     data = message.as_h["payload"].as_h
     msg = message.as_h
     room = data["room"].to_s rescue ""
-    sanitizer = Sanitize::Policy::HTMLSanitizer.basic
+    # Sanitizer = Sanitize::Policy::HTMLSanitizer.basic
     if(!data["name"].nil? && !data["chat_message"].nil?)
-      data["name"] = JSON::Any.new(sanitizer.process(data["name"].to_s))
-      data["chat_message"] = JSON::Any.new(sanitizer.process(data["chat_message"].to_s))
+      data["name"] = JSON::Any.new(Sanitizer.process(data["name"].to_s))
+      data["chat_message"] = JSON::Any.new(Sanitizer.process(data["chat_message"].to_s))
       data["chat_message"] = JSON::Any.new(" [#{Time.utc.month}/#{Time.utc.day}/#{Time.utc.year} #{Time.utc.hour}:#{Time.utc.minute}:#{Time.utc.second}] #{data["chat_message"].to_s.gsub("<br/>", "").squeeze(' ').to_s}")
     end
     if room == "" || room == nil
