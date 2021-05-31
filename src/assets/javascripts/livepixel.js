@@ -505,7 +505,7 @@ function setMediaBitrates(sdp) {
     remoteVideoContainer.appendChild(container);
     
     $(container).addClass(`remoteVideoContainer-${userId}`);
-    // $(container).hide();
+    $(container).hide();
     $(`#video-${userId}`).on("play", function(e){
       $(`#remoteVideoContainer-${userId}`).show();
     })
@@ -565,6 +565,14 @@ function setMediaBitrates(sdp) {
       }
     };
 
+    pc.onaddstream = function(e){
+      if(e.srcElement.iceConnectionState === 'connected' &&
+         e.srcElement.iceGatheringState === 'complete') {
+          // attach to video-element
+          $(container).show();
+      }
+    };
+
     pc.onconnectionstatechange = function(event) {
       console.log(`peerconnection of userId ${userId} connectionstate changed to ${pc.connectionState}`)
       switch(pc.connectionState) {
@@ -580,6 +588,7 @@ function setMediaBitrates(sdp) {
           // console.log(`connection state changed to failed userId: ${userId}`)
           // One or more transports has terminated unexpectedly or in an error
           // $("video").each((i, e) => { if(e.duration != Infinity) $(e).parent().remove() })
+          $(container).remove();
           break;
         case "closed":
           // The connection has been closed
