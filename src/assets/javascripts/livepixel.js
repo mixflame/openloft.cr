@@ -429,11 +429,11 @@ function setMediaBitrates(sdp) {
     // if all false, make self polite
     polite_arr.push(data.polite);
     var checker = polite_arr => polite_arr.every(v => v === "true")
-    if(checker == true) {
+    if(checker(polite_arr) == true) {
       polite = false;
     } else {
       checker = polite_arr => polite_arr.every(v => v === "false")
-      if(checker == true) {
+      if(checker(polite_arr) == true) {
         polite = true;
       }
     }
@@ -566,17 +566,18 @@ function setMediaBitrates(sdp) {
     };
 
     pc.onconnectionstatechange = function(event) {
+      console.log(`peerconnection of userId ${userId} connectionstate changed to ${pc.connectionState}`)
       switch(pc.connectionState) {
         case "connected":
-          console.log(`connection state changed to connected userId: ${userId}`)
+          // console.log(`connection state changed to connected userId: ${userId}`)
           // The connection has become fully connected
-          $(`#remoteVideoContainer-${userId}`).show();
+          // $(`#remoteVideoContainer-${userId}`).show();
           // $("video").each((i, e) => { if(e.duration != Infinity) $(e).parent().remove() })
           
           break;
         case "disconnected":
         case "failed":
-          console.log(`connection state changed to failed userId: ${userId}`)
+          // console.log(`connection state changed to failed userId: ${userId}`)
           // One or more transports has terminated unexpectedly or in an error
           // $("video").each((i, e) => { if(e.duration != Infinity) $(e).parent().remove() })
           break;
@@ -588,8 +589,9 @@ function setMediaBitrates(sdp) {
     }
   
     pc.oniceconnectionstatechange = () => {
+      console.log(`peerconnection of userId ${userId} iceconnectionstate changed to ${pc.iceConnectionState}`)
       if (pc.iceConnectionState == "disconnected") {
-        if(!window.dontLog) console.log("Disconnected:", userId);
+        // if(!window.dontLog) console.log("Disconnected:", userId);
         
         // $("video").each((i, e) => { if(e.duration != Infinity) $(e).parent().remove() })
         if(pc.restartIce != undefined) { console.log("restarting ice because iceConnectionState is disconnected"); pc.restartIce(); }
@@ -604,14 +606,14 @@ function setMediaBitrates(sdp) {
         //   name: name
         // });
       } else if (pc.iceConnectionState == "failed") {
-        console.log("connection failed")
+        // console.log("connection failed")
         
-        $("video").each((i, e) => { if(pcPeers[e.id.split("-")[1]].iceConnectionState == "failed") $(e).parent().remove() })
+        // $("video").each((i, e) => { if(pcPeers[e.id.split("-")[1]].iceConnectionState == "failed") $(e).parent().remove() })
         if(pc.restartIce != undefined) { console.log("restarting ice because iceConnectionState is failed"); pc.restartIce(); }
         // ghost remover
 
       } else if (pc.iceConnectionState == "connected") {
-        $(`#remoteVideoContainer-${userId}`).show();
+        // $(`#remoteVideoContainer-${userId}`).show();
       }
     };
 
