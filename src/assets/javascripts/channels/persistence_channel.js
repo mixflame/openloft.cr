@@ -12,50 +12,66 @@ var urlParams = new URLSearchParams(window.location.search);
 var room = urlParams.get('room');
 
 
-window.persistence_socket = new Amber.Socket('/persistence')
-persistence_socket.connect()
-    .then(() => {
-        console.log("connected to /persistence")
+window.setupPersistence = () => {
+    console.log("connected to /persistence")
+    if(window.persistence_socket.channels.length == 0){
         window.persistence_channel = persistence_socket.channel('persistence:' + window.room + "_" + uuid)
         window.persistence_channel.join()
-        if (!window.dontLog) console.log("Connected to persistence channel");
-        $("#status").text("loading canvas");
-        // this.perform('connected', {id: uuid});
+    } else {
+        window.persistence_socket.channels = [];
+        window.persistence_channel = persistence_socket.channel('persistence:' + window.room + "_" + uuid)
+        window.persistence_channel.join()
+    }
+    if (!window.dontLog) console.log("Connected to persistence channel");
+    $("#status").text("loading canvas");
+    // this.perform('connected', {id: uuid});
 
-        persistence_channel.push("message_new", {connected: true});
+    persistence_channel.push("message_new", {connected: true});
 
-        persistence_channel.on('message_new', (data) => {
-            // handle new message here
-            console.log(data);
-            var count = $(data['canvas']).length;
-            var packets_length = data['packets'];
-            window.total = 0;
-            if (count == 0) {
-                window.redraw(true, true);
-                // window.redraw(false, false);
-                $("#status").text("canvas loaded");
-                window.disabled = false;
-                $("#join-button").click();
-                console.log("canvas session joined")
+    persistence_channel.on('message_new', (data) => {
+        // handle new message here
+        console.log(data);
+        var count = $(data['canvas']).length;
+        var packets_length = data['packets'];
+        window.total = 0;
+        if (count == 0) {
+            window.redraw(true, true);
+            // window.redraw(false, false);
+            $("#status").text("canvas loaded");
+            window.disabled = false;
+            $("#join-button").click();
+            console.log("canvas session joined")
 
-            } else {
+        } else {
 
-                data['canvas'].forEach(function (json, index) {
-                    var point = JSON.parse(json);
-                    window.addClick(point["x"], point["y"], point["dragging"], true, point["name"], point["color"], point['size'], point['text'], point['path'], point['line_join'], point['shape_type'], point['shape_width'], point['shape_height'], point['shape_fill'], point["shape_angle"], point["brush_style"], point["count"]);
-                    // window.redraw(true, false);
-                    window.total = window.total + 1;
-                    if (packets_length == window.total) {
-                        window.redraw(true, true);
-                        $("#status").text("canvas loaded");
-                        window.disabled = false;
-                        $("#join-button").click();
-                    } else {
-                        $("#status").text("canvas loading... " + index + "/" + count);
-                    }
-                });
-            }
-        })
-
-        persistence_channel.on('user_join', (data) => { })
+            data['canvas'].forEach(function (json, index) {
+                var point = JSON.parse(json);
+                window.addClick(point["x"], point["y"], point["dragging"], true, point["name"], point["color"], point['size'], point['text'], point['path'], point['line_join'], point['shape_type'], point['shape_width'], point['shape_height'], point['shape_fill'], point["shape_angle"], point["brush_style"], point["count"]);
+                // window.redraw(true, false);
+                window.total = window.total + 1;
+                if (packets_length == window.total) {
+                    window.redraw(true, true);
+                    $("#status").text("canvas loaded");
+                    window.disabled = false;
+                    $("#join-button").click();
+                } else {
+                    $("#status").text("canvas loading... " + index + "/" + count);
+                }
+            });
+        }
     })
+
+    persistence_channel.on('user_join', (data) => { })
+}
+
+window.persistence_socket = new Amber.Socket('/persistence')
+persistence_socket.connect()
+    .then(setupPersistence)
+    window.persistence_socket._reconnect = () => {
+        clearTimeout(window.persistence_socket.reconnectTimeout)
+        window.persistence_socket.reconnectTimeout = setTimeout(() => {
+          window.persistence_socket.reconnectTries++
+          window.persistence_socket.connect(window.persistence_socket.params).then(setupPersistence);
+          window.persistence_socket._reconnect()
+        }, window.persistence_socket._reconnectInterval())
+      }

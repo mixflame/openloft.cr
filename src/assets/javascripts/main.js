@@ -1,5 +1,6 @@
 import 'bootstrap';
 import Amber from 'amber';
+window.Amber = Amber;
 //import Logo from '../images/logo.svg';
 
 require("./livepixel")

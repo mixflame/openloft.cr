@@ -359,43 +359,59 @@ function setMediaBitrates(sdp) {
         }
       })
   }
+
+  const setupSession = () => {
+    console.log("connected to /session")
+    if(window.camera_socket.channels.length == 0){
+      window.camera_session = camera_socket.channel('session:' + window.room)
+      window.camera_session.join()
+    } else {
+      window.camera_socket.channels = [];
+      window.camera_session = camera_socket.channel('session:' + window.room)
+      window.camera_session.join()
+    }
+    
+    window.camera_session.on('message_new', (data) => {
+      if(!window.dontLog) console.log("received", data);
+      if (data.from === currentUser) return;
+      switch (data.type) {
+      case JOIN_ROOM:
+        return joinRoom(data);
+      case EXCHANGE:
+        if (data.to !== currentUser) return;
+        return exchange(data);
+      case REMOVE_USER:
+        return removeUser(data);
+      default:
+        return;
+      }
+    })
+    
+    window.camera_session.on('user_join', (data) => {
+      console.log(data);
+      broadcastData({
+        type: JOIN_ROOM,
+        from: currentUser,
+        name: window.name,
+        polite: window.polite,
+      });
+    })
+}
   
   const handleJoinSession = async () => {
     if(!window.dontLog) console.log("joining session")
     if(window.camera_session == null || window.camera_session == undefined) {
       window.camera_socket = new Amber.Socket('/session')
       camera_socket.connect()
-        .then(() => {
-            console.log("connected to /session")
-            window.camera_session = camera_socket.channel('session:' + window.room)
-            window.camera_session.join()
-            
-            window.camera_session.on('message_new', (data) => {
-              if(!window.dontLog) console.log("received", data);
-              if (data.from === currentUser) return;
-              switch (data.type) {
-              case JOIN_ROOM:
-                return joinRoom(data);
-              case EXCHANGE:
-                if (data.to !== currentUser) return;
-                return exchange(data);
-              case REMOVE_USER:
-                return removeUser(data);
-              default:
-                return;
-              }
-            })
-            
-            window.camera_session.on('user_join', (data) => {
-              console.log(data);
-              broadcastData({
-                type: JOIN_ROOM,
-                from: currentUser,
-                name: window.name,
-                polite: window.polite,
-              });
-            })
-        })
+        .then(setupSession)
+        window.camera_socket._reconnect = () => {
+          clearTimeout(window.camera_socket.reconnectTimeout)
+          window.camera_socket.reconnectTimeout = setTimeout(() => {
+            window.camera_socket.reconnectTries++
+            window.camera_socket.connect(window.camera_socket.params).then(setupSession);
+            window.camera_socket._reconnect()
+          }, window.camera_socket._reconnectInterval())
+        }
 
     } else {
       broadcastData({
