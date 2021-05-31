@@ -22,9 +22,10 @@ class ChatChannel < Amber::WebSockets::Channel
       msg["payload"] = JSON::Any.new(data)
       ChatSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", msg["payload"].as_h)
       # client.say("#gbaldraw", "<#{data["name"]}> #{data["chat_message"]}")
-      IrcChannel.send([data["name"].to_s, data["chat_message"].to_s])
+      policy = Sanitize::Policy::Text.new
+      IrcChannel.send([data["name"].to_s, policy.process(data["chat_message"].to_s)])
 
-      DiscordChannel.send([data["name"].to_s, data["chat_message"].to_s])
+      DiscordChannel.send([data["name"].to_s, policy.process(data["chat_message"].to_s)])
     else
       redis = Redis.new
       redis.rpush "chats_#{room}", data.to_json
