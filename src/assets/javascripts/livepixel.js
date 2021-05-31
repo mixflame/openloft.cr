@@ -571,14 +571,14 @@ function setMediaBitrates(sdp) {
           console.log(`connection state changed to connected userId: ${userId}`)
           // The connection has become fully connected
           $(`#remoteVideoContainer-${userId}`).show();
-          setTimeout(() => {$("video").each((i, e) => { if(e.duration != Infinity) $(e).parent().remove() })}, 2000)
+          // $("video").each((i, e) => { if(e.duration != Infinity) $(e).parent().remove() })
           
           break;
         case "disconnected":
         case "failed":
           console.log(`connection state changed to failed userId: ${userId}`)
           // One or more transports has terminated unexpectedly or in an error
-          setTimeout(() => {$("video").each((i, e) => { if(e.duration != Infinity) $(e).parent().remove() })}, 2000)
+          // $("video").each((i, e) => { if(e.duration != Infinity) $(e).parent().remove() })
           break;
         case "closed":
           // The connection has been closed
