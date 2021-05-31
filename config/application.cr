@@ -25,3 +25,19 @@ require "../src/channels/**"
 require "../src/controllers/application_controller"
 require "../src/controllers/**"
 require "./routes"
+
+IrcChannel = Channel(Array(String)).new
+
+require "../src/lib/irc"
+
+spawn do
+  client = Client.new
+end
+
+DiscordChannel = Channel(Array(String)).new
+
+require "../src/lib/discord"
+
+spawn do
+  discord_client = DiscordBot.new
+end

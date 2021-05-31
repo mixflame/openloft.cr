@@ -2199,13 +2199,13 @@ function setMediaBitrates(sdp) {
   
     $("#text_color").change(function(){
       if(!$("#chat_message").is(":focus")) $("#chat_message").focus();
-      document.execCommand("styleWithCSS", false, false);
+      // document.execCommand("styleWithCss", false, false);
       document.execCommand("foreColor", false, $("#text_color").val());
     })
   
     $("#text_back_color").change(function(){
       if(!$("#chat_message").is(":focus")) $("#chat_message").focus();
-      document.execCommand("styleWithCSS", false, false);
+      // document.execCommand("styleWithCss", false, false);
       document.execCommand("backColor", false, $("#text_back_color").val());
     })
     
