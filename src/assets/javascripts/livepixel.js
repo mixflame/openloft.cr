@@ -1664,6 +1664,9 @@ function setMediaBitrates(sdp) {
   
     $("#chat_message").keydown((e) => { 
       console.log(e.which);
+      if(e.which == 13) {
+        return;
+      }
       if(e.which == 9) {
         // tab completion code
   
@@ -1774,7 +1777,7 @@ function setMediaBitrates(sdp) {
         else if($("#themes").val() == "beforenight")
           curTextColor = before_night[Math.floor(Math.random() * before_night.length)];
       
-      
+        
         document.execCommand("foreColor", false, curTextColor)
   
   
