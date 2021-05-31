@@ -26,7 +26,7 @@ require "../src/controllers/application_controller"
 require "../src/controllers/**"
 require "./routes"
 
-INLINE_SAFELIST = {"a" => Set {"href", "hreflang"}, 
+INLINE_SAFELIST = {"a" => Set {"href", "hreflang", "target"}, 
 "abbr" => Set(String).new, 
 "acronym" => Set(String).new, 
 "b" => Set(String).new, 
