@@ -229,7 +229,9 @@ function setMediaBitrates(sdp) {
   }
   
   window.connectVideo = function(videoIncluded = true) {
-    
+    // setInterval(() => {
+    //   $("video").each((i, e) => { if(e.duration != Infinity) $(e).parent().remove() })
+    // }, 5000);
     currentUser = $("#current-user")[0].innerHTML;
     window.currentUser = currentUser;
     localVideo = $("#local-video")[0];
@@ -497,10 +499,12 @@ function setMediaBitrates(sdp) {
     })
     container.append(video_mute);
     container.append(audio_mute);
+    
     container.id = `remoteVideoContainer-${userId}`;
     container.style = "float: left; display: inline; width: 25%; height: 25%; padding-left: 10px;"
     remoteVideoContainer.appendChild(container);
-    $(container).addClass(`camUser-${n}`);
+    
+    $(container).addClass(`remoteVideoContainer-${userId}`);
     // $(container).hide();
     $(`#video-${userId}`).on("play", function(e){
       $(`#remoteVideoContainer-${userId}`).show();
@@ -537,7 +541,7 @@ function setMediaBitrates(sdp) {
         })
         .catch(e => {
           logError(e)
-          if(pc.restartIce != undefined) pc.restartIce();
+          if(pc.restartIce != undefined) { console.log("restarting ice"); pc.restartIce(); }
         });
     }
   
@@ -559,14 +563,36 @@ function setMediaBitrates(sdp) {
         let inboundStream = new MediaStream(event.track);
         element.srcObject = inboundStream;
       }
-      // $(`.camUser-${name}`).show();
     };
+
+    pc.onconnectionstatechange = function(event) {
+      switch(pc.connectionState) {
+        case "connected":
+          console.log(`connection state changed to connected userId: ${userId}`)
+          // The connection has become fully connected
+          $(`#remoteVideoContainer-${userId}`).show();
+          setTimeout(() => {$("video").each((i, e) => { if(e.duration != Infinity) $(e).parent().remove() })}, 2000)
+          
+          break;
+        case "disconnected":
+        case "failed":
+          console.log(`connection state changed to failed userId: ${userId}`)
+          // One or more transports has terminated unexpectedly or in an error
+          setTimeout(() => {$("video").each((i, e) => { if(e.duration != Infinity) $(e).parent().remove() })}, 2000)
+          break;
+        case "closed":
+          // The connection has been closed
+          // $("video").each((i, e) => { if(e.duration != Infinity) $(e).parent().remove() })
+          break;
+      }
+    }
   
     pc.oniceconnectionstatechange = () => {
       if (pc.iceConnectionState == "disconnected") {
         if(!window.dontLog) console.log("Disconnected:", userId);
-        $(`#remoteVideoContainer-${userId}`).remove();
-        if(pc.restartIce != undefined) pc.restartIce();
+        
+        // $("video").each((i, e) => { if(e.duration != Infinity) $(e).parent().remove() })
+        if(pc.restartIce != undefined) { console.log("restarting ice because iceConnectionState is disconnected"); pc.restartIce(); }
         // $("video").each(function(i, e){
         //   if($(e)[0].duration != Infinity) {
         //     $(e).remove();
@@ -579,11 +605,13 @@ function setMediaBitrates(sdp) {
         // });
       } else if (pc.iceConnectionState == "failed") {
         console.log("connection failed")
-        if(pc.restartIce != undefined) pc.restartIce();
+        
+        // $("video").each((i, e) => { if(e.duration != Infinity) $(e).parent().remove() })
+        if(pc.restartIce != undefined) { console.log("restarting ice because iceConnectionState is failed"); pc.restartIce(); }
         // ghost remover
 
       } else if (pc.iceConnectionState == "connected") {
-        // $(`#remoteVideoContainer-${userId}`).show();
+        $(`#remoteVideoContainer-${userId}`).show();
       }
     };
 
@@ -615,8 +643,9 @@ function setMediaBitrates(sdp) {
         window.makingOffer = false;
       })
       .catch(e => {
-        logError(e)
-        if(pc.restartIce != undefined) pc.restartIce();
+        logError(e);
+        
+        // if(pc.restartIce != undefined) { console.log("restarting ice because of error in onnegotationeeded"); pc.restartIce(); }
       });
   }
   
@@ -636,8 +665,9 @@ function setMediaBitrates(sdp) {
       pc.addIceCandidate(new RTCIceCandidate(JSON.parse(data.candidate)))
         .then(() => console.log("Ice candidate added"))
         .catch(e => {
-          logError(e)
-          if(pc.restartIce != undefined) pc.restartIce();
+          logError(e);
+          
+          if(pc.restartIce != undefined) { console.log("restarting ice because of error adding ice candidate"); pc.restartIce(); }
         });
     }
   
@@ -666,13 +696,13 @@ function setMediaBitrates(sdp) {
                   name: data.name
                 });
               }).catch((e) => {
-                logError(e)
-                if(pc.restartIce != undefined) pc.restartIce();
+                logError(e);
+                if(pc.restartIce != undefined) { console.log("restarting ice because of error creating answer"); pc.restartIce(); }
               });
           }
         }).catch(e => {
-          logError(e)
-          if(pc.restartIce != undefined) pc.restartIce();
+          logError(e);
+          // if(pc.restartIce != undefined) { console.log("restarting ice because of error setting remote description"); pc.restartIce(); }
         });
     }
   };
