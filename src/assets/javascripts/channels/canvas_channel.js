@@ -162,9 +162,5 @@ window.canvas_socket.connect()
             // }
         })
 
-        window.canvas_channel.on('user_join', (data) => {
-            console.log("user_join canvas: " + data);
-        })
-
     })
 

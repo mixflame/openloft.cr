@@ -12,6 +12,8 @@ chat_socket.connect()
         window.chat_channel.join()
         if (!window.dontLog) console.log("Connected to chat channel");
 
+        // window.chat_channel.push("message_new", {join: true, name: window.name});
+
         chat_channel.on('message_new', (data) => {
             console.log(data);
             if (data["reload"] == true && window.name == "stream") {

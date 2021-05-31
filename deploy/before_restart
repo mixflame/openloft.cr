@@ -7,7 +7,7 @@ end
 
 run "shards install --production --ignore-crystal-version"
 
-run "shards build gbaldraw.cr --release --ignore-crystal-version"
+run "shards build gbaldraw.cr --release --ignore-crystal-version -Dpreview_mt"
 
 run "PATH=$PATH:/home/gbaldraw/node-v14.15.0-linux-x64/bin npm install"
 

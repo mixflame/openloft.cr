@@ -368,6 +368,8 @@ function setMediaBitrates(sdp) {
             window.camera_session = camera_socket.channel('session:' + window.room)
             window.camera_session.join()
             
+            // window.camera_session.push("message_new", {join: true, name: window.name});
+
             window.camera_session.on('message_new', (data) => {
               if(!window.dontLog) console.log("received", data);
               if (data.from === currentUser) return;
