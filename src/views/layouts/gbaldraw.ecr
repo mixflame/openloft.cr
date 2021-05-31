@@ -16,7 +16,7 @@
     <%= csrf_metatag %>
   </head>
   <body class="bg-black bg-gradient">
-    <div class="container">
+    <div class="container-left">
       <%- flash.each do |key, value| %>
         <div class="alert alert-<%= key %>" role="alert">
           <%= flash[key] %>

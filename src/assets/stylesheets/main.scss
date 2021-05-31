@@ -19,7 +19,7 @@ $secondary: #dddddd;
   box-sizing: content-box;
 }
 
-.container {
+.container-left {
   margin-left: 0px;
   margin-right: 0px;
   padding-right: 0px;
@@ -27,7 +27,7 @@ $secondary: #dddddd;
 }
 
 @media (min-width: 576px) {
-  .container {
+  .container-left {
     max-width: 100%;
   }
   #video_chat {
@@ -43,7 +43,7 @@ $secondary: #dddddd;
 }
 
 @media (min-width: 992px) {
-  .container {
+  .container-left {
     max-width: 100%;
   }
   #video_chat {

@@ -606,7 +606,7 @@ function setMediaBitrates(sdp) {
       } else if (pc.iceConnectionState == "failed") {
         console.log("connection failed")
         
-        // $("video").each((i, e) => { if(e.duration != Infinity) $(e).parent().remove() })
+        $("video").each((i, e) => { if(pcPeers[e.id.split("-")[1]].iceConnectionState == "failed") $(e).parent().remove() })
         if(pc.restartIce != undefined) { console.log("restarting ice because iceConnectionState is failed"); pc.restartIce(); }
         // ghost remover
 
