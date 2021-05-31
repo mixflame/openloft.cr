@@ -83,6 +83,8 @@ window.setupCanvas = () => {
             window.redraw(false, true);
             // window.redraw(false, true);
             window.edits = window.edits - 1;
+
+            $("#undo").prop("disabled", false);
             return false;
         }
 

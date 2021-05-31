@@ -2212,6 +2212,7 @@ function setMediaBitrates(sdp) {
     })
   
     $("#undo").click(() => {
+      $("#undo").prop("disabled", true);
       // if(window.edits <= 0) return;
       window.canvas_channel.push("message_new", {name: window.name, undo: true, room: room});
     })
