@@ -257,12 +257,16 @@ function setMediaBitrates(sdp) {
   
     $("#local-video").click(function(e) {
       if(!window.dontLog) console.log("video clicked")
+      
       if($("#local-video").css("height") != "1024px") {
+        window.previous_height = $("#local-video").css("height");
+        window.previous_width = $("#local-video").css("width");
         $("#local-video").css("height", "1024px");
         $("#local-video").css("width", "1024px");
       } else {
-        $("#local-video").css("height", "100%");
-        $("#local-video").css("width", "100%");
+        console.log('sizing down')
+        $("#local-video").css("height", window.previous_height);
+        $("#local-video").css("width", window.previous_width);
       }
     })
   
@@ -494,11 +498,13 @@ function setMediaBitrates(sdp) {
     $(element).click(function() {
       if(!window.dontLog) console.log("video clicked")
       if($(this).css("height") != "1024px") {
+        window.previous_height = $(this).css("height");
+        window.previous_width = $(this).css("width");
         $(this).css("height", "1024px");
         $(this).css("width", "1024px");
       } else {
-        $(this).css("height", "100%");
-        $(this).css("width", "100%");
+        $(this).css("height", window.previous_height);
+        $(this).css("width", window.previous_width);
       }
       
     })
