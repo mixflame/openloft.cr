@@ -109,6 +109,11 @@ class LivepixelController < ApplicationController
       end
     end
 
+    if ad == ""
+      ad = File.read("./public/default_ad.base64").to_s
+      banner_link = "https://gbaldraw.fun/buy_ad"
+    end
+
     chats = ""
     if room == ""
       amt_packets = redis.llen("chats")
@@ -145,6 +150,12 @@ class LivepixelController < ApplicationController
         break
       end
     end
+
+    if ad == ""
+      ad = File.read("./public/default_ad.base64").to_s
+      banner_link = "https://gbaldraw.fun/buy_ad"
+    end
+    
     {ad: Sanitizer.process(ad), banner_link: Sanitizer.process(banner_link)}.to_h.to_json
   end
 
