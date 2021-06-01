@@ -258,7 +258,7 @@ function setMediaBitrates(sdp) {
     $("#local-video").click(function(e) {
       if(!window.dontLog) console.log("video clicked")
       
-      if($("#local-video").css("height") != "1024px") {
+      if(parseInt($("#local-video").css("height")) < 1023) {
         window.previous_height = $("#local-video").css("height");
         window.previous_width = $("#local-video").css("width");
         $("#local-video").css("height", "1024px");
@@ -409,6 +409,7 @@ function setMediaBitrates(sdp) {
     })
     
     window.camera_session.on('user_join', (data) => {
+      console.log("session user_join")
       console.log(data);
       broadcastData({
         type: JOIN_ROOM,
@@ -417,6 +418,8 @@ function setMediaBitrates(sdp) {
         polite: window.polite,
       });
     })
+
+    
 }
   
   const handleJoinSession = async () => {
@@ -429,7 +432,10 @@ function setMediaBitrates(sdp) {
           clearTimeout(window.camera_socket.reconnectTimeout)
           window.camera_socket.reconnectTimeout = setTimeout(() => {
             window.camera_socket.reconnectTries++
-            window.camera_socket.connect(window.camera_socket.params).then(setupSession);
+            window.camera_socket.connect(window.camera_socket.params).then(() => {
+              setupSession();
+              $("#join-button").click();
+            });
             window.camera_socket._reconnect()
           }, window.camera_socket._reconnectInterval())
         }
@@ -497,7 +503,7 @@ function setMediaBitrates(sdp) {
     const element = document.createElement("video");
     $(element).click(function() {
       if(!window.dontLog) console.log("video clicked")
-      if($(this).css("height") != "1024px") {
+      if(parseInt($(this).css("height")) < 1023) {
         window.previous_height = $(this).css("height");
         window.previous_width = $(this).css("width");
         $(this).css("height", "1024px");
