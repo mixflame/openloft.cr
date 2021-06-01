@@ -433,8 +433,9 @@ function setMediaBitrates(sdp) {
           window.camera_socket.reconnectTimeout = setTimeout(() => {
             window.camera_socket.reconnectTries++
             window.camera_socket.connect(window.camera_socket.params).then(() => {
+              // handleLeaveSession();
               setupSession();
-              handleJoinSession();
+              // handleJoinSession();
             });
             window.camera_socket._reconnect()
           }, window.camera_socket._reconnectInterval())
