@@ -434,6 +434,7 @@ function setMediaBitrates(sdp) {
             window.camera_socket.reconnectTries++
             window.camera_socket.connect(window.camera_socket.params).then(() => {
               setupSession();
+              $("#leave-button").click();
               $("#join-button").click();
             });
             window.camera_socket._reconnect()
