@@ -267,8 +267,25 @@ function setMediaBitrates(sdp) {
     })
   
     $("#input").change(function() {
-      var type = $("#input").val();
-      if(type == "cam") {
+      var source_type = $("#input").val();
+      if(source_type == "cam") {
+        var type = $("#cameras").val();
+        var audio_type = $("#audio_inputs").val();
+
+        const videoConstraints = {};
+        const audioConstraints = {};
+        if (type === '') {
+          videoConstraints.facingMode = 'environment';
+        } else {
+          videoConstraints.deviceId = { exact: type };
+        }
+
+        audioConstraints.deviceId = { exact: audio_type };
+        const constraints = {
+          video: videoConstraints,
+          audio: audioConstraints
+        };
+
         navigator.mediaDevices
         .getUserMedia({
           audio: true,
@@ -290,7 +307,7 @@ function setMediaBitrates(sdp) {
             }
           }
         })
-      } else if(type == "screen") {
+      } else if(source_type == "screen") {
         navigator.mediaDevices
         .getDisplayMedia({
           audio: true,
