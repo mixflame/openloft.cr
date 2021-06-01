@@ -1495,9 +1495,8 @@ function setMediaBitrates(sdp) {
             Notification.requestPermission().then(function (p) {
                 if (p === 'granted') {
                     // show notification here
-                    var notify = new Notification('Hi there!', {
-                        body: 'How are you doing?',
-                        icon: 'https://bit.ly/2DYqRrh',
+                    var notify = new Notification("Gbaldraw", {
+                      body: message
                     });
                 } else {
                   if(!dontLog) console.log('User blocked notifications.');
