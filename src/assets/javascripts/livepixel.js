@@ -2458,7 +2458,6 @@ function setMediaBitrates(sdp) {
         x: Math.random() * (window.innerWidth - 800),
         y: Math.random() * (window.innerHeight - 500),
         animations: false,
-        resizable: false,
         events: {
           closed: function() {
             this.open();
@@ -2469,6 +2468,8 @@ function setMediaBitrates(sdp) {
       window.chat_window.open().then(() => {
         console.log("chat opened");
         $(window.chat_window.view.el).css("background-color", "black")
+        $("#online_list").css("height",chat_window.height * 0.70)
+        $("#chat_area").css("height", chat_window.height * 0.70)
         // $(".wm-overlay").remove()
         window.scroll_to_bottom();
         chat_window.maximize = function() { 
@@ -2479,6 +2480,19 @@ function setMediaBitrates(sdp) {
             chat_window.width = 500; 
             chat_window.height = 500; 
           }
+          window.scroll_to_bottom();
+        }
+        window.chat_window.resize = function(e, t) {
+
+          window.chat_window.width = e;
+          window.chat_window.height = t;
+
+          // $("#online_list").css("width", window.chat_window.width)
+          $("#online_list").css("height",chat_window.height * 0.70)
+          $("#chat_area").css("height", chat_window.height * 0.70)
+
+          window.scroll_to_bottom();
+          
         }
       })
 

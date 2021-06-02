@@ -205,8 +205,8 @@
 
   <div id="chat_area_holder">
     <div>
-        <div id="online_list" style="width: 30%; height: 300px; overflow: scroll; float: left;"><ul id="connected_users"></ul></div>
-        <div id="chat_area" name="chat_area" style="width: 70%; height: 300px; overflow: scroll; float: left; resize: both; max-width: 80%">
+        <div id="online_list" style="width: 30%; overflow: scroll; float: left;"><ul id="connected_users"></ul></div>
+        <div id="chat_area" name="chat_area" style="width: 70%; overflow: scroll; float: left; resize: both; max-width: 80%">
         <% chats.each do |c| -%>
         <p style='margin: 0px'>&lt<%= Sanitizer.process "#{JSON.parse(c.to_s)["name"]}" %>&gt <%= Sanitizer.process "#{JSON.parse(c.to_s)["chat_message"]}" %></p>
         <% end -%>
