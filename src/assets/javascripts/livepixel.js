@@ -2412,7 +2412,7 @@ function setMediaBitrates(sdp) {
     });
 
 
-    if(typeof screen.orientation !== 'undefined'){
+    if(typeof screen.orientation !== 'undefined' && urlParams.get("no_win") != "true"){
       window.canvas_window = wm.createWindow.fromQuery('canvas', {
         title: 'Canvas',
         width: 640,
