@@ -2335,12 +2335,17 @@ function setMediaBitrates(sdp) {
 
     $("#full-screen").click(function() {
       $(window).bind("resize", function(){
-        var w = $(screen).width();
-        var h = $(screen).height();
+        var w = screen.width;
+        var h = screen.height;
     
         $("canvas").css("width", w + "px");
         $("canvas").css("height", h + "px"); 
       });
+
+      var w = screen.width;
+      var h = screen.height;
+
+      window.canvas_window.resize(w,h)
     
     //using HTML5 for fullscreen (only newest Chrome + FF)
     
