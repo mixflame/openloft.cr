@@ -1,6 +1,12 @@
 import 'bootstrap';
 import Amber from 'amber';
+
 window.Amber = Amber;
+
+import Ventus from 'ventus/dist/ventus.min.js';
+var wm = new Ventus.WindowManager();
+window.wm = wm;
+
 //import Logo from '../images/logo.svg';
 
 require("./livepixel")

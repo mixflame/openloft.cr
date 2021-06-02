@@ -29,13 +29,20 @@
 import Amber from 'amber';
 
 function scaledPositionX (x) {
-  let scaleFactor = (window.canvas.width / window.canvas.clientWidth);
-  return scaleFactor * x;
+  var rect = canvas.getBoundingClientRect(), // abs. size of element
+  scaleX = canvas.width / rect.width,    // relationship bitmap vs. element for X
+  scaleY = canvas.height / rect.height;  // relationship bitmap vs. element for Y
+
+  return scaleX * x;
 }
 function scaledPositionY (y) {
-  let scaleFactor = (window.canvas.height / window.canvas.clientHeight);
-  return scaleFactor * y;
+  var rect = canvas.getBoundingClientRect(), // abs. size of element
+  scaleX = canvas.width / rect.width,    // relationship bitmap vs. element for X
+  scaleY = canvas.height / rect.height;  // relationship bitmap vs. element for Y
+
+  return scaleY * y;
 }
+
 
 var urlParams = new URLSearchParams(window.location.search);
 window.room = urlParams.get('room');
@@ -1047,7 +1054,7 @@ function setMediaBitrates(sdp) {
     } 
     context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
     context.fillStyle = "#FFFFFF";
-    context.fillRect(0, 0,  0.60 * screen.width,  0.60 * screen.height);
+    context.fillRect(0, 0,  context.canvas.width,  context.canvas.height);
   
     // context.lineJoin = "round";
   
@@ -1273,8 +1280,11 @@ function setMediaBitrates(sdp) {
   var tap = function(e) {
     if(disabled) return;
     if(!e.touches) {
-      var mouseX = e.pageX - this.offsetLeft;
-      var mouseY = e.pageY - this.offsetTop;
+      var rect = canvas.getBoundingClientRect(), // abs. size of element
+      scaleX = canvas.width / rect.width,    // relationship bitmap vs. element for X
+      scaleY = canvas.height / rect.height;
+      var mouseX =  (e.clientX - rect.left) * scaleX;
+      var mouseY =  (e.clientY - rect.top) * scaleY;
     } else {
       if(e.touches.length < 2) {
         var touch = event.touches[0];
@@ -1286,8 +1296,8 @@ function setMediaBitrates(sdp) {
   
     }
 
-    mouseX = scaledPositionX(mouseX);
-    mouseY = scaledPositionY(mouseY);
+    // mouseX = scaledPositionX(mouseX);
+    // mouseY = scaledPositionY(mouseY);
   
     if($("#eyedropper").is(":checked")) {
       var canvasElement = $("#canvas")[0];
@@ -1334,12 +1344,24 @@ function setMediaBitrates(sdp) {
       window.canvas_channel.push("message_new", {room: room, x: mouseX, y: mouseY, dragging: false, name: name, color: curColor, size: curSize, text: undefined, line_join: curLineJoin, shape_type: curShapeType, shape_width: curShapeWidth, shape_height: curShapeHeight, shape_fill: curShapeFill, shape_angle: curShapeAngle, brush_style: curBrushStyle, count: count });
       e.preventDefault();
   }
+
+  function getMousePos(canvas, evt) {
+    var rect = canvas.getBoundingClientRect();
+    return {
+      x: evt.clientX - rect.left,
+      y: evt.clientY - rect.top
+    };
+}
   
   var tapDrag = function(e) {
+
     if(disabled) return;
     if(!e.touches) {
-      var mouseX = e.pageX - this.offsetLeft;
-      var mouseY = e.pageY - this.offsetTop;
+      var rect = canvas.getBoundingClientRect(), // abs. size of element
+      scaleX = canvas.width / rect.width,    // relationship bitmap vs. element for X
+      scaleY = canvas.height / rect.height;
+      var mouseX =  ((e.clientX - rect.left) * scaleX);
+      var mouseY =  ((e.clientY - rect.top) * scaleY);
     } else {
       if(e.touches.length < 2) {
         var touch = event.touches[0];
@@ -1350,8 +1372,8 @@ function setMediaBitrates(sdp) {
       }
     }
 
-    mouseX = scaledPositionX(mouseX);
-    mouseY = scaledPositionY(mouseY);
+    // mouseX = scaledPositionX(mouseX);
+    // mouseY = scaledPositionY(mouseY);
   
     if($("#random-brush-size").is(":checked")) {
       curSize = Math.floor(Math.random() * 35 + 1)
@@ -1596,15 +1618,21 @@ function setMediaBitrates(sdp) {
   
     var canvasDiv = document.getElementById('canvasDiv');
     canvas = document.createElement('canvas');
-    canvas.setAttribute('width', 0.60 * screen.width);
-    canvas.setAttribute('height', 0.60 * screen.height);
+    canvas.setAttribute('width', screen.width);
+    canvas.setAttribute('height', screen.height);
     canvas.setAttribute('id', 'canvas');
+    canvas.setAttribute("style", "top: 0px; left: 0px; bottom: 0px; right: 0px;")
+    // $(canvas).css("position", "absolute");
+    // $(canvas).css("top", "0px");
+    // $(canvas).css("left", "0px");
+    // $(canvas).css("bottom", "0px");
+    // $(canvas).css("right", "0px");
     window.canvas = canvas;
   
     var bgCanvasDiv = document.getElementById('bgCanvasDiv');
     window.bgCanvas = document.createElement('canvas');
-    window.bgCanvas.setAttribute('width', 0.60 * screen.width);
-    window.bgCanvas.setAttribute('height', 0.60 * screen.height);
+    window.bgCanvas.setAttribute('width', screen.width);
+    window.bgCanvas.setAttribute('height', screen.height);
     window.bgCanvas.setAttribute('id', 'bgCanvas');
   
     $("#downloader").click(function() {
@@ -2307,8 +2335,8 @@ function setMediaBitrates(sdp) {
 
     $("#full-screen").click(function() {
       $(window).bind("resize", function(){
-        var w = $(screen).width() * 0.60;
-        var h = $(screen).height() * 0.60;
+        var w = $(screen).width();
+        var h = $(screen).height();
     
         $("canvas").css("width", w + "px");
         $("canvas").css("height", h + "px"); 
@@ -2377,6 +2405,64 @@ function setMediaBitrates(sdp) {
         audio_select.appendChild(option);
       }
     });
+
+
+    window.canvas_window = wm.createWindow.fromQuery('canvas', {
+      title: 'Canvas',
+      width: 640,
+      height: 480,
+      x: 0,
+      y: 0,
+      animations: false
+    })
+    window.canvas_window.open().then(function() {
+      console.log("canvas window opened")
+      $("canvas").css("width", "100%");
+      $("canvas").css("height", "100%");
+      $(".wm-overlay").remove()
+      window.canvas_window.resize = function(e, t) {
+
+        window.canvas_window.width = e;
+        window.canvas_window.height = t;
+
+        $("canvas").css("width", "100%");
+        $("canvas").css("height", "100%");
+      }
+      // window.canvas_window.resize(screen.width, screen.height);
+    });
+
+    window.chat_window = wm.createWindow.fromQuery('#chat_area_holder', {
+      title: 'Chat',
+      width: 800,
+      height: 500,
+      x: 0,
+      y: 0,
+      animations: false
+    })
+
+    window.chat_window.open().then(() => {
+      console.log("chat opened");
+      $(window.chat_window.view.el).css("background-color", "black")
+      $(".wm-overlay").remove()
+      window.scroll_to_bottom();
+    })
+
+
+    window.video_chat_window = wm.createWindow.fromQuery('#video_chat', {
+      title: 'Chat',
+      width: 500,
+      height: 500,
+      x: 0,
+      y: 0,
+      animations: false
+    })
+
+    window.video_chat_window.open().then(() => {
+      console.log("video chat opened");
+      $(window.video_chat_window.view.el).css("background-color", "black")
+      $(".wm-overlay").remove()
+    })
+
   }
   
   $(document).on("unload", function() {

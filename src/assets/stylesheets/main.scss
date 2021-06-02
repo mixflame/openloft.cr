@@ -72,6 +72,10 @@ body {
 // 	// color: white;
 // }
 
+.wm-content {
+  overflow-y: hidden !important;
+}
+
 canvas {
   image-rendering: optimizeSpeed;             /* Older versions of FF          */
   image-rendering: -moz-crisp-edges;          /* FF 6.0+                       */
@@ -81,9 +85,9 @@ canvas {
   -ms-interpolation-mode: nearest-neighbor;   /* IE                            */
   z-index: 0;
   // border: 1px solid black;
-  border-bottom: 20px solid transparent;
-  border-right: 20px solid transparent;
-  max-height: 90%;
+  // border-bottom: 20px solid transparent;
+  // border-right: 20px solid transparent;
+  max-height: 100%;
   touch-action: pinch-zoom;
  
   // max-width: 100%;
