@@ -2368,8 +2368,8 @@ function setMediaBitrates(sdp) {
         let ad = data["ad"];
         let link = data["banner_link"];
         if(ad != "" && link != "") {
-          $("#ad_link").prop("href", link);
-          $("#ad_img").prop("src", `data:image/png;base64,${ad}`);
+          $("#gbaldvertisement_link").prop("href", link);
+          $("#gbaldvertisement_img").prop("src", `data:image/png;base64,${ad}`);
         }
       })
     }, 30000);
