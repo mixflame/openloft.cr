@@ -2501,6 +2501,41 @@ function setMediaBitrates(sdp) {
           $("#video_chat").css("height", window.video_chat_window.height)
         }
       })
+
+      window.tool_window = wm.createWindow.fromQuery('#toolbox', {
+        title: 'Toolbox',
+        width: $("#toolbox").width,
+        height: $("#toolbox").height,
+        x: Math.random() * (window.innerWidth - 500),
+        y: Math.random() * (window.innerHeight - 500),
+        animations: false,
+        resizable: false
+      })
+
+      window.tool_window.open().then(() => {
+        console.log("video chat opened");
+        $(window.tool_window.view.el).css("background-color", "black")
+        $(".wm-overlay").remove()
+        $("#video_chat").css("width", window.tool_window.width)
+        $("#video_chat").css("height", window.tool_window.height)
+        tool_window.maximize = function() { 
+          if(tool_window.width != screen.width){
+            tool_window.width = screen.width; 
+            tool_window.height = screen.height 
+          } else {
+            tool_window.width = 500; 
+            tool_window.height = 500; 
+          }
+        }
+        window.tool_window.resize = function(e, t) {
+
+          window.tool_window.width = e;
+          window.tool_window.height = t;
+
+          $("#video_chat").css("width", window.tool_window.width)
+          $("#video_chat").css("height", window.tool_window.height)
+        }
+      })
   }
 
   }

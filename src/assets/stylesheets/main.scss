@@ -143,37 +143,37 @@ canvas {
 }
 
 
-input#color {
-  display: inline;
-}
+// input#color {
+//   display: inline;
+// }
 
-div#color_tool {
-  float: left;
-}
+// div#color_tool {
+//   float: left;
+// }
 
-input#brush-size {
-  display: inline;
-}
+// input#brush-size {
+//   display: inline;
+// }
 
-div#size_tool {
-  float: left;
-}
+// div#size_tool {
+//   float: left;
+// }
 
-div#name_changer {
-  float: left;
-}
+// div#name_changer {
+//   float: left;
+// }
 
-div#rainbow-pen-tool {
-  float: left;
-}
+// div#rainbow-pen-tool {
+//   float: left;
+// }
 
-div#eyedropper-tool {
-  float: left;
-}
+// div#eyedropper-tool {
+//   float: left;
+// }
 
-div#eraser_tool {
-  float: left;
-}
+// div#eraser_tool {
+//   float: left;
+// }
 
 div#status-holder {
   display: inline;
@@ -284,23 +284,25 @@ a:visited {
   -webkit-text-stroke: 1px white;
 }
 .tool {
-  float: left;
+  // float: left;
   border: lightblue 3px solid;
-  height: 33px;
+  // height: 33px;
   padding: 3px;
   padding-left: 1px;
   padding-right: 1px;
   background-color: rgb(226, 226, 226);
+  // width: 50%;
 }
 
 #last-colors {
-  float: left;
+  // float: left;
   padding-top: 5px;
   padding-left: 3px;
   padding-bottom: 5px;
   padding-right: 3px;
   border-bottom: solid lightblue 3px;
   background-color: $secondary;
+  // width: 50%;
 }
 
 #ad {
