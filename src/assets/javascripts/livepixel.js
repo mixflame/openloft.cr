@@ -2419,7 +2419,12 @@ function setMediaBitrates(sdp) {
         height: 480,
         x: Math.random() * (window.innerWidth - 640),
         y: Math.random() * (window.innerHeight - 480),
-        animations: false
+        animations: false,
+        events: {
+          closed: function() {
+            this.open();
+          }
+        }
       })
       window.canvas_window.open().then(function() {
         console.log("canvas window opened")
@@ -2453,7 +2458,12 @@ function setMediaBitrates(sdp) {
         x: Math.random() * (window.innerWidth - 800),
         y: Math.random() * (window.innerHeight - 500),
         animations: false,
-        resizable: false
+        resizable: false,
+        events: {
+          closed: function() {
+            this.open();
+          }
+        }
       })
 
       window.chat_window.open().then(() => {
@@ -2479,7 +2489,12 @@ function setMediaBitrates(sdp) {
         height: 500,
         x: Math.random() * (window.innerWidth - 500),
         y: Math.random() * (window.innerHeight - 500),
-        animations: false
+        animations: false,
+        events: {
+          closed: function() {
+            this.open();
+          }
+        }
       })
 
       window.video_chat_window.open().then(() => {
@@ -2514,7 +2529,12 @@ function setMediaBitrates(sdp) {
         x: Math.random() * (window.innerWidth - 500),
         y: Math.random() * (window.innerHeight - 500),
         animations: false,
-        resizable: false
+        resizable: false,
+        events: {
+          closed: function() {
+            this.open();
+          }
+        }
       })
 
       window.tool_window.open().then(() => {
