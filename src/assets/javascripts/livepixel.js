@@ -2412,8 +2412,8 @@ function setMediaBitrates(sdp) {
         title: 'Canvas',
         width: 640,
         height: 480,
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
+        x: Math.random() * (window.innerWidth - 640),
+        y: Math.random() * (window.innerHeight - 480),
         animations: false
       })
       window.canvas_window.open().then(function() {
@@ -2445,9 +2445,10 @@ function setMediaBitrates(sdp) {
         title: 'Chat',
         width: 800,
         height: 500,
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-        animations: false
+        x: Math.random() * (window.innerWidth - 800),
+        y: Math.random() * (window.innerHeight - 500),
+        animations: false,
+        resizable: false
       })
 
       window.chat_window.open().then(() => {
@@ -2471,8 +2472,8 @@ function setMediaBitrates(sdp) {
         title: 'Video',
         width: 500,
         height: 500,
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
+        x: Math.random() * (window.innerWidth - 500),
+        y: Math.random() * (window.innerHeight - 500),
         animations: false
       })
 
