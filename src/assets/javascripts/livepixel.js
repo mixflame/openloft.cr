@@ -2430,7 +2430,7 @@ function setMediaBitrates(sdp) {
         console.log("canvas window opened")
         $("canvas").css("width", "100%");
         $("canvas").css("height", "100%");
-        $(".wm-overlay").remove()
+        // $(".wm-overlay").remove()
         canvas_window.maximize = function() { 
           if(canvas_window.width != screen.width){
             canvas_window.width = screen.width; 
@@ -2469,7 +2469,7 @@ function setMediaBitrates(sdp) {
       window.chat_window.open().then(() => {
         console.log("chat opened");
         $(window.chat_window.view.el).css("background-color", "black")
-        $(".wm-overlay").remove()
+        // $(".wm-overlay").remove()
         window.scroll_to_bottom();
         chat_window.maximize = function() { 
           if(chat_window.width != screen.width){
@@ -2485,10 +2485,10 @@ function setMediaBitrates(sdp) {
 
       window.video_chat_window = wm.createWindow.fromQuery('#video_chat', {
         title: 'Video',
-        width: 500,
-        height: 500,
-        x: Math.random() * (window.innerWidth - 500),
-        y: Math.random() * (window.innerHeight - 500),
+        width: $("#video_chat").css("width"),
+        height: $("#video_chat").css("height"),
+        x: Math.random() * (window.innerWidth - $("#video_chat").css("width")),
+        y: Math.random() * (window.innerHeight - $("#video_chat").css("height")),
         animations: false,
         events: {
           closed: function() {
@@ -2500,7 +2500,7 @@ function setMediaBitrates(sdp) {
       window.video_chat_window.open().then(() => {
         console.log("video chat opened");
         $(window.video_chat_window.view.el).css("background-color", "black")
-        $(".wm-overlay").remove()
+        // $(".wm-overlay").remove()
         $("#video_chat").css("width", window.video_chat_window.width)
         $("#video_chat").css("height", window.video_chat_window.height)
         video_chat_window.maximize = function() { 
@@ -2540,7 +2540,7 @@ function setMediaBitrates(sdp) {
       window.tool_window.open().then(() => {
         console.log("video chat opened");
         $(window.tool_window.view.el).css("background-color", "black")
-        $(".wm-overlay").remove()
+        // $(".wm-overlay").remove()
         $("#video_chat").css("width", window.tool_window.width)
         $("#video_chat").css("height", window.tool_window.height)
         tool_window.maximize = function() { 
@@ -2559,6 +2559,48 @@ function setMediaBitrates(sdp) {
 
           $("#video_chat").css("width", window.tool_window.width)
           $("#video_chat").css("height", window.tool_window.height)
+        }
+      })
+
+
+      window.link_window = wm.createWindow.fromQuery('.navbar-nav', {
+        title: 'Links',
+        width: $(".navbar-nav").width,
+        height: $(".navbar-nav").height,
+        x: Math.random() * (window.innerWidth - 500),
+        y: Math.random() * (window.innerHeight - 500),
+        animations: false,
+        resizable: false,
+        events: {
+          closed: function() {
+            this.open();
+          }
+        }
+      })
+
+
+      window.link_window.open().then(() => {
+        console.log("link opened");
+        $(window.link_window.view.el).css("background-color", "black")
+        // $(".wm-overlay").remove()
+        $(".navbar-nav").css("width", window.link_window.width)
+        $(".navbar-nav").css("height", window.link_window.height)
+        link_window.maximize = function() { 
+          if(link_window.width != screen.width){
+            link_window.width = screen.width; 
+            link_window.height = screen.height 
+          } else {
+            link_window.width = 500; 
+            link_window.height = 500; 
+          }
+        }
+        window.link_window.resize = function(e, t) {
+
+          window.link_window.width = e;
+          window.link_window.height = t;
+
+          $(".navbar-nav").css("width", window.link_window.width)
+          $(".navbar-nav").css("height", window.link_window.height)
         }
       })
   }
