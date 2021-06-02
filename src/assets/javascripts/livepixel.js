@@ -2619,6 +2619,9 @@ function setMediaBitrates(sdp) {
       })
   }
 
+  const bgs = ["WallpaperDog-11333.jpg", "WallpaperDog-5525597.jpg", "WallpaperDog-5525602.jpg", "WallpaperDog-5525605.jpg", "WallpaperDog-5525688.jpg", "WallpaperDog-10851523.jpg", "WallpaperDog-10877066.jpg", "WallpaperDog-10877076.jpg"]
+  $("body").css("background-image", "url(/dist/images/" + bgs[Math.floor(Math.random() * bgs.length)] + ")")
+
   }
   
   $(document).on("unload", function() {
