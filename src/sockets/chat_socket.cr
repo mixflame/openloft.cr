@@ -7,13 +7,13 @@ struct ChatSocket < Amber::WebSockets::ClientSocket
     true
   end
 
-  @@uuid : String = UUID.random.to_s
+  # @@uuid : String = UUID.random.to_s
 
-  def self.do_dispatch(event : String, topic : String, subject : String, payload : String)
-    publisher : Redis = Redis.new(url: Amber.settings.redis_url)
+  # def self.do_dispatch(event : String, topic : String, subject : String, payload : String)
+  #   publisher : Redis = Redis.new(url: Amber.settings.redis_url)
 
-    message = {"event" => event,"topic" => topic,"subject" => subject,"payload" => payload}
+  #   message = {"event" => event,"topic" => topic,"subject" => subject,"payload" => payload}
 
-    publisher.publish("chat", {"sender" => @@uuid, "msg" => message}.to_json)
-  end
+  #   publisher.publish("chat", {"sender" => @@uuid, "msg" => message}.to_json)
+  # end
 end

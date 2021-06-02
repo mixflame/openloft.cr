@@ -33,6 +33,7 @@ Amber::Server.configure do
     websocket "/chat", ChatSocket
     websocket "/persistence", PersistenceSocket
     websocket "/canvas", CanvasSocket
+    websocket "/text", TextSocket
     get "/canvas", LivepixelController, :canvas
     post "/upload_to_imgur", LivepixelController, :upload_to_imgur
     get "/gallery", LivepixelController, :gallery

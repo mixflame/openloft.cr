@@ -7,14 +7,17 @@ import Ventus from 'ventus/dist/ventus.min.js';
 var wm = new Ventus.WindowManager();
 window.wm = wm;
 
-import * as Automerge from 'automerge'
-
+const Automerge = require('automerge')
+window.Automerge = Automerge;
+let doc1 = Automerge.from({ text: "" })
+window.doc1 = doc1;
 //import Logo from '../images/logo.svg';
 
 require("./livepixel")
 require("./channels/canvas_channel")
 require("./channels/chat_channel")
 require("./channels/persistence_channel")
+require("./channels/text_channel")
 
 import { library, dom } from "@fortawesome/fontawesome-svg-core";
 import { faEyeDropper, 
