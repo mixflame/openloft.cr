@@ -2407,61 +2407,100 @@ function setMediaBitrates(sdp) {
     });
 
 
-    window.canvas_window = wm.createWindow.fromQuery('canvas', {
-      title: 'Canvas',
-      width: 640,
-      height: 480,
-      x: 0,
-      y: 0,
-      animations: false
-    })
-    window.canvas_window.open().then(function() {
-      console.log("canvas window opened")
-      $("canvas").css("width", "100%");
-      $("canvas").css("height", "100%");
-      $(".wm-overlay").remove()
-      window.canvas_window.resize = function(e, t) {
-
-        window.canvas_window.width = e;
-        window.canvas_window.height = t;
-
+    if(typeof screen.orientation !== 'undefined'){
+      window.canvas_window = wm.createWindow.fromQuery('canvas', {
+        title: 'Canvas',
+        width: 640,
+        height: 480,
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        animations: false
+      })
+      window.canvas_window.open().then(function() {
+        console.log("canvas window opened")
         $("canvas").css("width", "100%");
         $("canvas").css("height", "100%");
-      }
-      // window.canvas_window.resize(screen.width, screen.height);
-    });
+        $(".wm-overlay").remove()
+        canvas_window.maximize = function() { 
+          if(canvas_window.width != screen.width){
+            canvas_window.width = screen.width; 
+            canvas_window.height = screen.height 
+          } else {
+            canvas_window.width = 500; 
+            canvas_window.height = 500; 
+          }
+        }
+        window.canvas_window.resize = function(e, t) {
 
-    window.chat_window = wm.createWindow.fromQuery('#chat_area_holder', {
-      title: 'Chat',
-      width: 800,
-      height: 500,
-      x: 0,
-      y: 0,
-      animations: false
-    })
+          window.canvas_window.width = e;
+          window.canvas_window.height = t;
 
-    window.chat_window.open().then(() => {
-      console.log("chat opened");
-      $(window.chat_window.view.el).css("background-color", "black")
-      $(".wm-overlay").remove()
-      window.scroll_to_bottom();
-    })
+          $("canvas").css("width", "100%");
+          $("canvas").css("height", "100%");
+        }
+        // window.canvas_window.resize(screen.width, screen.height);
+      });
+
+      window.chat_window = wm.createWindow.fromQuery('#chat_area_holder', {
+        title: 'Chat',
+        width: 800,
+        height: 500,
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        animations: false
+      })
+
+      window.chat_window.open().then(() => {
+        console.log("chat opened");
+        $(window.chat_window.view.el).css("background-color", "black")
+        $(".wm-overlay").remove()
+        window.scroll_to_bottom();
+        chat_window.maximize = function() { 
+          if(chat_window.width != screen.width){
+            chat_window.width = screen.width; 
+            chat_window.height = screen.height 
+          } else {
+            chat_window.width = 500; 
+            chat_window.height = 500; 
+          }
+        }
+      })
 
 
-    window.video_chat_window = wm.createWindow.fromQuery('#video_chat', {
-      title: 'Chat',
-      width: 500,
-      height: 500,
-      x: 0,
-      y: 0,
-      animations: false
-    })
+      window.video_chat_window = wm.createWindow.fromQuery('#video_chat', {
+        title: 'Video',
+        width: 500,
+        height: 500,
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        animations: false
+      })
 
-    window.video_chat_window.open().then(() => {
-      console.log("video chat opened");
-      $(window.video_chat_window.view.el).css("background-color", "black")
-      $(".wm-overlay").remove()
-    })
+      window.video_chat_window.open().then(() => {
+        console.log("video chat opened");
+        $(window.video_chat_window.view.el).css("background-color", "black")
+        $(".wm-overlay").remove()
+        $("#video_chat").css("width", window.video_chat_window.width)
+        $("#video_chat").css("height", window.video_chat_window.height)
+        video_chat_window.maximize = function() { 
+          if(video_chat_window.width != screen.width){
+            video_chat_window.width = screen.width; 
+            video_chat_window.height = screen.height 
+          } else {
+            video_chat_window.width = 500; 
+            video_chat_window.height = 500; 
+          }
+        }
+        window.video_chat_window.resize = function(e, t) {
+
+          window.video_chat_window.width = e;
+          window.video_chat_window.height = t;
+
+          $("#video_chat").css("width", window.video_chat_window.width)
+          $("#video_chat").css("height", window.video_chat_window.height)
+        }
+      })
+  }
 
   }
   
