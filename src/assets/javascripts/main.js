@@ -7,6 +7,8 @@ import Ventus from 'ventus/dist/ventus.min.js';
 var wm = new Ventus.WindowManager();
 window.wm = wm;
 
+import * as Automerge from 'automerge'
+
 //import Logo from '../images/logo.svg';
 
 require("./livepixel")
