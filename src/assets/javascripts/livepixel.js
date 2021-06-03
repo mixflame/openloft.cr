@@ -2634,8 +2634,6 @@ window.gotDevices = (mediaDevices) => {
       console.log("text opened");
       $(window.text_window.view.el).css("background-color", "black")
       // $(".wm-overlay").remove()
-      $("#collaborative_text").css("width", "100%")
-      $("#collaborative_text").css("height", "100%")
       $("#collaborative_text_holder").css("width", window.text_window.width)
       $("#collaborative_text_holder").css("height", window.text_window.height)
       text_window.maximize = function () {
@@ -2646,8 +2644,6 @@ window.gotDevices = (mediaDevices) => {
           text_window.width = 500;
           text_window.height = 500;
         }
-        $("#collaborative_text").css("width", "100%")
-        $("#collaborative_text").css("height", "100%")
   
         $("#collaborative_text_holder").css("width", window.text_window.width)
         $("#collaborative_text_holder").css("height", window.text_window.height)
@@ -2656,9 +2652,6 @@ window.gotDevices = (mediaDevices) => {
   
         window.text_window.width = e;
         window.text_window.height = t;
-
-        $("#collaborative_text").css("width", "100%")
-        $("#collaborative_text").css("height", "100%")
   
         $("#collaborative_text_holder").css("width", window.text_window.width)
         $("#collaborative_text_holder").css("height", window.text_window.height)
@@ -2687,7 +2680,7 @@ window.gotDevices = (mediaDevices) => {
     let changes = Automerge.getChanges(currentDoc, newDoc)
     currentDoc = newDoc;
     let base64 = btoa(String.fromCharCode.apply(null, changes[0]));
-    window.text_channel.push("message_new", {changes: base64, user_id: currentUser});
+    window.text_channel.push("message_new", {changes: base64, user_id: currentUser, room: room});
   })
 
 }
