@@ -2616,10 +2616,10 @@ window.gotDevices = (mediaDevices) => {
 
     window.text_window = wm.createWindow.fromQuery('#collaborative_text_holder', {
       title: 'Notepad',
-      width: $("#collaborative_text_holder").width,
-      height: $("#collaborative_text_holder").height,
-      x: Math.random() * (window.innerWidth - 500),
-      y: Math.random() * (window.innerHeight - 500),
+      width: $("#collaborative_text").width,
+      height: $("#collaborative_text").height,
+      x: Math.random() * (window.innerWidth - $("#collaborative_text").width),
+      y: Math.random() * (window.innerHeight - $("#collaborative_text").height),
       animations: false,
       resizable: true,
       events: {
