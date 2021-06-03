@@ -9,8 +9,8 @@ window.wm = wm;
 
 const Automerge = require('automerge')
 window.Automerge = Automerge;
-let doc1 = Automerge.from({ text: "" })
-window.doc1 = doc1;
+let currentDoc = Automerge.init()
+window.currentDoc = currentDoc;
 //import Logo from '../images/logo.svg';
 
 require("./livepixel")

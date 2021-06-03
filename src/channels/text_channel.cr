@@ -3,6 +3,7 @@ class TextChannel < Amber::WebSockets::Channel
   end
 
   def handle_message(client_socket, message)
+    puts message
     rebroadcast!(message)
   end
 
