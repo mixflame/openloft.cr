@@ -2613,7 +2613,59 @@ window.gotDevices = (mediaDevices) => {
         $(".navbar-nav").css("height", window.link_window.height)
       }
     })
+
+    window.text_window = wm.createWindow.fromQuery('#collaborative_text_holder', {
+      title: 'Notepad',
+      width: $("#collaborative_text_holder").width,
+      height: $("#collaborative_text_holder").height,
+      x: Math.random() * (window.innerWidth - 500),
+      y: Math.random() * (window.innerHeight - 500),
+      animations: false,
+      resizable: true,
+      events: {
+        closed: function () {
+          this.open();
+        }
+      }
+    })
+  
+  
+    window.text_window.open().then(() => {
+      console.log("text opened");
+      $(window.text_window.view.el).css("background-color", "black")
+      // $(".wm-overlay").remove()
+      $("#collaborative_text").css("width", "100%")
+      $("#collaborative_text").css("height", "100%")
+      $("#collaborative_text_holder").css("width", window.text_window.width)
+      $("#collaborative_text_holder").css("height", window.text_window.height)
+      text_window.maximize = function () {
+        if (text_window.width != screen.width) {
+          text_window.width = screen.width;
+          text_window.height = screen.height
+        } else {
+          text_window.width = 500;
+          text_window.height = 500;
+        }
+      }
+      window.text_window.resize = function (e, t) {
+  
+        window.text_window.width = e;
+        window.text_window.height = t;
+
+        $("#collaborative_text").css("width", "100%")
+        $("#collaborative_text").css("height", "100%")
+  
+        $("#collaborative_text_holder").css("width", window.text_window.width)
+        $("#collaborative_text_holder").css("height", window.text_window.height)
+      }
+    })
+
+
+
   }
+
+ 
+  
 
   // test
   const bgs = ["WallpaperDog-11333.jpg", "WallpaperDog-5525597.jpg", "WallpaperDog-5525602.jpg", "WallpaperDog-5525605.jpg", "WallpaperDog-5525688.jpg", "WallpaperDog-10851523.jpg", "WallpaperDog-10877066.jpg", "WallpaperDog-10877076.jpg"]
