@@ -33,7 +33,8 @@ window.setupText = () => {
 
         var cursorPosition = $("#collaborative_text").prop("selectionStart");
         $("#collaborative_text").val(newDoc.text);
-        $("#collaborative_text").prop("selectionEnd", cursorPosition);
+        // $("#collaborative_text").focus()
+        $("#collaborative_text").prop("selectionStart", cursorPosition);
 
         currentDoc = newDoc;
     })
