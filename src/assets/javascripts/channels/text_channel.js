@@ -83,6 +83,8 @@ window.setupText = () => {
         window.text_channel.join()
     }
 
+    text_channel.push("message_new", {connected: true});
+
     text_channel.on('message_new', (data) => {
         if(data["user_id"] == window.currentUser) return;
         console.log(data);
