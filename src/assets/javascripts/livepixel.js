@@ -2646,6 +2646,11 @@ window.gotDevices = (mediaDevices) => {
           text_window.width = 500;
           text_window.height = 500;
         }
+        $("#collaborative_text").css("width", "100%")
+        $("#collaborative_text").css("height", "100%")
+  
+        $("#collaborative_text_holder").css("width", window.text_window.width)
+        $("#collaborative_text_holder").css("height", window.text_window.height)
       }
       window.text_window.resize = function (e, t) {
   
