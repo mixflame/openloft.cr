@@ -2416,6 +2416,7 @@ window.gotDevices = (mediaDevices) => {
       x: Math.random() * (window.innerWidth - 640),
       y: Math.random() * (window.innerHeight - 480),
       animations: false,
+      opacity: 1,
       events: {
         closed: function () {
           this.open();
@@ -2454,6 +2455,7 @@ window.gotDevices = (mediaDevices) => {
       x: Math.random() * (window.innerWidth - 800),
       y: Math.random() * (window.innerHeight - 500),
       animations: false,
+      opacity: 1,
       events: {
         closed: function () {
           this.open();
@@ -2500,6 +2502,7 @@ window.gotDevices = (mediaDevices) => {
       x: Math.random() * (window.innerWidth - $("#video_chat").css("width")),
       y: Math.random() * (window.innerHeight - $("#video_chat").css("height")),
       animations: false,
+      opacity: 1,
       events: {
         closed: function () {
           this.open();
@@ -2540,6 +2543,7 @@ window.gotDevices = (mediaDevices) => {
       y: Math.random() * (window.innerHeight - 500),
       animations: false,
       resizable: false,
+      opacity: 1,
       events: {
         closed: function () {
           this.open();
@@ -2581,6 +2585,7 @@ window.gotDevices = (mediaDevices) => {
       y: Math.random() * (window.innerHeight - 500),
       animations: false,
       resizable: false,
+      opacity: 1,
       events: {
         closed: function () {
           this.open();
@@ -2622,6 +2627,7 @@ window.gotDevices = (mediaDevices) => {
       y: Math.random() * (window.innerHeight - $("#collaborative_text").height),
       animations: false,
       resizable: true,
+      opacity: 1,
       events: {
         closed: function () {
           this.open();

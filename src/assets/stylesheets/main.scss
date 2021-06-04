@@ -60,9 +60,17 @@ textarea {
 }
 
 
-.text-collab-ext, .collaborator-cursor, .collaborator-cursor-tooltip {
+.text-collab-ext, .collaborator-cursor, .collaborator-cursor-tooltip, .text-collab-ext-scroller {
   position: absolute;
   pointer-events: none;
+}
+
+.text-collab-ext {
+  z-index: 40000;
+}
+
+.wm-window-title {
+  z-index: 50000;
 }
 
 #collaborative_text {
