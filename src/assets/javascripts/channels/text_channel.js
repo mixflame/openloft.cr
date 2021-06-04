@@ -22,16 +22,17 @@ window.setupText = () => {
 
         if(data["operation"] == "insert") {
             const value = data["value"];
-            const index = data["index"]
-            var newDoc = Automerge.change(currentDoc, doc => {
-                if(!doc.text)
-                    doc.text = new Automerge.Text()
-                doc.text.insertAt(index, value);
-            })
+            const index = data["index"];
+            let changes = new Uint8Array(atob(data["changes"]).split("").map(
+                (char)=>char.charCodeAt(0)
+              )
+             );
+             console.log(changes);
+            let [newDoc, patch] = Automerge.applyChanges(currentDoc, [changes])
 
             // currentDoc = Automerge.merge(currentDoc, newDoc)
 
-            console.log(newDoc.text)
+            console.log(currentDoc.text)
 
             // let finalDoc = Automerge.merge(newDoc, currentDoc)
             // var sel = getInputSelection($("#collaborative_text")[0]);
@@ -45,11 +46,11 @@ window.setupText = () => {
         } else if(data["operation"] == "delete") {
             const length = data["length"];
             const index = data["index"]
-            var newDoc = Automerge.change(currentDoc, doc => {
-                if(!doc.text)
-                    doc.text = new Automerge.Text()
-                doc.text.deleteAt(index, length);
-            })
+            let changes = new Uint8Array(atob(data["changes"]).split("").map(
+                (char)=>char.charCodeAt(0)
+              )
+             );
+            let [newDoc, patch] = Automerge.applyChanges(currentDoc, [changes])
             // var sel = getInputSelection($("#collaborative_text")[0]);
             // $("#collaborative_text").val(newDoc.text);
             // textEditor.setText(newDoc.text);
