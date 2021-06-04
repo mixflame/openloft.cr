@@ -9,8 +9,13 @@ window.wm = wm;
 
 const Automerge = require('automerge')
 window.Automerge = Automerge;
-let currentDoc = Automerge.init()
+let currentDoc = Automerge.init();
 window.currentDoc = currentDoc;
+
+
+const HtmlTextCollabExt = require("@convergence/html-text-collab-ext");
+window.HtmlTextCollabExt = HtmlTextCollabExt;
+
 //import Logo from '../images/logo.svg';
 
 require("./livepixel")

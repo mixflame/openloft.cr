@@ -2633,6 +2633,7 @@ window.gotDevices = (mediaDevices) => {
     window.text_window.open().then(() => {
       console.log("text opened");
       $(window.text_window.view.el).css("background-color", "black")
+      selectionManager.onResize();
       // $(".wm-overlay").remove()
       $("#collaborative_text_holder").css("width", window.text_window.width)
       $("#collaborative_text_holder").css("height", window.text_window.height)
@@ -2647,6 +2648,8 @@ window.gotDevices = (mediaDevices) => {
   
         $("#collaborative_text_holder").css("width", window.text_window.width)
         $("#collaborative_text_holder").css("height", window.text_window.height)
+
+        selectionManager.onResize();
       }
       window.text_window.resize = function (e, t) {
   
@@ -2655,6 +2658,7 @@ window.gotDevices = (mediaDevices) => {
   
         $("#collaborative_text_holder").css("width", window.text_window.width)
         $("#collaborative_text_holder").css("height", window.text_window.height)
+        selectionManager.onResize();
       }
     })
 
@@ -2669,19 +2673,39 @@ window.gotDevices = (mediaDevices) => {
   const bgs = ["WallpaperDog-11333.jpg", "WallpaperDog-5525597.jpg", "WallpaperDog-5525602.jpg", "WallpaperDog-5525605.jpg", "WallpaperDog-5525688.jpg", "WallpaperDog-10851523.jpg", "WallpaperDog-10877066.jpg", "WallpaperDog-10877076.jpg"]
   $("body").css("background-image", "url(/" + bgs[Math.floor(Math.random() * bgs.length)] + ")")
 
-  $("#collaborative_text").keyup(function(e) {
-    var text = $("#collaborative_text").val();
-    console.log(text);
-    let newDoc = Automerge.change(currentDoc, doc => {
-      // make arbitrary change to the document
-      doc.text = text;
-    })
-    console.log(newDoc);
-    let changes = Automerge.getChanges(currentDoc, newDoc)
-    currentDoc = newDoc;
-    let base64 = btoa(String.fromCharCode.apply(null, changes[0]));
-    window.text_channel.push("message_new", {changes: base64, user_id: currentUser, room: room});
+  // $("#collaborative_text").keyup(function(e) {
+  //   var text = $("#collaborative_text").val();
+  //   console.log(text);
+  //   let newDoc = Automerge.change(currentDoc, doc => {
+  //     // make arbitrary change to the document
+  //     doc.text = text;
+  //   })
+  //   console.log(newDoc);
+  //   let changes = Automerge.getChanges(currentDoc, newDoc)
+  //   currentDoc = newDoc;
+  //   let base64 = btoa(String.fromCharCode.apply(null, changes[0]));
+  //   window.text_channel.push("message_new", {changes: base64, user_id: currentUser, room: room});
+  // })
+
+
+  window.textarea = document.getElementById("collaborative_text");
+  window.textEditor = new HtmlTextCollabExt.CollaborativeTextArea({
+    control: textarea,
+    onInsert: (index, value) => {
+      console.log(`"${value}" was inserted at index ${index}`)
+      window.text_channel.push("message_new", {operation: "insert", value: value, index: index, user_id: currentUser, room: room, name: window.name});
+    },
+    onDelete: (index, length) => {
+      console.log(`"${length}" characters were deleted at index ${index}`)
+      window.text_channel.push("message_new", {operation: "delete", index: index, length: length, user_id: currentUser, room: room, name: window.name});
+    },
+    onSelectionChanged: (selection) => {
+      console.log(`selection was changed to ${JSON.stringify(selection)}`)
+      window.text_channel.push("message_new", {operation: "selection", anchor: selection["anchor"], target: selection["target"], user_id: currentUser, room: room, name: window.name});
+    }
   })
+
+  window.selectionManager = textEditor.selectionManager();
 
 }
 

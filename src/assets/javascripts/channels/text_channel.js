@@ -3,75 +3,6 @@ import Amber from 'amber';
 var urlParams = new URLSearchParams(window.location.search);
 var room = urlParams.get('room');
 
-
-window.getInputSelection = function(el) {
-    var start = 0, end = 0, normalizedValue, range,
-        textInputRange, len, endRange;
-
-    if (typeof el.selectionStart == "number" && typeof el.selectionEnd == "number") {
-        start = el.selectionStart;
-        end = el.selectionEnd;
-    } else {
-        range = document.selection.createRange();
-
-        if (range && range.parentElement() == el) {
-            len = el.value.length;
-            normalizedValue = el.value.replace(/\r\n/g, "\n");
-
-            // Create a working TextRange that lives only in the input
-            textInputRange = el.createTextRange();
-            textInputRange.moveToBookmark(range.getBookmark());
-
-            // Check if the start and end of the selection are at the very end
-            // of the input, since moveStart/moveEnd doesn't return what we want
-            // in those cases
-            endRange = el.createTextRange();
-            endRange.collapse(false);
-
-            if (textInputRange.compareEndPoints("StartToEnd", endRange) > -1) {
-                start = end = len;
-            } else {
-                start = -textInputRange.moveStart("character", -len);
-                start += normalizedValue.slice(0, start).split("\n").length - 1;
-
-                if (textInputRange.compareEndPoints("EndToEnd", endRange) > -1) {
-                    end = len;
-                } else {
-                    end = -textInputRange.moveEnd("character", -len);
-                    end += normalizedValue.slice(0, end).split("\n").length - 1;
-                }
-            }
-        }
-    }
-
-    return {
-        start: start,
-        end: end
-    };
-}
-
-window.offsetToRangeCharacterMove = function(el, offset) {
-    return offset - (el.value.slice(0, offset).split("\r\n").length - 1);
-}
-
-window.setInputSelection = function(el, startOffset, endOffset) {
-    if (typeof el.selectionStart == "number" && typeof el.selectionEnd == "number") {
-        el.selectionStart = startOffset;
-        el.selectionEnd = endOffset;
-    } else {
-        var range = el.createTextRange();
-        var startCharMove = offsetToRangeCharacterMove(el, startOffset);
-        range.collapse(true);
-        if (startOffset == endOffset) {
-            range.move("character", startCharMove);
-        } else {
-            range.moveEnd("character", offsetToRangeCharacterMove(el, endOffset));
-            range.moveStart("character", startCharMove);
-        }
-        range.select();
-    }
-}
-
 window.setupText = () => {
     console.log("connected to /text")
     if(window.text_socket.channels.length == 0){
@@ -88,26 +19,65 @@ window.setupText = () => {
     text_channel.on('message_new', (data) => {
         if(data["user_id"] == window.currentUser) return;
         console.log(data);
-        // console.log(data);
 
-        let changes = new Uint8Array(atob(data["changes"]).split("").map(
-            (char)=>char.charCodeAt(0)
-          )
-         );
-        console.log([changes]);
-        console.log("currentDoc: ")
-        console.log(currentDoc)
-        let [newDoc, patch] = Automerge.applyChanges(currentDoc, [changes])
+        if(data["operation"] == "insert") {
+            const value = data["value"];
+            const index = data["index"]
+            var newDoc = Automerge.change(currentDoc, doc => {
+                if(!doc.text)
+                    doc.text = new Automerge.Text()
+                doc.text.insertAt(index, value);
+            })
 
-        console.log(newDoc)
-        console.log(patch)
+            // currentDoc = Automerge.merge(currentDoc, newDoc)
 
-        var sel = getInputSelection($("#collaborative_text")[0]);
-        $("#collaborative_text").val(newDoc.text);
-        $("#collaborative_text").focus()
-        setInputSelection($("#collaborative_text")[0], sel.start, sel.end);
+            console.log(newDoc.text)
 
-        currentDoc = newDoc;
+            // let finalDoc = Automerge.merge(newDoc, currentDoc)
+            // var sel = getInputSelection($("#collaborative_text")[0]);
+            // $("#collaborative_text").val(newDoc.text);
+            // textEditor.insertText(index, value);
+            textEditor.setText(newDoc.text.toString());
+            // $("#collaborative_text").focus()
+            // setInputSelection($("#collaborative_text")[0], sel.start, sel.end);
+            selectionManager.updateSelectionsOnInsert(index, value);
+            currentDoc = newDoc;
+        } else if(data["operation"] == "delete") {
+            const length = data["length"];
+            const index = data["index"]
+            var newDoc = Automerge.change(currentDoc, doc => {
+                if(!doc.text)
+                    doc.text = new Automerge.Text()
+                doc.text.deleteAt(index, length);
+            })
+            // var sel = getInputSelection($("#collaborative_text")[0]);
+            // $("#collaborative_text").val(newDoc.text);
+            // textEditor.setText(newDoc.text);
+            // $("#collaborative_text").focus()
+            // setInputSelection($("#collaborative_text")[0], sel.start, sel.end);
+            
+            textEditor.setText(newDoc.text.toString());
+            selectionManager.updateSelectionsOnDelete(index, length);
+            currentDoc = newDoc;
+        } else if(data["operation"] == "selection") {
+            var collaborator;
+            try {
+                collaborator = selectionManager.addCollaborator(data["name"], data["name"], "red", {anchor: data["anchor"], target: data["target"]});
+            } catch {
+                collaborator = selectionManager.getCollaborator(data["name"]);
+            } finally {
+                
+                    collaborator.setSelection({anchor: data["anchor"], target: data["target"]});
+                    collaborator.flashCursorToolTip(2);
+
+
+                    // selectionManager.removeCollaborator(data["name"]);
+                }
+            
+
+              
+            
+        }
     })
 
     text_channel.on('user_join', (data) => { })

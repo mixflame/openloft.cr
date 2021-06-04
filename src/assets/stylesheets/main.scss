@@ -53,7 +53,16 @@ $secondary: #dddddd;
   #chat_area_holder {
     width: 100%;
   }
+}
 
+textarea {
+  line-height: 1.2;
+}
+
+
+.text-collab-ext, .collaborator-cursor, .collaborator-cursor-tooltip {
+  position: absolute;
+  pointer-events: none;
 }
 
 #collaborative_text {

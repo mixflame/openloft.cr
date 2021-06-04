@@ -880,6 +880,19 @@
     "@babel/helper-validator-identifier" "^7.14.0"
     to-fast-properties "^2.0.0"
 
+"@convergence/html-text-collab-ext@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@convergence/html-text-collab-ext/-/html-text-collab-ext-0.2.1.tgz#7730924f211ea5f8c4babb3ce73616d663dd5f45"
+  integrity sha512-RsluQYIt5RfHl9FdejfqoljORUrmMmZCCrl3HNkCkViowC4/A5zb52xCYboWbeupu5eU+vqp8LGRF7vTq0Fd9w==
+  dependencies:
+    "@convergence/string-change-detector" "0.1.8"
+    textarea-caret convergencelabs/textarea-caret-position
+
+"@convergence/string-change-detector@0.1.8":
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/@convergence/string-change-detector/-/string-change-detector-0.1.8.tgz#ee189073059cc2c062a598f1575bd8d892b97389"
+  integrity sha1-7hiQcwWcwsBipZjxV1vY2JK5c4k=
+
 "@discoveryjs/json-ext@^0.5.0":
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.3.tgz#90420f9f9c6d3987f176a19a7d8e764271a2f55d"
@@ -3877,6 +3890,10 @@ terser@^5.7.0:
     commander "^2.20.0"
     source-map "~0.7.2"
     source-map-support "~0.5.19"
+
+"textarea-caret@github:convergencelabs/textarea-caret-position":
+  version "3.1.0"
+  resolved "https://codeload.github.com/convergencelabs/textarea-caret-position/tar.gz/5e8241d6a7c0cbaa7bb9415b58dcff3b5b37064f"
 
 throttle-debounce@^2.3.0:
   version "2.3.0"
