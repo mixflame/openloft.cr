@@ -50,9 +50,9 @@ class PersistenceChannel < Amber::WebSockets::Channel
         end
 
         # puts packets
-        packets.each do |packet|
-          PersistenceSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", JSON.parse(packet.to_s).as_h.to_h)
-        end
+        #packets.each do |packet|
+          PersistenceSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", {text_packets: packets}.to_h)
+        #end
       else
         puts ">>> running (text) connected method"
         
@@ -67,12 +67,10 @@ class PersistenceChannel < Amber::WebSockets::Channel
 
         # puts packets
 
-        packets.each do |packet|
-          PersistenceSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", JSON.parse(packet.to_s).as_h.to_h)
-        end
+        #packets.each do |packet|
+          PersistenceSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", {text_packets: packets}.to_h)
+        #end
       end
-
-      return
     end
   end
 
