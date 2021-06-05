@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.14.0",
-    "@convergence/html-text-collab-ext": "^0.2.1",
+    "@cerulean/html-text-collab-ext": "https://github.com/mixflame/html-text-collab-ext",
     "@giphy/js-components": "^4.4.0",
     "@giphy/js-fetch-api": "^3.0.0",
     "@joeattardi/emoji-button": "^4.6.0",
@@ -40,6 +40,8 @@
     "jquery": "^3.3.1",
     "popper.js": "^1.14.6",
     "pressure": "^2.2.0",
+    "ts-loader": "^9.2.2",
+    "typescript": "^4.3.2",
     "ventus": "mixflame/ventus"
   }
 }

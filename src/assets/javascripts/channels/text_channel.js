@@ -36,53 +36,31 @@ window.setupText = () => {
         if(data["operation"] == "insert") {
             const value = data["value"];
             const index = data["index"];
-            // let changes = new Uint8Array(atob(data["changes"]).split("").map(
-            //     (char)=>char.charCodeAt(0)
-            //   )
-            //  );
-            //  console.log(changes);
-            // let [newDoc, patch] = Automerge.applyChanges(currentDoc, [changes])
+            
+            var newDoc = Automerge.change(currentDoc, doc => {
+                if(!doc.text)
+                    doc.text = new Automerge.Text();
 
-            // currentDoc = Automerge.merge(currentDoc, newDoc)
+                doc.text.insertAt(index, value);
+            })
 
-            // console.log(currentDoc.text)
+            textEditor.setTextOnInsertWithSelections(newDoc.text.toString(), index, value);
 
-            // let finalDoc = Automerge.merge(newDoc, currentDoc)
-            // var sel = getInputSelection($("#collaborative_text")[0]);
-            // $("#collaborative_text").val(newDoc.text);
-
-            // const selection = selectionManager.getSelection();
-            // const start = selection["anchor"];
-            // const end = selection["target"];
-            // console.log(`start: ${start} end: ${end}`);
-            // const xStart = transformIndexOnInsert(start, index, value);
-            // const xEnd = transformIndexOnInsert(end, index, value);
-
-            textEditor.insertText(index, value);
-            // textEditor.setText(newDoc.text.toString());
-
-            // textEditor._inputManager._control.setSelectionRange(xStart + 1, xEnd + 1)
-            // $("#collaborative_text").focus()
-            // setInputSelection($("#collaborative_text")[0], sel.start, sel.end);
-            // selectionManager.updateSelectionsOnInsert(index, value);
-            // currentDoc = newDoc;
+            currentDoc = newDoc;
         } else if(data["operation"] == "delete") {
             const length = data["length"];
             const index = data["index"]
-            // let changes = new Uint8Array(atob(data["changes"]).split("").map(
-            //     (char)=>char.charCodeAt(0)
-            //   )
-            //  );
-            // let [newDoc, patch] = Automerge.applyChanges(currentDoc, [changes])
-            // var sel = getInputSelection($("#collaborative_text")[0]);
-            // $("#collaborative_text").val(newDoc.text);
-            textEditor.deleteText(index, length);
-            // $("#collaborative_text").focus()
-            // setInputSelection($("#collaborative_text")[0], sel.start, sel.end);
-            
-            // textEditor.setText(newDoc.text.toString());
-            // selectionManager.updateSelectionsOnDelete(index, length);
-            // currentDoc = newDoc;
+
+            var newDoc = Automerge.change(currentDoc, doc => {
+                if(!doc.text)
+                    doc.text = new Automerge.Text();
+
+                doc.text.deleteAt(index, length);
+            })
+
+            textEditor.setTextOnDeleteWithSelections(newDoc.text.toString(), index, length);
+
+            currentDoc = newDoc;
         } else if(data["operation"] == "selection") {
             var collaborator;
             try {
