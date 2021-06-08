@@ -2411,10 +2411,10 @@ window.gotDevices = (mediaDevices) => {
   if (typeof screen.orientation !== 'undefined' && urlParams.get("no_win") != "true") {
     window.canvas_window = wm.createWindow.fromQuery('canvas', {
       title: 'Canvas',
-      width: 640,
-      height: 480,
-      x: Math.random() * (window.innerWidth - 640),
-      y: Math.random() * (window.innerHeight - 480),
+      width: 1280,
+      height: 690,
+      x: 0,
+      y: 0,
       animations: false,
       opacity: 1,
       events: {
@@ -2430,11 +2430,14 @@ window.gotDevices = (mediaDevices) => {
       // $(".wm-overlay").remove()
       canvas_window.maximize = function () {
         if (canvas_window.width != screen.width) {
+          window.canvas_window.x = 0;
+          window.canvas_window.y = 0;
+          window.previous_canvas_size = {width: canvas_window.width, height: canvas_window.height}
           canvas_window.width = screen.width;
           canvas_window.height = screen.height
         } else {
-          canvas_window.width = 500;
-          canvas_window.height = 500;
+          canvas_window.width = window.previous_canvas_size["width"];
+          canvas_window.height = window.previous_canvas_size["height"];
         }
       }
       window.canvas_window.resize = function (e, t) {
@@ -2450,10 +2453,10 @@ window.gotDevices = (mediaDevices) => {
 
     window.chat_window = wm.createWindow.fromQuery('#chat_area_holder', {
       title: 'Chat',
-      width: 800,
-      height: 500,
-      x: Math.random() * (window.innerWidth - 800),
-      y: Math.random() * (window.innerHeight - 500),
+      width: 521,
+      height: 439,
+      x: 1285,
+      y: 480,
       animations: false,
       opacity: 1,
       events: {
@@ -2497,10 +2500,10 @@ window.gotDevices = (mediaDevices) => {
 
     window.video_chat_window = wm.createWindow.fromQuery('#video_chat', {
       title: 'Video',
-      width: $("#video_chat").css("width"),
-      height: $("#video_chat").css("height"),
-      x: Math.random() * (window.innerWidth - $("#video_chat").css("width")),
-      y: Math.random() * (window.innerHeight - $("#video_chat").css("height")),
+      width: 576,
+      height: 420,
+      x: 724,
+      y: 693,
       animations: false,
       opacity: 1,
       events: {
@@ -2539,8 +2542,8 @@ window.gotDevices = (mediaDevices) => {
       title: 'Toolbox',
       width: $("#toolbox").width,
       height: $("#toolbox").height,
-      x: Math.random() * (window.innerWidth - 500),
-      y: Math.random() * (window.innerHeight - 500),
+      x: 1280,
+      y: 0,
       animations: false,
       resizable: false,
       opacity: 1,
@@ -2579,10 +2582,10 @@ window.gotDevices = (mediaDevices) => {
 
     window.link_window = wm.createWindow.fromQuery('.navbar-nav', {
       title: 'Links',
-      width: $(".navbar-nav").width,
-      height: $(".navbar-nav").height,
-      x: Math.random() * (window.innerWidth - 500),
-      y: Math.random() * (window.innerHeight - 500),
+      width: 290,
+      height: 379,
+      x: 429,
+      y: 693,
       animations: false,
       resizable: false,
       opacity: 1,
@@ -2621,10 +2624,10 @@ window.gotDevices = (mediaDevices) => {
 
     window.text_window = wm.createWindow.fromQuery('#collaborative_text_holder', {
       title: 'Notepad',
-      width: $("#collaborative_text").width,
-      height: $("#collaborative_text").height,
-      x: Math.random() * (window.innerWidth - $("#collaborative_text").width),
-      y: Math.random() * (window.innerHeight - $("#collaborative_text").height),
+      width: 418,
+      height: 245,
+      x: 4,
+      y: 693,
       animations: false,
       resizable: true,
       opacity: 1,
