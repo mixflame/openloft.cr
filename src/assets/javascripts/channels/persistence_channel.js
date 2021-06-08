@@ -31,6 +31,7 @@ window.setupPersistence = () => {
     persistence_channel.on('message_new', (data) => {
         console.log(data);
         if(data["text_packets"] != undefined) {
+            currentDoc = Automerge.init();
             textEditor.setText("");
             data["text_packets"].forEach(function(json, i) {
                 var json_data = JSON.parse(json);
