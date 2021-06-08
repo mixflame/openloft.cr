@@ -2430,14 +2430,17 @@ window.gotDevices = (mediaDevices) => {
       // $(".wm-overlay").remove()
       canvas_window.maximize = function () {
         if (canvas_window.width != screen.width) {
+
+          window.previous_canvas_size = {x: canvas_window.x, y: canvas_window.y, width: canvas_window.width, height: canvas_window.height}
           window.canvas_window.x = 0;
           window.canvas_window.y = 0;
-          window.previous_canvas_size = {width: canvas_window.width, height: canvas_window.height}
           canvas_window.width = screen.width;
           canvas_window.height = screen.height
         } else {
           canvas_window.width = window.previous_canvas_size["width"];
           canvas_window.height = window.previous_canvas_size["height"];
+          canvas_window.x = window.previous_canvas_size["x"];
+          canvas_window.y = window.previous_canvas_size["y"];
         }
       }
       window.canvas_window.resize = function (e, t) {
@@ -2475,9 +2478,9 @@ window.gotDevices = (mediaDevices) => {
       window.scroll_to_bottom();
       chat_window.maximize = function () {
         if (chat_window.width != screen.width) {
+          window.previous_chat_size = {x: chat_window.x, y: chat_window.y, width: chat_window.width, height: chat_window.height}
           window.chat_window.x = 0;
           window.chat_window.y = 0;
-          window.previous_chat_size = {width: chat_window.width, height: chat_window.height}
           chat_window.width = screen.width;
           chat_window.height = screen.height
           $("#online_list").css("height", chat_window.height * 0.70)
@@ -2487,6 +2490,8 @@ window.gotDevices = (mediaDevices) => {
           chat_window.height = window.previous_chat_size["height"];
           $("#online_list").css("height", chat_window.height * 0.70)
           $("#chat_area").css("height", chat_window.height * 0.70)
+          chat_window.x = window.previous_chat_size["x"];
+          chat_window.y = window.previous_chat_size["y"];
         }
       }
       window.chat_window.resize = function (e, t) {
@@ -2527,11 +2532,20 @@ window.gotDevices = (mediaDevices) => {
       $("#video_chat").css("height", window.video_chat_window.height)
       video_chat_window.maximize = function () {
         if (video_chat_window.width != screen.width) {
+          window.previous_video_chat_size = {x: video_chat_window.x, y: video_chat_window.y, width: video_chat_window.width, height: video_chat_window.height}
+          window.video_chat_window.x = 0;
+          window.video_chat_window.y = 0;
           video_chat_window.width = screen.width;
           video_chat_window.height = screen.height
+          // $("#video_chat").css("width", window.video_chat_window.width)
+          // $("#video_chat").css("height", window.video_chat_window.height)
         } else {
-          video_chat_window.width = 500;
-          video_chat_window.height = 500;
+          video_chat_window.width = window.previous_video_chat_size["width"];
+          video_chat_window.height = window.previous_video_chat_size["height"];
+          $("#video_chat").css("width", window.video_chat_window.width)
+          $("#video_chat").css("height", window.video_chat_window.height)
+          video_chat_window.x = window.previous_video_chat_size["x"];
+          video_chat_window.y = window.previous_video_chat_size["y"];
         }
       }
       window.video_chat_window.resize = function (e, t) {
@@ -2654,16 +2668,22 @@ window.gotDevices = (mediaDevices) => {
       $("#collaborative_text_holder").css("height", window.text_window.height)
       text_window.maximize = function () {
         if (text_window.width != screen.width) {
+          
+          window.previous_text_size = {x: text_window.x, y: text_window.y, width: text_window.width, height: text_window.height}
+          window.text_window.x = 0;
+          window.text_window.y = 0;
           text_window.width = screen.width;
           text_window.height = screen.height
+          $("#collaborative_text_holder").css("width", window.text_window.width)
+          $("#collaborative_text_holder").css("height", window.text_window.height)
         } else {
-          text_window.width = 500;
-          text_window.height = 500;
+          text_window.width = window.previous_text_size["width"];
+          text_window.height = window.previous_text_size["height"];
+          $("#collaborative_text_holder").css("width", window.text_window.width)
+          $("#collaborative_text_holder").css("height", window.text_window.height)
+          text_window.x = window.previous_text_size["x"];
+          text_window.y = window.previous_text_size["y"];
         }
-  
-        $("#collaborative_text_holder").css("width", window.text_window.width)
-        $("#collaborative_text_holder").css("height", window.text_window.height)
-
         selectionManager.onResize();
       }
       window.text_window.resize = function (e, t) {
