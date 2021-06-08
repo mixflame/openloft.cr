@@ -26,9 +26,10 @@ window.setupPersistence = () => {
     $("#status").text("loading canvas");
     // this.perform('connected', {id: uuid});
 
-    persistence_channel.push("message_new", {connected: true});
+    
 
     persistence_channel.on('message_new', (data) => {
+        console.log(data);
         if(data["text_packets"] != undefined) {
             textEditor.setText("");
             data["text_packets"].forEach(function(json, i) {
@@ -49,8 +50,8 @@ window.setupPersistence = () => {
                     currentDoc = newDoc;
                     return;
                 } else if(json_data["operation"] == "delete") {
-                    const length = data["length"];
-                    const index = data["index"]
+                    const length = json_data["length"];
+                    const index = json_data["index"]
 
                     var newDoc = Automerge.change(currentDoc, doc => {
                         if(!doc.text)

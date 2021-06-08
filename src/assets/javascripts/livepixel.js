@@ -2762,6 +2762,8 @@ window.gotDevices = (mediaDevices) => {
 
   window.selectionManager = textEditor.selectionManager();
 
+  persistence_channel.push("message_new", {connected: true});
+
 }
 
 $(document).on("unload", function () {
