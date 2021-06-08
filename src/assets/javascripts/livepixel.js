@@ -2475,13 +2475,19 @@ window.gotDevices = (mediaDevices) => {
       window.scroll_to_bottom();
       chat_window.maximize = function () {
         if (chat_window.width != screen.width) {
+          window.chat_window.x = 0;
+          window.chat_window.y = 0;
+          window.previous_chat_size = {width: chat_window.width, height: chat_window.height}
           chat_window.width = screen.width;
           chat_window.height = screen.height
+          $("#online_list").css("height", chat_window.height * 0.70)
+          $("#chat_area").css("height", chat_window.height * 0.70)
         } else {
-          chat_window.width = 500;
-          chat_window.height = 500;
+          chat_window.width = window.previous_chat_size["width"];
+          chat_window.height = window.previous_chat_size["height"];
+          $("#online_list").css("height", chat_window.height * 0.70)
+          $("#chat_area").css("height", chat_window.height * 0.70)
         }
-        window.scroll_to_bottom();
       }
       window.chat_window.resize = function (e, t) {
 
