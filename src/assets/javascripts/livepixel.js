@@ -1909,6 +1909,8 @@ $(function () {
       });
     })
   })
+
+  $("#palette-selector").change();
     
 
   $("#color").change(function () {
