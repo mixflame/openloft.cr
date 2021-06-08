@@ -3,8 +3,13 @@
 <div id="toolbox" style="display: block; font-size: 10px;">
   <div id="last-colors">
     <% (0..15).each do |num| %>
-    <div class="swatch" id="last-color-<%= num %>"></div>
+      <div class="swatch" id="last-color-<%= num %>"></div>
     <% end %>
+
+    <select name="palette-selector" id="palette-selector">
+      <option value="mac">Mac</option>
+      <option value="windows">Windows</option>
+    </select>
   </div>
 
 

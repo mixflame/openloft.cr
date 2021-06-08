@@ -25,6 +25,11 @@
 //     return sdp;
 // }
 
+window.palettes = {
+  "mac": ["#000000", "#fbf305", "#ff6403", "#dd0907", "#f20884", "#4700a5", "#0000d3", "#02abea", "#1fb714", "#fbf305", "#562c05", "#90713a", "#C0C0C0", "#808080", "#404040", "#000000"],
+  "windows": ["#000000", "#800000", "#008000", "#808000", "#000080", "#800080", "#008080", "#C0C0C0", "#c0dcc0", "#a6caf0", "#fffbf0", "#a0a0a4", "#808080", "#FF0000", "#0f0", "#ff0"]
+}
+
 
 import Amber from 'amber';
 
@@ -1893,6 +1898,18 @@ $(function () {
 
     }
   })
+
+  $("#palette-selector").change(function() {
+    window.palette = palettes[$("#palette-selector").val()]
+    window.palette.forEach(function(e, i) {
+      colorsUsed.push(e);
+      var colors = colorsUsed.slice(Math.max(colorsUsed.length - 16, 0))
+      colors.forEach((element, index) => {
+        $("#last-color-" + index).css("background-color", element);
+      });
+    })
+  })
+    
 
   $("#color").change(function () {
     curColor = $("#color").val();
