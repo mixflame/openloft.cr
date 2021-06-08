@@ -118,7 +118,7 @@ window.setupCanvas = () => {
                 window.nicks.push(data["name"]);
 
                     var ding = new Audio("/ding.wav")
-                    ding.volume = 0.25;
+                    ding.volume = 0.05;
                     ding.play().catch((e) => {
                     console.log(e.message)
                     })
