@@ -2762,7 +2762,21 @@ window.gotDevices = (mediaDevices) => {
 
   window.selectionManager = textEditor.selectionManager();
 
-  persistence_channel.push("message_new", {connected: true});
+
+  // do this last...
+
+  persistence_socket.connect()
+    .then(setupPersistence)
+    window.persistence_socket._reconnect = () => {
+        clearTimeout(window.persistence_socket.reconnectTimeout)
+        window.persistence_socket.reconnectTimeout = setTimeout(() => {
+          window.persistence_socket.reconnectTries++
+          window.persistence_socket.connect(window.persistence_socket.params).then(setupPersistence);
+          window.persistence_socket._reconnect()
+        }, window.persistence_socket._reconnectInterval())
+      }
+
+  
 
 }
 

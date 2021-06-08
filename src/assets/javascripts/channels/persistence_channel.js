@@ -26,7 +26,7 @@ window.setupPersistence = () => {
     $("#status").text("loading canvas");
     // this.perform('connected', {id: uuid});
 
-    
+    persistence_channel.push("message_new", {connected: true});
 
     persistence_channel.on('message_new', (data) => {
         console.log(data);
@@ -125,13 +125,3 @@ window.setupPersistence = () => {
 }
 
 window.persistence_socket = new Amber.Socket('/persistence')
-persistence_socket.connect()
-    .then(setupPersistence)
-    window.persistence_socket._reconnect = () => {
-        clearTimeout(window.persistence_socket.reconnectTimeout)
-        window.persistence_socket.reconnectTimeout = setTimeout(() => {
-          window.persistence_socket.reconnectTries++
-          window.persistence_socket.connect(window.persistence_socket.params).then(setupPersistence);
-          window.persistence_socket._reconnect()
-        }, window.persistence_socket._reconnectInterval())
-      }
