@@ -26,7 +26,7 @@
         <pubDate><%= Time::Format::RFC_2822.format(Time.utc).to_s %></pubDate>
         <link>https://i.imgur.com/<%= image_id %>.png</link>
         <description></description>
-        <guid isPermaLink=false><%= UUID.random %></guid>
+        <guid isPermaLink='false"><%= UUID.random %></guid>
     </item>
 
     <% end %>
