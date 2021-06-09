@@ -2683,8 +2683,8 @@ window.gotDevices = (mediaDevices) => {
       $(window.text_window.view.el).css("background-color", "black")
       selectionManager.onResize();
       // $(".wm-overlay").remove()
-      $("#collaborative_text").css("width", window.text_window.width)
-      $("#collaborative_text").css("height", window.text_window.height)
+      $("#collaborative_text_holder").css("width", window.text_window.width)
+      $("#collaborative_text_holder").css("height", window.text_window.height)
       text_window.maximize = function () {
         if (text_window.width != screen.width) {
           
@@ -2693,13 +2693,13 @@ window.gotDevices = (mediaDevices) => {
           window.text_window.y = 0;
           text_window.width = screen.width;
           text_window.height = screen.height
-          $("#collaborative_text").css("width", window.text_window.width)
-          $("#collaborative_text").css("height", window.text_window.height)
+          $("#collaborative_text_holder").css("width", window.text_window.width)
+          $("#collaborative_text_holder").css("height", window.text_window.height)
         } else {
           text_window.width = window.previous_text_size["width"];
           text_window.height = window.previous_text_size["height"];
-          $("#collaborative_text").css("width", window.text_window.width)
-          $("#collaborative_text").css("height", window.text_window.height)
+          $("#collaborative_text_holder").css("width", window.text_window.width)
+          $("#collaborative_text_holder").css("height", window.text_window.height)
           text_window.x = window.previous_text_size["x"];
           text_window.y = window.previous_text_size["y"];
         }
