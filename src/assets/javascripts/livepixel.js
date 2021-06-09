@@ -2685,6 +2685,9 @@ window.gotDevices = (mediaDevices) => {
       // $(".wm-overlay").remove()
       $("#collaborative_text_holder").css("width", window.text_window.width)
       $("#collaborative_text_holder").css("height", window.text_window.height)
+      
+      $(".text-collab-ext").css("width", window.text_window.width)
+      $(".text-collab-ext").css("height", window.text_window.height)
       text_window.maximize = function () {
         if (text_window.width != screen.width) {
           
@@ -2695,6 +2698,8 @@ window.gotDevices = (mediaDevices) => {
           text_window.height = screen.height
           $("#collaborative_text_holder").css("width", window.text_window.width)
           $("#collaborative_text_holder").css("height", window.text_window.height)
+          $(".text-collab-ext").css("width", window.text_window.width)
+          $(".text-collab-ext").css("height", window.text_window.height)
         } else {
           text_window.width = window.previous_text_size["width"];
           text_window.height = window.previous_text_size["height"];
@@ -2702,6 +2707,8 @@ window.gotDevices = (mediaDevices) => {
           $("#collaborative_text_holder").css("height", window.text_window.height)
           text_window.x = window.previous_text_size["x"];
           text_window.y = window.previous_text_size["y"];
+          $(".text-collab-ext").css("width", window.text_window.width)
+          $(".text-collab-ext").css("height", window.text_window.height)
         }
         selectionManager.onResize();
       }
