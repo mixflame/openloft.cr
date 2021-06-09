@@ -1667,7 +1667,7 @@ $(function () {
     })
       .done(function (e) {
         var link = JSON.parse(e)["data"]["link"];
-        window.open(link);
+        // window.open(link);
         window.open("/gallery");
       });
 
