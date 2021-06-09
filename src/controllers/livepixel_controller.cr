@@ -24,6 +24,15 @@ class LivepixelController < ApplicationController
     render("gallery.ecr")
   end
 
+  def gallery_feed
+    redis = Redis.new
+
+    image_ids = redis.lrange("gallery", 0, -1)
+    respond_with do
+      xml render("gallery_feed.xml.ecr", layout: false)
+    end
+  end
+
 
   # imgur client id 3e035ba859d6add
   def upload_to_imgur

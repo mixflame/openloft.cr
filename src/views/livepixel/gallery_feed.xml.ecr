@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf8" ?>
+<rss version="2.0">
+
+    <channel>
+
+    <title>Gbaldraw Gallery</title>
+    <link>https://gbaldraw.fun/gallery</link>
+    <description>Internet created images</description>
+    <language>en-us</language>
+
+    <image>
+        <title>Lastest Image</title>
+        <link>https://i.imgur.com/<%= image_ids[image_ids.size - 1]%>.png</link>
+        <url>https://i.imgur.com/<%= image_ids[image_ids.size - 1]%>.png</url>
+        <width>640</width>
+        <height>480</height>
+    </image>
+
+
+    <% image_ids.each do |image_id| %>
+
+    <item>
+        <title>Gbaldraw Image</title>
+        <pubDate><%= Time.utc.to_s %></pubDate>
+        <link>https://i.imgur.com/<%= image_id %>.png</link>
+        <description></description>
+
+    </item>
+
+    <% end %>
+    </channel>
+
+</rss>

@@ -37,6 +37,7 @@ Amber::Server.configure do
     get "/canvas", LivepixelController, :canvas
     post "/upload_to_imgur", LivepixelController, :upload_to_imgur
     get "/gallery", LivepixelController, :gallery
+    get "/gallery_feed", LivepixelController, :gallery_feed
     get "/clear_canvas", LivepixelController, :clear_canvas
     get "/stats", LivepixelController, :stats
     get "/privacy_policy", LivepixelController, :privacy_policy
