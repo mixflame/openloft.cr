@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf8" ?>
+<?xml version="1.0" encoding="utf-8" xmlns:atom="http://www.w3.org/2005/Atom"?>
 <rss version="2.0">
 
     <channel>
@@ -7,13 +7,15 @@
     <link>https://gbaldraw.fun/gallery</link>
     <description>Internet created images</description>
     <language>en-us</language>
+    <atom:link href="https://gbaldraw.fun/gallery_feed.xml" rel="self" type="application/rss+xml" />
 
     <image>
-        <title>Lastest Image</title>
-        <link>https://i.imgur.com/<%= image_ids[image_ids.size - 1]%>.png</link>
+        <title>Gbaldraw Gallery</title>
+        <link>https://gbaldraw.fun/gallery</link>
         <url>https://i.imgur.com/<%= image_ids[image_ids.size - 1]%>.png</url>
-        <width>640</width>
-        <height>480</height>
+        <width>144</width>
+        <height>400</height>
+        
     </image>
 
 
@@ -21,10 +23,10 @@
 
     <item>
         <title>Gbaldraw Image</title>
-        <pubDate><%= Time.utc.to_s %></pubDate>
+        <pubDate><%= Time::Format::RFC_2822.format(Time.utc).to_s %></pubDate>
         <link>https://i.imgur.com/<%= image_id %>.png</link>
         <description></description>
-
+        <guid><%= UUID.random %></guid>
     </item>
 
     <% end %>
