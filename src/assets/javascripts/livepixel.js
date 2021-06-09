@@ -2217,7 +2217,7 @@ $(function () {
   // cam
   $("#input").val("cam");
 
-  $("#cam-name").html(`you: ${window.name}`);
+  // $("#cam-name").html(`you: ${window.name}`);
 
   if (context) {
     redraw();
@@ -2430,7 +2430,7 @@ window.gotDevices = (mediaDevices) => {
 
   if (typeof screen.orientation !== 'undefined' && urlParams.get("no_win") != "true") {
     window.canvas_window = wm.createWindow.fromQuery('canvas', {
-      title: 'Canvas',
+      title: 'Collaborative Canvas',
       width: 1280,
       height: 690,
       x: 0,
@@ -2475,7 +2475,7 @@ window.gotDevices = (mediaDevices) => {
     });
 
     window.chat_window = wm.createWindow.fromQuery('#chat_area_holder', {
-      title: 'Chat',
+      title: 'Enhanced Chat',
       width: 521,
       height: 585,
       x: 1285,
@@ -2530,7 +2530,7 @@ window.gotDevices = (mediaDevices) => {
 
 
     window.video_chat_window = wm.createWindow.fromQuery('#video_chat', {
-      title: 'Video',
+      title: `${window.name}'s Video Chat`,
       width: 576,
       height: 420,
       x: 724,
@@ -2579,7 +2579,7 @@ window.gotDevices = (mediaDevices) => {
     })
 
     window.tool_window = wm.createWindow.fromQuery('#toolbox', {
-      title: 'Toolbox',
+      title: 'Graphics Toolbox',
       width: $("#toolbox").width,
       height: $("#toolbox").height,
       x: 1280,
@@ -2621,7 +2621,7 @@ window.gotDevices = (mediaDevices) => {
 
 
     window.link_window = wm.createWindow.fromQuery('.navbar-nav', {
-      title: 'Links',
+      title: 'Helpful Links',
       width: 290,
       height: 379,
       x: 429,
@@ -2663,7 +2663,7 @@ window.gotDevices = (mediaDevices) => {
     })
 
     window.text_window = wm.createWindow.fromQuery('#collaborative_text_holder', {
-      title: 'Notepad',
+      title: 'Collaborative Notepad',
       width: 418,
       height: 245,
       x: 4,
