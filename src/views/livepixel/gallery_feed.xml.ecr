@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<rss version="2.0" xmlns:atom="https://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 
     <channel>
 
@@ -26,7 +26,7 @@
         <pubDate><%= Time::Format::RFC_2822.format(Time.utc).to_s %></pubDate>
         <link>https://i.imgur.com/<%= image_id %>.png</link>
         <description></description>
-        <guid><%= UUID.random %></guid>
+        <guid isPermaLink=false><%= UUID.random %></guid>
     </item>
 
     <% end %>
