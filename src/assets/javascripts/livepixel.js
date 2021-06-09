@@ -2720,12 +2720,6 @@ window.gotDevices = (mediaDevices) => {
 
   }
 
- 
-  
-
-  // test
-  const bgs = ["WallpaperDog-11333.jpg", "WallpaperDog-5525597.jpg", "WallpaperDog-5525602.jpg", "WallpaperDog-5525605.jpg", "WallpaperDog-5525688.jpg", "WallpaperDog-10851523.jpg", "WallpaperDog-10877066.jpg", "WallpaperDog-10877076.jpg"]
-  $("body").css("background-image", "url(/" + bgs[Math.floor(Math.random() * bgs.length)] + ")")
 
   // $("#collaborative_text").keyup(function(e) {
   //   var text = $("#collaborative_text").val();
@@ -2796,6 +2790,11 @@ window.gotDevices = (mediaDevices) => {
       }
 
   
+
+  // test
+  const bgs = ["WallpaperDog-11333.jpg", "WallpaperDog-5525597.jpg", "WallpaperDog-5525602.jpg", "WallpaperDog-5525605.jpg", "WallpaperDog-5525688.jpg", "WallpaperDog-10851523.jpg", "WallpaperDog-10877066.jpg", "WallpaperDog-10877076.jpg"]
+  $("body").css("background-image", "url(/" + bgs[Math.floor(Math.random() * bgs.length)] + ")")
+
 
 }
 
