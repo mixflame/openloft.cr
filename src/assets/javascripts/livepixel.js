@@ -1666,9 +1666,9 @@ $(function () {
       data: formData
     })
       .done(function (e) {
-        var link = JSON.parse(e)["data"]["link"];
+        var id = JSON.parse(e)["data"]["id"];
         // window.open(link);
-        window.open("/gallery");
+        window.open("/gallery#" + id);
       });
 
     e.preventDefault();
