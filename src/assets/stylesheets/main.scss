@@ -67,6 +67,8 @@ textarea {
 
 .text-collab-ext {
   z-index: 40000;
+  width: 98%;
+  height: 100%;
 }
 
 .wm-window-title {
@@ -74,13 +76,13 @@ textarea {
 }
 
 #collaborative_text {
-  width: 100%;
+  width: 98%;
   height: 100%;
 }
 
 #collaborative_text_holder {
-  min-width: 500px;
-  min-height: 500px;
+  width: 100%;
+  height: 100%;
 }
 
 #toolbox {
