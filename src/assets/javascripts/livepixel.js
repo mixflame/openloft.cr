@@ -2476,7 +2476,7 @@ window.gotDevices = (mediaDevices) => {
     window.chat_window = wm.createWindow.fromQuery('#chat_area_holder', {
       title: 'Chat',
       width: 521,
-      height: 439,
+      height: 585,
       x: 1285,
       y: 480,
       animations: false,
