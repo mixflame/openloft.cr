@@ -497,23 +497,22 @@ class LivepixelController < ApplicationController
         json = JSON.parse(response.body.to_s).as_h
         mockup = json["url"] rescue ""
 
+        product = JSON.parse(HTTP::Client.get("https://api.scalablepress.com/v2/products/#{product_id}").body).as_h
+
+
+        puts product.inspect
+
         render("show_scalable_mockup.ecr")
       end
-
-
-
-
-
-
 
     end
 
     def get_scalable_quote
       product_id = params["product_id"]
       design_id = params["design_id"]
-      color = params["color"]
+      color = params["color"] rescue ""
       quantity = params["quantity"]
-      size = params["size"]
+      size = params["size"] rescue ""
       name = params["name"]
       address = params["address"]
       city = params["city"]
@@ -532,6 +531,8 @@ class LivepixelController < ApplicationController
       response = client.post "/v2/quote", body: body_string
 
       quote = JSON.parse(response.body).as_h
+
+      puts quote.inspect
 
       render("get_scalable_quote.ecr")
     end
