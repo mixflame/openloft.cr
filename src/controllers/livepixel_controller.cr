@@ -495,7 +495,7 @@ class LivepixelController < ApplicationController
         puts response.body
 
         json = JSON.parse(response.body.to_s).as_h
-        mockup = json["url"]
+        mockup = json["url"] rescue ""
 
         render("show_scalable_mockup.ecr")
       end
@@ -509,27 +509,31 @@ class LivepixelController < ApplicationController
     end
 
     def get_scalable_quote
-      # category_id = params["categoryId"] || ""
-      # design_id = params["designId"] || ""
-      # color = params["color"] || ""
-      # quantity = params["quantity"] || ""
-      # size = params["size"] || ""
-      # name = params["name"] || ""
-      # address = params["address"] || ""
-      # city = params["city"] || ""
-      # state = params["state"] || ""
-      # zipcode = params["zipcode"] || ""
+      product_id = params["product_id"]
+      design_id = params["design_id"]
+      color = params["color"]
+      quantity = params["quantity"]
+      size = params["size"]
+      name = params["name"]
+      address = params["address"]
+      city = params["city"]
+      state = params["state"]
+      zipcode = params["zipcode"]
 
-      # url = URI.parse("https://api.scalablepress.com/v2/quote")
+      url = URI.parse("https://api.scalablepress.com/v2/quote")
 
-      # client = HTTP::Client.new(url)
-      # client.before_request do |request|
-      #   request.headers["Authorization"] = "Basic #{Base64.strict_encode(":test_9tLAWhj6f5qxVl2rHVRjgA")}"
-      # end
-      # body_string = "type=dtg&products[0][id]=#{category_id}&products[0][color]=#{color}&products[0][quantity]=#{quantity}&products[0][size]=#{size}&address[name]=#{name}&address[address1]=#{address}&address[city]=#{city}&address[state]=#{state}&address[zip]=#{zipcode}&designId=#{design_id}"
-      # response = client.post "/v2/quote", body_string
+      client = HTTP::Client.new(url)
+      body_string = "type=dtg&products[0][id]=#{product_id}&products[0][color]=#{color}&products[0][quantity]=#{quantity}&products[0][size]=#{size}&address[name]=#{name}&address[address1]=#{address}&address[city]=#{city}&address[state]=#{state}&address[zip]=#{zipcode}&designId=#{design_id}"
+      client.before_request do |request|
+        request.headers["Authorization"] = "Basic #{Base64.strict_encode(":test_9tLAWhj6f5qxVl2rHVRjgA")}"
+        request.headers["Content-Type"] = "application/x-www-form-urlencoded"
+      end
+      
+      response = client.post "/v2/quote", body: body_string
 
+      quote = JSON.parse(response.body).as_h
 
+      render("get_scalable_quote.ecr")
     end
 
 end

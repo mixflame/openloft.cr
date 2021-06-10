@@ -1,1 +1,24 @@
 <img src="<%= mockup %>" />
+
+<form action="/get_scalable_quote">
+  <label for="quantity">Quantity:</label><br>
+  <input type="text" id="quantity" name="quantity" value=""><br>
+  <label for="color">Color:</label><br>
+  <input type="text" id="color" name="color" value=""><br>
+  <label for="size">Size:</label><br>
+  <input type="text" id="size" name="size" value=""><br>
+  <label for="name">Name:</label><br>
+  <input type="text" id="name" name="name" value=""><br>
+  <label for="address">Address:</label><br>
+  <input type="text" id="address" name="address" value=""><br><br>
+  <label for="city">City:</label><br>
+  <input type="text" id="city" name="city" value=""><br><br>
+  <label for="state">State:</label><br>
+  <input type="text" id="state" name="state" value=""><br><br>
+  <label for="zipcode">Zipcode:</label><br>
+  <input type="text" id="zipcode" name="zipcode" value=""><br><br>
+  <input type="hidden" name="product_id" value="<%= product_id %>" />
+  <input type="hidden" name="design_id" value="<%= design_id %>" />
+
+  <input type="submit" value="Submit">
+</form>
