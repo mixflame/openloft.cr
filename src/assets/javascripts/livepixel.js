@@ -1057,8 +1057,8 @@ var redraw = function (bg, flatten) {
     return;
   }
   context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
-  context.fillStyle = "#FFFFFF";
-  context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+  // context.fillStyle = "#FFFFFF";
+  // context.fillRect(0, 0, context.canvas.width, context.canvas.height);
 
   // context.lineJoin = "round";
 
@@ -2466,7 +2466,7 @@ window.gotDevices = (mediaDevices) => {
 
 
   if (typeof screen.orientation !== 'undefined' && urlParams.get("no_win") != "true") {
-    window.canvas_window = wm.createWindow.fromQuery('canvas', {
+    window.canvas_window = wm.createWindow.fromQuery('#canvasDiv', {
       title: 'Collaborative Canvas',
       width: 1280,
       height: 690,
@@ -2484,6 +2484,8 @@ window.gotDevices = (mediaDevices) => {
       console.log("canvas window opened")
       $("canvas").css("width", "100%");
       $("canvas").css("height", "100%");
+      $("#canvasDiv").css("width", "100%");
+      $("#canvasDiv").css("height", "100%");
       // $(".wm-overlay").remove()
       canvas_window.maximize = function () {
         if (canvas_window.width != screen.width) {
@@ -2507,6 +2509,8 @@ window.gotDevices = (mediaDevices) => {
 
         $("canvas").css("width", "100%");
         $("canvas").css("height", "100%");
+        $("#canvasDiv").css("width", "100%");
+        $("#canvasDiv").css("height", "100%");
       }
       // window.canvas_window.resize(screen.width, screen.height);
     });
