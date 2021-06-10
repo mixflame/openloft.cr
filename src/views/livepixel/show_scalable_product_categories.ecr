@@ -1,0 +1,6 @@
+<% categories.as_a.each do |category| %>
+
+<p><a href='/show_scalable_products?category_id=<%= category["categoryId"] %>&design_id=<%= design_id %>'><p><% if category.as_h.has_key?("image") %><img width="25%" height="25%" src='<%= category["image"]["url"] %>' /><% end %></p><p><%= category["name"] %></p></a></p>
+
+
+<% end %>

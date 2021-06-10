@@ -1,0 +1,8 @@
+<!-- {"name" => "Port Authority Â® Wheeled Backpack", "style" => "BG76S", "image" => {"url" => "https://cdnl.sanmar.com/imglib/mresjpg/2012/f1/BG76S_Gray_AA06.jpg", "label" => "BG76S_Gray_AA06"}, "id" => "port-authority-â-wheeled-backpack", "url" => "https://api.scalablepress.com/v3/products/port-authority-â-wheeled-backpack"} -->
+
+<% products.each do |product| %>
+
+<p><a href='/show_scalable_mockup?product_id=<%= product["id"] %>&design_id=<%= design_id %>'><p><% if product.as_h.has_key?("image") %><img width="25%" height="25%" src='<%= product["image"]["url"] %>' /><% end %></p><p><%= product["name"] %></p></a></p>
+
+
+<% end %>

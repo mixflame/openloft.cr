@@ -309,4 +309,227 @@ class LivepixelController < ApplicationController
       {active_users: (Amber::WebSockets::ClientSockets.client_sockets.size / 4).to_f.round(0).to_i }.to_h.to_json
     end
 
+    def upload_to_scalable_press
+
+      redis = Redis.new
+  
+      path = params.files["picture"].file.path
+
+      puts path
+  
+      url = URI.parse("https://api.scalablepress.com/v2/design")
+  
+      IO.pipe do |reader, writer|
+        scalable_channel = Channel(String).new(1)
+  
+        spawn do
+          HTTP::FormData.build(writer) do |formdata|
+            scalable_channel.send(formdata.content_type)
+  
+            
+            File.open(path) do |file|
+              metadata = HTTP::FormData::FileMetadata.new(filename: "foo.png")
+              headers = HTTP::Headers{"Content-Type" => "image/png"}
+              
+              # formdata.field("sides[front]", 1.0)
+              # formdata.field("products[0][id]", "gildan-sweatshirt-crew")
+              # formdata.field("products[0][color]", "ash")
+              # formdata.field("products[0][quantity]", 1)
+              # formdata.field("products[0][size]", "lrg")
+              # formdata.field("sides[front][colors][0]", "white")
+              formdata.file("sides[front][artwork]", file, metadata, headers)
+              formdata.field("type", "dtg")
+              formdata.field("sides[front][dimensions][width]", "5")
+              formdata.field("sides[front][position][horizontal]", "C")
+              formdata.field("sides[front][position][offset][top]", "2.5")
+            end
+          end
+  
+          writer.close
+        end
+  
+        client = HTTP::Client.new url
+  
+        client.before_request do |request|
+            request.headers["Authorization"] = "Basic #{Base64.strict_encode(":test_9tLAWhj6f5qxVl2rHVRjgA")}"
+            request.headers["Content-Type"] = scalable_channel.receive
+            request.body = reader.gets_to_end
+            request.content_length = request.body.to_s.bytesize
+        end
+        response = client.post("/v2/design")
+  
+        puts "Response code #{response.status_code}"
+        puts response.body
+
+        json = JSON.parse(response.body).as_h
+
+        file = File.open("public/#{json["designId"].to_s}.png", "w") do |file|
+          file << File.open(path).gets_to_end
+        end
+        
+        
+        if !file.nil?
+          puts file.path
+        end
+  
+        response.body.to_s
+      end
+
+
+
+    end
+
+
+    def show_scalable_product_categories
+
+      design_id = params["designId"]
+
+      url = URI.parse("https://api.scalablepress.com/v2/categories")
+
+      client = HTTP::Client.new(url)
+      client.before_request do |request|
+        request.headers["Authorization"] = "Basic #{Base64.strict_encode(":test_9tLAWhj6f5qxVl2rHVRjgA")}"
+      end
+      response = client.get "/v2/categories"
+
+      categories = JSON.parse(response.body)
+
+      puts categories
+
+      render("show_scalable_product_categories.ecr")
+    end
+
+    def show_scalable_products
+
+      design_id = params["design_id"]
+      category_id = params["category_id"]
+
+      url = URI.parse("https://api.scalablepress.com/v2/categories/#{category_id}")
+
+      client = HTTP::Client.new(url)
+      client.before_request do |request|
+        request.headers["Authorization"] = "Basic #{Base64.strict_encode(":test_9tLAWhj6f5qxVl2rHVRjgA")}"
+      end
+      response = client.get "/v2/categories/#{category_id}"
+
+      puts response.body
+
+      products = JSON.parse(response.body).as_h["products"].as_a
+
+      puts products
+
+      render("show_scalable_products.ecr")
+    end
+
+
+    def show_scalable_mockup
+
+      product_id = params["product_id"]
+      design_id = params["design_id"]
+      color = params["color"] rescue "White"
+
+
+      # path = "public/#{design_id}.png"
+
+      #     curl "https://api.scalablepress.com/v3/mockup" \
+      # -u ":test_9tLAWhj6f5qxVl2rHVRjgA" \
+      # -F "template[name]=front" \
+      # -F "product[id]=gildan-cotton-t-shirt" \
+      # -F "product[color]=Navy" \
+      # -F "design[type]=dtg" \
+      # -F "design[sides][front][artwork]=@image.png" \
+      # -F "design[sides][front][dimensions][width]=5" \
+      # -F "design[sides][front][position][horizontal]=C" \
+      # -F "design[sides][front][position][offset][top]=2.5" \
+      # -F "output[width]=1000" \
+      # -F "output[height]=1000" \
+      # -F "padding[height]=10" \
+      # -F "output[format]=png"
+
+
+
+      url = URI.parse("https://api.scalablepress.com/v3/mockup")
+  
+      IO.pipe do |reader, writer|
+        scalable_channel = Channel(String).new(1)
+  
+        spawn do
+          HTTP::FormData.build(writer) do |formdata|
+            scalable_channel.send(formdata.content_type)
+  
+            
+            # File.open(path) do |file|
+            #   metadata = HTTP::FormData::FileMetadata.new(filename: "#{design_id}.png")
+            #   headers = HTTP::Headers{"Content-Type" => "image/png"}
+              
+              formdata.field("template[name]", "front")
+              formdata.field("product[id]", product_id)
+              formdata.field("product[color]", color)
+              formdata.field("design[type]", "dtg")
+              # formdata.file("design[sides][front][artwork]", file, metadata, headers)
+              formdata.field("design[sides][front][artwork]", "https://gbaldraw.fun/#{design_id}.png")
+              formdata.field("design[sides][front][dimensions][width]", "5")
+              formdata.field("design[sides][front][position][horizontal]", "C")
+              formdata.field("design[sides][front][position][offset][top]", "2.5")
+              formdata.field("output[width]", "1000")
+              formdata.field("output[height]", "1000")
+              formdata.field("padding[height]", "10")
+              formdata.field("output[format]", "png")
+            # end
+          end
+  
+          writer.close
+        end
+  
+        client = HTTP::Client.new url
+  
+        client.before_request do |request|
+            request.headers["Authorization"] = "Basic #{Base64.strict_encode(":test_9tLAWhj6f5qxVl2rHVRjgA")}"
+            request.headers["Content-Type"] = scalable_channel.receive
+            request.body = reader.gets_to_end
+            request.content_length = request.body.to_s.bytesize
+        end
+        response = client.post("/v3/mockup")
+  
+        puts "Response code #{response.status_code}"
+        puts response.body
+
+        json = JSON.parse(response.body.to_s).as_h
+        url = json["url"]
+
+        render("show_scalable_mockup.ecr")
+      end
+
+
+
+
+
+
+
+    end
+
+    def get_scalable_quote
+      # category_id = params["categoryId"] || ""
+      # design_id = params["designId"] || ""
+      # color = params["color"] || ""
+      # quantity = params["quantity"] || ""
+      # size = params["size"] || ""
+      # name = params["name"] || ""
+      # address = params["address"] || ""
+      # city = params["city"] || ""
+      # state = params["state"] || ""
+      # zipcode = params["zipcode"] || ""
+
+      # url = URI.parse("https://api.scalablepress.com/v2/quote")
+
+      # client = HTTP::Client.new(url)
+      # client.before_request do |request|
+      #   request.headers["Authorization"] = "Basic #{Base64.strict_encode(":test_9tLAWhj6f5qxVl2rHVRjgA")}"
+      # end
+      # body_string = "type=dtg&products[0][id]=#{category_id}&products[0][color]=#{color}&products[0][quantity]=#{quantity}&products[0][size]=#{size}&address[name]=#{name}&address[address1]=#{address}&address[city]=#{city}&address[state]=#{state}&address[zip]=#{zipcode}&designId=#{design_id}"
+      # response = client.post "/v2/quote", body_string
+
+
+    end
+
 end

@@ -36,6 +36,11 @@ Amber::Server.configure do
     websocket "/text", TextSocket
     get "/canvas", LivepixelController, :canvas
     post "/upload_to_imgur", LivepixelController, :upload_to_imgur
+    post "/upload_to_scalable_press", LivepixelController, :upload_to_scalable_press
+    get "/show_scalable_product_categories", LivepixelController, :show_scalable_product_categories
+    get "/show_scalable_products", LivepixelController, :show_scalable_products
+    get "/get_scalable_quote", LivepixelController, :get_scalable_quote
+    get "/show_scalable_mockup", LivepixelController, :show_scalable_mockup
     get "/gallery", LivepixelController, :gallery
     get "/gallery_feed", LivepixelController, :gallery_feed
     get "/clear_canvas", LivepixelController, :clear_canvas
