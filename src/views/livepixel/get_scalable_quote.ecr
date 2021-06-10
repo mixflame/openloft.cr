@@ -27,4 +27,6 @@
 <p>Shipping: <%= quote["shipping"] %></p>
 <p>orderToken: <%= quote["orderToken"] %></p>
 
+<a href='/place_scalable_order?order_id=<%= quote["orderToken"] %>&product_id=<%= product_id %>'>Place Order</a>
+
 <% end %>

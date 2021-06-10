@@ -537,4 +537,23 @@ class LivepixelController < ApplicationController
       render("get_scalable_quote.ecr")
     end
 
+    def place_scalable_order
+
+      order_token = params["order_id"]
+      product_id = params["product_id"]
+
+      url = URI.parse("https://api.scalablepress.com/v2/order")
+
+      client = HTTP::Client.new(url)
+      body_string = "orderToken=#{order_token}"
+      client.before_request do |request|
+        request.headers["Authorization"] = "Basic #{Base64.strict_encode(":test_9tLAWhj6f5qxVl2rHVRjgA")}"
+        request.headers["Content-Type"] = "application/x-www-form-urlencoded"
+      end
+      
+      response = client.post "/v2/order", body: body_string
+
+      response.body.to_s
+    end
+
 end
