@@ -495,7 +495,7 @@ class LivepixelController < ApplicationController
         puts response.body
 
         json = JSON.parse(response.body.to_s).as_h
-        url = json["url"]
+        mockup = json["url"]
 
         render("show_scalable_mockup.ecr")
       end
