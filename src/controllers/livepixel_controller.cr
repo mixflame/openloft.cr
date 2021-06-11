@@ -585,6 +585,9 @@ class LivepixelController < ApplicationController
       headers = HTTP::Headers{"Prefer" => "return=representation", "Content-Type" => "application/json", "Authorization" => "Basic #{Base64.strict_encode("Aa2go6c2he4XPU-vrwTzb3X2F4AHsZYRX9MsRR-alLzWxxM0V_RiV0vbfQT3LdIZiphgkkqRhQ8HSmU-:EHI6j2vssDeg_ww8DLQ_MNBnDXG_ia-QUH9M_fsv4WSNLEVywuZ6vFyKCocFifaToO2wdjwzcNvLSBqu")}"}
       response = HTTP::Client.post("https://api.sandbox.paypal.com/v2/checkout/orders/#{order_id}/capture", headers)
     
+      puts response.body
+
+      paypal_response = response.body
 
       json = JSON.parse(response.body)
       id = json["id"]
@@ -609,7 +612,9 @@ class LivepixelController < ApplicationController
       
       response = client.post "/v2/order", body: body_string
 
-      {paypal: json, scalable_press: response.body}.to_json
+      puts response.body
+
+      paypal_response.to_json
     end
 
 end

@@ -91,12 +91,14 @@ Comments: <%= product["comments"] %>
             }).then(function(details) {
                 details = JSON.parse(details);
                 const csrfToken = document.querySelector("[name=_csrf]").content;
-                if (details["paypal"].error === 'INSTRUMENT_DECLINED') {
+                if (details.error === 'INSTRUMENT_DECLINED') {
                     return actions.restart();
                 }
-                console.log(details["scalable_press"]);
-                
-                //console.log('Transaction funds captured from ' + details.table.result.table.payer.table.email_address);
+
+                // console.log(details);
+                // console.log(details["scalable_press"]);
+                alert("Products successfully ordered!");
+                console.log('Transaction funds captured from ' + details["payer"]["email_address"]);
                 // console.log(details)
                 // jQuery("#order_id").val(details["id"]);
                 // jQuery("#email").val(details["payer"]["email_address"]);
