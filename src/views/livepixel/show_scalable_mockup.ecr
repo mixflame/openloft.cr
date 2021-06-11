@@ -13,8 +13,9 @@
 
 <p>Description: <%= product["description"] %></p>
 
-<p>Comments: <%= product["comments"] %></p>
-
+<% unless product["comments"].nil? %>
+  <p>Comments: <%= product["comments"] %></p>
+<% end %>
 
 <form id="info">
   <label for="quantity">Quantity:</label><br>
