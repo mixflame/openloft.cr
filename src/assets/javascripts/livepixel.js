@@ -1674,43 +1674,6 @@ $(function () {
     e.preventDefault();
   })
 
-
-
-  $("#tshirt-uploader").click(function (e) {
-    var dataURL = canvas.toDataURL();
-    if (!window.dontLog) console.log(dataURL);
-    var url = "/upload_to_scalable_press";
-    var base64ImageContent = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-    var blob = base64ToBlob(base64ImageContent, 'image/png');
-    var formData = new FormData();
-    formData.append('picture', blob);
-
-    const csrfToken = document.querySelector("[name=_csrf]").content;
-    const headers = {
-      "X-CSRF-TOKEN": csrfToken,
-    }
-
-    $.ajax({
-      url: url,
-      headers: headers,
-      type: "POST",
-      cache: false,
-      contentType: false,
-      processData: false,
-      data: formData
-    })
-      .done(function (e) {
-        var data = JSON.parse(e);
-
-        console.log(data);
-
-        window.open("/show_scalable_product_categories?designId=" + data["designId"])
-
-      });
-
-    e.preventDefault();
-  })
-
   $("#clear_canvas").click(function (e) {
     $.get("/clear_canvas?room=" + room, function () {
 
@@ -2764,6 +2727,43 @@ window.gotDevices = (mediaDevices) => {
         selectionManager.onResize();
       }
     })
+
+
+    $("#tshirt-uploader").click(function (e) {
+      var dataURL = canvas.toDataURL();
+      if (!window.dontLog) console.log(dataURL);
+      var url = "/upload_to_scalable_press";
+      var base64ImageContent = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+      var blob = base64ToBlob(base64ImageContent, 'image/png');
+      var formData = new FormData();
+      formData.append('picture', blob);
+  
+      const csrfToken = document.querySelector("[name=_csrf]").content;
+      const headers = {
+        "X-CSRF-TOKEN": csrfToken,
+      }
+  
+      $.ajax({
+        url: url,
+        headers: headers,
+        type: "POST",
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: formData
+      })
+        .done(function (e) {
+          var data = JSON.parse(e);
+  
+          console.log(data);
+  
+          window.open("/show_scalable_product_categories?designId=" + data["designId"])
+  
+        });
+  
+      e.preventDefault();
+    })
+  
 
 
 

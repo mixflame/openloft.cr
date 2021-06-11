@@ -315,6 +315,11 @@ class LivepixelController < ApplicationController
   
       path = params.files["picture"].file.path
 
+      save_name = "#{Random.rand(10000).to_i}.png"
+      random_file = File.open("public/#{save_name}", "w") do |file|
+          file << File.open(path).gets_to_end
+      end
+
       puts path
   
       url = URI.parse("https://api.scalablepress.com/v2/design")
@@ -328,8 +333,8 @@ class LivepixelController < ApplicationController
   
             
             File.open(path) do |file|
-              metadata = HTTP::FormData::FileMetadata.new(filename: "foo.png")
-              headers = HTTP::Headers{"Content-Type" => "image/png"}
+              # metadata = HTTP::FormData::FileMetadata.new(filename: "foo.png")
+              # headers = HTTP::Headers{"Content-Type" => "image/png"}
               
               # formdata.field("sides[front]", 1.0)
               # formdata.field("products[0][id]", "gildan-sweatshirt-crew")
@@ -337,7 +342,8 @@ class LivepixelController < ApplicationController
               # formdata.field("products[0][quantity]", 1)
               # formdata.field("products[0][size]", "lrg")
               # formdata.field("sides[front][colors][0]", "white")
-              formdata.file("sides[front][artwork]", file, metadata, headers)
+              # formdata.file("sides[front][artwork]", file, metadata, headers)
+              formdata.field("sides[front][artwork]", "https://gbaldraw.fun/#{save_name}")
               formdata.field("type", "dtg")
               formdata.field("sides[front][dimensions][width]", "5")
               formdata.field("sides[front][position][horizontal]", "C")
@@ -363,15 +369,10 @@ class LivepixelController < ApplicationController
 
         json = JSON.parse(response.body).as_h
 
-        file = File.open("public/#{json["designId"].to_s}.png", "w") do |file|
-          file << File.open(path).gets_to_end
+        File.open("public/#{json["designId"]}.png", "w") do |file|
+            file << File.open(random_file.path).gets_to_end
         end
-        
-        
-        if !file.nil?
-          puts file.path
-        end
-  
+
         response.body.to_s
       end
 
