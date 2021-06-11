@@ -26,7 +26,7 @@
 // }
 
 window.palettes = {
-  "mac": ["#000000", "#fbf305", "#ff6403", "#dd0907", "#f20884", "#4700a5", "#0000d3", "#02abea", "#1fb714", "#fbf305", "#562c05", "#90713a", "#C0C0C0", "#808080", "#404040", "#000000"],
+  "mac": ["#000000", "#fbf305", "#ff6403", "#dd0907", "#f20884", "#4700a5", "#0000d3", "#02abea", "#1fb714", "#fbf305", "#562c05", "#90713a", "#C0C0C0", "#808080", "#404040", "#ffffff"],
   "windows": ["#000000", "#800000", "#008000", "#808000", "#000080", "#800080", "#008080", "#C0C0C0", "#c0dcc0", "#a6caf0", "#fffbf0", "#a0a0a4", "#808080", "#FF0000", "#0f0", "#ff0"]
 }
 
@@ -2429,7 +2429,7 @@ window.gotDevices = (mediaDevices) => {
 
 
   if (typeof screen.orientation !== 'undefined' && urlParams.get("no_win") != "true") {
-    window.canvas_window = wm.createWindow.fromQuery('#canvasDiv', {
+    window.canvas_window = wm.createWindow.fromQuery('#canvasDivHolder', {
       title: 'Collaborative Canvas',
       width: 1280,
       height: 690,
@@ -2449,6 +2449,8 @@ window.gotDevices = (mediaDevices) => {
       $("canvas").css("height", "100%");
       $("#canvasDiv").css("width", "100%");
       $("#canvasDiv").css("height", "100%");
+      $("#Holder").css("width", "100%");
+      $("#canvasDivHolder").css("height", "100%");
       // $(".wm-overlay").remove()
       canvas_window.maximize = function () {
         if (canvas_window.width != screen.width) {
@@ -2474,6 +2476,8 @@ window.gotDevices = (mediaDevices) => {
         $("canvas").css("height", "100%");
         $("#canvasDiv").css("width", "100%");
         $("#canvasDiv").css("height", "100%");
+        $("#canvasDivHolder").css("width", "100%");
+        $("#canvasDivHolder").css("height", "100%");        
       }
       // window.canvas_window.resize(screen.width, screen.height);
     });
