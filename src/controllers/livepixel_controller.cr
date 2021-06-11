@@ -501,7 +501,7 @@ class LivepixelController < ApplicationController
     def get_scalable_quote
 
       redis = Redis.new
-      
+
       product_id = params["product_id"]
       design_id = params["design_id"]
       color = params["color"] rescue ""
@@ -529,7 +529,7 @@ class LivepixelController < ApplicationController
       puts quote.inspect
 
 
-      total = ((quote["total"].as_f * 0.50) + quote["total"].as_f).round(2)
+      total = ((quote["total"].as_f * 0.35) + quote["total"].as_f).round(2)
 
       order_token = quote["orderToken"].to_s
 
@@ -570,17 +570,19 @@ class LivepixelController < ApplicationController
     end
 
     def place_scalable_order
-
+      redis = Redis.new
       
       product_id = params["product_id"]
 
 
       debug = true
       order_id = params["orderID"]
+      
       order_token = redis.get("tshirt_order_#{order_id}")
       headers = HTTP::Headers{"Prefer" => "return=representation", "Content-Type" => "application/json", "Authorization" => "Basic #{Base64.strict_encode("Aa2go6c2he4XPU-vrwTzb3X2F4AHsZYRX9MsRR-alLzWxxM0V_RiV0vbfQT3LdIZiphgkkqRhQ8HSmU-:EHI6j2vssDeg_ww8DLQ_MNBnDXG_ia-QUH9M_fsv4WSNLEVywuZ6vFyKCocFifaToO2wdjwzcNvLSBqu")}"}
-      response = HTTP::Client.post("https://api.paypal.com/v2/checkout/orders/#{order_id}/capture", headers)
-      
+      response = HTTP::Client.post("https://api.sandbox.paypal.com/v2/checkout/orders/#{order_id}/capture", headers)
+    
+
       json = JSON.parse(response.body)
       id = json["id"]
 
