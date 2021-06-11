@@ -388,6 +388,8 @@ class LivepixelController < ApplicationController
             file << File.open(random_file.path).gets_to_end
         end
 
+        File.delete(random_file.path)
+
         response.body.to_s
       end
 
@@ -513,6 +515,8 @@ class LivepixelController < ApplicationController
       state = params["state"]
       zipcode = params["zipcode"]
 
+      File.delete("public/#{design_id}.png")
+
       url = URI.parse("https://api.scalablepress.com/v2/quote")
 
       client = HTTP::Client.new(url)
@@ -612,9 +616,35 @@ class LivepixelController < ApplicationController
       
       response = client.post "/v2/order", body: body_string
 
+      # redis.set("scalable_order_#{JSON.parse(response.body).as_h["orderId"]}", id)
+
+      redis.hset("scalable_order_ids", id, JSON.parse(response.body).as_h["orderId"])
+
       puts response.body
 
       paypal_response.to_json
+    end
+
+
+    def receipt
+      transaction_id = params["transaction_id"]
+      redis = Redis.new
+      order_id = redis.hget("scalable_order_ids", transaction_id)
+
+      url = URI.parse("https://api.scalablepress.com/v3/event?orderId=#{order_id}")
+
+      client = HTTP::Client.new(url)
+      client.before_request do |request|
+        request.headers["Authorization"] = "Basic #{Base64.strict_encode(":test_9tLAWhj6f5qxVl2rHVRjgA")}"
+      end
+      
+      response = client.get "/v3/event?orderId=#{order_id}"
+
+      puts response.body
+
+      receipts = JSON.parse(response.body).as_a
+
+      render("receipt.ecr")
     end
 
 end

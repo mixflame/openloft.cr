@@ -42,6 +42,7 @@ Amber::Server.configure do
     post "/get_scalable_quote", LivepixelController, :get_scalable_quote
     get "/show_scalable_mockup", LivepixelController, :show_scalable_mockup
     post "/place_scalable_order", LivepixelController, :place_scalable_order
+    get "/receipt", LivepixelController, :receipt
     get "/gallery", LivepixelController, :gallery
     get "/gallery_feed", LivepixelController, :gallery_feed
     get "/clear_canvas", LivepixelController, :clear_canvas

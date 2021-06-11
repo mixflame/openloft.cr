@@ -97,11 +97,12 @@ Comments: <%= product["comments"] %>
 
                 // console.log(details);
                 // console.log(details["scalable_press"]);
-                alert("Products successfully ordered!");
+                //alert("Products successfully ordered!");
                 console.log('Transaction funds captured from ' + details["payer"]["email_address"]);
                 // console.log(details)
                 // jQuery("#order_id").val(details["id"]);
                 // jQuery("#email").val(details["payer"]["email_address"]);
+                window.location = "/receipt?transaction_id=" + details["id"];
             })
         }
       }).render('#paypal-button-container'); // Display payment options on your web page

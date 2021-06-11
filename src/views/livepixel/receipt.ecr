@@ -1,0 +1,8 @@
+<p>Payment successful!</p>
+
+<% receipts.each do |receipt| %>
+    <p><%= receipt["description"] %></p>
+    <p><%= receipt["createdAt"] %></p>
+<% end %>
+
+<p>Refer to this page for updates about order status.</p>
