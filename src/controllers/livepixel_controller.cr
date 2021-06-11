@@ -563,6 +563,9 @@ class LivepixelController < ApplicationController
       puts response.body
 
       id = JSON.parse(response.body)["id"]
+
+      raise "blank order token" if order_token == ""
+
       redis.set("tshirt_order_#{id}", order_token)
   
       response.body.to_json
