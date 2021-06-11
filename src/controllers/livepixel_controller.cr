@@ -504,9 +504,9 @@ class LivepixelController < ApplicationController
 
       product_id = params["product_id"]
       design_id = params["design_id"]
-      color = params["color"] rescue ""
+      color = params["color"] rescue "White"
       quantity = params["quantity"]
-      size = params["size"] rescue ""
+      size = params["size"] rescue "med"
       name = params["name"]
       address = params["address"]
       city = params["city"]
