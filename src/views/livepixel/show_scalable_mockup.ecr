@@ -13,7 +13,7 @@
 
 <p>Description: <%= product["description"] %></p>
 
-<% unless product["comments"].nil? %>
+<% if product.has_key?("comments") %>
   <p>Comments: <%= product["comments"] %></p>
 <% end %>
 
