@@ -444,26 +444,6 @@ class LivepixelController < ApplicationController
       design_id = params["design_id"]
       color = params["color"] rescue "White"
 
-
-      # path = "public/#{design_id}.png"
-
-      #     curl "https://api.scalablepress.com/v3/mockup" \
-      # -u ":test_9tLAWhj6f5qxVl2rHVRjgA" \
-      # -F "template[name]=front" \
-      # -F "product[id]=gildan-cotton-t-shirt" \
-      # -F "product[color]=Navy" \
-      # -F "design[type]=dtg" \
-      # -F "design[sides][front][artwork]=@image.png" \
-      # -F "design[sides][front][dimensions][width]=5" \
-      # -F "design[sides][front][position][horizontal]=C" \
-      # -F "design[sides][front][position][offset][top]=2.5" \
-      # -F "output[width]=1000" \
-      # -F "output[height]=1000" \
-      # -F "padding[height]=10" \
-      # -F "output[format]=png"
-
-
-
       url = URI.parse("https://api.scalablepress.com/v3/mockup")
   
       IO.pipe do |reader, writer|
@@ -472,17 +452,12 @@ class LivepixelController < ApplicationController
         spawn do
           HTTP::FormData.build(writer) do |formdata|
             scalable_channel.send(formdata.content_type)
-  
-            
-            # File.open(path) do |file|
-            #   metadata = HTTP::FormData::FileMetadata.new(filename: "#{design_id}.png")
-            #   headers = HTTP::Headers{"Content-Type" => "image/png"}
+
               
               formdata.field("template[name]", "front")
               formdata.field("product[id]", product_id)
               formdata.field("product[color]", color)
               formdata.field("design[type]", "dtg")
-              # formdata.file("design[sides][front][artwork]", file, metadata, headers)
               formdata.field("design[sides][front][artwork]", "https://gbaldraw.fun/#{design_id}.png")
               formdata.field("design[sides][front][dimensions][width]", "14")
               formdata.field("design[sides][front][position][horizontal]", "C")
@@ -491,7 +466,7 @@ class LivepixelController < ApplicationController
               formdata.field("output[height]", "1000")
               formdata.field("padding[height]", "10")
               formdata.field("output[format]", "png")
-            # end
+
           end
   
           writer.close
@@ -524,6 +499,9 @@ class LivepixelController < ApplicationController
     end
 
     def get_scalable_quote
+
+      redis = Redis.new
+      
       product_id = params["product_id"]
       design_id = params["design_id"]
       color = params["color"] rescue ""
@@ -550,13 +528,70 @@ class LivepixelController < ApplicationController
 
       puts quote.inspect
 
-      render("get_scalable_quote.ecr")
+
+      total = ((quote["total"].as_f * 0.50) + quote["total"].as_f).round(2)
+
+      order_token = quote["orderToken"].to_s
+
+      puts "selling #{quote["total"]} for #{total}"
+      debug = true
+  
+      body = {
+    
+        "intent": "CAPTURE",
+      
+        "purchase_units": [
+      
+          {
+      
+            "amount": {
+      
+              "currency_code": "USD",
+      
+              "value": total
+      
+            }
+      
+          }
+      
+        ]
+      
+      }.to_h.to_json
+      headers = HTTP::Headers{"Prefer" => "return=representation", "Content-Type" => "application/json", "Authorization" => "Basic #{Base64.strict_encode("Aa2go6c2he4XPU-vrwTzb3X2F4AHsZYRX9MsRR-alLzWxxM0V_RiV0vbfQT3LdIZiphgkkqRhQ8HSmU-:EHI6j2vssDeg_ww8DLQ_MNBnDXG_ia-QUH9M_fsv4WSNLEVywuZ6vFyKCocFifaToO2wdjwzcNvLSBqu")}"}
+      response = HTTP::Client.post("https://api.sandbox.paypal.com/v2/checkout/orders", headers, body)
+      
+      puts response.body
+
+      id = JSON.parse(response.body)["id"]
+      redis.set("tshirt_order_#{id}", order_token)
+  
+      response.body.to_json
+      # {"id" => JSON.parse(response.body).as_h["id"], "order_token" => order_token}.to_json
     end
 
     def place_scalable_order
 
-      order_token = params["order_id"]
+      
       product_id = params["product_id"]
+
+
+      debug = true
+      order_id = params["orderID"]
+      order_token = redis.get("tshirt_order_#{order_id}")
+      headers = HTTP::Headers{"Prefer" => "return=representation", "Content-Type" => "application/json", "Authorization" => "Basic #{Base64.strict_encode("Aa2go6c2he4XPU-vrwTzb3X2F4AHsZYRX9MsRR-alLzWxxM0V_RiV0vbfQT3LdIZiphgkkqRhQ8HSmU-:EHI6j2vssDeg_ww8DLQ_MNBnDXG_ia-QUH9M_fsv4WSNLEVywuZ6vFyKCocFifaToO2wdjwzcNvLSBqu")}"}
+      response = HTTP::Client.post("https://api.paypal.com/v2/checkout/orders/#{order_id}/capture", headers)
+      
+      json = JSON.parse(response.body)
+      id = json["id"]
+
+      email = json["payer"]["email_address"]
+  
+      redis = Redis.new
+      redis.hset("completed_tshirt_orders", email, id)
+  
+      
+
+
 
       url = URI.parse("https://api.scalablepress.com/v2/order")
 
@@ -569,7 +604,7 @@ class LivepixelController < ApplicationController
       
       response = client.post "/v2/order", body: body_string
 
-      response.body.to_s
+      {paypal: json, scalable_press: response.body}.to_json
     end
 
 end

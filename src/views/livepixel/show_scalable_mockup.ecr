@@ -1,10 +1,21 @@
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+
+  <script src="https://www.paypal.com/sdk/js?client-id=Aa2go6c2he4XPU-vrwTzb3X2F4AHsZYRX9MsRR-alLzWxxM0V_RiV0vbfQT3LdIZiphgkkqRhQ8HSmU-">
+</script>
+
+<div align=center>
+
+
 <img src="<%= mockup %>" />
 
 Description: <%= product["description"] %>
 Comments: <%= product["comments"] %>
 
 
-<form action="/get_scalable_quote">
+<form id="info">
   <label for="quantity">Quantity:</label><br>
   <input type="number" id="quantity" name="quantity" value=""><br>
   <label for="color">Color:</label><br>
@@ -31,8 +42,68 @@ Comments: <%= product["comments"] %>
   <input type="text" id="state" name="state" value=""><br><br>
   <label for="zipcode">Zipcode:</label><br>
   <input type="text" id="zipcode" name="zipcode" value=""><br><br>
-  <input type="hidden" name="product_id" value="<%= product_id %>" />
-  <input type="hidden" name="design_id" value="<%= design_id %>" />
-
-  <input type="submit" value="Submit">
+  <input type="hidden" id="product_id" name="product_id" value="<%= product_id %>" />
+  <input type="hidden" id="design_id" name="design_id" value="<%= design_id %>" />
 </form>
+
+<div id="paypal-button-container"></div>
+
+    <!-- Add the checkout buttons, set up the order and approve the order -->
+    <script>
+      paypal.Buttons({
+        createOrder: function() {
+            var data = {};
+            $("#info").serializeArray().map(function(x){data[x.name] = x.value;}); 
+            const csrfToken = document.querySelector("[name=_csrf]").content;
+            return fetch('/get_scalable_quote', {
+                method: 'post',
+                headers: {
+                'content-type': 'application/json',
+                "X-CSRF-TOKEN": csrfToken
+                },
+                body: JSON.stringify(data)
+            }).then(function(res) {
+                return res.json();
+            }).then(function(data) {
+                data = JSON.parse(data);
+                console.log(data)
+                // console.log(data.table.result.table.id)
+                console.log(data["id"]);
+                return data["id"];
+                // return data.table.result.table.id; // Use the same key name for order ID on the client and server
+            });
+        },
+        onApprove: function(data) {
+            const csrfToken = document.querySelector("[name=_csrf]").content;
+            // console.log(data);
+            return fetch('/place_scalable_order', {
+                method: 'post',
+                headers: {
+                'content-type': 'application/json',
+                "X-CSRF-TOKEN": csrfToken
+                },
+                body: JSON.stringify({
+                orderID: data.orderID,
+                product_id: $("#product_id").val()
+                })
+            }).then(function(res) {
+                return res.json();
+            }).then(function(details) {
+                console.log(JSON.parse(details["scalable_press"]))
+                details = JSON.parse(details["paypal"]);
+                const csrfToken = document.querySelector("[name=_csrf]").content;
+                if (details.error === 'INSTRUMENT_DECLINED') {
+                    return actions.restart();
+                }
+                console.log(details);
+                
+                //console.log('Transaction funds captured from ' + details.table.result.table.payer.table.email_address);
+                // console.log(details)
+                // jQuery("#order_id").val(details["id"]);
+                // jQuery("#email").val(details["payer"]["email_address"]);
+            })
+        }
+      }).render('#paypal-button-container'); // Display payment options on your web page
+    </script>
+    </div>
+</div>
