@@ -567,7 +567,7 @@ class LivepixelController < ApplicationController
       
       }.to_h.to_json
       headers = HTTP::Headers{"Prefer" => "return=representation", "Content-Type" => "application/json", "Authorization" => "Basic #{Base64.strict_encode("#{CLIENT_ID}:#{CLIENT_SECRET}")}"}
-      response = HTTP::Client.post("https://api.sandbox.paypal.com/v2/checkout/orders", headers, body)
+      response = HTTP::Client.post("https://api.paypal.com/v2/checkout/orders", headers, body)
       
       puts response.body
 
@@ -592,7 +592,7 @@ class LivepixelController < ApplicationController
       
       order_token = redis.get("tshirt_order_#{order_id}")
       headers = HTTP::Headers{"Prefer" => "return=representation", "Content-Type" => "application/json", "Authorization" => "Basic #{Base64.strict_encode("#{CLIENT_ID}:#{CLIENT_SECRET}")}"}
-      response = HTTP::Client.post("https://api.sandbox.paypal.com/v2/checkout/orders/#{order_id}/capture", headers)
+      response = HTTP::Client.post("https://api.paypal.com/v2/checkout/orders/#{order_id}/capture", headers)
     
       puts response.body
 
