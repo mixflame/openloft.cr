@@ -372,7 +372,7 @@ class LivepixelController < ApplicationController
         client = HTTP::Client.new url
   
         client.before_request do |request|
-            request.headers["Authorization"] = "Basic #{Base64.strict_encode(":test_9tLAWhj6f5qxVl2rHVRjgA")}"
+            request.headers["Authorization"] = "Basic #{Base64.strict_encode(":live_B3u4MwvA4almkU-49Jw9Wg")}"
             request.headers["Content-Type"] = scalable_channel.receive
             request.body = reader.gets_to_end
             request.content_length = request.body.to_s.bytesize
@@ -406,7 +406,7 @@ class LivepixelController < ApplicationController
 
       client = HTTP::Client.new(url)
       client.before_request do |request|
-        request.headers["Authorization"] = "Basic #{Base64.strict_encode(":test_9tLAWhj6f5qxVl2rHVRjgA")}"
+        request.headers["Authorization"] = "Basic #{Base64.strict_encode(":live_B3u4MwvA4almkU-49Jw9Wg")}"
       end
       response = client.get "/v2/categories"
 
@@ -426,7 +426,7 @@ class LivepixelController < ApplicationController
 
       client = HTTP::Client.new(url)
       client.before_request do |request|
-        request.headers["Authorization"] = "Basic #{Base64.strict_encode(":test_9tLAWhj6f5qxVl2rHVRjgA")}"
+        request.headers["Authorization"] = "Basic #{Base64.strict_encode(":live_B3u4MwvA4almkU-49Jw9Wg")}"
       end
       response = client.get "/v2/categories/#{category_id}"
 
@@ -477,7 +477,7 @@ class LivepixelController < ApplicationController
         client = HTTP::Client.new url
   
         client.before_request do |request|
-            request.headers["Authorization"] = "Basic #{Base64.strict_encode(":test_9tLAWhj6f5qxVl2rHVRjgA")}"
+            request.headers["Authorization"] = "Basic #{Base64.strict_encode(":live_B3u4MwvA4almkU-49Jw9Wg")}"
             request.headers["Content-Type"] = scalable_channel.receive
             request.body = reader.gets_to_end
             request.content_length = request.body.to_s.bytesize
@@ -515,14 +515,19 @@ class LivepixelController < ApplicationController
       state = params["state"]
       zipcode = params["zipcode"]
 
-      File.delete("public/#{design_id}.png")
+      begin
+        File.delete("public/#{design_id}.png")
+      rescue exception
+        puts exception.message
+      end
+      
 
       url = URI.parse("https://api.scalablepress.com/v2/quote")
 
       client = HTTP::Client.new(url)
       body_string = "type=dtg&products[0][id]=#{product_id}&products[0][color]=#{color}&products[0][quantity]=#{quantity}&products[0][size]=#{size}&address[name]=#{name}&address[address1]=#{address}&address[city]=#{city}&address[state]=#{state}&address[zip]=#{zipcode}&designId=#{design_id}"
       client.before_request do |request|
-        request.headers["Authorization"] = "Basic #{Base64.strict_encode(":test_9tLAWhj6f5qxVl2rHVRjgA")}"
+        request.headers["Authorization"] = "Basic #{Base64.strict_encode(":live_B3u4MwvA4almkU-49Jw9Wg")}"
         request.headers["Content-Type"] = "application/x-www-form-urlencoded"
       end
       
@@ -561,7 +566,7 @@ class LivepixelController < ApplicationController
         ]
       
       }.to_h.to_json
-      headers = HTTP::Headers{"Prefer" => "return=representation", "Content-Type" => "application/json", "Authorization" => "Basic #{Base64.strict_encode("Aa2go6c2he4XPU-vrwTzb3X2F4AHsZYRX9MsRR-alLzWxxM0V_RiV0vbfQT3LdIZiphgkkqRhQ8HSmU-:EHI6j2vssDeg_ww8DLQ_MNBnDXG_ia-QUH9M_fsv4WSNLEVywuZ6vFyKCocFifaToO2wdjwzcNvLSBqu")}"}
+      headers = HTTP::Headers{"Prefer" => "return=representation", "Content-Type" => "application/json", "Authorization" => "Basic #{Base64.strict_encode("#{CLIENT_ID}:#{CLIENT_SECRET}")}"}
       response = HTTP::Client.post("https://api.sandbox.paypal.com/v2/checkout/orders", headers, body)
       
       puts response.body
@@ -586,7 +591,7 @@ class LivepixelController < ApplicationController
       order_id = params["orderID"]
       
       order_token = redis.get("tshirt_order_#{order_id}")
-      headers = HTTP::Headers{"Prefer" => "return=representation", "Content-Type" => "application/json", "Authorization" => "Basic #{Base64.strict_encode("Aa2go6c2he4XPU-vrwTzb3X2F4AHsZYRX9MsRR-alLzWxxM0V_RiV0vbfQT3LdIZiphgkkqRhQ8HSmU-:EHI6j2vssDeg_ww8DLQ_MNBnDXG_ia-QUH9M_fsv4WSNLEVywuZ6vFyKCocFifaToO2wdjwzcNvLSBqu")}"}
+      headers = HTTP::Headers{"Prefer" => "return=representation", "Content-Type" => "application/json", "Authorization" => "Basic #{Base64.strict_encode("#{CLIENT_ID}:#{CLIENT_SECRET}")}"}
       response = HTTP::Client.post("https://api.sandbox.paypal.com/v2/checkout/orders/#{order_id}/capture", headers)
     
       puts response.body
@@ -610,7 +615,7 @@ class LivepixelController < ApplicationController
       client = HTTP::Client.new(url)
       body_string = "orderToken=#{order_token}"
       client.before_request do |request|
-        request.headers["Authorization"] = "Basic #{Base64.strict_encode(":test_9tLAWhj6f5qxVl2rHVRjgA")}"
+        request.headers["Authorization"] = "Basic #{Base64.strict_encode(":live_B3u4MwvA4almkU-49Jw9Wg")}"
         request.headers["Content-Type"] = "application/x-www-form-urlencoded"
       end
       
@@ -635,7 +640,7 @@ class LivepixelController < ApplicationController
 
       client = HTTP::Client.new(url)
       client.before_request do |request|
-        request.headers["Authorization"] = "Basic #{Base64.strict_encode(":test_9tLAWhj6f5qxVl2rHVRjgA")}"
+        request.headers["Authorization"] = "Basic #{Base64.strict_encode(":live_B3u4MwvA4almkU-49Jw9Wg")}"
       end
       
       response = client.get "/v3/event?orderId=#{order_id}"
