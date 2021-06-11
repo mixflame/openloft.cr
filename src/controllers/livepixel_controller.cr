@@ -21,7 +21,7 @@ class LivepixelController < ApplicationController
 
     image_ids = redis.lrange("gallery", 0, -1)
 
-    render("gallery.ecr")
+    render("gallery.ecr", layout: "gallery.ecr")
   end
 
   def gallery_feed
@@ -313,13 +313,28 @@ class LivepixelController < ApplicationController
 
       redis = Redis.new
   
-      path = params.files["picture"].file.path
+      file_url = params["file_url"] rescue ""
 
-      save_name = "#{Random.rand(10000).to_i}.png"
-      random_file = File.open("public/#{save_name}", "w") do |file|
-          file << File.open(path).gets_to_end
+      path = ""
+      save_name = ""
+      random_file : File = File.new("temp.png", "w")
+
+      if file_url == ""
+        path = params.files["picture"].file.path
+
+        save_name = "#{Random.rand(10000).to_i}.png"
+        random_file = File.open("public/#{save_name}", "w") do |file|
+            file << File.open(path).gets_to_end
+        end
+        file_url = "https://gbaldraw.fun/#{save_name}"
+      else
+        response = HTTP::Client.get(file_url)
+        save_name = "#{Random.rand(10000).to_i}.png"
+        random_file = File.open("public/#{save_name}", "w") do |file|
+            file << response.body
+        end
+        # file_url = "https://gbaldraw.fun/#{save_name}"
       end
-
       puts path
   
       url = URI.parse("https://api.scalablepress.com/v2/design")
@@ -332,7 +347,7 @@ class LivepixelController < ApplicationController
             scalable_channel.send(formdata.content_type)
   
             
-            File.open(path) do |file|
+            # File.open(path) do |file|
               # metadata = HTTP::FormData::FileMetadata.new(filename: "foo.png")
               # headers = HTTP::Headers{"Content-Type" => "image/png"}
               
@@ -343,12 +358,12 @@ class LivepixelController < ApplicationController
               # formdata.field("products[0][size]", "lrg")
               # formdata.field("sides[front][colors][0]", "white")
               # formdata.file("sides[front][artwork]", file, metadata, headers)
-              formdata.field("sides[front][artwork]", "https://gbaldraw.fun/#{save_name}")
+              formdata.field("sides[front][artwork]", file_url)
               formdata.field("type", "dtg")
               formdata.field("sides[front][dimensions][width]", "5")
               formdata.field("sides[front][position][horizontal]", "C")
               formdata.field("sides[front][position][offset][top]", "2.5")
-            end
+            # end
           end
   
           writer.close

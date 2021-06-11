@@ -4,7 +4,9 @@
 <p>
 <% image_ids.each do |image_id| %>
 
-<a href="https://i.imgur.com/<%= image_id %>.png" name="<%= image_id %>" target=_blank><img style="width: 25%; height: 25%; padding: 5px;" src="https://i.imgur.com/<%= image_id %>.png" /></a>
+<p><a href="https://i.imgur.com/<%= image_id %>.png" name="<%= image_id %>" target=_blank><img style="width: 25%; height: 25%; padding: 5px;" src="https://i.imgur.com/<%= image_id %>.png" /></a></p>
+
+<p><a href="#" id="order-<%= image_id %>" class="order-link">Order Print</a></p>
 
 <% end %>
 </p>

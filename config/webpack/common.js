@@ -6,7 +6,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 let config = {
   entry: {
-    main: path.resolve(__dirname, 'entry.js')
+    main: path.resolve(__dirname, 'entry.js'),
+    gallery: path.resolve(__dirname, 'gallery.js')
   },
   output: {
     filename: '[name].bundle.js',
