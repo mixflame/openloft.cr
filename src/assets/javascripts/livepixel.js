@@ -234,9 +234,10 @@ window.disconnectVideo = function () {
   window.currentUser = undefined;
   window.remoteVideoContainer = undefined;
   window.localstream = undefined;
-  window.localVideo.srcObject = undefined;
-  window.localVideo.muted = false;
-
+  if(window.localVideo) {
+    window.localVideo.srcObject = undefined;
+    window.localVideo.muted = false;
+  }
   handleLeaveSession();
 }
 
@@ -265,6 +266,7 @@ window.connectVideo = function (videoIncluded = true) {
     }).catch(() => {
       // alert("please allow camera access if you want to use video chat.")
       console.log("browser disallowed video.")
+      handleJoinSession();
     });
 
   $("#local-video").click(function (e) {
@@ -469,7 +471,8 @@ const handleLeaveSession = () => {
   pcPeers = {};
   userIds = {};
 
-  remoteVideoContainer.innerHTML = "";
+  if(remoteVideoContainer)
+    remoteVideoContainer.innerHTML = "";
 
 
   // broadcastData({
@@ -581,7 +584,7 @@ const createPC = (userId, isOffer, n) => {
   if (isOffer) {
     window.makingOffer = true;
     pc
-      .createOffer()
+      .createOffer({ offerToReceiveVideo: true, offerToReceiveAudio: true })
       .then((offer) => {
         offer.sdp = setMediaBitrates(offer.sdp);
         return pc.setLocalDescription(offer);
@@ -696,7 +699,7 @@ const createPC = (userId, isOffer, n) => {
     isNegotiating[pc] = true;
     if (!window.dontLog) console.log('negotiationstarted');
     window.makingOffer = true;
-    pc.createOffer().then(function (offer) {
+    pc.createOffer({ offerToReceiveVideo: true, offerToReceiveAudio: true }).then(function (offer) {
       offer.sdp = setMediaBitrate(offer.sdp);
       return pc.setLocalDescription(offer);
     }).then(function () {
@@ -2227,23 +2230,17 @@ $(function () {
   }
 
   $("#join-button").click(function () {
-    $("#join-button").prop("disabled", true);
-    $("#join-audio-button").prop("disabled", true);
-    $("#leave-button").prop("disabled", false);
+    // $("#leave-button").click()
     window.connectVideo();
   })
 
   $("#join-audio-button").click(function () {
-    $("#join-button").prop("disabled", true);
-    $("#join-audio-button").prop("disabled", true);
-    $("#leave-button").prop("disabled", false);
+    // $("#leave-button").click()
     window.connectVideo(false);
   })
 
   $("#leave-button").click(function () {
-    $("#join-button").prop("disabled", false);
-    $("#join-audio-button").prop("disabled", false);
-    $("#leave-button").prop("disabled", true);
+
     window.disconnectVideo();
   })
 
