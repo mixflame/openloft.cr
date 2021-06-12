@@ -1900,6 +1900,8 @@ $(function () {
     }
   })
 
+  
+
   $("#palette-selector").change(function() {
     window.palette = palettes[$("#palette-selector").val()]
     window.palette.forEach(function(e, i) {
@@ -2050,6 +2052,7 @@ $(function () {
     if (e.keyCode == 13) {
       $("#send_message").trigger("click");
       e.preventDefault();
+      document.execCommand("foreColor", true, $("#text_color").val());
     }
   });
 
@@ -2293,8 +2296,14 @@ $(function () {
   $("#text_color").change(function () {
     if (!$("#chat_message").is(":focus")) $("#chat_message").focus();
     // document.execCommand("styleWithCss", false, false);
-    document.execCommand("foreColor", false, $("#text_color").val());
+    document.execCommand("foreColor", true, $("#text_color").val());
   })
+
+  $("#chat_message").click(function () {
+    document.execCommand("foreColor", true, $("#text_color").val());
+  })
+
+  
 
   $("#text_back_color").change(function () {
     if (!$("#chat_message").is(":focus")) $("#chat_message").focus();
@@ -2848,6 +2857,8 @@ window.gotDevices = (mediaDevices) => {
   const bgs = ["WallpaperDog-11333.jpg", "WallpaperDog-5525597.jpg", "WallpaperDog-5525602.jpg", "WallpaperDog-5525605.jpg", "WallpaperDog-5525688.jpg", "WallpaperDog-10851523.jpg", "WallpaperDog-10877066.jpg", "WallpaperDog-10877076.jpg"]
   $("body").css("background-image", "url(/" + bgs[Math.floor(Math.random() * bgs.length)] + ")")
 
+
+  
 
 }
 
