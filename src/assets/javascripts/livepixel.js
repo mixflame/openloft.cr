@@ -2835,7 +2835,7 @@ window.gotDevices = (mediaDevices) => {
   $("body").css("background-image", "url(/" + bgs[Math.floor(Math.random() * bgs.length)] + ")")
 
 
-  
+  $("#join-button").click();
 
 }
 

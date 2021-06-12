@@ -100,7 +100,7 @@ window.setupPersistence = () => {
             // window.redraw(false, false);
             $("#status").text("canvas loaded");
             window.disabled = false;
-            $("#join-button").click();
+            // $("#join-button").click();
             console.log("canvas session joined")
 
         } else {
@@ -114,7 +114,7 @@ window.setupPersistence = () => {
                     window.redraw(true, true);
                     $("#status").text("canvas loaded");
                     window.disabled = false;
-                    $("#join-button").click();
+                    // $("#join-button").click();
                 } else {
                     $("#status").text("canvas loading... " + index + "/" + count);
                 }
