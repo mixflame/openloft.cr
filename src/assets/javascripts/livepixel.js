@@ -2505,7 +2505,7 @@ window.gotDevices = (mediaDevices) => {
 
     window.chat_window.open().then(() => {
       console.log("chat opened");
-      $(window.chat_window.view.el).css("background-color", "black")
+      // $(window.chat_window.view.el).css("background-color", "black")
       $("#online_list").css("height", chat_window.height * 0.70)
       $("#chat_area").css("height", chat_window.height * 0.70)
       // $(".wm-overlay").remove()
@@ -2560,7 +2560,7 @@ window.gotDevices = (mediaDevices) => {
 
     window.video_chat_window.open().then(() => {
       console.log("video chat opened");
-      $(window.video_chat_window.view.el).css("background-color", "black")
+      // $(window.video_chat_window.view.el).css("background-color", "black")
       // $(".wm-overlay").remove()
       $("#video_chat").css("width", window.video_chat_window.width)
       $("#video_chat").css("height", window.video_chat_window.height)
@@ -2594,8 +2594,8 @@ window.gotDevices = (mediaDevices) => {
 
     window.tool_window = wm.createWindow.fromQuery('#toolbox', {
       title: 'Graphics Toolbox',
-      width: $("#toolbox").width,
-      height: $("#toolbox").height,
+      width: 140,
+      height: $("#toolbox").css("height"),
       x: 1280,
       y: 0,
       animations: false,
@@ -2609,28 +2609,8 @@ window.gotDevices = (mediaDevices) => {
     })
 
     window.tool_window.open().then(() => {
-      console.log("video chat opened");
-      $(window.tool_window.view.el).css("background-color", "black")
-      // $(".wm-overlay").remove()
-      $("#video_chat").css("width", window.tool_window.width)
-      $("#video_chat").css("height", window.tool_window.height)
-      tool_window.maximize = function () {
-        if (tool_window.width != screen.width) {
-          tool_window.width = screen.width;
-          tool_window.height = screen.height
-        } else {
-          tool_window.width = 500;
-          tool_window.height = 500;
-        }
-      }
-      window.tool_window.resize = function (e, t) {
+      console.log("tool window opened");
 
-        window.tool_window.width = e;
-        window.tool_window.height = t;
-
-        $("#video_chat").css("width", window.tool_window.width)
-        $("#video_chat").css("height", window.tool_window.height)
-      }
     })
 
 
@@ -2653,7 +2633,7 @@ window.gotDevices = (mediaDevices) => {
 
     window.link_window.open().then(() => {
       console.log("link opened");
-      $(window.link_window.view.el).css("background-color", "black")
+      // $(window.link_window.view.el).css("background-color", "black")
       // $(".wm-overlay").remove()
       $(".navbar-nav").css("width", window.link_window.width)
       $(".navbar-nav").css("height", window.link_window.height)
@@ -2695,7 +2675,7 @@ window.gotDevices = (mediaDevices) => {
   
     window.text_window.open().then(() => {
       console.log("text opened");
-      $(window.text_window.view.el).css("background-color", "black")
+      // $(window.text_window.view.el).css("background-color", "black")
       selectionManager.onResize();
       // $(".wm-overlay").remove()
       $("#collaborative_text_holder").css("width", window.text_window.width)
