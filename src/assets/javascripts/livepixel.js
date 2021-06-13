@@ -1222,11 +1222,41 @@ var redraw = function (bg, flatten) {
 
 
 
-              // } else if(mpBrushStyle[i] && mpBrushStyle[i] == "circles") {
+            } else if(mpBrushStyle[i] && mpBrushStyle[i] == "shaded") {
 
-              //   var i, dx, dy, d, cx, cy, steps, step_delta;
+              var dx, dy, d;
 
-              //   context.lineWidth = mpClickSize[i];
+
+              context.lineJoin = mpLineJoin[i];
+
+              // context.strokeStyle = mpClickColor[i];
+              context.lineWidth = mpClickSize[i];
+              // context.stroke();
+
+
+              // dx = points[i][0] - points[mpClickCount[i]][0];
+              // dy = points[i][1] - points[mpClickCount[i]][1];
+              // console.log(mpClickX[mpClickX.length - 2]);
+              dx = (mpClickX[i - 5] ? mpClickX[i - 5] : mpClickX[0]) - mpClickX[i];
+              dy = (mpClickY[i - 5] ? mpClickY[i - 5] : mpClickY[0]) - mpClickY[i];
+              // dx = points[i][0] - mpClickX[mpClickX.length - 1];
+              // dy = points[i][1] - mpClickY[mpClickY.length - 1];
+              d = dx * dx + dy * dy;
+              // console.log(d);
+              if (d < 1000)
+              {
+                // try {
+                  context.strokeStyle = "rgba(" + hexToRgb(mpClickColor[i]).r + ", " + hexToRgb(mpClickColor[i]).g + ", " + hexToRgb(mpClickColor[i]).b + ", " + ((1 - (d / 1000)) * 0.1 * mpClickSize[i]) + " )";
+                // } catch {
+                  // context.strokeStyle = mpClickColor[i];
+                // }
+
+                context.beginPath();
+                context.moveTo(mpClickX[i - 1], mpClickY[i - 1]);
+                context.lineTo(mpClickX[i], mpClickY[i]);
+                context.closePath();
+                context.stroke();
+              }
 
             } else {
               context.lineJoin = mpLineJoin[i];
@@ -1338,7 +1368,7 @@ var tap = function (e) {
     addClick(mouseX, mouseY, false, false, name, curColor, curSize, curText, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle, curBrushStyle, count);
   else
     addClick(mouseX, mouseY, false, false, name, curColor, curSize, undefined, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle, curBrushStyle, count);
-  if (getTotalSizeOfCanvas() > 100) {
+  if (getTotalSizeOfCanvas() > 2000) {
     window.redraw(true, true);
     // window.redraw(false, false);
   } else {
@@ -1454,7 +1484,7 @@ var tapDrag = function (e) {
       addClick(mouseX, mouseY, true, false, name, curColor, curSize, curText, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle, curBrushStyle, count);
     else
       addClick(mouseX, mouseY, true, false, name, curColor, curSize, undefined, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle, curBrushStyle, count);
-    if (getTotalSizeOfCanvas() > 100) {
+    if (getTotalSizeOfCanvas() > 2000) {
       window.redraw(true, true);
       // window.redraw(false, false);
     } else {
