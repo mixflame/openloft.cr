@@ -57,7 +57,9 @@ class Client
 
             chat = message.last
 
-            say("#gbaldraw", "#{name} -> #{chat}")
+            @channels.each do |channel|
+              say(channel, "#{name} -> #{chat}")
+            end
         end
       end
     end
@@ -69,7 +71,10 @@ class Client
   def get_message(response)
     return unless response.includes?("PRIVMSG")
     parts = response.split(":")
-    message = response.split("PRIVMSG #gbaldraw :").last.to_s
+    message = response.split("PRIVMSG").last.to_s
+    # channel = match ? match.string : ""
+    message = message.gsub(/\#.+\:/, "")
+    # channel = channel.gsub(":", "")
     name = parts[1].split(" ").first.split("!").first
     return if name == "gbaldraw-bridge" || name == "gbaldraw-bridge-dev"
     name = "#{name}@irc"
@@ -155,6 +160,6 @@ class Client
     end
     @user = "gbaldraw-bridge"
     @password = "none"
-    @channels = ["#gbaldraw"]
+    @channels = ["#gbaldraw", "#8chan"]
   end
 end
