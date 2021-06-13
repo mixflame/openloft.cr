@@ -77,7 +77,7 @@ window.setupCanvas = () => {
             var destCtx = window.bgCanvas.getContext('2d');
             destCtx.clearRect(0, 0, destCtx.canvas.width, destCtx.canvas.height); // Clears the canvas
             destCtx.fillStyle = "#FFFFFF";
-            destCtx.fillRect(0, 0, 0.60 * screen.width, 0.60 * screen.height);
+            destCtx.fillRect(0, 0, 1280, 690);
 
             // redraw
             window.redraw(false, true);
@@ -87,26 +87,6 @@ window.setupCanvas = () => {
             $("#undo").prop("disabled", false);
             return false;
         }
-
-        // if(data['undo'] == true) {
-        //   window.mpNameHash = {};
-        //   window.mpLayerOrder = [];
-        //   window.mpClickHash = {};
-        //   window.backupMpNameHash = {};
-        //   window.backupMpClickHash = {};
-        //   window.backupMpLayerOrder = [];
-        //   var context = window.canvas.getContext('2d');
-        //   context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
-        //   context.fillStyle = "#FFFFFF";
-        //   context.fillRect(0, 0,  0.60 * screen.width,  0.60 * screen.height);
-        //   // clear bg canvas
-        //   var destCtx = window.bgCanvas.getContext('2d');
-        //   destCtx.clearRect(0, 0, destCtx.canvas.width, destCtx.canvas.height); // Clears the canvas
-        //   destCtx.fillStyle = "#FFFFFF";
-        //   destCtx.fillRect(0, 0,  0.60 * screen.width,  0.60 * screen.height);
-        //   window.persistence_channel.push("message_new", {connected: true});
-        //   window.redraw(false, true);
-        // }
 
         if (data["ping"]) {
             window.last_ping[data['name']] = Date.now();

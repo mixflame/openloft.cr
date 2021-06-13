@@ -1653,8 +1653,8 @@ $(function () {
 
   var canvasDiv = document.getElementById('canvasDiv');
   canvas = document.createElement('canvas');
-  canvas.setAttribute('width', screen.width);
-  canvas.setAttribute('height', screen.height);
+  canvas.setAttribute('width', 1280);
+  canvas.setAttribute('height', 690);
   canvas.setAttribute('id', 'canvas');
   canvas.setAttribute("style", "top: 0px; left: 0px; bottom: 0px; right: 0px;")
   // $(canvas).css("position", "absolute");
@@ -1666,8 +1666,8 @@ $(function () {
 
   var bgCanvasDiv = document.getElementById('bgCanvasDiv');
   window.bgCanvas = document.createElement('canvas');
-  window.bgCanvas.setAttribute('width', screen.width);
-  window.bgCanvas.setAttribute('height', screen.height);
+  window.bgCanvas.setAttribute('width', 1280);
+  window.bgCanvas.setAttribute('height', 690);
   window.bgCanvas.setAttribute('id', 'bgCanvas');
 
   $("#downloader").click(function () {
