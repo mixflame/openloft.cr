@@ -73,7 +73,7 @@ class Client
     parts = response.split(":")
     message = response.split("PRIVMSG").last.to_s
     # channel = match ? match.string : ""
-    message = message.gsub(/\#.+\:/, "")
+    message = message.gsub(/\#.+\:(?!$)/, "")
     # channel = channel.gsub(":", "")
     name = parts[1].split(" ").first.split("!").first
     return if name == "gbaldraw-bridge" || name == "gbaldraw-bridge-dev"
