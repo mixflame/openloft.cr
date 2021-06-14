@@ -38,7 +38,7 @@ class Client
 
     while true
       Fiber.yield
-      sleep 0.1
+      # sleep 0.1
       response = get_response
       next unless response
 
@@ -46,9 +46,7 @@ class Client
       pong(response)
 
 
-      spawn do
-        get_message(response)
-      end
+      get_message(response)
       
       spawn do
         while true
