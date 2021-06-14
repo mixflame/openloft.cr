@@ -53,23 +53,26 @@ class Client
       pong(response)
       
 
-      message = IrcChannel.receive
+      spawn do
+        Fiber.yield
+        message = IrcChannel.receive
 
-      puts "message #{message}"
+        puts "message #{message}"
 
-      name = message.first
+        name = message.first
 
-      chat = message.last
+        chat = message.last
 
-      @channels.each do |channel|
-        unless name.includes?("@discord") && channel.includes?("#8chan")
-          say(channel, "#{name} -> #{chat}")
+        @channels.each do |channel|
+          unless name.includes?("@discord") && channel.includes?("#8chan")
+            say(channel, "#{name} -> #{chat}")
+          end
         end
+
+        response = get_response
+
+        pong(response)
       end
-
-      response = get_response
-
-      pong(response)
     end
     
     client.close
