@@ -77,13 +77,13 @@ class Client
 
 
   def get_message(response)
-    return unless response.includes?("PRIVMSG")
-    parts = response.split(" :")
+    return unless response.to_s.includes?("PRIVMSG")
+    parts = response.to_s.split(" :")
     message = parts.last
     # channel = match ? match.string : ""
     # message = message.gsub(/\#.+\:(?!$)/, "")
     # channel = channel.gsub(":", "")
-    name = response.split(":")[1].split(" ").first.split("!").first
+    name = response.to_s.split(":")[1].split(" ").first.split("!").first
     channel = parts.first.split(" ")[2]
     return if name == "gbaldraw-bridge" || name == "gbaldraw-bridge-dev"
     name = "#{name}@irc.rizon.net #{channel}"
