@@ -58,7 +58,9 @@ class Client
             chat = message.last
 
             @channels.each do |channel|
-              say(channel, "#{name} -> #{chat}")
+              unless name.include?("@discord") && channel.include?("#8chan")
+                say(channel, "#{name} -> #{chat}")
+              end
             end
         end
       end
@@ -90,7 +92,9 @@ class Client
       redis.expire("chats", 7 * 24 * 3600)
     end
     ChatSocket.broadcast("message", "chat:", "message_new", {name: name, chat_message: message}.to_h)
-    DiscordChannel.send([name, message])
+    if channel != "#8chan"
+      DiscordChannel.send([name, message])
+    end
   end
 
   def login
