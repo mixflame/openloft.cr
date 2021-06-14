@@ -68,10 +68,6 @@ class Client
             say(channel, "#{name} -> #{chat}")
           end
         end
-
-        response = get_response
-
-        pong(response)
       end
     end
     
