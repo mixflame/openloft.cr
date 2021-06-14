@@ -48,22 +48,18 @@ class Client
 
       get_message(response)
       
-      spawn do
-        while true
-          Fiber.yield
-            message = IrcChannel.receive
+      
+      message = IrcChannel.receive
 
-            puts "message #{message}"
+      puts "message #{message}"
 
-            name = message.first
+      name = message.first
 
-            chat = message.last
+      chat = message.last
 
-            @channels.each do |channel|
-              unless name.includes?("@discord") && channel.includes?("#8chan")
-                say(channel, "#{name} -> #{chat}")
-              end
-            end
+      @channels.each do |channel|
+        unless name.includes?("@discord") && channel.includes?("#8chan")
+          say(channel, "#{name} -> #{chat}")
         end
       end
     end
