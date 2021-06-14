@@ -125,7 +125,7 @@ class Client
 
   def pong(response)
     return unless response.to_s.starts_with?("PING")
-    parts = response.split(":")
+    parts = response.to_s.split(":")
     return unless parts.size == 2
     puts "PONG :#{parts[1]}"
     client << "PONG :#{parts[1]}\r\n"
