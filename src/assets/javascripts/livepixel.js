@@ -2865,7 +2865,48 @@ window.gotDevices = (mediaDevices) => {
   $("body").css("background-image", "url(/" + bgs[Math.floor(Math.random() * bgs.length)] + ")")
 
 
+  $("#dark_mode").change(function (e) {
+    const checked = $(e.currentTarget).is(":checked");
+    if(checked) {
+      $("body").css("background-color", "black")
+      $("body").css("color", "white")
+      $(".wm-content").css("background-color", "black")
+      $(".wm-content").css("color", "white")
+      $(".nav-item").css("background-color", "black")
+      $(".nav-item").css("color", "white")
+      $("textarea").css("background-color", "black")
+      $("textarea").css("color", "white")
+      $(".tool").css("background-color", "black")
+      $(".tool").css("color", "white")
+      $("#last-colors").css("background-color", "black")
+      $("#last-colors").css("color", "white")
+      $("#text_color").val("#ffffff");
+      $("#text_color").change();
+    } else {
+      $("body").css("background-color", "white")
+      $("body").css("color", "black")
+      $(".wm-content").css("background-color", "white")
+      $(".wm-content").css("color", "black")
+      $(".nav-item").css("background-color", "white")
+      $(".nav-item").css("color", "black")
+      $("textarea").css("background-color", "white")
+      $("textarea").css("color", "black")
+      $(".tool").css("background-color", "white")
+      $(".tool").css("color", "black")
+      $("#last-colors").css("background-color", "white")
+      $("#last-colors").css("color", "black")
+      $("#text_color").val("#000000");
+      $("#text_color").change();
+    }
+    localStorage.setItem("dark_mode", $(e.currentTarget).is(":checked"))
+  })
+
+  var dark_mode = localStorage.getItem("dark_mode");
+  $("#dark_mode").prop("checked", dark_mode);
+  $("#dark_mode").change();
+
   $("#join-button").click();
+
 
 }
 
