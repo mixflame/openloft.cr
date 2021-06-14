@@ -42,10 +42,14 @@ class Client
       response = get_response
       next unless response
 
+
       pong(response)
 
-      get_message(response)
 
+      spawn do
+        get_message(response)
+      end
+      
       spawn do
         while true
           Fiber.yield
