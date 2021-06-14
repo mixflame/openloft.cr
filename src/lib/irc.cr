@@ -70,14 +70,15 @@ class Client
 
   def get_message(response)
     return unless response.includes?("PRIVMSG")
-    parts = response.split(":")
-    message = response.split("PRIVMSG").last.to_s
+    parts = response.split(" :")
+    message = parts.last
     # channel = match ? match.string : ""
-    message = message.gsub(/\#.+\:(?!$)/, "")
+    # message = message.gsub(/\#.+\:(?!$)/, "")
     # channel = channel.gsub(":", "")
-    name = parts[1].split(" ").first.split("!").first
+    name = response.split(":")[1].split(" ").first.split("!").first
+    channel = parts.first.split(" ")[2]
     return if name == "gbaldraw-bridge" || name == "gbaldraw-bridge-dev"
-    name = "#{name}@irc"
+    name = "#{name}@irc.rizon.net #{channel}"
     puts "name #{name}"
     # Sanitizer = Sanitize::Policy::HTMLSanitizer.basic
     name = Sanitizer.process(name.to_s)
