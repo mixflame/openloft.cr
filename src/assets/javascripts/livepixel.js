@@ -2866,7 +2866,7 @@ window.gotDevices = (mediaDevices) => {
 
 
   $("#dark_mode").change(function (e) {
-    const checked = $(e.currentTarget).is(":checked");
+    const checked = $("#dark_mode").is(":checked");
     if(checked) {
       $("body").css("background-color", "black")
       $("body").css("color", "white")
@@ -2898,11 +2898,12 @@ window.gotDevices = (mediaDevices) => {
       $("#text_color").val("#000000");
       $("#text_color").change();
     }
-    localStorage.setItem("dark_mode", $(e.currentTarget).is(":checked"))
+    localStorage.setItem("dark_mode", checked)
   })
 
   var dark_mode = localStorage.getItem("dark_mode");
-  $("#dark_mode").prop("checked", dark_mode);
+  if(dark_mode == "true")
+    $("#dark_mode").prop("checked", dark_mode);
   $("#dark_mode").change();
 
   $("#join-button").click();
