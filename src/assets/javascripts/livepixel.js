@@ -231,6 +231,7 @@ const ice = { iceServers: [{ urls: ["stun:stun.l.google.com:19302", "stun:45.79.
 // const ice = { iceServers: [{ urls: "stun:stun.l.google.com:19302" }] };
 
 window.disconnectVideo = function () {
+  window.video_connected = false;
   window.currentUser = undefined;
   window.remoteVideoContainer = undefined;
   window.localstream = undefined;
@@ -242,6 +243,8 @@ window.disconnectVideo = function () {
 }
 
 window.connectVideo = function (videoIncluded = true) {
+
+  window.video_connected = true;
   // setInterval(() => {
   //   $("video").each((i, e) => { if(e.duration != Infinity) $(e).parent().remove() })
   // }, 5000);
@@ -2261,16 +2264,18 @@ $(function () {
 
   $("#join-button").click(function () {
     // $("#leave-button").click()
+    if(window.video_connected == true) return;
     window.connectVideo();
   })
 
   $("#join-audio-button").click(function () {
     // $("#leave-button").click()
+    if(window.video_connected == true) return;
     window.connectVideo(false);
   })
 
   $("#leave-button").click(function () {
-
+    if(window.video_connected == false) return;
     window.disconnectVideo();
   })
 
