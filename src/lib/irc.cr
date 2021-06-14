@@ -47,10 +47,6 @@ class Client
 
 
       get_message(response)
-
-      response = get_response
-
-      pong(response)
       
 
       spawn do
