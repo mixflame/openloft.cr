@@ -12,6 +12,7 @@ class ChatChannel < Amber::WebSockets::Channel
       data["name"] = JSON::Any.new(Sanitizer.process(data["name"].to_s))
       data["chat_message"] = JSON::Any.new(Sanitizer.process(data["chat_message"].to_s))
       # data["chat_message"] = JSON::Any.new(" [#{Time.utc.month}/#{Time.utc.day}/#{Time.utc.year} #{Time.utc.hour}:#{Time.utc.minute}:#{Time.utc.second}] #{data["chat_message"].to_s.gsub("<br/>", "").squeeze(' ').to_s}")
+      data["chat_message"] = JSON::Any.new(" #{data["chat_message"].to_s.gsub("<br/>", "").squeeze(' ').to_s}")
     end
     if room == "" || room == nil
       redis = Redis.new
