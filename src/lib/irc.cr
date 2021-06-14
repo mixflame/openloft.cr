@@ -22,8 +22,8 @@ class Client
     @client = TCPSocket.new(server, port)
     
     while true
-      Fiber.yield
-      sleep 0.1
+      # Fiber.yield
+      # sleep 0.1
       response = get_response
       next unless response
 
@@ -37,7 +37,7 @@ class Client
     end
 
     while true
-      Fiber.yield
+      # Fiber.yield
       # sleep 0.1
       response = get_response
       next unless response
@@ -47,8 +47,12 @@ class Client
 
 
       get_message(response)
+
+      response = get_response
+
+      pong(response)
       
-      
+
       message = IrcChannel.receive
 
       puts "message #{message}"
@@ -62,6 +66,10 @@ class Client
           say(channel, "#{name} -> #{chat}")
         end
       end
+
+      response = get_response
+
+      pong(response)
     end
     
     client.close
