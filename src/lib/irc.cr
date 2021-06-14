@@ -22,7 +22,7 @@ class Client
     @client = TCPSocket.new(server, port)
     
     while true
-      # Fiber.yield
+      Fiber.yield
       # sleep 0.1
       response = get_response
       next unless response
@@ -37,7 +37,7 @@ class Client
     end
 
     while true
-      # Fiber.yield
+      Fiber.yield
       # sleep 0.1
       response = get_response
       next unless response
