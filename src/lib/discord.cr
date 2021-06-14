@@ -22,7 +22,7 @@ class DiscordBot
             # Sanitizer = Sanitize::Policy::HTMLSanitizer.basic
             name = Sanitizer.process(name.to_s)
             message = Sanitizer.process(message.to_s)
-            message = " [#{Time.utc.month}/#{Time.utc.day}/#{Time.utc.year} #{Time.utc.hour}:#{Time.utc.minute}:#{Time.utc.second}] #{message}"
+            # message = " [#{Time.utc.month}/#{Time.utc.day}/#{Time.utc.year} #{Time.utc.hour}:#{Time.utc.minute}:#{Time.utc.second}] #{message}"
             redis = Redis.new
             redis.rpush "chats", {name: name, chat_message: message, room: nil}.to_h.to_json
             if redis.ttl("chats") == -1
