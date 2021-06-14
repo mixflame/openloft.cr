@@ -58,7 +58,7 @@ class Client
             chat = message.last
 
             @channels.each do |channel|
-              unless name.include?("@discord") && channel.include?("#8chan")
+              unless name.includes?("@discord") && channel.includes?("#8chan")
                 say(channel, "#{name} -> #{chat}")
               end
             end
