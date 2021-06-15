@@ -11,7 +11,7 @@ class Client
   property password : String = ""
   property channels : Array(String) = [] of String
 
-  property client : TCPSocket
+  property tcp_client : TCPSocket = TCPSocket.new
   property response_count : Int32 = 0
   property logged_in : Bool = false
   property version_sent : Bool = false
@@ -19,55 +19,61 @@ class Client
 
   def initialize
     configure
-    @client = TCPSocket.new(server, port)
-    
     while true
-      Fiber.yield
-      # sleep 0.1
-      response = get_response
-      next unless response
-
-      pong(response)
-
-      login
-      privmsg(response)
-      join_channels
-
-      break if logged_in && version_sent && channels_joined
-    end
-
-    while true
-      Fiber.yield
-      # sleep 0.1
-      response = get_response
-      next unless response
-
-
-      pong(response)
-
-
-      get_message(response)
+      @tcp_client = TCPSocket.new(server, port)
       
-
-      spawn do
+      while true
         Fiber.yield
-        message = IrcChannel.receive
+        # sleep 0.1
+        response = get_response
+        next unless response
 
-        puts "message #{message}"
+        pong(response)
 
-        name = message.first
+        login
+        privmsg(response)
+        join_channels
 
-        chat = message.last
+        break if logged_in && version_sent && channels_joined
+      end
 
-        @channels.each do |channel|
-          unless name.includes?("@discord") && channel.includes?("#8chan")
-            say(channel, "#{name} -> #{chat}")
+      while true
+        Fiber.yield
+        # sleep 0.1
+        response = get_response
+        next unless response
+
+
+        pong(response)
+
+
+        get_message(response)
+        
+
+        spawn do
+          Fiber.yield
+          message = IrcChannel.receive
+
+          puts "message #{message}"
+
+          name = message.first
+
+          chat = message.last
+
+          @channels.each do |channel|
+            unless name.includes?("@discord") && channel.includes?("#8chan")
+              say(channel, "#{name} -> #{chat}")
+            end
           end
         end
       end
+      
+      tcp_client.close
+
+      sleep 5.seconds
+
+      # reconnect after close because of loop
     end
-    
-    client.close
   end
 
 
@@ -100,16 +106,16 @@ class Client
 
   def login
     return unless @response_count == 3
-    client << "PASS #{password}\r\n"
-    client << "NICK #{nick}\r\n"
-    client << "USER #{user} 8 * :#{user}\r\n"
+    tcp_client << "PASS #{password}\r\n"
+    tcp_client << "NICK #{nick}\r\n"
+    tcp_client << "USER #{user} 8 * :#{user}\r\n"
     @logged_in = true
   end
 
   def version(response)
     return unless response.includes?("VERSION")
     puts "VERSION #{version}"
-    client << "VERSION #{version}\r\n"
+    tcp_client << "VERSION #{version}\r\n"
     @version_sent = true
   end
 
@@ -123,11 +129,11 @@ class Client
     parts = response.to_s.split(":")
     return unless parts.size == 2
     puts "PONG :#{parts[1]}"
-    client << "PONG :#{parts[1]}\r\n"
+    tcp_client << "PONG :#{parts[1]}\r\n"
   end
 
   def get_response
-    response = @client.gets
+    response = @tcp_client.gets
     if response
       # puts response
       @response_count += 1
@@ -138,14 +144,14 @@ class Client
   def join_channels
     return unless version_sent || channels_joined
     channels.each do |channel|
-      client << "JOIN #{channel}\r\n"
+      tcp_client << "JOIN #{channel}\r\n"
       sleep 0.2
     end
     @channels_joined = true
   end
 
   def say(channel, what)
-    client << "PRIVMSG #{channel} :#{what}\r\n"
+    tcp_client << "PRIVMSG #{channel} :#{what}\r\n"
   end
 
   def configure
