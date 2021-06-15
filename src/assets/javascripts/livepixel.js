@@ -1249,7 +1249,7 @@ var redraw = function (bg, flatten) {
               if (d < 1000)
               {
                 // try {
-                  context.strokeStyle = "rgba(" + hexToRgb(mpClickColor[i]).r + ", " + hexToRgb(mpClickColor[i]).g + ", " + hexToRgb(mpClickColor[i]).b + ", " + ((1 - (d / 1000)) * 0.1 * mpClickSize[i]) + " )";
+                  context.strokeStyle = "rgba(" + hexToRgb(mpClickColor[i]).r + ", " + hexToRgb(mpClickColor[i]).g + ", " + hexToRgb(mpClickColor[i]).b + ", " + ((1 - (d / 1000)) * 0.1 * (4/parseInt(mpClickSize[i]))) + " )";
                 // } catch {
                   // context.strokeStyle = mpClickColor[i];
                 // }

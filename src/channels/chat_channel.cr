@@ -15,7 +15,7 @@ class ChatChannel < Amber::WebSockets::Channel
       data["chat_message"] = JSON::Any.new(" #{data["chat_message"].to_s.gsub("<br/>", "").squeeze(' ').to_s}")
     end
     if room == "" || room == nil
-      redis = Redis.new
+      redis = REDIS
       redis.rpush "chats", data.to_json
       if redis.ttl("chats") == -1
         redis.expire("chats", 7 * 24 * 3600)
@@ -28,7 +28,7 @@ class ChatChannel < Amber::WebSockets::Channel
 
       DiscordChannel.send([data["name"].to_s, policy.process(data["chat_message"].to_s)])
     else
-      redis = Redis.new
+      redis = REDIS
       redis.rpush "chats_#{room}", data.to_json
       if redis.ttl("chats_#{room}") == -1
         redis.expire("chats_#{room}", 7 * 24 * 3600)

@@ -23,7 +23,7 @@ class DiscordBot
             name = Sanitizer.process(name.to_s)
             message = Sanitizer.process(message.to_s)
             # message = " [#{Time.utc.month}/#{Time.utc.day}/#{Time.utc.year} #{Time.utc.hour}:#{Time.utc.minute}:#{Time.utc.second}] #{message}"
-            redis = Redis.new
+            redis = REDIS
             redis.rpush "chats", {name: name, chat_message: message, room: nil}.to_h.to_json
             if redis.ttl("chats") == -1
               redis.expire("chats", 7 * 24 * 3600)

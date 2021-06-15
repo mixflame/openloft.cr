@@ -22,7 +22,7 @@ class CanvasChannel < Amber::WebSockets::Channel
     end
     if room == "" || room == nil
       # puts "global room"
-      redis = Redis.new
+      redis = REDIS
       if data.has_key?("undo") && data["undo"].as_bool == true
         puts "undoing"
         all_packets = [] of String
@@ -51,7 +51,7 @@ class CanvasChannel < Amber::WebSockets::Channel
       redis.hincrby("all_time", data["name"], 1) if data.has_key?("name")
       CanvasSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", data)
     else
-      redis = Redis.new
+      redis = REDIS
       if data.has_key?("undo") && data["undo"].as_bool == true
         puts "undoing"
         all_packets = [] of String

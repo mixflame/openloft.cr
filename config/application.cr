@@ -54,6 +54,8 @@ Policy = INLINE_SAFELIST.merge({
 "pre" => Set(String).new, 
 "ul" => Set(String).new})
 
+REDIS = Redis.new
+
 Sanitizer = Sanitize::Policy::Whitelist.new(Policy)
 
 IrcChannel = Channel(Array(String)).new
