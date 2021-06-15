@@ -170,15 +170,6 @@ class Client
   end
 
   def configure
-    # json = JSON.parse(File.read("config.json"))
-    # @server = json["server"].to_s
-    # @port = json["port"].to_s.to_i
-    # @nick = json["nick"].to_s
-    # @user = json["user"].to_s
-    # @password = json["password"].to_s
-    # json["channels"].as_a.each do |channel|
-    #   @channels.push(channel.as_s)
-    # end
     @server = "irc.rizon.io"
     @port = 6667
     @nick = "gbaldraw-bridge"
@@ -187,6 +178,10 @@ class Client
     end
     @user = "gbaldraw-bridge"
     @password = "none"
-    @channels = ["#gbaldraw", "#8chan"]
+    if Amber.env == :development
+      @channels = ["#gbaldraw"]
+    else
+      @channels = ["#gbaldraw", "#8chan"]
+    end
   end
 end
