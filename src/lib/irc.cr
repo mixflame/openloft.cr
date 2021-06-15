@@ -43,8 +43,11 @@ class Client
         response = get_response
         next unless response
 
+        puts response
 
         pong(response)
+
+        kick_rejoin(response)
 
 
         get_message(response)
@@ -130,6 +133,18 @@ class Client
     return unless parts.size == 2
     puts "PONG :#{parts[1]}"
     tcp_client << "PONG :#{parts[1]}\r\n"
+  end
+
+  def kick_rejoin(response)
+    
+    parts = response.to_s.split(" ")
+    puts parts.inspect
+    return unless parts[1].to_s == "KICK"
+    # return unless parts.size == 5
+    
+    channel = parts[2].to_s
+    # sleep 5.seconds
+    tcp_client << "JOIN #{channel}\r\n"
   end
 
   def get_response
