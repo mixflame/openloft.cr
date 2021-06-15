@@ -9,10 +9,6 @@ window.setupChat = () => {
     if(window.chat_socket.channels.length == 0){
         window.chat_channel = chat_socket.channel('chat:' + window.room)
         window.chat_channel.join()
-    } else {
-        window.chat_socket.channels = [];
-        window.chat_channel = chat_socket.channel('chat:' + window.room)
-        window.chat_channel.join()
     }
     if (!window.dontLog) console.log("Connected to chat channel");
 

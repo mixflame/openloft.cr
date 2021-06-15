@@ -13,10 +13,6 @@ window.setupCanvas = () => {
     if(window.canvas_socket.channels.length == 0){
         window.canvas_channel = window.canvas_socket.channel('canvas:' + window.room)
         window.canvas_channel.join()
-    } else {
-        window.canvas_socket.channels = [];
-        window.canvas_channel = window.canvas_socket.channel('canvas:' + window.room)
-        window.canvas_channel.join()
     }
 
     window.start_pinging();

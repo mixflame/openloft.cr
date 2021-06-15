@@ -17,10 +17,6 @@ window.setupPersistence = () => {
     if(window.persistence_socket.channels.length == 0){
         window.persistence_channel = persistence_socket.channel('persistence:' + window.room + "_" + uuid)
         window.persistence_channel.join()
-    } else {
-        window.persistence_socket.channels = [];
-        window.persistence_channel = persistence_socket.channel('persistence:' + window.room + "_" + uuid)
-        window.persistence_channel.join()
     }
     if (!window.dontLog) console.log("Connected to persistence channel");
     $("#status").text("loading canvas");

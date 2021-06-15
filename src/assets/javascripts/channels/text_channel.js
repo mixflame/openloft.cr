@@ -23,10 +23,6 @@ window.setupText = () => {
     if(window.text_socket.channels.length == 0){
         window.text_channel = text_socket.channel('text:' + window.room)
         window.text_channel.join()
-    } else {
-        window.text_socket.channels = [];
-        window.text_channel = text_socket.channel('text:' + window.room)
-        window.text_channel.join()
     }
 
     text_channel.on('message_new', (data) => {
