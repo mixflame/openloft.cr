@@ -28,8 +28,8 @@ window.setupCanvas = () => {
             window.mpClickHash = {};
             window.mpNameHash = {};
             window.context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
-            window.context.fillStyle = "#FFFFFF";
-            window.context.fillRect(0, 0, 1180, 690);
+            // window.context.fillStyle = "#FFFFFF";
+            // window.context.fillRect(0, 0, 1180, 690);
             var destCtx = window.bgCanvas.getContext('2d');
             destCtx.drawImage(window.canvas, 0, 0);
             return false;
@@ -72,8 +72,8 @@ window.setupCanvas = () => {
             // clear bg canvas
             var destCtx = window.bgCanvas.getContext('2d');
             destCtx.clearRect(0, 0, destCtx.canvas.width, destCtx.canvas.height); // Clears the canvas
-            destCtx.fillStyle = "#FFFFFF";
-            destCtx.fillRect(0, 0, 1280, 690);
+            // destCtx.fillStyle = "#FFFFFF";
+            // destCtx.fillRect(0, 0, 1280, 690);
 
             // redraw
             window.redraw(false, true);
