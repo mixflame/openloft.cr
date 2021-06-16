@@ -15,12 +15,12 @@
 
 
   
-  <div id="color_tool" class="tool">
+  <div id="color_tool" class="tool unselectable">
     <i class="fas fa-palette" style="padding-left: 10px; padding-right: 10px;" title="Color" id="color_icon"></i>
     <input type="color" id="color" value="#000000" />
   </div>
 
-  <div id="brush_type_tool" class="tool" style="border-left: none;">
+  <div id="brush_type_tool" class="tool unselectable" style="border-left: none;">
   <i class="fas fa-ruler-combined" style="padding-left: 10px; padding-right: 10px;" title="Line Join" id="brush_type_icon"></i>
     <select name="brush_type" id="brush_type">
       <option value="round">Round</option>
@@ -29,7 +29,7 @@
     </select>
   </div>
 
-    <div id="brush_style_tool" class="tool" style="border-left: none;">
+    <div id="brush_style_tool" class="tool unselectable" style="border-left: none;">
   <i class="fas fa-paint-brush" style="padding-left: 10px; padding-right: 10px;" title="Brush Type" id="brush_type_icon"></i>
     <select name="brush_style" id="brush_style">
       <option value="none">None</option>
@@ -39,7 +39,7 @@
   </div>
 
   
-  <div id="size_tool" class="tool" style="border-left: none;">
+  <div id="size_tool" class="tool unselectable" style="border-left: none;">
     <i class="fas fa-ruler" style="padding-left: 10px; padding-right: 10px" title="Size" id="brush_size_icon"></i>
     rand: <input type="checkbox" id="random-brush-size" checked=false>
     <input style="width: 50px;" type="range" min="1" max="35" value="3" class="slider" id="brush-size">
@@ -47,14 +47,14 @@
 
 
 
-  <div id="name_changer" class="tool" style="border-left: none;"><strong style="padding-left: 10px; padding-right: 10px"></strong> <input style="width: 100px;" type="text" id="name" maxlength=30 /></div>
+  <div id="name_changer" class="tool unselectable" style="border-left: none;"><strong style="padding-left: 10px; padding-right: 10px"></strong> <input style="width: 100px;" type="text" id="name" maxlength=30 /></div>
 
-  <div id="rainbow-pen-tool" class="tool" style="border-left: none;">
+  <div id="rainbow-pen-tool" class="tool unselectable" style="border-left: none;">
     <i class="fas fa-rainbow" style="padding-left: 10px; padding-right: 10px" title="Rainbow" id="rainbow_icon"></i>
     <input type="checkbox" id="rainbow" checked=false>
   </div>
 
-  <div id="rainbow-pen-tool-style" class="tool" style="border-left: none;">
+  <div id="rainbow-pen-tool-style" class="tool unselectable" style="border-left: none;">
     <select name="themes" id="themes">
       <option value="rain">Rainbow</option>
       <option value="camo">Camoflauge</option>
@@ -77,7 +77,7 @@
     </select>
   </div>
 
-  <div id="shape_tool" class="tool" style="border-left: none;">
+  <div id="shape_tool" class="tool unselectable" style="border-left: none;">
     <i class="fas fa-shapes" style="padding-left: 10px; padding-right: 10px" title="Shape Tool" id="shape_tool_icon"></i>
     fill: <input type="checkbox" id="shape_fill" checked=false>
     <select name="shape_type" id="shape_type">
@@ -92,28 +92,28 @@
   
   </div>
 
-  <div id="text-tool-holder" class="tool" style="border-left: none;">
+  <div id="text-tool-holder" class="tool unselectable" style="border-left: none;">
     <i class="fas fa-paragraph" style="padding-left: 10px; padding-right: 10px" title="Text" id="text_tool_icon"></i>
     <input type="checkbox" id="text-tool" checked=false>
     <input style="width: 100px;" type="text" id="text-to-write" maxlength=100 />
   </div>
 
-  <div id="eyedropper-tool" class="tool" style="border-left: none;">
+  <div id="eyedropper-tool" class="tool unselectable" style="border-left: none;">
     <i class="fas fa-eye-dropper" style="padding-left: 10px; padding-right: 10px" title="Eyedropper" id="eyedropper_icon"></i>
     <input type="checkbox" id="eyedropper" checked=false>
   </div>
 
-  <div id="eraser_tool" class="tool" style="border-left: none;">
+  <div id="eraser_tool" class="tool unselectable" style="border-left: none;">
     <i class="fas fa-eraser" style="padding-left: 10px; padding-right: 10px" title="Eraser" id="eraser_icon"></i>
     <input type="checkbox" id="eraser" checked=false>
   </div>
 
-  <div id="paintbucket_tool" class="tool" style="border-left: none;">
+  <div id="paintbucket_tool" class="tool unselectable" style="border-left: none;">
     <i class="fas fa-fill" style="padding-left: 10px; padding-right: 10px" title="Paint bucket" id="paintbucket_icon"></i>
     <input type="checkbox" id="paintbucket" checked=false>
   </div>
 
-  <div id="undo_tool" class="tool" style="border-left: none;">
+  <div id="undo_tool" class="tool unselectable" style="border-left: none;">
     <i class="fas fa-undo" style="padding-left: 10px; padding-right: 10px" title="Undo" id="undo_icon"></i>
     <button class="btn btn-secondary btn-sm" id="undo">Undo</button>
   </div>
@@ -162,7 +162,7 @@
   <div id="canvasDiv" style="background-image: linear-gradient(45deg, #808080 25%, transparent 25%), linear-gradient(-45deg, #808080 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #808080 75%), linear-gradient(-45deg, transparent 75%, #808080 75%); background-size: 20px 20px; background-position: 0 0, 0 10px, 10px -10px, -10px 0px;"></div>
 </div>
 
-<div id="video_chat" style="float: left; display: inline;">
+<div id="video_chat" class="unselectable" style="float: left; display: inline;">
 
   <% if ad != "" && banner_link != "" %>
       <div id="gbaldvertisement">
@@ -216,9 +216,9 @@
 
   <div id="dark_mode_holder"><input type="checkbox" name="dark_mode" id="dark_mode"/> Dark Mode</div>
 
-  <div id="chat_area_holder">
+  <div id="chat_area_holder" class="unselectable">
     <div>
-        <div id="online_list" style="width: 30%; overflow: scroll; float: left;"><ul id="connected_users"></ul></div>
+        <div id="online_list" class="unselectable" style="width: 30%; overflow: scroll; float: left;"><ul id="connected_users"></ul></div>
         <div id="chat_area" name="chat_area" style="width: 70%; overflow: scroll; float: left; resize: both; max-width: 80%">
         <% chats.each do |c| -%>
         <p style='margin: 0px'>&lt<%= Sanitizer.process "#{JSON.parse(c.to_s)["name"]}" %>&gt <%= Sanitizer.process "#{JSON.parse(c.to_s)["chat_message"]}" %></p>
