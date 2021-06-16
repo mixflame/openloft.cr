@@ -360,7 +360,7 @@ class LivepixelController < ApplicationController
               # formdata.file("sides[front][artwork]", file, metadata, headers)
               formdata.field("sides[front][artwork]", file_url)
               formdata.field("type", "dtg")
-              formdata.field("sides[front][dimensions][width]", "24")
+              formdata.field("sides[front][dimensions][width]", "21")
               formdata.field("sides[front][position][horizontal]", "C")
               formdata.field("sides[front][position][offset][top]", "0")
             # end
@@ -461,7 +461,7 @@ class LivepixelController < ApplicationController
               formdata.field("product[color]", color)
               formdata.field("design[type]", "dtg")
               formdata.field("design[sides][front][artwork]", "https://gbaldraw.fun/#{design_id}.png")
-              formdata.field("design[sides][front][dimensions][width]", "24")
+              formdata.field("design[sides][front][dimensions][width]", "21")
               formdata.field("design[sides][front][position][horizontal]", "C")
               formdata.field("design[sides][front][position][offset][top]", "0")
               formdata.field("output[width]", "1000")
