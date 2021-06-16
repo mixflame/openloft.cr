@@ -5,7 +5,7 @@ def run(cmd)
   exit($?.exitstatus) unless system "umask 002 && #{cmd}"
 end
 
-run "shards install --production --ignore-crystal-version"
+run "shards update --production --ignore-crystal-version"
 
 run "shards build gbaldraw.cr --release --ignore-crystal-version"
 
