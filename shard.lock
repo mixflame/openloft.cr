@@ -1,8 +1,8 @@
 version: 2.0
 shards:
   amber:
-    git: https://github.com/amberframework/amber.git
-    version: 0.36.0+git.commit.8841e1ccbc2afb5c75f30c1dc5973025bc92b764
+    git: https://github.com/mixflame/amber.git
+    version: 1.0.0rc2+git.commit.2e00f29ca58906821c5e5071df1bcb8bbe91e25d
 
   amber_router:
     git: https://github.com/amberframework/amber-router.git
@@ -18,7 +18,7 @@ shards:
 
   callback:
     git: https://github.com/amberframework/callback.git
-    version: 0.7.1
+    version: 0.9.1
 
   citrine-i18n:
     git: https://github.com/amberframework/citrine-i18n.git
@@ -26,11 +26,11 @@ shards:
 
   cli:
     git: https://github.com/amberframework/cli.git
-    version: 0.9.3
+    version: 0.11.3
 
   compiled_license:
     git: https://github.com/elorest/compiled_license.git
-    version: 0.1.3
+    version: 1.0.0
 
   db:
     git: https://github.com/crystal-lang/crystal-db.git
@@ -50,7 +50,7 @@ shards:
 
   future:
     git: https://github.com/crystal-community/future.cr.git
-    version: 0.1.0
+    version: 1.0.0
 
   garnet_spec:
     git: https://github.com/amberframework/garnet-spec.git
@@ -66,7 +66,7 @@ shards:
 
   inflector:
     git: https://github.com/phoffer/inflector.cr.git
-    version: 0.1.8
+    version: 1.0.0
 
   jasper_helpers:
     git: https://github.com/amberframework/jasper-helpers.git
@@ -81,8 +81,8 @@ shards:
     version: 0.6.1
 
   liquid:
-    git: https://github.com/techmagister/liquid.cr.git
-    version: 0.3.4
+    git: https://github.com/dare892/liquid.cr.git
+    version: 0.4.1+git.commit.e4ef5ca06bf5bafe74e0b270c7aae2941a91ddd3
 
   logger:
     git: https://github.com/crystal-lang/logger.cr.git
@@ -94,7 +94,7 @@ shards:
 
   micrate:
     git: https://github.com/amberframework/micrate.git
-    version: 0.10.0
+    version: 0.11.0
 
   mysql:
     git: https://github.com/crystal-lang/crystal-mysql.git
@@ -102,7 +102,7 @@ shards:
 
   optarg:
     git: https://github.com/amberframework/optarg.git
-    version: 0.8.0
+    version: 0.9.2
 
   pg:
     git: https://github.com/will/crystal-pg.git
@@ -118,7 +118,7 @@ shards:
 
   redis:
     git: https://github.com/stefanwille/crystal-redis.git
-    version: 2.6.0
+    version: 2.7.0
 
   sanitize:
     git: https://github.com/straight-shoota/sanitize.git
@@ -130,7 +130,7 @@ shards:
 
   shell-table:
     git: https://github.com/luckyframework/shell-table.cr.git
-    version: 0.9.2+git.commit.078a04ea58ead5203bb435a3b5fff448ddabaeea
+    version: 0.9.3
 
   slang:
     git: https://github.com/jeromegn/slang.git
@@ -140,13 +140,9 @@ shards:
     git: https://github.com/crystal-lang/crystal-sqlite3.git
     version: 0.18.0
 
-  string_inflection:
-    git: https://github.com/mosop/string_inflection.git
-    version: 0.2.1
-
   teeplate:
-    git: https://github.com/mosop/teeplate.git
-    version: 0.10.1
+    git: https://github.com/amberframework/teeplate.git
+    version: 0.11.2
 
   yaml_mapping:
     git: https://github.com/crystal-lang/yaml_mapping.cr.git
