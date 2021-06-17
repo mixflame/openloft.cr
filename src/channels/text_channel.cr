@@ -7,7 +7,7 @@ class TextChannel < Amber::WebSockets::Channel
     data = message.as_h["payload"].as_h
     room = data["room"].to_s rescue ""
 
-    redis = REDIS
+    redis = Redis.new("127.0.0.1", 6379)
     if room == "" || room == nil
       redis.rpush "changes", data.to_json
     else

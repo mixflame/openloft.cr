@@ -13,7 +13,7 @@ class PersistenceChannel < Amber::WebSockets::Channel
       if room == "" || room == nil
         puts ">>> running connected method"
         
-        redis = REDIS
+        redis = Redis.new("127.0.0.1", 6379)
         packets = [] of String
         amt_packets = redis.llen("packets")
         if amt_packets >= 50000
@@ -28,7 +28,7 @@ class PersistenceChannel < Amber::WebSockets::Channel
         
       else
         puts ">>> running connected method"
-        redis = REDIS
+        redis = Redis.new("127.0.0.1", 6379)
         packets = [] of String
         packets = redis.lrange("packets_#{room}", 0, -1)
 
@@ -40,7 +40,7 @@ class PersistenceChannel < Amber::WebSockets::Channel
       if room == "" || room == nil
         puts ">>> running (text) connected method"
         
-        redis = REDIS
+        redis = Redis.new("127.0.0.1", 6379)
         packets = [] of String
         amt_packets = redis.llen("changes")
         if amt_packets >= 50000
@@ -56,7 +56,7 @@ class PersistenceChannel < Amber::WebSockets::Channel
       else
         puts ">>> running (text) connected method"
         
-        redis = REDIS
+        redis = Redis.new("127.0.0.1", 6379)
         packets = [] of String
         amt_packets = redis.llen("changes_#{room}")
         if amt_packets >= 50000

@@ -56,7 +56,7 @@ Policy = INLINE_SAFELIST.merge({
 
 # Amber::Server.instance.pubsub_adapter = Amber::WebSockets::Adapters::RedisAdapter
 
-REDIS = Redis.new
+# REDIS = Redis.new
 
 Sanitizer = Sanitize::Policy::Whitelist.new(Policy)
 
