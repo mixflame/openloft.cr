@@ -1246,10 +1246,11 @@ var redraw = function (bg, flatten) {
               // dy = points[i][1] - mpClickY[mpClickY.length - 1];
               d = dx * dx + dy * dy;
               // console.log(d);
-              if (d < 1000)
+              if (d < 35000)
               {
                 // try {
-                  context.strokeStyle = "rgba(" + hexToRgb(mpClickColor[i]).r + ", " + hexToRgb(mpClickColor[i]).g + ", " + hexToRgb(mpClickColor[i]).b + ", " + ((1 - (d / 1000)) * 0.1 * (4/parseInt(mpClickSize[i]))) + " )";
+                  // console.log((1/(1 - (d / 5000)) * 0.1 * parseInt(mpClickSize[i])))
+                  context.strokeStyle = "rgba(" + hexToRgb(mpClickColor[i]).r + ", " + hexToRgb(mpClickColor[i]).g + ", " + hexToRgb(mpClickColor[i]).b + ", " + (0.1 * (1 - (d / 35000)) * 0.1 * parseInt(mpClickSize[i])) + " )";
                 // } catch {
                   // context.strokeStyle = mpClickColor[i];
                 // }
