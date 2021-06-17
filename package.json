@@ -32,8 +32,7 @@
   "dependencies": {
     "@babel/runtime": "^7.14.0",
     "@cerulean/html-text-collab-ext": "https://github.com/mixflame/html-text-collab-ext",
-    "@giphy/js-components": "^4.4.0",
-    "@giphy/js-fetch-api": "^3.0.0",
+    "@giphy/js-fetch-api": "^4.0.2",
     "@joeattardi/emoji-button": "^4.6.0",
     "automerge": "^1.0.1-preview.3",
     "bootstrap": "^4.2.1",

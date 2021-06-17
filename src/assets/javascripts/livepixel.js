@@ -123,7 +123,7 @@ function toggleCamera(stream, id) { // stream is your local WebRTC stream
   }
 }
 
-import { renderGif } from '@giphy/js-components'
+// renderGif not needed because of resolve
 import { GiphyFetch } from '@giphy/js-fetch-api'
 
 // create a GiphyFetch with your api key
