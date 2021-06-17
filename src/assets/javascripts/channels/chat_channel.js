@@ -40,13 +40,27 @@ window.setupChat = () => {
     chat_channel.on('user_join', (data) => {
         console.log(data);
 
-        window.nicks = data["nicks"];
+        
 
-        var ding = new Audio("/ding.wav")
-        ding.volume = 0.05;
-        ding.play().catch((e) => {
-        console.log(e.message)
-        })
+        if(data["name"] != window.name) {
+            if(window.nicks.length < data["nicks"].length) {
+                //someone came online
+                var ding = new Audio("/ding.wav")
+                ding.volume = 0.5;
+                ding.play().catch((e) => {
+                console.log(e.message)
+                })
+            } else if(window.nicks.length > data["nicks"].length) {
+                // someone went away
+                var dong = new Audio("/dong.wav")
+                dong.volume = 0.5;
+                dong.play().catch((e) => {
+                console.log(e.message)
+                })    
+            }
+        }
+
+        window.nicks = data["nicks"];
 
         $("#connected_users").html("");
         for (const nick in window.nicks) {
