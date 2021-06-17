@@ -2917,7 +2917,10 @@ window.gotDevices = (mediaDevices) => {
 
 }
 
-window.onunload = function () {
+var isOnIOS = navigator.userAgent.match(/iPad/i)|| navigator.userAgent.match(/iPhone/i);
+var eventName = isOnIOS ? "pagehide" : "beforeunload";
+
+window.addEventListener(eventName, function (event) { 
   handleLeaveSession();
   window.camera_session.leave();
   window.canvas_channel.leave();
@@ -2929,7 +2932,7 @@ window.onunload = function () {
   window.persistence_socket.close()
   window.session_socket.close();
   window.text_socket.close();
-}
+} );
 
 // window.start_pinging = () => {
 //   if (window.canvas_channel) window.canvas_channel.push("message_new", { name: window.name, ping: true, room: room });
