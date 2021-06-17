@@ -2874,6 +2874,28 @@ $(function () {
 
   var pageVisibility = document.visibilityState;
 
+  document.addEventListener("pagehide", function(e) {
+    e.stopPropagation();
+    try {window.camera_session.leave();} catch(e) { console.log(e) }
+    try {window.canvas_channel.leave();} catch(e) { console.log(e) }
+    try {window.chat_channel.leave();} catch(e) { console.log(e) }
+    try {window.persistence_channel.leave();} catch(e) { console.log(e) }
+    try {window.text_channel.leave();} catch(e) { console.log(e) }
+
+    handleLeaveSession();
+  })
+
+  document.addEventListener("unload", function(e) {
+    e.stopPropagation();
+    try {window.camera_session.leave();} catch(e) { console.log(e) }
+    try {window.canvas_channel.leave();} catch(e) { console.log(e) }
+    try {window.chat_channel.leave();} catch(e) { console.log(e) }
+    try {window.persistence_channel.leave();} catch(e) { console.log(e) }
+    try {window.text_channel.leave();} catch(e) { console.log(e) }
+
+    handleLeaveSession();
+  })
+
   // subscribe to visibility change events
   document.addEventListener('visibilitychange', function() {
     // fires when user switches tabs, apps, goes to homescreen, etc.
