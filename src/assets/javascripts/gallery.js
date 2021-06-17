@@ -12,6 +12,7 @@ $(function () {
         const csrfToken = document.querySelector("[name=_csrf]").content;
         const headers = {
           "X-CSRF-TOKEN": csrfToken,
+          "Access-Control-Allow-Origin": "*"
         }
         
         var url = `/upload_to_scalable_press?file_url=https://i.imgur.com/${id}.png`

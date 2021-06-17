@@ -1691,6 +1691,7 @@ $(function () {
     const csrfToken = document.querySelector("[name=_csrf]").content;
     const headers = {
       "X-CSRF-TOKEN": csrfToken,
+      "Access-Control-Allow-Origin": "*"
     }
 
     $.ajax({
@@ -2740,6 +2741,7 @@ $(function () {
       const csrfToken = document.querySelector("[name=_csrf]").content;
       const headers = {
         "X-CSRF-TOKEN": csrfToken,
+        "Access-Control-Allow-Origin": "*"
       }
   
       $.ajax({
