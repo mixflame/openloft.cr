@@ -2353,7 +2353,6 @@ $(function () {
       e.preventDefault();
     } else if (action == "insertImage") {
       var sLnk = prompt('Enter a URL', 'http:\/\/');
-      var sLnk = prompt('Enter a URL', 'http:\/\/');
       if (sLnk && sLnk != '' && sLnk != 'http://') {
         document.execCommand('insertHTML', false, '<a href="' + sLnk + '" target="_blank"><img width="25%" height="25%" src="' + sLnk + '" /></a>');
       }
