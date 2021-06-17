@@ -12,8 +12,6 @@ window.setupChat = () => {
     }
     if (!window.dontLog) console.log("Connected to chat channel");
 
-    window.chat_channel.push("message_new", {online: true, name: window.name});
-
     chat_channel.on('message_new', (data) => {
         console.log(data);
         if (data["reload"] == true && window.name == "stream") {
@@ -37,45 +35,7 @@ window.setupChat = () => {
         // console.log(data);
     })
 
-    chat_channel.on('user_join', (data) => {
-        console.log(data);
-
-        window.nicks = data["nicks"];
-
-        var ding = new Audio("/ding.wav")
-        ding.volume = 0.05;
-        ding.play().catch((e) => {
-        console.log(e.message)
-        })
-
-        $("#connected_users").html("");
-        for (const nick in window.nicks) {
-            if (Object.hasOwnProperty.call(window.nicks, nick)) {
-                const n = window.nicks[nick];
-                $("#connected_users").html($("#connected_users").html() + `<li class='online-${n}'>${n}</li>`)
-            }
-        }
-        
-
-        var parent = $("#connected_users")[0],
-            // take items (parent.children) into array
-            itemsArray = Array.prototype.slice.call(parent.children);
-
-        // sort items in array by custom criteria
-        itemsArray.sort(function (a, b) {
-            // inner text suits best (even when formated somehow)
-            if (a.innerText < b.innerText) return -1;
-            if (a.innerText > b.innerText) return 1;
-            return 0;
-        });
-
-        // reorder items in the DOM
-        itemsArray.forEach(function (item) {
-            // one by one move to the end in correct order
-            parent.appendChild(item);
-        });
-        return;
-    })
+    chat_channel.on('user_join', (data) => { })
 
 }
 

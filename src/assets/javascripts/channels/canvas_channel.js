@@ -15,8 +15,8 @@ window.setupCanvas = () => {
         window.canvas_channel.join()
     }
 
-    // window.start_pinging();
-    // setInterval(window.start_pinging, 5000);
+    window.start_pinging();
+    setInterval(window.start_pinging, 5000);
 
     if (!window.dontLog) console.log("Connected to Canvas channel!");
 
@@ -84,48 +84,48 @@ window.setupCanvas = () => {
             return false;
         }
 
-        // if (data["ping"]) {
-        //     window.last_ping[data['name']] = Date.now();
-        //     setTimeout(() => {
-        //         if (window.last_ping[data['name']] < Date.now() - 5000)
-        //             $(".online-" + data['name']).remove()
-        //     }, 6000);
-        //     if (!window.nicks.includes(data["name"])) {
-        //         window.nicks.push(data["name"]);
+        if (data["ping"]) {
+            window.last_ping[data['name']] = Date.now();
+            setTimeout(() => {
+                if (window.last_ping[data['name']] < Date.now() - 5000)
+                    $(".online-" + data['name']).remove()
+            }, 6000);
+            if (!window.nicks.includes(data["name"])) {
+                window.nicks.push(data["name"]);
 
-        //             var ding = new Audio("/ding.wav")
-        //             ding.volume = 0.05;
-        //             ding.play().catch((e) => {
-        //             console.log(e.message)
-        //             })
-        //     }
-        //     if ($(".online-" + data['name']).length == 0) {
-        //         $("#connected_users").html($("#connected_users").html() + `<li class='online-${data['name']}'>${data['name']}</li>`)
+                    var ding = new Audio("/ding.wav")
+                    ding.volume = 0.05;
+                    ding.play().catch((e) => {
+                    console.log(e.message)
+                    })
+            }
+            if ($(".online-" + data['name']).length == 0) {
+                $("#connected_users").html($("#connected_users").html() + `<li class='online-${data['name']}'>${data['name']}</li>`)
 
-        //         var parent = $("#connected_users")[0],
-        //             // take items (parent.children) into array
-        //             itemsArray = Array.prototype.slice.call(parent.children);
+                var parent = $("#connected_users")[0],
+                    // take items (parent.children) into array
+                    itemsArray = Array.prototype.slice.call(parent.children);
 
-        //         // sort items in array by custom criteria
-        //         itemsArray.sort(function (a, b) {
-        //             // inner text suits best (even when formated somehow)
-        //             if (a.innerText < b.innerText) return -1;
-        //             if (a.innerText > b.innerText) return 1;
-        //             return 0;
-        //         });
+                // sort items in array by custom criteria
+                itemsArray.sort(function (a, b) {
+                    // inner text suits best (even when formated somehow)
+                    if (a.innerText < b.innerText) return -1;
+                    if (a.innerText > b.innerText) return 1;
+                    return 0;
+                });
 
-        //         // reorder items in the DOM
-        //         itemsArray.forEach(function (item) {
-        //             // one by one move to the end in correct order
-        //             parent.appendChild(item);
-        //         });
-        //     } else {
-        //         var mousedown_name = data['name'];
-        //         // $(".online-" + mousedown_name).remove();
-        //         $(".online-" + mousedown_name).replaceWith('<li class="online-'+ mousedown_name +'">' + mousedown_name + '</li>')
-        //     }
-        //     return;
-        // }
+                // reorder items in the DOM
+                itemsArray.forEach(function (item) {
+                    // one by one move to the end in correct order
+                    parent.appendChild(item);
+                });
+            } else {
+                var mousedown_name = data['name'];
+                // $(".online-" + mousedown_name).remove();
+                $(".online-" + mousedown_name).replaceWith('<li class="online-'+ mousedown_name +'">' + mousedown_name + '</li>')
+            }
+            return;
+        }
 
         // if (!data["mouseUp"]) {
             if (data["name"] != window.name && !window.locked) {

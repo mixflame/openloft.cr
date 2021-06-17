@@ -410,7 +410,7 @@ const setupSession = () => {
   }
 
   window.camera_session.on('message_new', (data) => {
-    // if (!window.dontLog) console.log("received", data);
+    if (!window.dontLog) console.log("received", data);
     if (data.from === currentUser) return;
     switch (data.type) {
       case JOIN_ROOM:
@@ -2915,20 +2915,14 @@ window.gotDevices = (mediaDevices) => {
 
 }
 
-window.onbeforeunload = function () {
+$(document).on("unload", function () {
   handleLeaveSession();
-  window.camera_session.leave();
-  window.canvas_channel.leave();
-  window.chat_channel.leave();
-  window.persistence_channel.leave();
-  window.text_channel.leave();
   window.camera_socket.close();
   window.canvas_socket.close();
   window.persistence_socket.close()
   window.session_socket.close();
-  window.text_socket.close();
-}
+})
 
-// window.start_pinging = () => {
-//   if (window.canvas_channel) window.canvas_channel.push("message_new", { name: window.name, ping: true, room: room });
-// }
+window.start_pinging = () => {
+  if (window.canvas_channel) window.canvas_channel.push("message_new", { name: window.name, ping: true, room: room });
+}
