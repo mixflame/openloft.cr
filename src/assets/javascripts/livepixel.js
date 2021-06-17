@@ -2917,7 +2917,7 @@ window.gotDevices = (mediaDevices) => {
 
 }
 
-window.onbeforeunload = function () {
+window.onunload = function () {
   handleLeaveSession();
   window.camera_session.leave();
   window.canvas_channel.leave();
