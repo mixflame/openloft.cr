@@ -15,9 +15,6 @@ window.setupCanvas = () => {
         window.canvas_channel.join()
     }
 
-    // window.start_pinging();
-    // setInterval(window.start_pinging, 5000);
-
     if (!window.dontLog) console.log("Connected to Canvas channel!");
 
     window.canvas_channel.on('message_new', (data) => {

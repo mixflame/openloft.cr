@@ -14,7 +14,27 @@ window.setupChat = () => {
 
     window.chat_channel.push("message_new", {online: true, name: window.name});
 
+    window.start_pinging();
+    setInterval(window.start_pinging, 5000);
+
     chat_channel.on('message_new', (data) => {
+        console.log(data);
+
+        if (data["ping"]) {
+            window.last_ping[data['name']] = Date.now();
+            setTimeout(() => {
+                if (window.last_ping[data['name']] < Date.now() - 5000) {
+                    $(".online-" + data['name']).remove()
+                    var dong = new Audio("/dong.wav")
+                    dong.volume = 0.5;
+                    dong.play().catch((e) => {
+                    console.log(e.message)
+                    })
+                }    
+            }, 6000);
+            return;
+        }
+
         console.log(data);
         if (data["reload"] == true && window.name == "stream") {
             location.reload();

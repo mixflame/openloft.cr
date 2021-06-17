@@ -28,6 +28,14 @@ class ChatChannel < Amber::WebSockets::Channel
       # client_socket.socket.send({"event" => "message", "topic" => message["topic"].to_s, "subject" => "message_new", "payload" => {nicks: nicks}}.to_json)
       return
     end
+    if data.has_key?("ping")
+      if data["ping"].as_bool == true
+        # puts "broadcasting ping"
+        # Fiber.yield
+        rebroadcast!(message)
+        return
+      end
+    end
     if(!data["name"].nil? && !data["chat_message"].nil?)
       data["name"] = JSON::Any.new(Sanitizer.process(data["name"].to_s))
       data["chat_message"] = JSON::Any.new(Sanitizer.process(data["chat_message"].to_s))
