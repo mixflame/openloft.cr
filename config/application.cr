@@ -54,8 +54,7 @@ Policy = INLINE_SAFELIST.merge({
 "pre" => Set(String).new, 
 "ul" => Set(String).new})
 
-# Bug
-Amber::Server.instance.pubsub_adapter = Amber::WebSockets::Adapters::RedisAdapter
+# Amber::Server.instance.pubsub_adapter = Amber::WebSockets::Adapters::RedisAdapter
 
 REDIS = Redis.new
 
