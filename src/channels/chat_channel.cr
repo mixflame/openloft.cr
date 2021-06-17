@@ -12,7 +12,7 @@ class ChatChannel < Amber::WebSockets::Channel
     msg = message.as_h
     room = data["room"].to_s rescue ""
     # Sanitizer = Sanitize::Policy::HTMLSanitizer.basic
-    if(data["online"] == true)
+    if(data.has_key?("online") && data["online"] == true)
       data["name"] = JSON::Any.new(Sanitizer.process(data["name"].to_s))
       redis = REDIS
       # ids = redis.hkeys("online_#{room}").map { |i| i.to_s }.to_a
