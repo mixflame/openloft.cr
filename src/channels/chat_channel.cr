@@ -1,19 +1,40 @@
 class ChatChannel < Amber::WebSockets::Channel
   def handle_joined(client_socket, message)
     puts "chat joined"
+    puts message
+    # redis = REDIS
+    # room = message["topic"].to_s.split(":").last
   end
 
   def handle_message(client_socket, message)
+    puts message
     data = message.as_h["payload"].as_h
     msg = message.as_h
     room = data["room"].to_s rescue ""
     # Sanitizer = Sanitize::Policy::HTMLSanitizer.basic
+    if(data["online"] == true)
+      data["name"] = JSON::Any.new(Sanitizer.process(data["name"].to_s))
+      redis = REDIS
+      # ids = redis.hkeys("online_#{room}").map { |i| i.to_s }.to_a
+
+      redis.hset("online_#{room}", client_socket.as(Amber::WebSockets::ClientSocket).id, data["name"].to_s)
+      redis.hset("id_in_room", client_socket.as(Amber::WebSockets::ClientSocket).id, room)
+      nicks = redis.hvals("online_#{room}").map { |n| n.to_s }.to_a.uniq
+      if !nicks.includes?(data["name"].to_s)
+        nicks << data["name"].to_s
+      end
+      ChatSocket.broadcast("join", message.as_h["topic"].to_s, "user_join", {nicks: nicks, name: data["name"].to_s}.to_h)
+
+      # client_socket.socket.send({"event" => "message", "topic" => message["topic"].to_s, "subject" => "message_new", "payload" => {nicks: nicks}}.to_json)
+      return
+    end
     if(!data["name"].nil? && !data["chat_message"].nil?)
       data["name"] = JSON::Any.new(Sanitizer.process(data["name"].to_s))
       data["chat_message"] = JSON::Any.new(Sanitizer.process(data["chat_message"].to_s))
       # data["chat_message"] = JSON::Any.new(" [#{Time.utc.month}/#{Time.utc.day}/#{Time.utc.year} #{Time.utc.hour}:#{Time.utc.minute}:#{Time.utc.second}] #{data["chat_message"].to_s.gsub("<br/>", "").squeeze(' ').to_s}")
       data["chat_message"] = JSON::Any.new(" #{data["chat_message"].to_s.gsub("<br/>", "").squeeze(' ').to_s}")
     end
+
     if room == "" || room == nil
       redis = REDIS
       redis.rpush "chats", data.to_json
@@ -39,5 +60,19 @@ class ChatChannel < Amber::WebSockets::Channel
   end
 
   def handle_leave(client_socket)
+    puts "chat left"
+
+    redis = REDIS
+    room = redis.hget("id_in_room", client_socket.as(Amber::WebSockets::ClientSocket).id).to_s
+    name = redis.hget("online_#{room}", client_socket.as(Amber::WebSockets::ClientSocket).id).to_s
+    redis.hdel("id_in_room", client_socket.as(Amber::WebSockets::ClientSocket).id)
+    redis.hdel("online_#{room}", client_socket.as(Amber::WebSockets::ClientSocket).id)
+    
+    nicks = redis.hvals("online_#{room}").map { |n| n.to_s }.to_a.uniq
+
+    # not really a join, just use this message
+    ChatSocket.broadcast("join", "chat:#{room}", "user_join", {nicks: nicks.to_a, name: name.to_s}.to_h)
+
+
   end
 end
