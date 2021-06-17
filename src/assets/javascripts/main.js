@@ -16,6 +16,9 @@ window.currentDoc = currentDoc;
 const HtmlTextCollabExt = require("../../../node_modules/@cerulean/html-text-collab-ext/dist/es6/index.js");
 window.HtmlTextCollabExt = HtmlTextCollabExt;
 
+import lifecycle from "page-lifecycle/dist/lifecycle.es5.js"
+window.lifecycle = lifecycle;
+
 //import Logo from '../images/logo.svg';
 
 require("./livepixel")

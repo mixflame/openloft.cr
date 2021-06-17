@@ -2440,34 +2440,7 @@ $(function () {
 
   $("#brush_style").change();
 
-  navigator.mediaDevices.enumerateDevices().then(gotDevices);
-
-})
-
-window.gotDevices = (mediaDevices) => {
-  var select = $("#cameras")[0];
-  var audio_select = $("#audio_inputs")[0];
-  select.innerHTML = '';
-  select.appendChild(document.createElement('option'));
-  let count = 1;
-  mediaDevices.forEach(mediaDevice => {
-    if (mediaDevice.kind === 'videoinput') {
-      const option = document.createElement('option');
-      option.value = mediaDevice.deviceId;
-      const label = mediaDevice.label || `Camera ${count++}`;
-      const textNode = document.createTextNode(label);
-      option.appendChild(textNode);
-      select.appendChild(option);
-    } else {
-      const option = document.createElement('option');
-      option.value = mediaDevice.deviceId;
-      const label = mediaDevice.label || `Audio Input ${count++}`;
-      const textNode = document.createTextNode(label);
-      option.appendChild(textNode);
-      audio_select.appendChild(option);
-    }
-  });
-
+  if(navigator.mediaDevices) navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(() => console.log("error enumeration devices"));
 
   if (typeof screen.orientation !== 'undefined' && urlParams.get("no_win") != "true") {
     window.canvas_window = wm.createWindow.fromQuery('#canvasDivHolder', {
@@ -2795,22 +2768,6 @@ window.gotDevices = (mediaDevices) => {
 
   }
 
-
-  // $("#collaborative_text").keyup(function(e) {
-  //   var text = $("#collaborative_text").val();
-  //   console.log(text);
-  //   let newDoc = Automerge.change(currentDoc, doc => {
-  //     // make arbitrary change to the document
-  //     doc.text = text;
-  //   })
-  //   console.log(newDoc);
-  //   let changes = Automerge.getChanges(currentDoc, newDoc)
-  //   currentDoc = newDoc;
-  //   let base64 = btoa(String.fromCharCode.apply(null, changes[0]));
-  //   window.text_channel.push("message_new", {changes: base64, user_id: currentUser, room: room});
-  // })
-
-
   window.textarea = document.getElementById("collaborative_text");
 
   textarea.selectionStart = 0;
@@ -2915,37 +2872,114 @@ window.gotDevices = (mediaDevices) => {
   $("#join-button").click();
 
 
+  var pageVisibility = document.visibilityState;
+
+  // subscribe to visibility change events
+  document.addEventListener('visibilitychange', function() {
+    // fires when user switches tabs, apps, goes to homescreen, etc.
+      if (document.visibilityState == 'hidden') { 
+        try {window.camera_session.leave();} catch(e) { console.log(e) }
+        try {window.canvas_channel.leave();} catch(e) { console.log(e) }
+        try {window.chat_channel.leave();} catch(e) { console.log(e) }
+        try {window.persistence_channel.leave();} catch(e) { console.log(e) }
+        try {window.text_channel.leave();} catch(e) { console.log(e) }
+
+        handleLeaveSession();
+      }
+
+      // fires when app transitions from prerender, user returns to the app / tab.
+      if (document.visibilityState == 'visible') { 
+        window.canvas_socket = new Amber.Socket('/canvas')
+        window.canvas_socket.connect()
+            .then(setupCanvas)
+        window.canvas_socket._reconnect = () => {
+            clearTimeout(window.canvas_socket.reconnectTimeout)
+            window.canvas_socket.reconnectTimeout = setTimeout(() => {
+              window.canvas_socket.reconnectTries++
+              window.canvas_socket.connect(window.canvas_socket.params).then(setupCanvas);
+              window.canvas_socket._reconnect()
+            }, window.canvas_socket._reconnectInterval())
+          }
+          window.chat_socket = new Amber.Socket('/chat')
+          chat_socket.connect()
+              .then(setupChat)
+              window.chat_socket._reconnect = () => {
+                  clearTimeout(window.chat_socket.reconnectTimeout)
+                  window.chat_socket.reconnectTimeout = setTimeout(() => {
+                    window.chat_socket.reconnectTries++
+                    window.chat_socket.connect(window.chat_socket.params).then(setupChat);
+                    window.chat_socket._reconnect()
+                  }, window.chat_socket._reconnectInterval())
+                }
+          window.text_socket = new Amber.Socket('/text')
+          text_socket.connect()
+              .then(setupText)
+              window.text_socket._reconnect = () => {
+                  clearTimeout(window.text_socket.reconnectTimeout)
+                  window.text_socket.reconnectTimeout = setTimeout(() => {
+                    window.text_socket.reconnectTries++
+                    window.text_socket.connect(window.text_socket.params).then(setupText);
+                    window.text_socket._reconnect()
+                  }, window.text_socket._reconnectInterval())
+                }
+
+          persistence_socket.connect()
+          .then(setupPersistence)
+          window.persistence_socket._reconnect = () => {
+              clearTimeout(window.persistence_socket.reconnectTimeout)
+              window.persistence_socket.reconnectTimeout = setTimeout(() => {
+                window.persistence_socket.reconnectTries++
+                window.persistence_socket.connect(window.persistence_socket.params).then(setupPersistence);
+                window.persistence_socket._reconnect()
+              }, window.persistence_socket._reconnectInterval())
+            }
+          window.camera_socket = new Amber.Socket('/session')
+          camera_socket.connect()
+            .then(setupSession)
+          window.camera_socket._reconnect = () => {
+            clearTimeout(window.camera_socket.reconnectTimeout)
+            window.camera_socket.reconnectTimeout = setTimeout(() => {
+              window.camera_socket.reconnectTries++
+              window.camera_socket.connect(window.camera_socket.params).then(() => {
+                // handleLeaveSession();
+                setupSession();
+                // handleJoinSession();
+              });
+              window.camera_socket._reconnect()
+            }, window.camera_socket._reconnectInterval())
+          }
+      }
+  });
+
+})
+
+window.gotDevices = (mediaDevices) => {
+  var select = $("#cameras")[0];
+  var audio_select = $("#audio_inputs")[0];
+  select.innerHTML = '';
+  select.appendChild(document.createElement('option'));
+  let count = 1;
+  mediaDevices.forEach(mediaDevice => {
+    if (mediaDevice.kind === 'videoinput') {
+      const option = document.createElement('option');
+      option.value = mediaDevice.deviceId;
+      const label = mediaDevice.label || `Camera ${count++}`;
+      const textNode = document.createTextNode(label);
+      option.appendChild(textNode);
+      select.appendChild(option);
+    } else {
+      const option = document.createElement('option');
+      option.value = mediaDevice.deviceId;
+      const label = mediaDevice.label || `Audio Input ${count++}`;
+      const textNode = document.createTextNode(label);
+      option.appendChild(textNode);
+      audio_select.appendChild(option);
+    }
+  });
+
 }
 
 
-
-window.onbeforeunload = function () {
-  handleLeaveSession();
-  window.camera_session.leave();
-  window.canvas_channel.leave();
-  window.chat_channel.leave();
-  window.persistence_channel.leave();
-  window.text_channel.leave();
-  window.camera_socket.close();
-  window.canvas_socket.close();
-  window.persistence_socket.close()
-  window.session_socket.close();
-  window.text_socket.close();
-}
-
-window.onpagehide = function () {
-  handleLeaveSession();
-  window.camera_session.leave();
-  window.canvas_channel.leave();
-  window.chat_channel.leave();
-  window.persistence_channel.leave();
-  window.text_channel.leave();
-  window.camera_socket.close();
-  window.canvas_socket.close();
-  window.persistence_socket.close()
-  window.session_socket.close();
-  window.text_socket.close();
-}
 
 // window.start_pinging = () => {
 //   if (window.canvas_channel) window.canvas_channel.push("message_new", { name: window.name, ping: true, room: room });
