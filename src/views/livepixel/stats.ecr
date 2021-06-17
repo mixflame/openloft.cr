@@ -1,5 +1,5 @@
     <div align="center">
-    <h1>Stats page for room: <%= room %></h1>
+    <h1>Stats for <%= room == "" ? "Global Room" : room %></h1>
     <div class="box">
     <h1>Gbaldraw Stats</h1>
     <% if Amber.env == :development %>
