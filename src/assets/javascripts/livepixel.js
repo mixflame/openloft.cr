@@ -2755,6 +2755,7 @@ window.gotDevices = (mediaDevices) => {
 
 
     $("#tshirt-uploader").click(function (e) {
+      e.preventDefault();
       var dataURL = canvas.toDataURL();
       if (!window.dontLog) console.log(dataURL);
       var url = "/upload_to_scalable_press";
@@ -2786,7 +2787,7 @@ window.gotDevices = (mediaDevices) => {
   
         });
   
-      e.preventDefault();
+      
     })
   
 

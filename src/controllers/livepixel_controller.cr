@@ -9,8 +9,6 @@ require "digest"
 CLIENT_ID = "AXEHRTl5y4XYIOuuIJ7CT5TE5v0CLNViXwk7CD8F5DhAT6JTKoF9jWJMr71f5W_BsSS9gnp8hjSPunFL"
 CLIENT_SECRET = "ENuzq-_Qx1_N-wmaB_Io5ajTJAjucGzd3bqaKStziSksTfWJqkg-cNT4uIppBWIL4txlc9WEwGKjRvLq"
 
-Amber::Server.instance.pubsub_adapter = Amber::WebSockets::Adapters::RedisAdapter
-
 class LivepixelController < ApplicationController
 
   def landing
