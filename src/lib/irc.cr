@@ -43,8 +43,6 @@ class Client
         response = get_response
         next unless response
 
-        puts response
-
         pong(response)
 
         kick_rejoin(response)
@@ -172,9 +170,9 @@ class Client
   def configure
     @server = "irc.rizon.io"
     @port = 6667
-    @nick = "gbaldraw-bridge"
+    @nick = "gbaldraw-bridge-#{Random.rand(10).to_i.to_s}"
     if Amber.env == :development
-        @nick = "gbaldraw-bridge-dev"
+        @nick = "gbaldraw-bridge-dev-#{Random.rand(10).to_i.to_s}"
     end
     @user = "gbaldraw-bridge"
     @password = "none"
