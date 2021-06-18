@@ -89,15 +89,10 @@ window.setupChat = () => {
                 const n = window.nicks[nick];
                 window.last_ping[n] = Date.now();
                 setTimeout(() => {
-                    if (window.last_ping[n] < Date.now() - (1000 * 10)) {
+                    if (window.last_ping[n] < Date.now() - (10 * 1000)) {
                         $(".online-" + n).remove()
-                        var dong = new Audio("/dong.wav")
-                        dong.volume = 0.5;
-                        dong.play().catch((e) => {
-                            console.log(e.message)
-                        })
                     }
-                }, 20000);
+                }, 3000);
                 $("#connected_users").html($("#connected_users").html() + `<li class='online-${n}'>${n}</li>`)
             }
         }
