@@ -22,16 +22,6 @@ window.setupChat = () => {
 
         if (data["ping"]) {
             window.last_ping[data['name']] = Date.now();
-            setTimeout(() => {
-                if (window.last_ping[data['name']] < Date.now() - (1000 * 10)) {
-                    $(".online-" + data['name']).remove()
-                    var dong = new Audio("/dong.wav")
-                    dong.volume = 0.5;
-                    dong.play().catch((e) => {
-                        console.log(e.message)
-                    })
-                }
-            }, 20000);
             return;
         }
 
@@ -88,11 +78,16 @@ window.setupChat = () => {
             if (Object.hasOwnProperty.call(window.nicks, nick)) {
                 const n = window.nicks[nick];
                 window.last_ping[n] = Date.now();
-                setTimeout(() => {
-                    if (window.last_ping[n] < Date.now() - (10 * 1000)) {
+                setInterval(() => {
+                    if (window.last_ping[n] < Date.now() - (10000)) {
                         $(".online-" + n).remove()
+                        var dong = new Audio("/dong.wav")
+                        dong.volume = 0.25;
+                        dong.play().catch((e) => {
+                            console.log(e.message)
+                        })
                     }
-                }, 3000);
+                }, 20000);
                 $("#connected_users").html($("#connected_users").html() + `<li class='online-${n}'>${n}</li>`)
             }
         }
