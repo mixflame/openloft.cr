@@ -31,7 +31,7 @@ window.setupChat = () => {
                         console.log(e.message)
                     })
                 }
-            }, 6000);
+            }, 20000);
             return;
         }
 
@@ -97,7 +97,7 @@ window.setupChat = () => {
                             console.log(e.message)
                         })
                     }
-                }, 6000);
+                }, 20000);
                 $("#connected_users").html($("#connected_users").html() + `<li class='online-${n}'>${n}</li>`)
             }
         }
