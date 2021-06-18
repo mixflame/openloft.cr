@@ -390,13 +390,24 @@ a:visited {
         position: absolute;
         top: 7%;
         left: 0px;
-        max-height: 100%;
+        min-height: 50vh;
+        height: 50vh;
+        min-width: 25vw;
+        width: 25vw;
     }
     #chat_area {
         position: absolute;
         top: 7%;
         left: 30%;
-        max-height: 100%;
+        min-height: 50vh;
+        height: 50vh;
+        min-width: 75vw;
+        width: 75vw;
+    }
+    .chat_message_holder {
+        position: absolute;
+        left: 0px;
+        bottom: 0px;
     }
     #collaborative_text_holder {
         position: absolute;
