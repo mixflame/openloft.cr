@@ -31,13 +31,20 @@ const userAgent = navigator.userAgent.toLowerCase();
 window.isTabletOrPhone = smallDevice; ///(iphone|ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/.test(userAgent);
 
 
-if(isTabletOrPhone) {
+if (isTabletOrPhone) {
     try {
-    screen.orientation.lock();   // webkit only
-    screen.lockOrientation("orientation");
-    } catch(e) {
+        screen.orientation.lock();   // webkit only
+
+    } catch (e) {
         console.log("orientation lock error: " + e.message);
     }
+    try {
+        screen.lockOrientation("orientation");
+
+    } catch (e) {
+        console.log("orientation lock error: " + e.message);
+    }
+
 }
 
 window.palettes = {
@@ -156,7 +163,7 @@ import { EmojiButton } from '@joeattardi/emoji-button';
 
 window.edits = 0;
 
-const pointInPolygon = function(x, y, polygon) {
+const pointInPolygon = function (x, y, polygon) {
     // from https://github.com/substack/point-in-polygon
     let inside = false
 
@@ -173,7 +180,7 @@ const pointInPolygon = function(x, y, polygon) {
     return inside
 }
 
-const floodFill = function(context, x, y, color) {
+const floodFill = function (context, x, y, color) {
     // const highest_layer = window.backupMpNameHash[window.name]
     var max;
     if (window.backupMpLayerOrder.length > 0)
@@ -246,7 +253,7 @@ var isNegotiating = {};
 const ice = { iceServers: [{ urls: ["stun:stun.l.google.com:19302", "stun:45.79.48.199:5349", "turn:45.79.48.199:5349?transport=tcp"], username: "guest", credential: "password442" }] };
 // const ice = { iceServers: [{ urls: "stun:stun.l.google.com:19302" }] };
 
-window.disconnectVideo = function() {
+window.disconnectVideo = function () {
     window.video_connected = false;
     window.currentUser = undefined;
     window.remoteVideoContainer = undefined;
@@ -258,7 +265,7 @@ window.disconnectVideo = function() {
     handleLeaveSession();
 }
 
-window.connectVideo = function(videoIncluded = true) {
+window.connectVideo = function (videoIncluded = true) {
 
     window.video_connected = true;
     // setInterval(() => {
@@ -288,7 +295,7 @@ window.connectVideo = function(videoIncluded = true) {
             handleJoinSession();
         });
 
-    $("#local-video").click(function(e) {
+    $("#local-video").click(function (e) {
         if (!window.dontLog) console.log("video clicked")
 
         if (parseInt($("#local-video").css("height")) < 1023) {
@@ -303,7 +310,7 @@ window.connectVideo = function(videoIncluded = true) {
         }
     })
 
-    $("#input").change(function() {
+    $("#input").change(function () {
         var source_type = $("#input").val();
         if (source_type == "cam") {
             var type = $("#cameras").val();
@@ -328,15 +335,15 @@ window.connectVideo = function(videoIncluded = true) {
                     audio: true,
                     video: true,
                 })
-                .then(function(stream) {
+                .then(function (stream) {
                     window.localstream = stream;
                     window.localVideo.srcObject = stream;
                     window.localVideo.muted = true;
                     for (const peerConnection in pcPeers) {
                         if (Object.hasOwnProperty.call(pcPeers, peerConnection)) {
                             const pc = pcPeers[peerConnection];
-                            stream.getVideoTracks().forEach(function(track) {
-                                var sender = pc.getSenders().find(function(s) {
+                            stream.getVideoTracks().forEach(function (track) {
+                                var sender = pc.getSenders().find(function (s) {
                                     return s.track.kind == track.kind;
                                 });
                                 sender.replaceTrack(track);
@@ -350,15 +357,15 @@ window.connectVideo = function(videoIncluded = true) {
                     audio: true,
                     video: true,
                 })
-                .then(function(stream) {
+                .then(function (stream) {
                     window.localstream = stream;
                     window.localVideo.srcObject = stream;
                     window.localVideo.muted = true;
                     for (const peerConnection in pcPeers) {
                         if (Object.hasOwnProperty.call(pcPeers, peerConnection)) {
                             const pc = pcPeers[peerConnection];
-                            stream.getVideoTracks().forEach(function(track) {
-                                var sender = pc.getSenders().find(function(s) {
+                            stream.getVideoTracks().forEach(function (track) {
+                                var sender = pc.getSenders().find(function (s) {
                                     return s.track.kind == track.kind;
                                 });
                                 sender.replaceTrack(track);
@@ -375,7 +382,7 @@ window.connectVideo = function(videoIncluded = true) {
     $("#audio_inputs").change(updateStreamSource);
 }
 
-const updateStreamSource = function() {
+const updateStreamSource = function () {
     var type = $("#cameras").val();
     var audio_type = $("#audio_inputs").val();
 
@@ -396,15 +403,15 @@ const updateStreamSource = function() {
 
     navigator.mediaDevices
         .getUserMedia(constraints)
-        .then(function(stream) {
+        .then(function (stream) {
             window.localstream = stream;
             window.localVideo.srcObject = stream;
             window.localVideo.muted = true;
             for (const peerConnection in pcPeers) {
                 if (Object.hasOwnProperty.call(pcPeers, peerConnection)) {
                     const pc = pcPeers[peerConnection];
-                    stream.getVideoTracks().forEach(function(track) {
-                        var sender = pc.getSenders().find(function(s) {
+                    stream.getVideoTracks().forEach(function (track) {
+                        var sender = pc.getSenders().find(function (s) {
                             return s.track.kind == track.kind;
                         });
                         sender.replaceTrack(track);
@@ -455,7 +462,7 @@ const setupSession = () => {
 
 }
 
-const handleJoinSession = async() => {
+const handleJoinSession = async () => {
     if (!window.dontLog) console.log("joining session")
     if (window.camera_session == null || window.camera_session == undefined) {
         window.camera_socket = new Amber.Socket('/session')
@@ -465,11 +472,11 @@ const handleJoinSession = async() => {
             clearTimeout(window.camera_socket.reconnectTimeout)
             window.camera_socket.reconnectTimeout = setTimeout(() => {
                 window.camera_socket.reconnectTries++
-                    window.camera_socket.connect(window.camera_socket.params).then(() => {
-                        // handleLeaveSession();
-                        setupSession();
-                        // handleJoinSession();
-                    });
+                window.camera_socket.connect(window.camera_socket.params).then(() => {
+                    // handleLeaveSession();
+                    setupSession();
+                    // handleJoinSession();
+                });
                 window.camera_socket._reconnect()
             }, window.camera_socket._reconnectInterval())
         }
@@ -536,7 +543,7 @@ const createPC = (userId, isOffer, n) => {
 
     let pc = new RTCPeerConnection(ice);
     const element = document.createElement("video");
-    $(element).click(function() {
+    $(element).click(function () {
         if (!window.dontLog) console.log("video clicked")
         if (parseInt($(this).css("height")) < 1023) {
             window.previous_height = $(this).css("height");
@@ -564,7 +571,7 @@ const createPC = (userId, isOffer, n) => {
     $(video_mute).prop("user_id", userId);
     $(video_mute).html("Stop cam")
     $(video_mute).addClass("btn btn-secondary btn-sm d-inline mr-1 mb-1");
-    $(video_mute).click(function(e) {
+    $(video_mute).click(function (e) {
         var el = e.currentTarget;
         toggleCamera($("#video-" + $(el).prop("user_id"))[0].srcObject, video_mute);
     })
@@ -573,7 +580,7 @@ const createPC = (userId, isOffer, n) => {
     $(audio_mute).prop("user_id", userId);
     $(audio_mute).html("Mute")
     $(audio_mute).addClass("btn btn-secondary btn-sm d-inline mr-1 mb-1");
-    $(audio_mute).click(function(e) {
+    $(audio_mute).click(function (e) {
         var el = e.currentTarget;
         toggleMic($("#video-" + $(el).prop("user_id"))[0].srcObject, audio_mute);
     })
@@ -586,7 +593,7 @@ const createPC = (userId, isOffer, n) => {
 
     $(container).addClass(`remoteVideoContainer-${userId}`);
     $(container).hide();
-    $(`#video-${userId}`).on("play", function(e) {
+    $(`#video-${userId}`).on("play", function (e) {
         $(`#remoteVideoContainer-${userId}`).show();
     })
 
@@ -648,7 +655,7 @@ const createPC = (userId, isOffer, n) => {
         }
     };
 
-    pc.onaddstream = function(e) {
+    pc.onaddstream = function (e) {
         if (e.srcElement.iceConnectionState === 'connected' &&
             e.srcElement.iceGatheringState === 'complete') {
             // attach to video-element
@@ -656,7 +663,7 @@ const createPC = (userId, isOffer, n) => {
         }
     };
 
-    pc.onconnectionstatechange = function(event) {
+    pc.onconnectionstatechange = function (event) {
         console.log(`peerconnection of userId ${userId} connectionstate changed to ${pc.connectionState}`)
         switch (pc.connectionState) {
             case "connected":
@@ -719,7 +726,7 @@ const createPC = (userId, isOffer, n) => {
         isNegotiating[pc] = (pc.signalingState != "stable");
     }
 
-    pc.onnegotiationneeded = function() {
+    pc.onnegotiationneeded = function () {
         if (isNegotiating[pc]) {
             console.log("SKIP nested negotiations");
             return;
@@ -727,21 +734,21 @@ const createPC = (userId, isOffer, n) => {
         isNegotiating[pc] = true;
         if (!window.dontLog) console.log('negotiationstarted');
         window.makingOffer = true;
-        pc.createOffer({ offerToReceiveVideo: true, offerToReceiveAudio: true }).then(function(offer) {
-                offer.sdp = setMediaBitrate(offer.sdp);
-                return pc.setLocalDescription(offer);
-            }).then(function() {
-                if (!window.dontLog) console.log('negotiation signal sent');
-                broadcastData({
-                    type: EXCHANGE,
-                    from: currentUser,
-                    to: userId,
-                    sdp: JSON.stringify(pc.localDescription),
-                    name: name
-                });
-            }).then(() => {
-                window.makingOffer = false;
-            })
+        pc.createOffer({ offerToReceiveVideo: true, offerToReceiveAudio: true }).then(function (offer) {
+            offer.sdp = setMediaBitrate(offer.sdp);
+            return pc.setLocalDescription(offer);
+        }).then(function () {
+            if (!window.dontLog) console.log('negotiation signal sent');
+            broadcastData({
+                type: EXCHANGE,
+                from: currentUser,
+                to: userId,
+                sdp: JSON.stringify(pc.localDescription),
+                name: name
+            });
+        }).then(() => {
+            window.makingOffer = false;
+        })
             .catch(e => {
                 logError(e);
 
@@ -815,9 +822,9 @@ const exchange = (data) => {
 
 const broadcastData = (data) => {
     if (!window.dontLog) console.log("broadcast data")
-        /**
-         * Add CSRF protection: https://stackoverflow.com/questions/8503447/rails-how-to-add-csrf-protection-to-forms-created-in-javascript
-         */
+    /**
+     * Add CSRF protection: https://stackoverflow.com/questions/8503447/rails-how-to-add-csrf-protection-to-forms-created-in-javascript
+     */
     const csrfToken = document.querySelector("[name=_csrf]").content;
     const headers = new Headers({
         "content-type": "application/json",
@@ -935,7 +942,7 @@ localStorage.setItem("name", name);
 window.name = name;
 
 // when this gets too big, vote to clear canvas
-var getTotalSizeOfCanvas = function() {
+var getTotalSizeOfCanvas = function () {
     var size = 0;
     for (var j = 0; j < Object.keys(window.mpClickHash).length; j++) {
         var key = Object.keys(window.mpClickHash)[j];
@@ -947,7 +954,7 @@ var getTotalSizeOfCanvas = function() {
 }
 window.getTotalSizeOfCanvas = getTotalSizeOfCanvas;
 
-var mouseDown = function(mousedown_name, color, size) {
+var mouseDown = function (mousedown_name, color, size) {
     if (mousedown_name.match(/^[a-z0-9]+$/i)) {
         $("#status").html("<font class='who-drew' color='" + color + "'>" + mousedown_name + "</font> is drawing");
         // $(".online-" + mousedown_name).remove();
@@ -957,7 +964,7 @@ var mouseDown = function(mousedown_name, color, size) {
 window.mouseDown = mouseDown;
 
 // add a click, either to local variables or to multiplayer hash
-var addClick = function(x, y, dragging, mp, click_name, color, size, text, path, line_join, shape_type, shape_width, shape_height, shape_fill, shape_angle, brush_style, count) {
+var addClick = function (x, y, dragging, mp, click_name, color, size, text, path, line_join, shape_type, shape_width, shape_height, shape_fill, shape_angle, brush_style, count) {
     if (x == undefined &&
         y == undefined &&
         dragging == undefined &&
@@ -1089,7 +1096,7 @@ window.addClick = addClick;
 
 // bg: am i drawing the bg layer?
 // original: should i draw myself to a canvas that is saved as an original? (disabled)
-var redraw = function(bg, flatten) {
+var redraw = function (bg, flatten) {
     if (context == undefined) {
         return;
     }
@@ -1320,7 +1327,7 @@ var redraw = function(bg, flatten) {
     if (flatten) {
         should_draw_brush = false;
         if (!dontLog) console.log("Transferring drawing to background canvas")
-            // copy canvas to bgCanvas
+        // copy canvas to bgCanvas
         var destCtx = window.bgCanvas.getContext('2d');
         destCtx.scale(scale, scale);
         destCtx.drawImage(canvas, 0, 0);
@@ -1336,13 +1343,13 @@ var redraw = function(bg, flatten) {
 }
 window.redraw = redraw;
 
-window.rgbToHex = function(r, g, b) {
+window.rgbToHex = function (r, g, b) {
     if (r > 255 || g > 255 || b > 255)
         throw "Invalid color component";
     return ((r << 16) | (g << 8) | b).toString(16);
 }
 
-window.hexToRgb = function(hex) {
+window.hexToRgb = function (hex) {
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result ? {
         r: parseInt(result[1], 16),
@@ -1351,7 +1358,7 @@ window.hexToRgb = function(hex) {
     } : null;
 }
 
-var tap = function(e) {
+var tap = function (e) {
     if (disabled) return;
     if (!e.touches) {
         var rect = canvas.getBoundingClientRect(), // abs. size of element
@@ -1427,7 +1434,7 @@ function getMousePos(canvas, evt) {
     };
 }
 
-var tapDrag = function(e) {
+var tapDrag = function (e) {
 
     if (disabled) return;
     if (!e.touches) {
@@ -1540,7 +1547,7 @@ var tapDrag = function(e) {
     e.preventDefault();
 }
 
-window.drawMousePoint = function() {
+window.drawMousePoint = function () {
     if (should_draw_brush) {
         if ($("#shape_type").val() == "rect") {
             context.strokeStyle = curColor;
@@ -1610,7 +1617,7 @@ window.drawMousePoint = function() {
     }
 }
 
-window.notifyMe = function(message) {
+window.notifyMe = function (message) {
     if (!window.Notification) {
         if (!dontLog) console.log('Browser does not support notifications.');
     } else {
@@ -1622,7 +1629,7 @@ window.notifyMe = function(message) {
             });
         } else {
             // request permission from user
-            Notification.requestPermission().then(function(p) {
+            Notification.requestPermission().then(function (p) {
                 if (p === 'granted') {
                     // show notification here
                     var notify = new Notification("Gbaldraw", {
@@ -1631,24 +1638,24 @@ window.notifyMe = function(message) {
                 } else {
                     if (!dontLog) console.log('User blocked notifications.');
                 }
-            }).catch(function(err) {
+            }).catch(function (err) {
                 console.error(err);
             });
         }
     }
 }
 
-window.sformat = function(s) {
+window.sformat = function (s) {
     var fm = [
         Math.floor(s / 60 / 60 / 24), // DAYS
         Math.floor(s / 60 / 60) % 24, // HOURS
         Math.floor(s / 60) % 60, // MINUTES
         s % 60 // SECONDS
     ];
-    return $.map(fm, function(v, i) { return ((v < 10) ? '0' : '') + v; }).join(':');
+    return $.map(fm, function (v, i) { return ((v < 10) ? '0' : '') + v; }).join(':');
 }
 
-window.base64ToBlob = function(base64, mime) {
+window.base64ToBlob = function (base64, mime) {
     mime = mime || '';
     var sliceSize = 1024;
     var byteChars = window.atob(base64);
@@ -1670,7 +1677,7 @@ window.base64ToBlob = function(base64, mime) {
     return new Blob(byteArrays, { type: mime });
 }
 
-window.scroll_to_bottom = function() {
+window.scroll_to_bottom = function () {
     var log = $('#chat_area')[0];
     if (log.scrollTop != log.scrollHeight) {
         // log.animate({ scrollTop: log.prop('scrollHeight')}, 100);
@@ -1679,7 +1686,7 @@ window.scroll_to_bottom = function() {
     }
 }
 
-$(function() {
+$(function () {
 
     // reset the color picker (FF fix)
     $("#color").val("#000000");
@@ -1695,7 +1702,7 @@ $(function() {
 
     var canvasDiv = document.getElementById('canvasDiv');
     canvas = document.createElement('canvas');
-    if(isTabletOrPhone){
+    if (isTabletOrPhone) {
         canvas.setAttribute('width', $("#canvasDiv").width());
         canvas.setAttribute('height', $("#canvasDiv").height());
     } else {
@@ -1704,16 +1711,16 @@ $(function() {
     }
     canvas.setAttribute('id', 'canvas');
     canvas.setAttribute("style", "top: 0px; left: 0px; bottom: 0px; right: 0px;")
-        // $(canvas).css("position", "absolute");
-        // $(canvas).css("top", "0px");
-        // $(canvas).css("left", "0px");
-        // $(canvas).css("bottom", "0px");
-        // $(canvas).css("right", "0px");
+    // $(canvas).css("position", "absolute");
+    // $(canvas).css("top", "0px");
+    // $(canvas).css("left", "0px");
+    // $(canvas).css("bottom", "0px");
+    // $(canvas).css("right", "0px");
     window.canvas = canvas;
 
     var bgCanvasDiv = document.getElementById('bgCanvasDiv');
     window.bgCanvas = document.createElement('canvas');
-    if(!isTabletOrPhone){
+    if (!isTabletOrPhone) {
         window.bgCanvas.setAttribute('width', 1280);
         window.bgCanvas.setAttribute('height', 690);
     } else {
@@ -1722,12 +1729,12 @@ $(function() {
     }
     window.bgCanvas.setAttribute('id', 'bgCanvas');
 
-    $("#downloader").click(function() {
+    $("#downloader").click(function () {
         document.getElementById("downloader").download = "image.png";
         document.getElementById("downloader").href = canvas.toDataURL("image/png").replace(/^data:image\/[^;]/, 'data:application/octet-stream');
     })
 
-    $("#uploader").click(function(e) {
+    $("#uploader").click(function (e) {
         var dataURL = canvas.toDataURL();
         if (!window.dontLog) console.log(dataURL);
         var url = "/upload_to_imgur";
@@ -1743,15 +1750,15 @@ $(function() {
         }
 
         $.ajax({
-                url: url,
-                headers: headers,
-                type: "POST",
-                cache: false,
-                contentType: false,
-                processData: false,
-                data: formData
-            })
-            .done(function(e) {
+            url: url,
+            headers: headers,
+            type: "POST",
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: formData
+        })
+            .done(function (e) {
                 var id = JSON.parse(e)["data"]["id"];
                 // window.open(link);
                 window.open("/gallery#" + id);
@@ -1760,8 +1767,8 @@ $(function() {
         e.preventDefault();
     })
 
-    $("#clear_canvas").click(function(e) {
-        $.get("/clear_canvas?room=" + room, function() {
+    $("#clear_canvas").click(function (e) {
+        $.get("/clear_canvas?room=" + room, function () {
 
         });
         e.preventDefault();
@@ -1783,24 +1790,24 @@ $(function() {
 
     $('#canvas').mousemove(tapDrag);
 
-    $('#canvas').mouseup(function(e) {
+    $('#canvas').mouseup(function (e) {
         // count = 0;
         window.edits = window.edits + 1;
         paint = false;
         // window.canvas_channel.push("message_new", { mouseUp: true, name: name, room: room });
     });
 
-    $('#canvas').bind("touchend", function(e) {
+    $('#canvas').bind("touchend", function (e) {
         paint = false;
         // window.canvas_channel.push("message_new", { mouseUp: true, name: name, room: room });
     });
 
-    $('#canvas').mouseleave(function(e) {
+    $('#canvas').mouseleave(function (e) {
         paint = false;
         // window.canvas_channel.push("message_new", { mouseUp: true, name: name, room: room });
     });
 
-    $(document).keydown(function(e) {
+    $(document).keydown(function (e) {
         if (!dontLog) console.log(e.which);
     });
 
@@ -1987,9 +1994,9 @@ $(function() {
 
 
 
-    $("#palette-selector").change(function() {
+    $("#palette-selector").change(function () {
         window.palette = palettes[$("#palette-selector").val()]
-        window.palette.forEach(function(e, i) {
+        window.palette.forEach(function (e, i) {
             colorsUsed.push(e);
             var colors = colorsUsed.slice(Math.max(colorsUsed.length - 16, 0))
             colors.forEach((element, index) => {
@@ -2001,7 +2008,7 @@ $(function() {
     $("#palette-selector").change();
 
 
-    $("#color").change(function() {
+    $("#color").change(function () {
         curColor = $("#color").val();
         colorsUsed.push(curColor);
         var colors = colorsUsed.slice(Math.max(colorsUsed.length - 16, 0))
@@ -2010,14 +2017,14 @@ $(function() {
         });
     })
 
-    $("#brush_type").change(function() {
+    $("#brush_type").change(function () {
         curLineJoin = $("#brush_type").val();
         window.curLineJoin = curLineJoin;
     })
 
     $("#brush_type").change();
 
-    $("#shape_type").change(function() {
+    $("#shape_type").change(function () {
         curShapeType = $("#shape_type").val();
         if (curShapeType == "rect") {
             $("#a_param").show();
@@ -2045,7 +2052,7 @@ $(function() {
 
     $("#shape_type").change();
 
-    $("#shape_width").keyup(function() {
+    $("#shape_width").keyup(function () {
         curShapeWidth = parseInt($("#shape_width").val());
         if (curShapeWidth > 360 || curShapeWidth < 1) {
             curShapeWidth = 360;
@@ -2054,7 +2061,7 @@ $(function() {
         window.curShapeWidth = curShapeWidth;
     })
 
-    $("#shape_height").keyup(function() {
+    $("#shape_height").keyup(function () {
         curShapeHeight = parseInt($("#shape_height").val());
         if (curShapeHeight > 360 || curShapeHeight < 1) {
             curShapeHeight = 360;
@@ -2063,7 +2070,7 @@ $(function() {
         window.curShapeHeight = curShapeHeight;
     })
 
-    $("#shape_angle").keyup(function() {
+    $("#shape_angle").keyup(function () {
         curShapeAngle = parseInt($("#shape_angle").val());
         if (curShapeAngle > 360 || curShapeAngle < 1) {
             curShapeAngle = 360;
@@ -2072,12 +2079,12 @@ $(function() {
         window.curShapeAngle = curShapeAngle;
     })
 
-    $("#shape_fill").change(function() {
+    $("#shape_fill").change(function () {
         curShapeFill = $("#shape_fill").is(":checked");
         window.curShapeFill = curShapeFill;
     })
 
-    $(".swatch").click(function(e) {
+    $(".swatch").click(function (e) {
         var color = $(e.target).css("background-color");
         var hexDigits = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f");
 
@@ -2096,7 +2103,7 @@ $(function() {
 
     $("#brush-size").val(curSize);
 
-    $("#brush-size").bind("input", function() {
+    $("#brush-size").bind("input", function () {
         if (!dontLog) console.log("CurSize: " + curSize);
         curSize = $("#brush-size").val();
         if (curSize > 35 || curSize < 1)
@@ -2107,7 +2114,7 @@ $(function() {
     // $("#chat_area").val("");
 
     // chat ability
-    $("#send_message").click(function() {
+    $("#send_message").click(function () {
         var chat_message = $("#chat_message").html();
         if (chat_message != "") {
             if (window.last_message != chat_message) {
@@ -2120,7 +2127,7 @@ $(function() {
         }
     });
 
-    $("#chat_message").keyup(function(e) {
+    $("#chat_message").keyup(function (e) {
         if (e.keyCode == 13) {
             $("#send_message").trigger("click");
             e.preventDefault();
@@ -2128,7 +2135,7 @@ $(function() {
         }
     });
 
-    $("#private_room").click(function() {
+    $("#private_room").click(function () {
         var code = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
         window.open("/canvas?room=" + code);
         return false;
@@ -2136,7 +2143,7 @@ $(function() {
 
     $("#site_link").val(window.location);
 
-    $("#copy_link").click(function() {
+    $("#copy_link").click(function () {
         var copyText = document.getElementById("site_link");
 
         /* Select the text field */
@@ -2148,7 +2155,7 @@ $(function() {
 
         /* Alert the copied text */
         $("#copy_link").html("copied!")
-        setTimeout(function() {
+        setTimeout(function () {
             $("#copy_link").html("copy link")
         }, 3000)
     })
@@ -2161,7 +2168,7 @@ $(function() {
 
     $("#name").val(name);
 
-    $("#name").keyup(function() {
+    $("#name").keyup(function () {
         if ($("#name").val() != undefined && $("#name").val() != "" && $("#name").val().length < 30 && $("#name").val().match(/^[a-z0-9]+$/i)) {
             name = $("#name").val()
             window.name = name;
@@ -2171,7 +2178,7 @@ $(function() {
         }
     });
 
-    $("#eyedropper").change(function() {
+    $("#eyedropper").change(function () {
         if ($("#eyedropper").is(":checked")) {
             $("#rainbow").prop("checked", false);
             $("#eraser").prop("checked", false);
@@ -2182,7 +2189,7 @@ $(function() {
         }
     })
 
-    $("#rainbow").bind("change", function() {
+    $("#rainbow").bind("change", function () {
         if ($("#rainbow").is(":checked")) {
             $("#eyedropper").prop("checked", false);
             $("#eraser").prop("checked", false);
@@ -2192,20 +2199,20 @@ $(function() {
         }
     });
 
-    $("#text-tool").change(function() {
+    $("#text-tool").change(function () {
         $("#eyedropper").prop("checked", false);
         $("#eraser").prop("checked", false);
     })
 
-    $("#text-to-write").keyup(function() {
+    $("#text-to-write").keyup(function () {
         var badword = "avttre";
-        var realbadword = badword.replace(/[a-zA-Z]/g, function(c) { return String.fromCharCode((c <= "Z" ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c - 26); });
+        var realbadword = badword.replace(/[a-zA-Z]/g, function (c) { return String.fromCharCode((c <= "Z" ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c - 26); });
         if ($("#text-to-write").val().toLowerCase().includes(realbadword)) {
             $("#text-to-write").val("Black Lives Matter");
         }
     })
 
-    $("#eraser").bind("change", function() {
+    $("#eraser").bind("change", function () {
         if ($("#eraser").is(":checked")) {
             $("#eyedropper").prop("checked", false);
             $("#rainbow").prop("checked", false);
@@ -2225,31 +2232,31 @@ $(function() {
         }
     });
 
-    $("#text-to-write").keyup(function() {
+    $("#text-to-write").keyup(function () {
         curText = $("#text-to-write").val();
         window.curText = curText;
     })
 
     Pressure.set('#canvas', {
-        start: function(event) {
+        start: function (event) {
             // this is called on force start
         },
-        end: function() {
+        end: function () {
             // this is called on force end
         },
-        startDeepPress: function(event) {
+        startDeepPress: function (event) {
             // this is called on "force click" / "deep press", aka once the force is greater than 0.5
         },
-        endDeepPress: function() {
+        endDeepPress: function () {
             // this is called when the "force click" / "deep press" end
         },
-        change: function(force, event) {
+        change: function (force, event) {
             // this is called every time there is a change in pressure
             // 'force' is a value ranging from 0 to 1
             $("#brush-size").val(force * 35);
             curSize = $("#brush-size").val();
         },
-        unsupported: function() {
+        unsupported: function () {
             // console.log("unsupported...");
             // NOTE: this is only called if the polyfill option is disabled!
             // this is called once there is a touch on the element and the device or browser does not support Force or 3D touch
@@ -2272,7 +2279,7 @@ $(function() {
     }
 
     // timer
-    setInterval(function() {
+    setInterval(function () {
         if (window.original_ttl != -2) { // dont run the timer if there is none
             window.t = window.t - 1;
             var seconds = window.t;
@@ -2298,19 +2305,19 @@ $(function() {
         redraw();
     }
 
-    $("#join-button").click(function() {
+    $("#join-button").click(function () {
         // $("#leave-button").click()
         if (window.video_connected == true) return;
         window.connectVideo();
     })
 
-    $("#join-audio-button").click(function() {
+    $("#join-audio-button").click(function () {
         // $("#leave-button").click()
         if (window.video_connected == true) return;
         window.connectVideo(false);
     })
 
-    $("#leave-button").click(function() {
+    $("#leave-button").click(function () {
         if (window.video_connected == false) return;
         window.disconnectVideo();
     })
@@ -2351,8 +2358,8 @@ $(function() {
         $("#undo").click();
     })
 
-    $("#call-volume").on("input", function() {
-        $("video").each(function(e, i) { i.volume = $("#call-volume").val() })
+    $("#call-volume").on("input", function () {
+        $("video").each(function (e, i) { i.volume = $("#call-volume").val() })
     })
 
     $("#undo").click(() => {
@@ -2361,31 +2368,31 @@ $(function() {
         window.canvas_channel.push("message_new", { name: window.name, undo: true, room: room });
     })
 
-    $("#text_color").change(function() {
+    $("#text_color").change(function () {
         if (!$("#chat_message").is(":focus")) $("#chat_message").focus();
         // document.execCommand("styleWithCss", false, false);
         document.execCommand("foreColor", true, $("#text_color").val());
     })
 
-    $("#chat_message").click(function() {
+    $("#chat_message").click(function () {
         document.execCommand("foreColor", true, $("#text_color").val());
     })
 
 
 
-    $("#text_back_color").change(function() {
+    $("#text_back_color").change(function () {
         if (!$("#chat_message").is(":focus")) $("#chat_message").focus();
         // document.execCommand("styleWithCss", false, false);
         document.execCommand("backColor", false, $("#text_back_color").val());
     })
 
-    document.querySelector(".actions").addEventListener("mousedown", function(e) {
+    document.querySelector(".actions").addEventListener("mousedown", function (e) {
         var action = e.target.dataset.action;
         if (!$("#chat_message").is(":focus")) $("#chat_message").focus();
         if (!window.dontLog) console.log(action);
         if (action && action != "createLink" && action != "insertImage" && action != "searchGiphy" && action != "insertHTML") {
             document.execCommand(action, false)
-                //prevent button from actually getting focused
+            //prevent button from actually getting focused
             e.preventDefault();
         } else if (action == "insertImage") {
             var sLnk = prompt('Enter a URL', 'http:\/\/');
@@ -2420,7 +2427,7 @@ $(function() {
 
     trigger.addEventListener('click', () => picker.togglePicker(trigger));
 
-    $("img").one("load", function() {
+    $("img").one("load", function () {
         window.scroll_to_bottom();
     });
 
@@ -2428,8 +2435,8 @@ $(function() {
 
     // require("livepixel/somafm")
 
-    $("#full-screen").click(function() {
-        $(window).bind("resize", function() {
+    $("#full-screen").click(function () {
+        $(window).bind("resize", function () {
             var w = screen.width;
             var h = screen.height;
 
@@ -2458,8 +2465,8 @@ $(function() {
         $("#input").change();
     })
 
-    setInterval(function() {
-        $.getJSON("/random_ad", "", function(data) {
+    setInterval(function () {
+        $.getJSON("/random_ad", "", function (data) {
             let ad = data["ad"];
             let link = data["banner_link"];
             if (ad != "" && link != "") {
@@ -2469,7 +2476,7 @@ $(function() {
         })
     }, 30000);
 
-    $("#brush_style").change(function() {
+    $("#brush_style").change(function () {
         curBrushStyle = $("#brush_style").val();
         count = 0;
     })
@@ -2490,12 +2497,12 @@ $(function() {
             animations: false,
             opacity: 1,
             events: {
-                closed: function() {
+                closed: function () {
                     this.open();
                 }
             }
         })
-        window.canvas_window.open().then(function() {
+        window.canvas_window.open().then(function () {
             console.log("canvas window opened")
             $("canvas").css("width", "100%");
             $("canvas").css("height", "100%");
@@ -2504,7 +2511,7 @@ $(function() {
             $("#Holder").css("width", "100%");
             $("#canvasDivHolder").css("height", "100%");
             // $(".wm-overlay").remove()
-            canvas_window.maximize = function() {
+            canvas_window.maximize = function () {
                 if (canvas_window.width != screen.width) {
 
                     window.previous_canvas_size = { x: canvas_window.x, y: canvas_window.y, width: canvas_window.width, height: canvas_window.height }
@@ -2519,19 +2526,19 @@ $(function() {
                     canvas_window.y = window.previous_canvas_size["y"];
                 }
             }
-            window.canvas_window.resize = function(e, t) {
+            window.canvas_window.resize = function (e, t) {
 
-                    window.canvas_window.width = e;
-                    window.canvas_window.height = t;
+                window.canvas_window.width = e;
+                window.canvas_window.height = t;
 
-                    $("canvas").css("width", "100%");
-                    $("canvas").css("height", "100%");
-                    $("#canvasDiv").css("width", "100%");
-                    $("#canvasDiv").css("height", "100%");
-                    $("#canvasDivHolder").css("width", "100%");
-                    $("#canvasDivHolder").css("height", "100%");
-                }
-                // window.canvas_window.resize(screen.width, screen.height);
+                $("canvas").css("width", "100%");
+                $("canvas").css("height", "100%");
+                $("#canvasDiv").css("width", "100%");
+                $("#canvasDiv").css("height", "100%");
+                $("#canvasDivHolder").css("width", "100%");
+                $("#canvasDivHolder").css("height", "100%");
+            }
+            // window.canvas_window.resize(screen.width, screen.height);
         });
 
         window.chat_window = wm.createWindow.fromQuery('#chat_area_holder', {
@@ -2543,7 +2550,7 @@ $(function() {
             animations: false,
             opacity: 1,
             events: {
-                closed: function() {
+                closed: function () {
                     this.open();
                 }
             }
@@ -2554,9 +2561,9 @@ $(function() {
             // $(window.chat_window.view.el).css("background-color", "black")
             $("#online_list").css("height", chat_window.height * 0.70)
             $("#chat_area").css("height", chat_window.height * 0.70)
-                // $(".wm-overlay").remove()
+            // $(".wm-overlay").remove()
             window.scroll_to_bottom();
-            chat_window.maximize = function() {
+            chat_window.maximize = function () {
                 if (chat_window.width != screen.width) {
                     window.previous_chat_size = { x: chat_window.x, y: chat_window.y, width: chat_window.width, height: chat_window.height }
                     window.chat_window.x = 0;
@@ -2574,7 +2581,7 @@ $(function() {
                     chat_window.y = window.previous_chat_size["y"];
                 }
             }
-            window.chat_window.resize = function(e, t) {
+            window.chat_window.resize = function (e, t) {
 
                 window.chat_window.width = e;
                 window.chat_window.height = t;
@@ -2598,7 +2605,7 @@ $(function() {
             animations: false,
             opacity: 1,
             events: {
-                closed: function() {
+                closed: function () {
                     this.open();
                 }
             }
@@ -2610,15 +2617,15 @@ $(function() {
             // $(".wm-overlay").remove()
             $("#video_chat").css("width", window.video_chat_window.width)
             $("#video_chat").css("height", window.video_chat_window.height)
-            video_chat_window.maximize = function() {
+            video_chat_window.maximize = function () {
                 if (video_chat_window.width != screen.width) {
                     window.previous_video_chat_size = { x: video_chat_window.x, y: video_chat_window.y, width: video_chat_window.width, height: video_chat_window.height }
                     window.video_chat_window.x = 0;
                     window.video_chat_window.y = 0;
                     video_chat_window.width = screen.width;
                     video_chat_window.height = screen.height
-                        // $("#video_chat").css("width", window.video_chat_window.width)
-                        // $("#video_chat").css("height", window.video_chat_window.height)
+                    // $("#video_chat").css("width", window.video_chat_window.width)
+                    // $("#video_chat").css("height", window.video_chat_window.height)
                 } else {
                     video_chat_window.width = window.previous_video_chat_size["width"];
                     video_chat_window.height = window.previous_video_chat_size["height"];
@@ -2628,7 +2635,7 @@ $(function() {
                     video_chat_window.y = window.previous_video_chat_size["y"];
                 }
             }
-            window.video_chat_window.resize = function(e, t) {
+            window.video_chat_window.resize = function (e, t) {
 
                 window.video_chat_window.width = e;
                 window.video_chat_window.height = t;
@@ -2648,7 +2655,7 @@ $(function() {
             resizable: false,
             opacity: 1,
             events: {
-                closed: function() {
+                closed: function () {
                     this.open();
                 }
             }
@@ -2670,7 +2677,7 @@ $(function() {
             resizable: false,
             opacity: 1,
             events: {
-                closed: function() {
+                closed: function () {
                     this.open();
                 }
             }
@@ -2683,7 +2690,7 @@ $(function() {
             // $(".wm-overlay").remove()
             $(".navbar-nav").css("width", window.link_window.width)
             $(".navbar-nav").css("height", window.link_window.height)
-            link_window.maximize = function() {
+            link_window.maximize = function () {
                 if (link_window.width != screen.width) {
                     link_window.width = screen.width;
                     link_window.height = screen.height
@@ -2692,7 +2699,7 @@ $(function() {
                     link_window.height = 500;
                 }
             }
-            window.link_window.resize = function(e, t) {
+            window.link_window.resize = function (e, t) {
 
                 window.link_window.width = e;
                 window.link_window.height = t;
@@ -2712,7 +2719,7 @@ $(function() {
             resizable: true,
             opacity: 1,
             events: {
-                closed: function() {
+                closed: function () {
                     this.open();
                 }
             }
@@ -2729,7 +2736,7 @@ $(function() {
 
             $(".text-collab-ext").css("width", window.text_window.width)
             $(".text-collab-ext").css("height", window.text_window.height)
-            text_window.maximize = function() {
+            text_window.maximize = function () {
                 if (text_window.width != screen.width) {
 
                     window.previous_text_size = { x: text_window.x, y: text_window.y, width: text_window.width, height: text_window.height }
@@ -2753,7 +2760,7 @@ $(function() {
                 }
                 selectionManager.onResize();
             }
-            window.text_window.resize = function(e, t) {
+            window.text_window.resize = function (e, t) {
 
                 window.text_window.width = e;
                 window.text_window.height = t;
@@ -2765,7 +2772,7 @@ $(function() {
         })
 
 
-        $("#tshirt-uploader").click(function(e) {
+        $("#tshirt-uploader").click(function (e) {
             e.preventDefault();
             var dataURL = canvas.toDataURL();
             if (!window.dontLog) console.log(dataURL);
@@ -2782,15 +2789,15 @@ $(function() {
             }
 
             $.ajax({
-                    url: url,
-                    headers: headers,
-                    type: "POST",
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: formData
-                })
-                .done(function(e) {
+                url: url,
+                headers: headers,
+                type: "POST",
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: formData
+            })
+                .done(function (e) {
                     var data = JSON.parse(e);
 
                     console.log(data);
@@ -2817,24 +2824,24 @@ $(function() {
         onInsert: (index, value) => {
             console.log(`"${value}" was inserted at index ${index}`)
             var newDoc = Automerge.change(currentDoc, doc => {
-                    if (!doc.text)
-                        doc.text = new Automerge.Text()
-                    doc.text.insertAt(index, value);
-                })
-                // let changes = Automerge.getChanges(currentDoc, newDoc);
-                // let base64 = btoa(String.fromCharCode.apply(null, changes[0]));
+                if (!doc.text)
+                    doc.text = new Automerge.Text()
+                doc.text.insertAt(index, value);
+            })
+            // let changes = Automerge.getChanges(currentDoc, newDoc);
+            // let base64 = btoa(String.fromCharCode.apply(null, changes[0]));
             window.text_channel.push("message_new", { operation: "insert", value: value, index: index, user_id: currentUser, room: room, name: window.name });
             currentDoc = newDoc;
         },
         onDelete: (index, length) => {
             console.log(`"${length}" characters were deleted at index ${index}`)
             var newDoc = Automerge.change(currentDoc, doc => {
-                    if (!doc.text)
-                        doc.text = new Automerge.Text()
-                    doc.text.deleteAt(index, length);
-                })
-                // let changes = Automerge.getChanges(currentDoc, newDoc);
-                // let base64 = btoa(String.fromCharCode.apply(null, changes[0]));
+                if (!doc.text)
+                    doc.text = new Automerge.Text()
+                doc.text.deleteAt(index, length);
+            })
+            // let changes = Automerge.getChanges(currentDoc, newDoc);
+            // let base64 = btoa(String.fromCharCode.apply(null, changes[0]));
             window.text_channel.push("message_new", { operation: "delete", index: index, length: length, user_id: currentUser, room: room, name: window.name });
             currentDoc = newDoc;
         },
@@ -2855,7 +2862,7 @@ $(function() {
         clearTimeout(window.persistence_socket.reconnectTimeout)
         window.persistence_socket.reconnectTimeout = setTimeout(() => {
             window.persistence_socket.reconnectTries++
-                window.persistence_socket.connect(window.persistence_socket.params).then(setupPersistence);
+            window.persistence_socket.connect(window.persistence_socket.params).then(setupPersistence);
             window.persistence_socket._reconnect()
         }, window.persistence_socket._reconnectInterval())
     }
@@ -2867,7 +2874,7 @@ $(function() {
     $("body").css("background-image", "url(/" + bgs[Math.floor(Math.random() * bgs.length)] + ")")
 
 
-    $("#dark_mode").change(function(e) {
+    $("#dark_mode").change(function (e) {
         const checked = $("#dark_mode").is(":checked");
         if (checked) {
             $("body").css("background-color", "black")
@@ -2927,7 +2934,7 @@ $(function() {
 
     var pageVisibility = document.visibilityState;
 
-    document.addEventListener("onbeforeunload", function(e) {
+    document.addEventListener("onbeforeunload", function (e) {
         e.stopPropagation();
         // try {window.camera_session.leave();} catch(e) { console.log(e) }
         try { window.canvas_channel.leave(); } catch (e) { console.log(e) }
@@ -2938,7 +2945,7 @@ $(function() {
         // handleLeaveSession();
     })
 
-    document.addEventListener("pagehide", function(e) {
+    document.addEventListener("pagehide", function (e) {
         e.stopPropagation();
         // try {window.camera_session.leave();} catch(e) { console.log(e) }
         try { window.canvas_channel.leave(); } catch (e) { console.log(e) }
@@ -2949,7 +2956,7 @@ $(function() {
         // handleLeaveSession();
     })
 
-    document.addEventListener("unload", function(e) {
+    document.addEventListener("unload", function (e) {
         e.stopPropagation();
         // try {window.camera_session.leave();} catch(e) { console.log(e) }
         try { window.canvas_channel.leave(); } catch (e) { console.log(e) }
@@ -2961,7 +2968,7 @@ $(function() {
     })
 
     // subscribe to visibility change events
-    document.addEventListener('visibilitychange', function() {
+    document.addEventListener('visibilitychange', function () {
         // fires when user switches tabs, apps, goes to homescreen, etc.
         if (document.visibilityState == 'hidden') {
             // try {window.camera_session.leave();} catch(e) { console.log(e) }
@@ -2982,7 +2989,7 @@ $(function() {
                 clearTimeout(window.canvas_socket.reconnectTimeout)
                 window.canvas_socket.reconnectTimeout = setTimeout(() => {
                     window.canvas_socket.reconnectTries++
-                        window.canvas_socket.connect(window.canvas_socket.params).then(setupCanvas);
+                    window.canvas_socket.connect(window.canvas_socket.params).then(setupCanvas);
                     window.canvas_socket._reconnect()
                 }, window.canvas_socket._reconnectInterval())
             }
@@ -2993,7 +3000,7 @@ $(function() {
                 clearTimeout(window.chat_socket.reconnectTimeout)
                 window.chat_socket.reconnectTimeout = setTimeout(() => {
                     window.chat_socket.reconnectTries++
-                        window.chat_socket.connect(window.chat_socket.params).then(setupChat);
+                    window.chat_socket.connect(window.chat_socket.params).then(setupChat);
                     window.chat_socket._reconnect()
                 }, window.chat_socket._reconnectInterval())
             }
@@ -3004,7 +3011,7 @@ $(function() {
                 clearTimeout(window.text_socket.reconnectTimeout)
                 window.text_socket.reconnectTimeout = setTimeout(() => {
                     window.text_socket.reconnectTries++
-                        window.text_socket.connect(window.text_socket.params).then(setupText);
+                    window.text_socket.connect(window.text_socket.params).then(setupText);
                     window.text_socket._reconnect()
                 }, window.text_socket._reconnectInterval())
             }
@@ -3015,7 +3022,7 @@ $(function() {
                 clearTimeout(window.persistence_socket.reconnectTimeout)
                 window.persistence_socket.reconnectTimeout = setTimeout(() => {
                     window.persistence_socket.reconnectTries++
-                        window.persistence_socket.connect(window.persistence_socket.params).then(setupPersistence);
+                    window.persistence_socket.connect(window.persistence_socket.params).then(setupPersistence);
                     window.persistence_socket._reconnect()
                 }, window.persistence_socket._reconnectInterval())
             }
@@ -3026,11 +3033,11 @@ $(function() {
                 clearTimeout(window.camera_socket.reconnectTimeout)
                 window.camera_socket.reconnectTimeout = setTimeout(() => {
                     window.camera_socket.reconnectTries++
-                        window.camera_socket.connect(window.camera_socket.params).then(() => {
-                            // handleLeaveSession();
-                            setupSession();
-                            // handleJoinSession();
-                        });
+                    window.camera_socket.connect(window.camera_socket.params).then(() => {
+                        // handleLeaveSession();
+                        setupSession();
+                        // handleJoinSession();
+                    });
                     window.camera_socket._reconnect()
                 }, window.camera_socket._reconnectInterval())
             }
@@ -3040,10 +3047,10 @@ $(function() {
 
     $("#online_list").css("height", $("#chat_area").height());
 
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         //this method is very important and e.target below refers to current element which is equal to "this"
         var target = $(e.target).attr('aria-controls') // newly activated tab
-            //fetch any of the data from target element and use it to change the url or content
+        //fetch any of the data from target element and use it to change the url or content
         console.log(target)
         if (target == "chat_tab") {
             window.scroll_to_bottom();
