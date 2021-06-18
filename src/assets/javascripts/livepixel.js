@@ -2461,8 +2461,8 @@ $(function() {
     if (!isTablet && urlParams.get("no_win") != "true") {
         window.canvas_window = wm.createWindow.fromQuery('#canvasDivHolder', {
             title: 'Collaborative Canvas',
-            width: 1280,
-            height: 690,
+            width: screen.width * 0.60,
+            height: screen.height * 0.60,
             x: 0,
             y: 0,
             animations: false,
