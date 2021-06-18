@@ -23,7 +23,7 @@ window.setupChat = () => {
         if (data["ping"]) {
             window.last_ping[data['name']] = Date.now();
             setTimeout(() => {
-                if (window.last_ping[data['name']] < Date.now() - 5000) {
+                if (window.last_ping[data['name']] < Date.now() - (1000 * 60 * 4)) {
                     $(".online-" + data['name']).remove()
                     var dong = new Audio("/dong.wav")
                     dong.volume = 0.5;
