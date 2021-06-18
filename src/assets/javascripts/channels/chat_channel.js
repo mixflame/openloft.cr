@@ -75,20 +75,20 @@ window.setupChat = () => {
 
         window.nicks = data["nicks"];
 
-        $("#connected_users").html("");
-        for (const nick in window.nicks) {
-            if (Object.hasOwnProperty.call(window.nicks, nick)) {
-                const n = window.nicks[nick];
-                window.last_ping[n] = Date.now();
-                setInterval(() => {
-                    if (window.last_ping[n] < Date.now() - (60000)) {
-                        $(".online-" + n).remove()
-                        arrayRemove(window.nicks, n);
-                    }
-                }, 3000);
-                $("#connected_users").html($("#connected_users").html() + `<li class='online-${n}'>${n}</li>`)
+        // $("#connected_users").html("");
+        // for (const nick in window.nicks) {
+        // if (Object.hasOwnProperty.call(window.nicks, nick)) {
+        // const n = window.nicks[nick];
+        window.last_ping[data["name"]] = Date.now();
+        setInterval(() => {
+            if (window.last_ping[data["name"]] < Date.now() - (60000)) {
+                $(".online-" + data["name"]).remove()
+                arrayRemove(window.nicks, data["name"]);
             }
-        }
+        }, 3000);
+        $("#connected_users").html($("#connected_users").html() + `<li class='online-${data["name"]}'>${data["name"]}</li>`)
+            // }
+            // }
 
 
         var parent = $("#connected_users")[0],
