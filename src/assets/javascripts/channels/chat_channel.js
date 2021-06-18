@@ -59,7 +59,18 @@ window.setupChat = () => {
 
     chat_channel.on('user_join', (data) => {
         console.log(data);
-
+        
+        window.last_ping[data['name']] = Date.now();
+        setTimeout(() => {
+            if (window.last_ping[data['name']] < Date.now() - (1000 * 60 * 4)) {
+                $(".online-" + data['name']).remove()
+                var dong = new Audio("/dong.wav")
+                dong.volume = 0.5;
+                dong.play().catch((e) => {
+                console.log(e.message)
+                })
+            }    
+        }, 6000);
         
 
         if(data["name"] != window.name) {
