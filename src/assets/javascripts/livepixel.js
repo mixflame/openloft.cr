@@ -30,6 +30,16 @@ var smallDevice = window.matchMedia("(max-width: 1280px)").matches;
 const userAgent = navigator.userAgent.toLowerCase();
 window.isTabletOrPhone = smallDevice; ///(iphone|ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/.test(userAgent);
 
+
+if(isTabletOrPhone) {
+    try {
+    screen.orientation.lock();   // webkit only
+    screen.lockOrientation("orientation");
+    } catch(e) {
+        console.log("orientation lock error: " + e.message);
+    }
+}
+
 window.palettes = {
     "mac": ["#000000", "#fbf305", "#ff6403", "#dd0907", "#f20884", "#4700a5", "#0000d3", "#02abea", "#1fb714", "#fbf305", "#562c05", "#90713a", "#C0C0C0", "#808080", "#404040", "#ffffff"],
     "windows": ["#000000", "#800000", "#008000", "#808000", "#000080", "#800080", "#008080", "#C0C0C0", "#c0dcc0", "#a6caf0", "#fffbf0", "#a0a0a4", "#808080", "#FF0000", "#0f0", "#ff0"]
