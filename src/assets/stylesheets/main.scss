@@ -454,6 +454,14 @@ a:visited {
     .tab-content>.tab-pane {
         display: block;
     }
+    #collaborative_text_holder {
+        height: 100%;
+        width: 100%;
+    }
+    #collaborative_text {
+        height: 100%;
+        width: 100%;
+    }
 }
 
 .wm-overlay {
