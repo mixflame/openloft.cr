@@ -1,0 +1,12 @@
+{
+    "name":"Gbaldraw",
+    "display":"standalone",
+    "orientation":"landscape",
+    "icons": [
+        {
+          "src": "/gbalda.png",
+          "type": "image/png",
+          "sizes": "128x128"
+        }
+      ]
+}
