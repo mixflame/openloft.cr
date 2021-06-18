@@ -56,14 +56,14 @@ window.setupChat = () => {
 
 
         if (data["name"] != window.name) {
-            if (window.nicks.length < data["nicks"].length) {
+            if (data['join'] == true) {
                 //someone came online
                 var ding = new Audio("/ding.wav")
                 ding.volume = 0.5;
                 ding.play().catch((e) => {
                     console.log(e.message)
                 })
-            } else if (window.nicks.length > data["nicks"].length) {
+            } else if (data['join'] == false) {
                 // someone went away
                 var dong = new Audio("/dong.wav")
                 dong.volume = 0.5;

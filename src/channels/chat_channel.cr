@@ -23,7 +23,7 @@ class ChatChannel < Amber::WebSockets::Channel
       if !nicks.includes?(data["name"].to_s)
         nicks << data["name"].to_s
       end
-      ChatSocket.broadcast("join", message.as_h["topic"].to_s, "user_join", {nicks: nicks, name: data["name"].to_s}.to_h)
+      ChatSocket.broadcast("join", message.as_h["topic"].to_s, "user_join", {join: true, nicks: nicks, name: data["name"].to_s}.to_h)
 
       # client_socket.socket.send({"event" => "message", "topic" => message["topic"].to_s, "subject" => "message_new", "payload" => {nicks: nicks}}.to_json)
       return
@@ -79,7 +79,7 @@ class ChatChannel < Amber::WebSockets::Channel
     nicks = redis.hvals("online_#{room}").map { |n| n.to_s }.to_a.uniq
 
     # not really a join, just use this message
-    ChatSocket.broadcast("join", "chat:#{room}", "user_join", {nicks: nicks.to_a, name: name.to_s}.to_h)
+    ChatSocket.broadcast("join", "chat:#{room}", "user_join", {join: false, nicks: nicks.to_a, name: name.to_s}.to_h)
 
 
   end
