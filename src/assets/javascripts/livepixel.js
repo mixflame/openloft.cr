@@ -2525,7 +2525,7 @@ $(function() {
         });
 
         window.chat_window = wm.createWindow.fromQuery('#chat_area_holder', {
-            title: 'Enhanced Chat',
+            title: 'Gbalchat',
             width: 521,
             height: 585,
             x: 1285,
@@ -2580,7 +2580,7 @@ $(function() {
 
 
         window.video_chat_window = wm.createWindow.fromQuery('#video_chat', {
-            title: `${window.name}'s Video Chat`,
+            title: `Gbalcam`,
             width: 576,
             height: 420,
             x: 724,
@@ -2651,7 +2651,7 @@ $(function() {
 
 
         window.link_window = wm.createWindow.fromQuery('.navbar-nav', {
-            title: 'Helpful Links',
+            title: 'Tools',
             width: 290,
             height: 379,
             x: 429,
@@ -2693,7 +2693,7 @@ $(function() {
         })
 
         window.text_window = wm.createWindow.fromQuery('#collaborative_text_holder', {
-            title: 'Collaborative Notepad',
+            title: 'Gbalpad',
             width: 418,
             height: 245,
             x: 4,
