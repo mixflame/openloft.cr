@@ -2060,18 +2060,6 @@ $(function () {
       curSize = 35;
   })
 
-  $("#dark-mode").click(function () {
-    if (!$("#dark-mode").is(":checked")) {
-      var bgDark = $("body");
-      bgDark.removeClass("bg-dark")
-      bgDark.addClass("bg-light")
-    } else {
-      var bgLight = $("body");
-      bgLight.removeClass("bg-light")
-      bgLight.addClass("bg-dark")
-    }
-  })
-
   // clear chat on first load
   // $("#chat_area").val("");
 
@@ -2850,6 +2838,11 @@ $(function () {
       $("#last-colors").css("color", "white")
       $("#text_color").val("#ffffff");
       $("#text_color").change();
+      $("#chat_area").css("background-color", "black")
+      $("#chat_area").css("color", "white")
+      $("#online_list").css("background-color", "black")
+      $("#online_list").css("color", "white")
+      $("#chat_message").css("background-color", "black")
     } else {
       $("body").css("background-color", "white")
       $("body").css("color", "black")
@@ -2865,6 +2858,11 @@ $(function () {
       $("#last-colors").css("color", "black")
       $("#text_color").val("#000000");
       $("#text_color").change();
+      $("#chat_area").css("background-color", "white")
+      $("#chat_area").css("color", "black")
+      $("#online_list").css("background-color", "white")
+      $("#online_list").css("color", "black")
+      $("#chat_message").css("background-color", "white")
     }
     localStorage.setItem("dark_mode", checked)
   })
