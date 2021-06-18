@@ -79,7 +79,7 @@ window.setupChat = () => {
                 const n = window.nicks[nick];
                 window.last_ping[n] = Date.now();
                 setInterval(() => {
-                    if (window.last_ping[n] < Date.now() - (10000)) {
+                    if (window.last_ping[n] < Date.now() - (100000)) {
                         $(".online-" + n).remove()
                         var dong = new Audio("/dong.wav")
                         dong.volume = 0.25;
