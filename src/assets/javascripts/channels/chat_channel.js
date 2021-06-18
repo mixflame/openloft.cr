@@ -3,6 +3,7 @@ import Amber from 'amber';
 var urlParams = new URLSearchParams(window.location.search);
 var room = urlParams.get('room');
 
+window.timer = {};
 
 window.setupChat = () => {
     console.log("connected to /chat")
@@ -24,6 +25,14 @@ window.setupChat = () => {
             window.last_ping[data['name']] = Date.now();
             if (!window.nicks.includes(data["name"]))
                 window.nicks.push(data["name"]);
+            $("#connected_users").html("");
+            for (const nick in window.nicks) {
+                if (Object.hasOwnProperty.call(window.nicks, nick)) {
+                    const n = window.nicks[nick];
+                    window.last_ping[n] = Date.now();
+                    $("#connected_users").html($("#connected_users").html() + `<li class='online-${n}'>${n}</li>`)
+                }
+            }
             return;
         }
 
@@ -63,6 +72,7 @@ window.setupChat = () => {
                 ding.play().catch((e) => {
                     console.log(e.message)
                 })
+                if (!window.nicks.includes(data["name"])) window.nicks.push(data["name"]);
             } else if (data['join'] == false) {
                 // someone went away
                 var dong = new Audio("/dong.wav")
@@ -70,22 +80,26 @@ window.setupChat = () => {
                 dong.play().catch((e) => {
                     console.log(e.message)
                 })
+                window.nicks = arrayRemove(window.nicks, data["name"])
             }
         }
 
         // window.nicks = data["nicks"];
 
-        if (!window.nicks.includes(data["name"])) window.nicks.push(data["name"]);
+
 
         $("#connected_users").html("");
         for (const nick in window.nicks) {
             if (Object.hasOwnProperty.call(window.nicks, nick)) {
                 const n = window.nicks[nick];
                 window.last_ping[n] = Date.now();
-                setInterval(() => {
+                if (window.timer[n] != undefined && window.timer[n] != null) {
+                    clearInterval(window.timer[n]);
+                }
+                window.timer[n] = setInterval(() => {
                     if (window.last_ping[n] < Date.now() - (60000)) {
                         $(".online-" + n).remove()
-                        arrayRemove(window.nicks, n);
+                        window.nicks = arrayRemove(window.nicks, n);
                     }
                 }, 3000);
                 $("#connected_users").html($("#connected_users").html() + `<li class='online-${n}'>${n}</li>`)
