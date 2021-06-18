@@ -25,8 +25,10 @@
 //     return sdp;
 // }
 
+var smallDevice = window.matchMedia("(max-width: 1280px)").matches;
+
 const userAgent = navigator.userAgent.toLowerCase();
-window.isTabletOrPhone = /(iphone|ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/.test(userAgent);
+window.isTabletOrPhone = smallDevice; ///(iphone|ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/.test(userAgent);
 
 window.palettes = {
     "mac": ["#000000", "#fbf305", "#ff6403", "#dd0907", "#f20884", "#4700a5", "#0000d3", "#02abea", "#1fb714", "#fbf305", "#562c05", "#90713a", "#C0C0C0", "#808080", "#404040", "#ffffff"],
@@ -1683,8 +1685,13 @@ $(function() {
 
     var canvasDiv = document.getElementById('canvasDiv');
     canvas = document.createElement('canvas');
-    canvas.setAttribute('width', $("#canvasDiv").width());
-    canvas.setAttribute('height', $("#canvasDiv").height());
+    if(isTabletOrPhone){
+        canvas.setAttribute('width', $("#canvasDiv").width());
+        canvas.setAttribute('height', $("#canvasDiv").height());
+    } else {
+        canvas.setAttribute('width', 1280);
+        canvas.setAttribute('height', 690);
+    }
     canvas.setAttribute('id', 'canvas');
     canvas.setAttribute("style", "top: 0px; left: 0px; bottom: 0px; right: 0px;")
         // $(canvas).css("position", "absolute");
@@ -1696,8 +1703,13 @@ $(function() {
 
     var bgCanvasDiv = document.getElementById('bgCanvasDiv');
     window.bgCanvas = document.createElement('canvas');
-    window.bgCanvas.setAttribute('width', $("#canvasDiv").width());
-    window.bgCanvas.setAttribute('height', $("#canvasDiv").height());
+    if(!isTabletOrPhone){
+        window.bgCanvas.setAttribute('width', 1280);
+        window.bgCanvas.setAttribute('height', 690);
+    } else {
+        bgCanvas.setAttribute('width', $("#canvasDiv").width());
+        bgCanvas.setAttribute('height', $("#canvasDiv").height());
+    }
     window.bgCanvas.setAttribute('id', 'bgCanvas');
 
     $("#downloader").click(function() {
