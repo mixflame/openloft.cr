@@ -1,16 +1,9 @@
 import Amber from 'amber';
 
-function arrayRemove(arr, value) {
-
-    return arr.filter(function (ele) {
-        return ele != value;
-    });
-}
-
 window.setupCanvas = () => {
     console.log("connected to /canvas")
     console.log("canvas room: " + window.room);
-    if(window.canvas_socket.channels.length == 0){
+    if (window.canvas_socket.channels.length == 0) {
         window.canvas_channel = window.canvas_socket.channel('canvas:' + window.room)
         window.canvas_channel.join()
     }
@@ -125,19 +118,19 @@ window.setupCanvas = () => {
         // }
 
         // if (!data["mouseUp"]) {
-            if (data["name"] != window.name && !window.locked) {
-                window.addClick(data["x"], data["y"], data["dragging"], true, data["name"], data["color"], data['size'], data['text'], data['path'], data['line_join'], data['shape_type'], data['shape_width'], data['shape_height'], data['shape_fill'], data["shape_angle"], data["brush_style"], data["count"]);
-                if (window.getTotalSizeOfCanvas() > 2000) {
-                    window.redraw(true, true);
-                    // window.redraw(false, false);
-                } else {
-                    window.redraw(true, false);
-                }
-
-
+        if (data["name"] != window.name && !window.locked) {
+            window.addClick(data["x"], data["y"], data["dragging"], true, data["name"], data["color"], data['size'], data['text'], data['path'], data['line_join'], data['shape_type'], data['shape_width'], data['shape_height'], data['shape_fill'], data["shape_angle"], data["brush_style"], data["count"]);
+            if (window.getTotalSizeOfCanvas() > 2000) {
+                window.redraw(true, true);
+                // window.redraw(false, false);
+            } else {
+                window.redraw(true, false);
             }
 
-            window.mouseDown(data["name"], data["color"], data['size']);
+
+        }
+
+        window.mouseDown(data["name"], data["color"], data['size']);
         // }
     })
 
@@ -153,9 +146,8 @@ window.canvas_socket.connect()
 window.canvas_socket._reconnect = () => {
     clearTimeout(window.canvas_socket.reconnectTimeout)
     window.canvas_socket.reconnectTimeout = setTimeout(() => {
-      window.canvas_socket.reconnectTries++
-      window.canvas_socket.connect(window.canvas_socket.params).then(setupCanvas);
-      window.canvas_socket._reconnect()
+        window.canvas_socket.reconnectTries++
+            window.canvas_socket.connect(window.canvas_socket.params).then(setupCanvas);
+        window.canvas_socket._reconnect()
     }, window.canvas_socket._reconnectInterval())
-  }
-
+}

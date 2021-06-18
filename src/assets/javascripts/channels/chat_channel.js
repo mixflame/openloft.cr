@@ -22,6 +22,8 @@ window.setupChat = () => {
 
         if (data["ping"]) {
             window.last_ping[data['name']] = Date.now();
+            if (!window.nicks.includes(data["name"]))
+                window.nicks.push(data["name"]);
             return;
         }
 
@@ -81,6 +83,7 @@ window.setupChat = () => {
                 setInterval(() => {
                     if (window.last_ping[n] < Date.now() - (10000)) {
                         $(".online-" + n).remove()
+                        arrayRemove(window.nicks, n);
                     }
                 }, 3000);
                 $("#connected_users").html($("#connected_users").html() + `<li class='online-${n}'>${n}</li>`)
@@ -120,4 +123,11 @@ window.chat_socket._reconnect = () => {
             window.chat_socket.connect(window.chat_socket.params).then(setupChat);
         window.chat_socket._reconnect()
     }, window.chat_socket._reconnectInterval())
+}
+
+window.arrayRemove = function(arr, value) {
+
+    return arr.filter(function(ele) {
+        return ele != value;
+    });
 }
