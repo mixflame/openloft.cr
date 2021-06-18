@@ -427,16 +427,16 @@ a:visited {
         width: 100vw;
     }
     #toolbox {
-        position: absolute;
-        top: 7%;
-        left: 0px;
         max-height: 100%;
+        display: inline;
+        float: left;
+        width: 30%;
     }
     #canvasDivHolder {
-        position: absolute;
-        top: 7%;
-        left: 16%;
         max-height: 100%;
+        display: inline;
+        float: left;
+        width: 60%;
     }
 }
 
