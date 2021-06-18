@@ -59,18 +59,8 @@ window.setupChat = () => {
 
     chat_channel.on('user_join', (data) => {
         console.log(data);
-        
-        window.last_ping[data['name']] = Date.now();
-        setTimeout(() => {
-            if (window.last_ping[data['name']] < Date.now() - (1000 * 60 * 4)) {
-                $(".online-" + data['name']).remove()
-                var dong = new Audio("/dong.wav")
-                dong.volume = 0.5;
-                dong.play().catch((e) => {
-                console.log(e.message)
-                })
-            }    
-        }, 6000);
+
+
         
 
         if(data["name"] != window.name) {
@@ -97,6 +87,17 @@ window.setupChat = () => {
         for (const nick in window.nicks) {
             if (Object.hasOwnProperty.call(window.nicks, nick)) {
                 const n = window.nicks[nick];
+                window.last_ping[n] = Date.now();
+                setTimeout(() => {
+                    if (window.last_ping[n] < Date.now() - (1000 * 60 * 4)) {
+                        $(".online-" + n).remove()
+                        var dong = new Audio("/dong.wav")
+                        dong.volume = 0.5;
+                        dong.play().catch((e) => {
+                        console.log(e.message)
+                        })
+                    }    
+                }, 6000);
                 $("#connected_users").html($("#connected_users").html() + `<li class='online-${n}'>${n}</li>`)
             }
         }
