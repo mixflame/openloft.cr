@@ -87,7 +87,7 @@ class Client
     # channel = channel.gsub(":", "")
     name = response.to_s.split(":")[1].split(" ").first.split("!").first
     channel = parts.first.split(" ")[2]
-    return if name == "gbaldraw-bridge" || name == "gbaldraw-bridge-dev"
+    return if name.includes?("gbaldraw-bridge")
     name = "#{name}@irc.rizon.net #{channel}"
     puts "name #{name}"
     # Sanitizer = Sanitize::Policy::HTMLSanitizer.basic
