@@ -15,7 +15,7 @@ window.setupChat = () => {
     window.chat_channel.push("message_new", { online: true, name: window.name });
 
     window.start_pinging();
-    setInterval(window.start_pinging, 5000);
+    setInterval(window.start_pinging, 3000);
 
     chat_channel.on('message_new', (data) => {
         console.log(data);
@@ -79,15 +79,10 @@ window.setupChat = () => {
                 const n = window.nicks[nick];
                 window.last_ping[n] = Date.now();
                 setInterval(() => {
-                    if (window.last_ping[n] < Date.now() - (100000)) {
+                    if (window.last_ping[n] < Date.now() - (10000)) {
                         $(".online-" + n).remove()
-                        var dong = new Audio("/dong.wav")
-                        dong.volume = 0.25;
-                        dong.play().catch((e) => {
-                            console.log(e.message)
-                        })
                     }
-                }, 20000);
+                }, 3000);
                 $("#connected_users").html($("#connected_users").html() + `<li class='online-${n}'>${n}</li>`)
             }
         }
