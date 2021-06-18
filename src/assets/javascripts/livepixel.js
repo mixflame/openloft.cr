@@ -3018,6 +3018,16 @@ $(function() {
 
     $("#online_list").css("height", $("#chat_area").height());
 
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+        //this method is very important and e.target below refers to current element which is equal to "this"
+        var target = $(e.target).attr('aria-controls') // newly activated tab
+            //fetch any of the data from target element and use it to change the url or content
+        console.log(target)
+        if (target == "chat_tab") {
+            window.scroll_to_bottom();
+        }
+    })
+
 })
 
 window.gotDevices = (mediaDevices) => {
