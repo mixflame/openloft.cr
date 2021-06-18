@@ -1,385 +1,450 @@
 $primary: #f0f0f0;
 $secondary: #dddddd;
-
 @import '~bootstrap/scss/bootstrap';
-
 @import "stats";
 @import "buy_ad";
-
 .navbar {
-  position: static;
-  display: block;
+    position: static;
+    display: block;
 }
 
-*, *::before, *::after {
-  box-sizing: content-box;
+*,
+*::before,
+*::after {
+    box-sizing: content-box;
 }
 
 .container-left {
-  margin-left: 0px;
-  margin-right: 0px;
-  padding-right: 0px;
-  padding-left: 0px;
-}
-
-@media (min-width: 576px) {
-  .container-left {
-    max-width: 100%;
-  }
-  #video_chat {
-    width: 60%;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-right: 0px;
     padding-left: 0px;
-  }
-  #chat_area_holder {
-    width: 30%;
-    padding-left: 0px;
-  }
-
-
-}
-
-@media (min-width: 992px) {
-  .container-left {
-    max-width: 100%;
-  }
-  #video_chat {
-    width: 30%;
-    padding-left: 20px;
-  }
-  #chat_area_holder {
-    width: 100%;
-  }
 }
 
 textarea {
-  line-height: 1.2;
+    line-height: 1.2;
 }
 
-
-.text-collab-ext, .collaborator-cursor, .collaborator-cursor-tooltip, .text-collab-ext-scroller {
-  position: absolute;
-  pointer-events: none;
+.text-collab-ext,
+.collaborator-cursor,
+.collaborator-cursor-tooltip,
+.text-collab-ext-scroller {
+    position: absolute;
+    pointer-events: none;
 }
 
 .text-collab-ext {
-  z-index: 40000;
-  width: 100%;
-  height: 100%;
+    z-index: 40000;
+    width: 100%;
+    height: 100%;
 }
 
 .wm-window-title {
-  z-index: 50000;
-}
-
-#collaborative_text {
-  width: 100%;
-  height: 100%;
+    z-index: 50000;
 }
 
 #collaborative_text_holder {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 #toolbox {
-  width: 200px;
+    width: 200px;
+    float: left;
 }
 
 body {
-  margin: 0;
-  // background-color: #000;
-  // background-image: url(../images/WallpaperDog-10877213.jpg);
-  // background-repeat: no-repeat;
-  // background-size: cover;
-  // color: white;
+    margin: 0;
+    // background-color: #000;
+    // background-image: url(../images/WallpaperDog-10877213.jpg);
+    // background-repeat: no-repeat;
+    // background-size: cover;
+    // color: white;
 }
 
 // div {
 //   // background: #000000;
 // 	// color: white;
 // }
-
 // .wm-content {
 //   // overflow-y: hidden !important;
 // }
-
 video {
-  resize: both;
+    resize: both;
 }
 
 .emoji-picker__wrapper {
-  z-index: 50000;
+    z-index: 50000;
 }
+
 canvas {
-  image-rendering: optimizeSpeed;             /* Older versions of FF          */
-  image-rendering: -moz-crisp-edges;          /* FF 6.0+                       */
-  image-rendering: -webkit-optimize-contrast; /* Safari                        */
-  image-rendering: -o-crisp-edges;            /* OS X & Windows Opera (12.02+) */
-  image-rendering: pixelated;                 /* Awesome future-browsers       */
-  -ms-interpolation-mode: nearest-neighbor;   /* IE                            */
-  z-index: 0;
-  // border: 1px solid black;
-  // border-bottom: 20px solid transparent;
-  // border-right: 20px solid transparent;
-  max-height: 100%;
-  touch-action: pinch-zoom;
- 
-  // max-width: 100%;
+    image-rendering: optimizeSpeed;
+    /* Older versions of FF          */
+    image-rendering: -moz-crisp-edges;
+    /* FF 6.0+                       */
+    image-rendering: -webkit-optimize-contrast;
+    /* Safari                        */
+    image-rendering: -o-crisp-edges;
+    /* OS X & Windows Opera (12.02+) */
+    image-rendering: pixelated;
+    /* Awesome future-browsers       */
+    -ms-interpolation-mode: nearest-neighbor;
+    /* IE                            */
+    z-index: 0;
+    // border: 1px solid black;
+    // border-bottom: 20px solid transparent;
+    // border-right: 20px solid transparent;
+    max-height: 100%;
+    touch-action: pinch-zoom;
+    // max-width: 100%;
 }
 
 .pumpkin {
-  -webkit-border-image: url(../images/pumpkin_border.png) 30 round; /* Safari 3.1-5 */
-  -o-border-image: url(../images/pumpkin_border.png) 30 round; /* Opera 11-12.1 */
-  border-image: url(../images/pumpkin_border.png) 30 round;
+    -webkit-border-image: url(../images/pumpkin_border.png) 30 round;
+    /* Safari 3.1-5 */
+    -o-border-image: url(../images/pumpkin_border.png) 30 round;
+    /* Opera 11-12.1 */
+    border-image: url(../images/pumpkin_border.png) 30 round;
 }
 
 .spiderweb {
-  -webkit-border-image: url(../images/spiderweb_border.png) 30 round; /* Safari 3.1-5 */
-  -o-border-image: url(../images/spiderweb_border.png) 30 round; /* Opera 11-12.1 */
-  border-image: url(../images/spiderweb_border.png) 30 round;
+    -webkit-border-image: url(../images/spiderweb_border.png) 30 round;
+    /* Safari 3.1-5 */
+    -o-border-image: url(../images/spiderweb_border.png) 30 round;
+    /* Opera 11-12.1 */
+    border-image: url(../images/spiderweb_border.png) 30 round;
 }
 
 .tomb {
-  -webkit-border-image: url(../images/tomb_border.png) 30 round; /* Safari 3.1-5 */
-  -o-border-image: url(../images/tomb_border.png) 30 round; /* Opera 11-12.1 */
-  border-image: url(../images/tomb_border.png) 30 round;
+    -webkit-border-image: url(../images/tomb_border.png) 30 round;
+    /* Safari 3.1-5 */
+    -o-border-image: url(../images/tomb_border.png) 30 round;
+    /* Opera 11-12.1 */
+    border-image: url(../images/tomb_border.png) 30 round;
 }
 
 .bat {
-  -webkit-border-image: url(../images/bat_border.png) 30 round; /* Safari 3.1-5 */
-  -o-border-image: url(../images/bat_border.png) 30 round; /* Opera 11-12.1 */
-  border-image: url(../images/bat_border.png) 30 round;
+    -webkit-border-image: url(../images/bat_border.png) 30 round;
+    /* Safari 3.1-5 */
+    -o-border-image: url(../images/bat_border.png) 30 round;
+    /* Opera 11-12.1 */
+    border-image: url(../images/bat_border.png) 30 round;
 }
 
 .feather {
-  -webkit-border-image: url(../images/feather_border.png) 30 round; /* Safari 3.1-5 */
-  -o-border-image: url(../images/feather_border.png) 30 round; /* Opera 11-12.1 */
-  border-image: url(../images/feather_border.png) 30 round;
+    -webkit-border-image: url(../images/feather_border.png) 30 round;
+    /* Safari 3.1-5 */
+    -o-border-image: url(../images/feather_border.png) 30 round;
+    /* Opera 11-12.1 */
+    border-image: url(../images/feather_border.png) 30 round;
 }
 
 .pilgrim_hat {
-  -webkit-border-image: url(../images/pilgrim_hat_border.png) 30 round; /* Safari 3.1-5 */
-  -o-border-image: url(../images/pilgrim_hat_border.png) 30 round; /* Opera 11-12.1 */
-  border-image: url(../images/pilgrim_hat_border.png) 30 round;
+    -webkit-border-image: url(../images/pilgrim_hat_border.png) 30 round;
+    /* Safari 3.1-5 */
+    -o-border-image: url(../images/pilgrim_hat_border.png) 30 round;
+    /* Opera 11-12.1 */
+    border-image: url(../images/pilgrim_hat_border.png) 30 round;
 }
 
 .pumpkin_pie {
-  -webkit-border-image: url(../images/pumpkin_pie_border.png) 30 round; /* Safari 3.1-5 */
-  -o-border-image: url(../images/pumpkin_pie_border.png) 30 round; /* Opera 11-12.1 */
-  border-image: url(../images/pumpkin_pie_border.png) 30 round;
+    -webkit-border-image: url(../images/pumpkin_pie_border.png) 30 round;
+    /* Safari 3.1-5 */
+    -o-border-image: url(../images/pumpkin_pie_border.png) 30 round;
+    /* Opera 11-12.1 */
+    border-image: url(../images/pumpkin_pie_border.png) 30 round;
 }
-
 
 // input#color {
 //   display: inline;
 // }
-
 // div#color_tool {
 //   float: left;
 // }
-
 // input#brush-size {
 //   display: inline;
 // }
-
 // div#size_tool {
 //   float: left;
 // }
-
 // div#name_changer {
 //   float: left;
 // }
-
 // div#rainbow-pen-tool {
 //   float: left;
 // }
-
 // div#eyedropper-tool {
 //   float: left;
 // }
-
 // div#eraser_tool {
 //   float: left;
 // }
-
 div#status-holder {
-  display: inline;
-  float: left;
-  margin-left: 20px;
+    display: inline;
+    float: left;
+    margin-left: 20px;
 }
 
 div#status {
-  display: inline;
+    display: inline;
 }
 
 input#show-debug {
-  display: inline;
+    display: inline;
 }
 
 div#bgCanvasDiv {
-  display: none;
+    display: none;
 }
 
 div#dark-mode-holder {
-  display: inline;
-  float: left;
-  margin-left: 20px;
-  margin-right: 20px;
+    display: inline;
+    float: left;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 div#monero-holder {
-  display: inline;
-  float: right;
-  margin-right: 20px;
+    display: inline;
+    float: right;
+    margin-right: 20px;
 }
 
 div#ttl {
-  display: inline;
+    display: inline;
 }
 
 div#ttl-holder {
-  display: inline;
-  float: left;
-  margin-left: 20px;
+    display: inline;
+    float: left;
+    margin-left: 20px;
 }
 
 div.clear {
-  clear: both;
+    clear: both;
 }
 
 div#counter {
-  display: inline;
-  float: left;
-  margin-left: 20px;
+    display: inline;
+    float: left;
+    margin-left: 20px;
 }
 
-div#stats, div#store, div#twitter, div#downbox, div#ad, div#private_box, div#privacy_policy, div#crypto, div#apiuploadbox, div#clear_canvas_holder, div#gallery, div#discord {
-  display: inline;
-  float: left;
-  margin-left: 20px;
+div#stats,
+div#store,
+div#twitter,
+div#downbox,
+div#ad,
+div#private_box,
+div#privacy_policy,
+div#crypto,
+div#apiuploadbox,
+div#clear_canvas_holder,
+div#gallery,
+div#discord {
+    display: inline;
+    float: left;
+    margin-left: 20px;
 }
 
 div#full_screen_holder {
-  display: inline;
-  float: left;
-  margin-left: 20px;
+    display: inline;
+    float: left;
+    margin-left: 20px;
 }
 
 body {
-  font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
 a {
-  color: #922121 !important;
-  font-size: 16pt;
+    color: #922121 !important;
+    font-size: 16pt;
 }
 
 a:visited {
-  color: $secondary;
-  font-size: 16pt;
+    color: $secondary;
+    font-size: 16pt;
 }
 
 .no_selection {
-  user-select: none; /* standard syntax */
-  -webkit-user-select: none; /* webkit (safari, chrome) browsers */
-  -moz-user-select: none; /* mozilla browsers */
-  -khtml-user-select: none; /* webkit (konqueror) browsers */
-  -ms-user-select: none; /* IE10+ */
+    user-select: none;
+    /* standard syntax */
+    -webkit-user-select: none;
+    /* webkit (safari, chrome) browsers */
+    -moz-user-select: none;
+    /* mozilla browsers */
+    -khtml-user-select: none;
+    /* webkit (konqueror) browsers */
+    -ms-user-select: none;
+    /* IE10+ */
 }
 
 .mobileShow {
-  display: none;
+    display: none;
 }
 
-@media (max-width: 1024px) { 
-  .mobileShow {display: block;}
+@media (max-width: 1024px) {
+    .mobileShow {
+        display: block;
+    }
 }
 
 .swatch {
-  height: 30px;
-  width: 30px;
-  background-color: lightgray;
-  border: 1px solid white;
-  display: inline-block;
+    height: 30px;
+    width: 30px;
+    background-color: lightgray;
+    border: 1px solid white;
+    display: inline-block;
 }
 
 #connected_users li {
-  -webkit-text-stroke: 1px #999;
+    -webkit-text-stroke: 1px #999;
 }
 
 .who-drew {
-  -webkit-text-stroke: 1px #999;
+    -webkit-text-stroke: 1px #999;
 }
+
 .tool {
-  // float: left;
-  // height: 33px;
-  color: black;
-  border:black 1px solid;
-  width: 100%;
-  padding: 3px;
-  padding-left: 1px;
-  padding-right: 1px;
-  background-color: $secondary;
-  // width: 50%;
+    // float: left;
+    // height: 33px;
+    color: black;
+    border: black 1px solid;
+    width: 100%;
+    padding: 3px;
+    padding-left: 1px;
+    padding-right: 1px;
+    background-color: $secondary;
+    // width: 50%;
 }
 
 #last-colors {
-  // float: left;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-right: 2px;
-  background-color: $secondary;
-  width: 100%;
-  border:black 1px solid;
-  // width: 50%;
+    // float: left;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 2px;
+    background-color: $secondary;
+    width: 100%;
+    border: black 1px solid;
+    // width: 50%;
 }
 
 #gbaldvertisment {
-  float: left;
-  display: inline;
-  margin-left: 20px;
-  margin-top: 10px;
+    float: left;
+    display: inline;
+    margin-left: 20px;
+    margin-top: 10px;
 }
 
-
 .navbar-nav {
-  display: block;
-  
+    display: block;
 }
 
 .nav-item {
-  // float: left;
-  padding-left: 15px;
-  background-color: white;
+    // float: left;
+    padding-left: 15px;
+    background-color: white;
 }
 
 .nav-link:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 .nav-link {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .nav-item-end {
-  padding-right: 5px;
+    padding-right: 5px;
 }
 
 .feed-icon {
-  background-image: url("/src/assets/images/Feed-icon.png");
-  width: 200px;
-  height: 200px;
+    background-image: url("/src/assets/images/Feed-icon.png");
+    width: 200px;
+    height: 200px;
 }
 
 *.unselectable {
-  -moz-user-select: -moz-none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-
-  /*
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    /*
     Introduced in IE 10.
     See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
   */
-  -ms-user-select: none;
-  user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+/* small device */
+
+@media (max-width: 1280px) {
+    #video_chat {
+        position: absolute;
+        top: 7%;
+        left: 0px;
+    }
+    #online_list {
+        position: absolute;
+        top: 7%;
+        left: 0px;
+        max-height: 100%;
+    }
+    #chat_area {
+        position: absolute;
+        top: 7%;
+        left: 30%;
+        max-height: 100%;
+    }
+    #collaborative_text_holder {
+        position: absolute;
+        top: 7%;
+        left: 0px;
+        bottom: 0px;
+        right: 0px;
+        min-height: 100vh;
+        height: 100vh;
+        min-width: 100vw;
+        width: 100vw;
+    }
+    #collaborative_text {
+        min-height: 100vh;
+        height: 100vh;
+        min-width: 100vw;
+        width: 100vw;
+    }
+    #toolbox {
+        position: absolute;
+        top: 7%;
+        left: 0px;
+        max-height: 100%;
+    }
+    #canvasDivHolder {
+        position: absolute;
+        top: 7%;
+        left: 16%;
+        max-height: 100%;
+    }
+}
+
+
+/* big device */
+
+@media only screen and (min-width: 1290px) {
+    .device-big,
+    .tab-content>.tab-pane {
+        display: block;
+    }
+    .device-small {
+        display: none;
+    }
+    .tab-content>.tab-pane {
+        display: block;
+    }
+}
+
+.wm-overlay {
+    pointer-events: none;
 }

@@ -1,257 +1,287 @@
 <noscript>Please enable Javascript to use this website!</noscript>
 
-<div id="toolbox" style="display: block; font-size: 10px;">
-  <div id="last-colors">
-    <% (0..15).each do |num| %>
-      <div class="swatch" id="last-color-<%= num %>"></div>
-    <% end %>
 
-    <select name="palette-selector" id="palette-selector">
-      <option value="mac">Mac</option>
-      <option value="windows">Windows</option>
-    </select>
-  </div>
-
-
-
-  
-  <div id="color_tool" class="tool unselectable">
-    <i class="fas fa-palette" style="padding-left: 10px; padding-right: 10px;" title="Color" id="color_icon"></i>
-    <input type="color" id="color" value="#000000" />
-  </div>
-
-  <div id="brush_type_tool" class="tool unselectable" style="border-left: none;">
-  <i class="fas fa-ruler-combined" style="padding-left: 10px; padding-right: 10px;" title="Line Join" id="brush_type_icon"></i>
-    <select name="brush_type" id="brush_type">
-      <option value="round">Round</option>
-      <option value="bevel">Bevel</option>
-      <option value="miter">Miter</option>
-    </select>
-  </div>
-
-    <div id="brush_style_tool" class="tool unselectable" style="border-left: none;">
-  <i class="fas fa-paint-brush" style="padding-left: 10px; padding-right: 10px;" title="Brush Type" id="brush_type_icon"></i>
-    <select name="brush_style" id="brush_style">
-      <option value="none">None</option>
-      <option value="chrome">Chrome</option>
-      <option value="shaded">Shaded</option>
-    </select>
-  </div>
-
-  
-  <div id="size_tool" class="tool unselectable" style="border-left: none;">
-    <i class="fas fa-ruler" style="padding-left: 10px; padding-right: 10px" title="Size" id="brush_size_icon"></i>
-    rand: <input type="checkbox" id="random-brush-size" checked=false>
-    <input style="width: 50px;" type="range" min="1" max="35" value="3" class="slider" id="brush-size">
-  </div>
-
-
-
-  <div id="name_changer" class="tool unselectable" style="border-left: none;"><strong style="padding-left: 10px; padding-right: 10px"></strong> <input style="width: 100px;" type="text" id="name" maxlength=30 /></div>
-
-  <div id="rainbow-pen-tool" class="tool unselectable" style="border-left: none;">
-    <i class="fas fa-rainbow" style="padding-left: 10px; padding-right: 10px" title="Rainbow" id="rainbow_icon"></i>
-    <input type="checkbox" id="rainbow" checked=false>
-  </div>
-
-  <div id="rainbow-pen-tool-style" class="tool unselectable" style="border-left: none;">
-    <select name="themes" id="themes">
-      <option value="rain">Rainbow</option>
-      <option value="camo">Camoflauge</option>
-      <option value="bluesky">Blue Sky</option>
-      <option value="summerwave">Summer Wave</option>
-      <option value="relaxing">Relaxing</option>
-      <option value="sunrise">Sunrise</option>
-      <option value="pinksunrise">Pink Sunrise</option>
-      <option value="beigesky">Beige Sky</option>
-      <option value="oldschoolpixel">Oldschool Pixel</option>
-      <option value="orangesunrise">Orange Sunrise</option>
-      <option value="purplesunset">Purple Sunset</option>
-      <option value="grayhorizon">Gray Horizon</option>
-      <option value="earlymorning">Early Morning</option>
-      <option value="crimsonnight">Crimson Night</option>
-      <option value="twilightforest">Twilight Forest</option>
-      <option value="forestmoon">Forest Moon</option>
-      <option value="burntsun">Burnt Sun</option>
-      <option value="beforenight">Before Night</option>
-    </select>
-  </div>
-
-  <div id="shape_tool" class="tool unselectable" style="border-left: none;">
-    <i class="fas fa-shapes" style="padding-left: 10px; padding-right: 10px" title="Shape Tool" id="shape_tool_icon"></i>
-    fill: <input type="checkbox" id="shape_fill" checked=false>
-    <select name="shape_type" id="shape_type">
-        <option value="none">none</option>
-        <option value="rect">rectangle</option>
-        <option value="circle">circle</option>
-        <option value="triangle">triangle</option>
-    </select>
-    <p id="a_param" style="display: inline; width: 50px;"><span id="a_label">w</span> <input type="text" id="shape_width" name="shape_width" style="display: inline; width: 50px;" value="200"/></p>
-    <p id="b_param" style="display: inline; width: 50px;"><span id="b_label">h</span> <input type="text" id="shape_height" name="shape_height" style="display: inline; width: 50px;" value="200"/></p>
-    <p id="c_param" style="display: inline; width: 50px;"><span id="c_label">c</span> <input type="text" id="shape_angle" name="shape_angle" style="display: inline; width: 50px;" value="160"/></p>
-  
-  </div>
-
-  <div id="text-tool-holder" class="tool unselectable" style="border-left: none;">
-    <i class="fas fa-paragraph" style="padding-left: 10px; padding-right: 10px" title="Text" id="text_tool_icon"></i>
-    <input type="checkbox" id="text-tool" checked=false>
-    <input style="width: 100px;" type="text" id="text-to-write" maxlength=100 />
-  </div>
-
-  <div id="eyedropper-tool" class="tool unselectable" style="border-left: none;">
-    <i class="fas fa-eye-dropper" style="padding-left: 10px; padding-right: 10px" title="Eyedropper" id="eyedropper_icon"></i>
-    <input type="checkbox" id="eyedropper" checked=false>
-  </div>
-
-  <div id="eraser_tool" class="tool unselectable" style="border-left: none;">
-    <i class="fas fa-eraser" style="padding-left: 10px; padding-right: 10px" title="Eraser" id="eraser_icon"></i>
-    <input type="checkbox" id="eraser" checked=false>
-  </div>
-
-  <div id="paintbucket_tool" class="tool unselectable" style="border-left: none;">
-    <i class="fas fa-fill" style="padding-left: 10px; padding-right: 10px" title="Paint bucket" id="paintbucket_icon"></i>
-    <input type="checkbox" id="paintbucket" checked=false>
-  </div>
-
-  <div id="undo_tool" class="tool unselectable" style="border-left: none;">
-    <i class="fas fa-undo" style="padding-left: 10px; padding-right: 10px" title="Undo" id="undo_icon"></i>
-    <button class="btn btn-secondary btn-sm" id="undo">Undo</button>
-  </div>
-
-
-</div>
-
-<ul class="navbar-nav">
+<ul class="nav nav-tabs device-small" id="myTab" role="tablist">
   <li class="nav-item">
-    <a href="#" style="display: none" class="nav-link" id="tshirt-uploader">order canvas print</a>
+    <a class="nav-link active" id="canvas_tab-tab" data-toggle="tab" href="#canvas_tab" role="tab" aria-controls="canvas_tab" aria-selected="true">Canvas</a>
   </li>
   <li class="nav-item">
-    <a href="#" class="nav-link" id="private_room">create a private room</a>
+    <a class="nav-link" id="call_tab-tab" data-toggle="tab" href="#call_tab" role="tab" aria-controls="call_tab" aria-selected="false">Call</a>
   </li>
   <li class="nav-item">
-    <a href="#" class="nav-link" id="downloader" download="image.png">download canvas</a>
+    <a class="nav-link" id="chat_tab-tab" data-toggle="tab" href="#chat_tab" role="tab" aria-controls="chat_tab" aria-selected="false">Chat</a>
   </li>
   <li class="nav-item">
-    <a href="#" class="nav-link" id="uploader">add image to gallery</a>
+    <a class="nav-link" id="texteditor_tab-tab" data-toggle="tab" href="#texteditor_tab" role="tab" aria-controls="texteditor_tab" aria-selected="false">Editor</a>
   </li>
   <li class="nav-item">
-    <a href="/gallery" class="nav-link" id="gallery_link" target="_blank">gallery</a>
-  </li>
-  <li class="nav-item">
-    <a href="https://discord.gg/354vSWQDaf" class="nav-link" id="discord_link" target="_blank">discord</a>
-  </li>
-  <li class="nav-item">
-    <a href="/stats?room=<%= room %>" class="nav-link" target="_blank">stats</a>
-  </li>
-  <li class="nav-item">
-    <a href="/buy_ad" class="nav-link" target="_blank">advertise here for $10/month</a>
-  </li>
-  <% unless room == "" %>
-  <li class="nav-item">
-    <a href="#" class="nav-link" id="clear_canvas">clear canvas</a>
-  </li>
-  <% end %>
-  <li class="nav-item nav-item-end">
-    <a href="#" class="nav-link" id="full-screen">full screen</a>
+    <a class="nav-link" id="links_tab-tab" data-toggle="tab" href="#links_tab" role="tab" aria-controls="links_tab" aria-selected="false">Links</a>
   </li>
 </ul>
 
-<div id="bgCanvasDiv"></div>
 
-<div id="canvasDivHolder" style="float: left; display: inline; background-color: white;">
-  <div id="canvasDiv" style="background-image: linear-gradient(45deg, #808080 25%, transparent 25%), linear-gradient(-45deg, #808080 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #808080 75%), linear-gradient(-45deg, transparent 75%, #808080 75%); background-size: 20px 20px; background-position: 0 0, 0 10px, 10px -10px, -10px 0px;"></div>
-</div>
 
-<div id="video_chat" class="unselectable" style="float: left; display: inline;">
 
-  <% if ad != "" && banner_link != "" %>
-      <div id="gbaldvertisement">
-        <a href="<%= Sanitizer.process(banner_link) %>" id="gbaldvertisement_link" target="_new"><img id="gbaldvertisement_img" src="data:image/png;base64,<%= Sanitizer.process(ad) %>"></a>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="canvas_tab" role="tabpanel" aria-labelledby="canvas_tab-tab">
+  
+
+    <div id="toolbox" style="display: inline; font-size: 10px;">
+      <div id="last-colors">
+        <% (0..15).each do |num| %>
+          <div class="swatch" id="last-color-<%= num %>"></div>
+        <% end %>
+
+        <select name="palette-selector" id="palette-selector">
+          <option value="mac">Mac</option>
+          <option value="windows">Windows</option>
+        </select>
       </div>
-  <% end %>
-
-  <div class="clear"></div>
-
-  <div style="visibility: hidden">Random User ID:
-    <span id="current-user"><%= random_number %></span>
-  </div>
-
-  <div id="remote-video-container"></div>
-  <div id="local-video-container" style="float: left; width: 25%; height: 25%;">
-    <p id="cam-name"></p>
-    <video id="local-video" autoplay playsinline style="width: 100%; height: 100%; padding-left: 10px;"></video>
-  </div>
-
-  <div class="clear"></div>
 
 
-  <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Input
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item" href="#">cam</a>
-      <a class="dropdown-item" href="#">screen</a>
+
+      
+      <div id="color_tool" class="tool unselectable">
+        <i class="fas fa-palette" style="padding-left: 10px; padding-right: 10px;" title="Color" id="color_icon"></i>
+        <input type="color" id="color" value="#000000" />
+      </div>
+
+      <div id="brush_type_tool" class="tool unselectable" style="border-left: none;">
+      <i class="fas fa-ruler-combined" style="padding-left: 10px; padding-right: 10px;" title="Line Join" id="brush_type_icon"></i>
+        <select name="brush_type" id="brush_type">
+          <option value="round">Round</option>
+          <option value="bevel">Bevel</option>
+          <option value="miter">Miter</option>
+        </select>
+      </div>
+
+        <div id="brush_style_tool" class="tool unselectable" style="border-left: none;">
+      <i class="fas fa-paint-brush" style="padding-left: 10px; padding-right: 10px;" title="Brush Type" id="brush_type_icon"></i>
+        <select name="brush_style" id="brush_style">
+          <option value="none">None</option>
+          <option value="chrome">Chrome</option>
+          <option value="shaded">Shaded</option>
+        </select>
+      </div>
+
+      
+      <div id="size_tool" class="tool unselectable" style="border-left: none;">
+        <i class="fas fa-ruler" style="padding-left: 10px; padding-right: 10px" title="Size" id="brush_size_icon"></i>
+        rand: <input type="checkbox" id="random-brush-size" checked=false>
+        <input style="width: 50px;" type="range" min="1" max="35" value="3" class="slider" id="brush-size">
+      </div>
+
+
+
+      <div id="name_changer" class="tool unselectable" style="border-left: none;"><strong style="padding-left: 10px; padding-right: 10px"></strong> <input style="width: 100px;" type="text" id="name" maxlength=30 /></div>
+
+      <div id="rainbow-pen-tool" class="tool unselectable" style="border-left: none;">
+        <i class="fas fa-rainbow" style="padding-left: 10px; padding-right: 10px" title="Rainbow" id="rainbow_icon"></i>
+        <input type="checkbox" id="rainbow" checked=false>
+      </div>
+
+      <div id="rainbow-pen-tool-style" class="tool unselectable" style="border-left: none;">
+        <select name="themes" id="themes">
+          <option value="rain">Rainbow</option>
+          <option value="camo">Camoflauge</option>
+          <option value="bluesky">Blue Sky</option>
+          <option value="summerwave">Summer Wave</option>
+          <option value="relaxing">Relaxing</option>
+          <option value="sunrise">Sunrise</option>
+          <option value="pinksunrise">Pink Sunrise</option>
+          <option value="beigesky">Beige Sky</option>
+          <option value="oldschoolpixel">Oldschool Pixel</option>
+          <option value="orangesunrise">Orange Sunrise</option>
+          <option value="purplesunset">Purple Sunset</option>
+          <option value="grayhorizon">Gray Horizon</option>
+          <option value="earlymorning">Early Morning</option>
+          <option value="crimsonnight">Crimson Night</option>
+          <option value="twilightforest">Twilight Forest</option>
+          <option value="forestmoon">Forest Moon</option>
+          <option value="burntsun">Burnt Sun</option>
+          <option value="beforenight">Before Night</option>
+        </select>
+      </div>
+
+      <div id="shape_tool" class="tool unselectable" style="border-left: none;">
+        <i class="fas fa-shapes" style="padding-left: 10px; padding-right: 10px" title="Shape Tool" id="shape_tool_icon"></i>
+        fill: <input type="checkbox" id="shape_fill" checked=false>
+        <select name="shape_type" id="shape_type">
+            <option value="none">none</option>
+            <option value="rect">rectangle</option>
+            <option value="circle">circle</option>
+            <option value="triangle">triangle</option>
+        </select>
+        <p id="a_param" style="display: inline; width: 50px;"><span id="a_label">w</span> <input type="text" id="shape_width" name="shape_width" style="display: inline; width: 50px;" value="200"/></p>
+        <p id="b_param" style="display: inline; width: 50px;"><span id="b_label">h</span> <input type="text" id="shape_height" name="shape_height" style="display: inline; width: 50px;" value="200"/></p>
+        <p id="c_param" style="display: inline; width: 50px;"><span id="c_label">c</span> <input type="text" id="shape_angle" name="shape_angle" style="display: inline; width: 50px;" value="160"/></p>
+      
+      </div>
+
+      <div id="text-tool-holder" class="tool unselectable" style="border-left: none;">
+        <i class="fas fa-paragraph" style="padding-left: 10px; padding-right: 10px" title="Text" id="text_tool_icon"></i>
+        <input type="checkbox" id="text-tool" checked=false>
+        <input style="width: 100px;" type="text" id="text-to-write" maxlength=100 />
+      </div>
+
+      <div id="eyedropper-tool" class="tool unselectable" style="border-left: none;">
+        <i class="fas fa-eye-dropper" style="padding-left: 10px; padding-right: 10px" title="Eyedropper" id="eyedropper_icon"></i>
+        <input type="checkbox" id="eyedropper" checked=false>
+      </div>
+
+      <div id="eraser_tool" class="tool unselectable" style="border-left: none;">
+        <i class="fas fa-eraser" style="padding-left: 10px; padding-right: 10px" title="Eraser" id="eraser_icon"></i>
+        <input type="checkbox" id="eraser" checked=false>
+      </div>
+
+      <div id="paintbucket_tool" class="tool unselectable" style="border-left: none;">
+        <i class="fas fa-fill" style="padding-left: 10px; padding-right: 10px" title="Paint bucket" id="paintbucket_icon"></i>
+        <input type="checkbox" id="paintbucket" checked=false>
+      </div>
+
+      <div id="undo_tool" class="tool unselectable" style="border-left: none;">
+        <i class="fas fa-undo" style="padding-left: 10px; padding-right: 10px" title="Undo" id="undo_icon"></i>
+        <button class="btn btn-secondary btn-sm" id="undo">Undo</button>
+      </div>
+
+
     </div>
-    <select id="input" style="display: none">
-      <option value="cam" selected>cam</option>
-      <option value="screen">screen</option>
-    </select>
+
+    <div id="bgCanvasDiv"></div>
+
+    <div id="canvasDivHolder" style="float: left; display: inline; background-color: white;">
+      <div id="canvasDiv" style="background-image: linear-gradient(45deg, #808080 25%, transparent 25%), linear-gradient(-45deg, #808080 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #808080 75%), linear-gradient(-45deg, transparent 75%, #808080 75%); background-size: 20px 20px; background-position: 0 0, 0 10px, 10px -10px, -10px 0px;"></div>
+    </div>
+
+
   </div>
+  <div class="tab-pane fade" id="call_tab" role="tabpanel" aria-labelledby="call_tab-tab">
+    <div id="video_chat" class="unselectable" style="float: left; display: inline;">
 
-  <select id="cameras"></select>
+      <% if ad != "" && banner_link != "" %>
+          <div id="gbaldvertisement">
+            <a href="<%= Sanitizer.process(banner_link) %>" id="gbaldvertisement_link" target="_new"><img id="gbaldvertisement_img" src="data:image/png;base64,<%= Sanitizer.process(ad) %>"></a>
+          </div>
+      <% end %>
 
-  <select id="audio_inputs"></select>
+      <div class="clear"></div>
 
-  <div id="cam_buttons_holder" style="padding-top: 10px;">
-    <button class="btn btn-primary" id="join-button">Join with Video</button>
-    <button class="btn btn-primary" id="join-audio-button">Join with Audio</button>
-    <button class="btn btn-secondary" id="leave-button">Hangup</button>
-    <button class="btn btn-secondary" id="mute-button">Mute</button>
-    <button class="btn btn-secondary" id="video-mute-button">Stop cam</button>
-    <input type="range" min="0.0" max="1.0" value="1.0" step="0.01" class="slider" id="call-volume">
-  </div>
+      <div style="visibility: hidden">Random User ID:
+        <span id="current-user"><%= random_number %></span>
+      </div>
 
-  <div>copy link to this room: <input type="text" id="site_link" /><button id="copy_link">copy link</button></div>
+      <div id="remote-video-container"></div>
+      <div id="local-video-container" style="float: left; width: 25%; height: 25%;">
+        <p id="cam-name"></p>
+        <video id="local-video" autoplay playsinline style="width: 100%; height: 100%; padding-left: 10px;"></video>
+      </div>
 
-  <div id="dark_mode_holder"><input type="checkbox" name="dark_mode" id="dark_mode"/> Dark Mode</div>
+      <div class="clear"></div>
 
-  <div id="chat_area_holder" class="unselectable">
-    <div>
-        <div id="online_list" class="unselectable" style="width: 30%; overflow: scroll; float: left;"><ul id="connected_users"></ul></div>
-        <div id="chat_area" name="chat_area" style="width: 70%; overflow: scroll; float: left; resize: both; max-width: 80%">
-        <% chats.each do |c| -%>
-        <p style='margin: 0px'>&lt<%= Sanitizer.process "#{JSON.parse(c.to_s)["name"]}" %>&gt <%= Sanitizer.process "#{JSON.parse(c.to_s)["chat_message"]}" %></p>
-        <% end -%>
+
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Input
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">cam</a>
+          <a class="dropdown-item" href="#">screen</a>
         </div>
-    </div>
-    <div class="clear"></div>
-    <p>
-      <div class="actions" style="display: inline">
-        <!-- <input type="color" id="text_back_color" value="#000000" /> -->
-        <input type="color" id="text_color" value="#000000" />
-        <button class="btn btn-primary" data-action="bold">bold</button>
-        <button class="btn btn-primary" data-action="italic">italic</button>
-        <button class="btn btn-primary" data-action="createLink">link</button>
-        <button class="btn btn-primary" data-action="insertImage">image</button>
-        <button class="btn btn-primary" data-action="searchGiphy">gif</button>
-        <button class="btn btn-primary" data-action="insertHTML">html</button>
+        <select id="input" style="display: none">
+          <option value="cam" selected>cam</option>
+          <option value="screen">screen</option>
+        </select>
       </div>
-      <button class="btn btn-primary" style="display: inline-block" id="emoji-trigger">emoji</button>
-    </p>
-    <p><div contenteditable="true" id="chat_message" name="chat_message" style="width: 85%; border: lightblue 1px solid; display: inline-block;"></div><button class="btn btn-primary" style="display: inline-block; margin-top: -15px;" id="send_message">Send</button></p>
+
+      <select id="cameras"></select>
+
+      <select id="audio_inputs"></select>
+
+      <div id="cam_buttons_holder" style="padding-top: 10px;">
+        <button class="btn btn-primary" id="join-button">Join with Video</button>
+        <button class="btn btn-primary" id="join-audio-button">Join with Audio</button>
+        <button class="btn btn-secondary" id="leave-button">Hangup</button>
+        <button class="btn btn-secondary" id="mute-button">Mute</button>
+        <button class="btn btn-secondary" id="video-mute-button">Stop cam</button>
+        <input type="range" min="0.0" max="1.0" value="1.0" step="0.01" class="slider" id="call-volume">
+      </div>
+
+      <div>copy link to this room: <input type="text" id="site_link" /><button id="copy_link">copy link</button></div>
+
+      <div id="dark_mode_holder"><input type="checkbox" name="dark_mode" id="dark_mode"/> Dark Mode</div>
+
+    </div>
+  </div>
+  <div class="tab-pane fade" id="chat_tab" role="tabpanel" aria-labelledby="chat_tab-tab">
+    <div id="chat_area_holder" class="unselectable">
+      <div id="online_list" class="unselectable" style="width: 30%; overflow: scroll; float: left;"><ul id="connected_users"></ul></div>
+      <div id="chat_area" name="chat_area" style="width: 70%; overflow: scroll; float: left; resize: both; max-width: 80%">
+      <% chats.each do |c| -%>
+      <p style='margin: 0px'>&lt<%= Sanitizer.process "#{JSON.parse(c.to_s)["name"]}" %>&gt <%= Sanitizer.process "#{JSON.parse(c.to_s)["chat_message"]}" %></p>
+      <% end -%>
+      </div>
+      <div class="clear">
+        <p>
+          <div class="actions" style="display: inline">
+            <!-- <input type="color" id="text_back_color" value="#000000" /> -->
+            <input type="color" id="text_color" value="#000000" />
+            <button class="btn btn-primary" data-action="bold">bold</button>
+            <button class="btn btn-primary" data-action="italic">italic</button>
+            <button class="btn btn-primary" data-action="createLink">link</button>
+            <button class="btn btn-primary" data-action="insertImage">image</button>
+            <button class="btn btn-primary" data-action="searchGiphy">gif</button>
+            <button class="btn btn-primary" data-action="insertHTML">html</button>
+          </div>
+          <button class="btn btn-primary" style="display: inline-block" id="emoji-trigger">emoji</button>
+        </p>
+        <p><div contenteditable="true" id="chat_message" name="chat_message" style="width: 85%; border: lightblue 1px solid; display: inline-block;"></div><button class="btn btn-primary" style="display: inline-block; margin-top: -15px;" id="send_message">Send</button></p>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="texteditor_tab" role="tabpanel" aria-labelledby="texteditor_tab-tab">
+    <div id="collaborative_text_holder">
+
+      <textarea spellcheck="false" id="collaborative_text"></textarea>
+
+    </div>
+  </div>
+  <div class="tab-pane fade" id="links_tab" role="tabpanel" aria-labelledby="links_tab-tab">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a href="#" style="display: none" class="nav-link" id="tshirt-uploader">order canvas print</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link" id="private_room">create a private room</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link" id="downloader" download="image.png">download canvas</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link" id="uploader">add image to gallery</a>
+      </li>
+      <li class="nav-item">
+        <a href="/gallery" class="nav-link" id="gallery_link" target="_blank">gallery</a>
+      </li>
+      <li class="nav-item">
+        <a href="https://discord.gg/354vSWQDaf" class="nav-link" id="discord_link" target="_blank">discord</a>
+      </li>
+      <li class="nav-item">
+        <a href="/stats?room=<%= room %>" class="nav-link" target="_blank">stats</a>
+      </li>
+      <li class="nav-item">
+        <a href="/buy_ad" class="nav-link" target="_blank">advertise here for $10/month</a>
+      </li>
+      <% unless room == "" %>
+      <li class="nav-item">
+        <a href="#" class="nav-link" id="clear_canvas">clear canvas</a>
+      </li>
+      <% end %>
+      <li class="nav-item nav-item-end">
+        <a href="#" class="nav-link" id="full-screen">full screen</a>
+      </li>
+    </ul>
   </div>
 </div>
-
-</div>
-
-
-<div id="collaborative_text_holder">
-
-<textarea spellcheck="false" id="collaborative_text"></textarea>
-
-</div>
-
 
 
 
