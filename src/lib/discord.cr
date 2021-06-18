@@ -14,8 +14,8 @@ class DiscordBot
             message = payload.content
             name = payload.author.username
 
-            next if name == "Gbaldraw" || name == "gbaldraw-bridge" || name == "gbaldraw-bridge-dev"
-
+            return if name.includes?("gbaldraw-bridge") || name.includes?("Gbaldraw")
+            
             name = "#{name}@discord"
         
             puts "#{name} said #{message}"
