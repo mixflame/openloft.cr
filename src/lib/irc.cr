@@ -172,16 +172,16 @@ class Client
   def configure
     @server = "irc.rizon.io"
     @port = 6667
-    @nick = "gbaldraw-bridge-#{Random.rand(10).to_i.to_s}"
+    @nick = "gbaldraw-bridge"
     if Amber.env == :development
-        @nick = "gbaldraw-bridge-dev-#{Random.rand(10).to_i.to_s}"
+        @nick = "gbaldraw-bridge-dev"
     end
     @user = "gbaldraw-bridge"
     @password = "none"
     if Amber.env == :development
       @channels = ["#gbaldraw"]
     else
-      @channels = ["#gbaldraw", "#8chan"]
+      @channels = ["#gbaldraw", "#8chan", "#ripirc", "#war", "##8chan"]
     end
   end
 end
