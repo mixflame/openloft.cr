@@ -181,7 +181,7 @@ class Client
     if Amber.env == :development
       @channels = ["#gbaldraw"]
     else
-      @channels = ["#gbaldraw", "#8chan", "#ripirc", "#war", "##8chan"]
+      @channels = ["#gbaldraw"]
     end
   end
 end
