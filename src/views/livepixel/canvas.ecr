@@ -157,57 +157,57 @@
   </div>
   <div class="tab-pane fade" id="call_tab" role="tabpanel" aria-labelledby="call_tab-tab">
     <div id="video_chat" class="unselectable" style="float: left; display: inline;">
+      <div id="center_holder">
+        <% if ad != "" && banner_link != "" %>
+            <div id="gbaldvertisement">
+              <a href="<%= Sanitizer.process(banner_link) %>" id="gbaldvertisement_link" target="_new"><img id="gbaldvertisement_img" src="data:image/png;base64,<%= Sanitizer.process(ad) %>"></a>
+            </div>
+        <% end %>
 
-      <% if ad != "" && banner_link != "" %>
-          <div id="gbaldvertisement">
-            <a href="<%= Sanitizer.process(banner_link) %>" id="gbaldvertisement_link" target="_new"><img id="gbaldvertisement_img" src="data:image/png;base64,<%= Sanitizer.process(ad) %>"></a>
-          </div>
-      <% end %>
+        <div class="clear"></div>
 
-      <div class="clear"></div>
-
-      <div style="visibility: hidden">Random User ID:
-        <span id="current-user"><%= random_number %></span>
-      </div>
-
-      <div id="remote-video-container"></div>
-      <div id="local-video-container" style="float: left; width: 25%; height: 25%;">
-        <p id="cam-name"></p>
-        <video id="local-video" autoplay playsinline style="width: 100%; height: 100%; padding-left: 10px;"></video>
-      </div>
-
-      <div class="clear"></div>
-
-
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Input
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">cam</a>
-          <a class="dropdown-item" href="#">screen</a>
+        <div style="visibility: hidden">Random User ID:
+          <span id="current-user"><%= random_number %></span>
         </div>
-        <select id="input" style="display: none">
-          <option value="cam" selected>cam</option>
-          <option value="screen">screen</option>
-        </select>
+
+        <div id="remote-video-container"></div>
+        <div id="local-video-container" style="float: left; width: 25%; height: 25%;">
+          <p id="cam-name"></p>
+          <video id="local-video" autoplay playsinline style="width: 100%; height: 100%; padding-left: 10px;"></video>
+        </div>
+
+        <div class="clear"></div>
+
+
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Input
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">cam</a>
+            <a class="dropdown-item" href="#">screen</a>
+          </div>
+          <select id="input" style="display: none">
+            <option value="cam" selected>cam</option>
+            <option value="screen">screen</option>
+          </select>
+        </div>
+
+        <p><select id="cameras"></select><select id="audio_inputs"></select></p>
+
+        <div id="cam_buttons_holder" style="padding-top: 10px;">
+          <button class="btn btn-primary" id="join-button">Join with Video</button>
+          <button class="btn btn-primary" id="join-audio-button">Join with Audio</button>
+          <button class="btn btn-secondary" id="leave-button">Hangup</button>
+          <button class="btn btn-secondary" id="mute-button">Mute</button>
+          <button class="btn btn-secondary" id="video-mute-button">Stop cam</button>
+          <input type="range" min="0.0" max="1.0" value="1.0" step="0.01" class="slider" id="call-volume">
+        </div>
+
+        <div><p>copy link to this room: <input type="text" id="site_link" /><button id="copy_link">copy link</button></p></div>
+
+        <div id="dark_mode_holder"><p><input type="checkbox" name="dark_mode" id="dark_mode"/> Dark Mode</p></div>
       </div>
-
-      <p><select id="cameras"></select><select id="audio_inputs"></select></p>
-
-      <div id="cam_buttons_holder" style="padding-top: 10px;">
-        <button class="btn btn-primary" id="join-button">Join with Video</button>
-        <button class="btn btn-primary" id="join-audio-button">Join with Audio</button>
-        <button class="btn btn-secondary" id="leave-button">Hangup</button>
-        <button class="btn btn-secondary" id="mute-button">Mute</button>
-        <button class="btn btn-secondary" id="video-mute-button">Stop cam</button>
-        <input type="range" min="0.0" max="1.0" value="1.0" step="0.01" class="slider" id="call-volume">
-      </div>
-
-      <div><p>copy link to this room: <input type="text" id="site_link" /><button id="copy_link">copy link</button></p></div>
-
-      <div id="dark_mode_holder"><p><input type="checkbox" name="dark_mode" id="dark_mode"/> Dark Mode</p></div>
-
     </div>
   </div>
   <div class="tab-pane fade" id="chat_tab" role="tabpanel" aria-labelledby="chat_tab-tab">
