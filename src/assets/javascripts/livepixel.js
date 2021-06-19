@@ -33,12 +33,6 @@ window.isTabletOrPhone = smallDevice; ///(iphone|ipad|tablet|(android(?!.*mobile
 
 if (isTabletOrPhone) {
     try {
-        screen.orientation.lock();   // webkit only
-
-    } catch (e) {
-        console.log("orientation lock error: " + e.message);
-    }
-    try {
         screen.lockOrientation("orientation");
 
     } catch (e) {
@@ -1380,6 +1374,11 @@ var tap = function (e) {
     // mouseX = scaledPositionX(mouseX);
     // mouseY = scaledPositionY(mouseY);
 
+    var force = e.targetTouches[0].force;
+
+    // $("#brush-size").val(force * 35);
+    // curSize = $("#brush-size").val();
+
     if ($("#eyedropper").is(":checked")) {
         var canvasElement = $("#canvas")[0];
         var p = canvasElement.getContext('2d').getImageData(mouseX, mouseY, 1, 1).data;
@@ -1455,6 +1454,11 @@ var tapDrag = function (e) {
 
     // mouseX = scaledPositionX(mouseX);
     // mouseY = scaledPositionY(mouseY);
+
+    var force = e.targetTouches[0].force;
+
+    // $("#brush-size").val(force * 35);
+    // curSize = $("#brush-size").val();
 
     if ($("#random-brush-size").is(":checked")) {
         curSize = Math.floor(Math.random() * 35 + 1)
@@ -2237,31 +2241,32 @@ $(function () {
         window.curText = curText;
     })
 
-    Pressure.set('#canvas', {
-        start: function (event) {
-            // this is called on force start
-        },
-        end: function () {
-            // this is called on force end
-        },
-        startDeepPress: function (event) {
-            // this is called on "force click" / "deep press", aka once the force is greater than 0.5
-        },
-        endDeepPress: function () {
-            // this is called when the "force click" / "deep press" end
-        },
-        change: function (force, event) {
-            // this is called every time there is a change in pressure
-            // 'force' is a value ranging from 0 to 1
-            $("#brush-size").val(force * 35);
-            curSize = $("#brush-size").val();
-        },
-        unsupported: function () {
-            // console.log("unsupported...");
-            // NOTE: this is only called if the polyfill option is disabled!
-            // this is called once there is a touch on the element and the device or browser does not support Force or 3D touch
-        }
-    }, { polyfill: false });
+    // Pressure.set('#canvas', {
+    //     start: function (event) {
+    //         // this is called on force start
+    //     },
+    //     end: function () {
+    //         // this is called on force end
+    //     },
+    //     startDeepPress: function (event) {
+    //         // this is called on "force click" / "deep press", aka once the force is greater than 0.5
+    //     },
+    //     endDeepPress: function () {
+    //         // this is called when the "force click" / "deep press" end
+    //     },
+    //     change: function (force, event) {
+    //         // this is called every time there is a change in pressure
+    //         // 'force' is a value ranging from 0 to 1
+    //         console.log(force)
+    //         $("#brush-size").val(force * 35);
+    //         curSize = $("#brush-size").val();
+    //     },
+    //     unsupported: function () {
+    //         // console.log("unsupported...");
+    //         // NOTE: this is only called if the polyfill option is disabled!
+    //         // this is called once there is a touch on the element and the device or browser does not support Force or 3D touch
+    //     }
+    // }, { polyfill: true });
 
     var date = new Date();
     // is it october or november?
