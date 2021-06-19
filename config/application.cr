@@ -65,11 +65,11 @@ class HTTP::Server
 
 end
 
-Amber::Server.instance.pubsub_adapter = Amber::WebSockets::Adapters::RedisAdapter
+# Amber::Server.instance.pubsub_adapter = Amber::WebSockets::Adapters::RedisAdapter
 
-# hack
+# # hack
 
-puts "using #{Amber::Server.pubsub_adapter}"
+# puts "using #{Amber::Server.pubsub_adapter}"
 
 # REDIS = Redis.new
 
