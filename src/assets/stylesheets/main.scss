@@ -465,6 +465,50 @@ a:visited {
 }
 
 
+@media (max-width: 375px) {
+    #video_chat {
+        position: absolute;
+        top: 17%;
+        left: 0px;
+        width: 100vw;
+        height: 100vh;
+    }
+    #online_list {
+        position: absolute;
+        top: 17%;
+        left: 0px;
+        min-height: 35vh;
+        height: 35vh;
+        min-width: 25vw;
+        width: 25vw;
+    }
+    #chat_area {
+        position: absolute;
+        top: 17%;
+        left: 30%;
+        min-height: 35vh;
+        height: 35vh;
+        min-width: 75vw;
+        width: 75vw;
+    }
+    .chat_message_holder {
+        position: absolute;
+        left: 0px;
+        bottom: 0px;
+    }
+    #collaborative_text_holder {
+        position: absolute;
+        top: 17%;
+        left: 0px;
+        bottom: 0px;
+        right: 0px;
+        min-height: 100vh;
+        height: 100vh;
+        min-width: 100vw;
+        width: 100vw;
+    }
+}
+
 /* big device */
 
 @media only screen and (min-width: 1290px) {
