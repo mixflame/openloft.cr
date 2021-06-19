@@ -1365,6 +1365,7 @@ var tap = function (e) {
             var touch = event.touches[0];
             var mouseX = (touch.pageX - this.offsetLeft);
             var mouseY = (touch.pageY - this.offsetTop);
+            var force = e.targetTouches[0].force;
         } else {
             return true;
         }
@@ -1374,7 +1375,7 @@ var tap = function (e) {
     // mouseX = scaledPositionX(mouseX);
     // mouseY = scaledPositionY(mouseY);
 
-    var force = e.targetTouches[0].force;
+    
 
     // $("#brush-size").val(force * 35);
     // curSize = $("#brush-size").val();
@@ -1447,6 +1448,7 @@ var tapDrag = function (e) {
             var touch = event.touches[0];
             var mouseX = (touch.pageX - this.offsetLeft);
             var mouseY = (touch.pageY - this.offsetTop);
+            var force = e.targetTouches[0].force;
         } else {
             return true;
         }
@@ -1455,7 +1457,7 @@ var tapDrag = function (e) {
     // mouseX = scaledPositionX(mouseX);
     // mouseY = scaledPositionY(mouseY);
 
-    var force = e.targetTouches[0].force;
+    
 
     // $("#brush-size").val(force * 35);
     // curSize = $("#brush-size").val();
