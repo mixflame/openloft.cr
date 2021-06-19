@@ -3057,6 +3057,9 @@ $(function () {
         }
     })
 
+
+    $("#cam-name").html(window.name);
+
 })
 
 window.gotDevices = (mediaDevices) => {

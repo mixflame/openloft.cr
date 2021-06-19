@@ -377,9 +377,12 @@ a:visited {
     user-select: none;
 }
 
+#video_chat {
+    padding: 10px;
+}
+
 #video_chat > #center_holder {
-    display: flex;
-    justify-content: center;
+    margin: 0 auto;
 }
 
 .btn {
