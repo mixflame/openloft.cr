@@ -2494,7 +2494,7 @@ $(function () {
 
     if (navigator.mediaDevices) navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(() => console.log("error enumeration devices"));
 
-    if (!isTabletOrPhone) {
+    if (false) { // windowing system disabled
         window.canvas_window = wm.createWindow.fromQuery('#canvasDivHolder', {
             title: 'Collaborative Canvas',
             width: screen.width * 0.60,
