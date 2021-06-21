@@ -2975,81 +2975,81 @@ $(function () {
     })
 
     // subscribe to visibility change events
-    document.addEventListener('visibilitychange', function () {
-        // fires when user switches tabs, apps, goes to homescreen, etc.
-        if (document.visibilityState == 'hidden') {
-            // try {window.camera_session.leave();} catch(e) { console.log(e) }
-            try { window.canvas_channel.leave(); } catch (e) { console.log(e) }
-            try { window.chat_channel.leave(); } catch (e) { console.log(e) }
-            try { window.persistence_channel.leave(); } catch (e) { console.log(e) }
-            try { window.text_channel.leave(); } catch (e) { console.log(e) }
+    // document.addEventListener('visibilitychange', function () {
+    //     // fires when user switches tabs, apps, goes to homescreen, etc.
+    //     if (document.visibilityState == 'hidden') {
+    //         // try {window.camera_session.leave();} catch(e) { console.log(e) }
+    //         try { window.canvas_channel.leave(); } catch (e) { console.log(e) }
+    //         try { window.chat_channel.leave(); } catch (e) { console.log(e) }
+    //         try { window.persistence_channel.leave(); } catch (e) { console.log(e) }
+    //         try { window.text_channel.leave(); } catch (e) { console.log(e) }
 
-            // handleLeaveSession();
-        }
+    //         // handleLeaveSession();
+    //     }
 
-        // fires when app transitions from prerender, user returns to the app / tab.
-        if (document.visibilityState == 'visible') {
-            window.canvas_socket = new Amber.Socket('/canvas')
-            window.canvas_socket.connect()
-                .then(setupCanvas)
-            window.canvas_socket._reconnect = () => {
-                clearTimeout(window.canvas_socket.reconnectTimeout)
-                window.canvas_socket.reconnectTimeout = setTimeout(() => {
-                    window.canvas_socket.reconnectTries++
-                    window.canvas_socket.connect(window.canvas_socket.params).then(setupCanvas);
-                    window.canvas_socket._reconnect()
-                }, window.canvas_socket._reconnectInterval())
-            }
-            window.chat_socket = new Amber.Socket('/chat')
-            chat_socket.connect()
-                .then(setupChat)
-            window.chat_socket._reconnect = () => {
-                clearTimeout(window.chat_socket.reconnectTimeout)
-                window.chat_socket.reconnectTimeout = setTimeout(() => {
-                    window.chat_socket.reconnectTries++
-                    window.chat_socket.connect(window.chat_socket.params).then(setupChat);
-                    window.chat_socket._reconnect()
-                }, window.chat_socket._reconnectInterval())
-            }
-            window.text_socket = new Amber.Socket('/text')
-            text_socket.connect()
-                .then(setupText)
-            window.text_socket._reconnect = () => {
-                clearTimeout(window.text_socket.reconnectTimeout)
-                window.text_socket.reconnectTimeout = setTimeout(() => {
-                    window.text_socket.reconnectTries++
-                    window.text_socket.connect(window.text_socket.params).then(setupText);
-                    window.text_socket._reconnect()
-                }, window.text_socket._reconnectInterval())
-            }
+    //     // fires when app transitions from prerender, user returns to the app / tab.
+    //     if (document.visibilityState == 'visible') {
+    //         window.canvas_socket = new Amber.Socket('/canvas')
+    //         window.canvas_socket.connect()
+    //             .then(setupCanvas)
+    //         window.canvas_socket._reconnect = () => {
+    //             clearTimeout(window.canvas_socket.reconnectTimeout)
+    //             window.canvas_socket.reconnectTimeout = setTimeout(() => {
+    //                 window.canvas_socket.reconnectTries++
+    //                 window.canvas_socket.connect(window.canvas_socket.params).then(setupCanvas);
+    //                 window.canvas_socket._reconnect()
+    //             }, window.canvas_socket._reconnectInterval())
+    //         }
+    //         window.chat_socket = new Amber.Socket('/chat')
+    //         chat_socket.connect()
+    //             .then(setupChat)
+    //         window.chat_socket._reconnect = () => {
+    //             clearTimeout(window.chat_socket.reconnectTimeout)
+    //             window.chat_socket.reconnectTimeout = setTimeout(() => {
+    //                 window.chat_socket.reconnectTries++
+    //                 window.chat_socket.connect(window.chat_socket.params).then(setupChat);
+    //                 window.chat_socket._reconnect()
+    //             }, window.chat_socket._reconnectInterval())
+    //         }
+    //         window.text_socket = new Amber.Socket('/text')
+    //         text_socket.connect()
+    //             .then(setupText)
+    //         window.text_socket._reconnect = () => {
+    //             clearTimeout(window.text_socket.reconnectTimeout)
+    //             window.text_socket.reconnectTimeout = setTimeout(() => {
+    //                 window.text_socket.reconnectTries++
+    //                 window.text_socket.connect(window.text_socket.params).then(setupText);
+    //                 window.text_socket._reconnect()
+    //             }, window.text_socket._reconnectInterval())
+    //         }
 
-            persistence_socket.connect()
-                .then(setupPersistence)
-            window.persistence_socket._reconnect = () => {
-                clearTimeout(window.persistence_socket.reconnectTimeout)
-                window.persistence_socket.reconnectTimeout = setTimeout(() => {
-                    window.persistence_socket.reconnectTries++
-                    window.persistence_socket.connect(window.persistence_socket.params).then(setupPersistence);
-                    window.persistence_socket._reconnect()
-                }, window.persistence_socket._reconnectInterval())
-            }
-            window.camera_socket = new Amber.Socket('/session')
-            camera_socket.connect()
-                .then(setupSession)
-            window.camera_socket._reconnect = () => {
-                clearTimeout(window.camera_socket.reconnectTimeout)
-                window.camera_socket.reconnectTimeout = setTimeout(() => {
-                    window.camera_socket.reconnectTries++
-                    window.camera_socket.connect(window.camera_socket.params).then(() => {
-                        // handleLeaveSession();
-                        setupSession();
-                        // handleJoinSession();
-                    });
-                    window.camera_socket._reconnect()
-                }, window.camera_socket._reconnectInterval())
-            }
-        }
-    });
+    //         persistence_socket.connect()
+    //             .then(setupPersistence)
+    //         window.persistence_socket._reconnect = () => {
+    //             clearTimeout(window.persistence_socket.reconnectTimeout)
+    //             window.persistence_socket.reconnectTimeout = setTimeout(() => {
+    //                 window.persistence_socket.reconnectTries++
+    //                 window.persistence_socket.connect(window.persistence_socket.params).then(setupPersistence);
+    //                 window.persistence_socket._reconnect()
+    //             }, window.persistence_socket._reconnectInterval())
+    //         }
+    //         window.camera_socket = new Amber.Socket('/session')
+    //         camera_socket.connect()
+    //             .then(setupSession)
+    //         window.camera_socket._reconnect = () => {
+    //             clearTimeout(window.camera_socket.reconnectTimeout)
+    //             window.camera_socket.reconnectTimeout = setTimeout(() => {
+    //                 window.camera_socket.reconnectTries++
+    //                 window.camera_socket.connect(window.camera_socket.params).then(() => {
+    //                     // handleLeaveSession();
+    //                     setupSession();
+    //                     // handleJoinSession();
+    //                 });
+    //                 window.camera_socket._reconnect()
+    //             }, window.camera_socket._reconnectInterval())
+    //         }
+    //     }
+    // });
 
 
     $("#online_list").css("height", $("#chat_area").height());
