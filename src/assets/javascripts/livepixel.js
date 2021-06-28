@@ -3053,7 +3053,11 @@ $(function () {
         }
         if(target != "call_tab") {
             if (document.pictureInPictureEnabled) {
-                $("video").each((i, el) => { el.requestPictureInPicture() })
+                var videos = $("video");
+                for (let i = 0; i < videos.length; i++) {
+                    const v = videos[i];
+                    v.requestPictureInPicture()
+                }
             }
         } else {
             if (document.pictureInPictureEnabled) {
