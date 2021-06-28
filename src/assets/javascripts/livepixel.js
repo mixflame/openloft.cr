@@ -3052,16 +3052,18 @@ $(function () {
             window.scroll_to_bottom();
         }
         if(target != "call_tab") {
-            if (document.pictureInPictureEnabled) {
+            if (document.pictureInPictureEnabled && !window.pip_mode) {
                 var videos = $("video");
                 for (let i = 0; i < videos.length; i++) {
                     const v = videos[i];
                     v.requestPictureInPicture()
                 }
+                window.pip_mode = true
             }
         } else {
             if (document.pictureInPictureEnabled) {
                 document.exitPictureInPicture()
+                window.pip_mode = false
             }
         }
     })
