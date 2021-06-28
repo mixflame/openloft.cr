@@ -2285,21 +2285,6 @@ $(function () {
         $("canvas").addClass(border);
     }
 
-    // timer
-    setInterval(function () {
-        if (window.original_ttl != -2) { // dont run the timer if there is none
-            window.t = window.t - 1;
-            var seconds = window.t;
-            var time = sformat(seconds);
-            $("#ttl").html(time + " left until canvas is cleared.");
-            if (seconds <= 0) {
-                window.locked = true;
-                window.disabled = true;
-                $("#ttl").html("canvas reset. refresh to unlock the canvas.")
-            }
-        }
-    }, 1000)
-
     // welcome message
     // window.notifyMe("Welcome to Harmony Collaborative Editor, " + name + "! All edits made will be seen live by all visitors of this site. Updates are persisted. Please consider buying an ad to support the development of this site.");
 
