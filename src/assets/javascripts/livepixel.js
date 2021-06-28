@@ -3051,7 +3051,10 @@ $(function () {
         if (target == "chat_tab") {
             window.scroll_to_bottom();
         }
-        if(target != "call_tab") {
+    })
+
+    $('a[data-toggle="tab"]').on("click", function(e) {
+        if(e.currentTarget.id != "call_tab-tab") {
             if (document.pictureInPictureEnabled && !window.pip_mode) {
                 var videos = $("video");
                 for (var i = 0; i < videos.length; i++) {
@@ -3061,7 +3064,7 @@ $(function () {
                 window.pip_mode = true
             }
         } else {
-            if (document.pictureInPictureEnabled) {
+            if (document.pictureInPictureEnabled && window.pip_mode) {
                 document.exitPictureInPicture()
                 window.pip_mode = false
             }
