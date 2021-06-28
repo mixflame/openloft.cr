@@ -1,5 +1,6 @@
 require "json"
 require "socket"
+require "openssl"
 
 class Client
   getter version : String = "gbaldraw-bridge v0.0.2"
@@ -10,23 +11,27 @@ class Client
   property user : String = ""
   property password : String = ""
   property channels : Array(String) = [] of String
-
   property tcp_client : TCPSocket = TCPSocket.new
   property response_count : Int32 = 0
   property logged_in : Bool = false
   property version_sent : Bool = false
   property channels_joined : Bool = false
 
+  property ssl_socket : (OpenSSL::SSL::Socket::Client | Nil) = nil
+  
   def initialize
     configure
     while true
       @tcp_client = TCPSocket.new(server, port)
-      
+      @ssl_socket = OpenSSL::SSL::Socket::Client.new(tcp_client, OpenSSL::SSL::Context::Client.new, true)
+
       while true
         Fiber.yield
         # sleep 0.1
         response = get_response
         next unless response
+
+        puts response
 
         pong(response)
 
@@ -42,6 +47,8 @@ class Client
         # sleep 0.1
         response = get_response
         next unless response
+
+        puts response
 
         pong(response)
 
@@ -62,14 +69,12 @@ class Client
           chat = message.last
 
           @channels.each do |channel|
-            unless name.includes?("@discord") && channel.includes?("#8chan")
-              say(channel, "#{name} -> #{chat}")
-            end
+            say(channel, "#{name} -> #{chat}")
           end
         end
       end
       
-      tcp_client.close
+      ssl_socket.as(OpenSSL::SSL::Socket::Client).close
 
       sleep 5.seconds
 
@@ -90,7 +95,7 @@ class Client
     if name.includes?("gbaldraw-bridge")
       return
     end
-    name = "#{name}@irc.rizon.net #{channel}"
+    name = "#{name}@#{server} #{channel}"
     puts "name #{name}"
     # Sanitizer = Sanitize::Policy::HTMLSanitizer.basic
     name = Sanitizer.process(name.to_s)
@@ -108,17 +113,19 @@ class Client
   end
 
   def login
-    return unless @response_count == 3
-    tcp_client << "PASS #{password}\r\n"
-    tcp_client << "NICK #{nick}\r\n"
-    tcp_client << "USER #{user} 8 * :#{user}\r\n"
+    return unless @response_count == 2
+    ssl_socket.as(OpenSSL::SSL::Socket::Client) << "PASS #{password}\r\n"
+    ssl_socket.as(OpenSSL::SSL::Socket::Client) << "NICK #{nick}\r\n"
+    ssl_socket.as(OpenSSL::SSL::Socket::Client) << "USER #{user} 8 * :#{user}\r\n"
+    ssl_socket.as(OpenSSL::SSL::Socket::Client).flush
     @logged_in = true
   end
 
   def version(response)
     return unless response.includes?("VERSION")
     puts "VERSION #{version}"
-    tcp_client << "VERSION #{version}\r\n"
+    ssl_socket.as(OpenSSL::SSL::Socket::Client) << "VERSION #{version}\r\n"
+    ssl_socket.as(OpenSSL::SSL::Socket::Client).flush
     @version_sent = true
   end
 
@@ -132,7 +139,8 @@ class Client
     parts = response.to_s.split(":")
     return unless parts.size == 2
     puts "PONG :#{parts[1]}"
-    tcp_client << "PONG :#{parts[1]}\r\n"
+    ssl_socket.as(OpenSSL::SSL::Socket::Client) << "PONG :#{parts[1]}\r\n"
+    ssl_socket.as(OpenSSL::SSL::Socket::Client).flush
   end
 
   def kick_rejoin(response)
@@ -144,11 +152,12 @@ class Client
     
     channel = parts[2].to_s
     # sleep 5.seconds
-    tcp_client << "JOIN #{channel}\r\n"
+    ssl_socket.as(OpenSSL::SSL::Socket::Client) << "JOIN #{channel}\r\n"
+    ssl_socket.as(OpenSSL::SSL::Socket::Client).flush
   end
 
   def get_response
-    response = @tcp_client.gets
+    response = ssl_socket.as(OpenSSL::SSL::Socket::Client).gets
     if response
       # puts response
       @response_count += 1
@@ -157,21 +166,23 @@ class Client
   end
 
   def join_channels
-    return unless version_sent || channels_joined
+    # return unless version_sent || channels_joined
     channels.each do |channel|
-      tcp_client << "JOIN #{channel}\r\n"
+      ssl_socket.as(OpenSSL::SSL::Socket::Client) << "JOIN #{channel}\r\n"
+      ssl_socket.as(OpenSSL::SSL::Socket::Client).flush
       sleep 0.2
     end
     @channels_joined = true
   end
 
   def say(channel, what)
-    tcp_client << "PRIVMSG #{channel} :#{what}\r\n"
+    ssl_socket.as(OpenSSL::SSL::Socket::Client) << "PRIVMSG #{channel} :#{what}\r\n"
+    ssl_socket.as(OpenSSL::SSL::Socket::Client).flush
   end
 
   def configure
-    @server = "irc.rizon.io"
-    @port = 6667
+    @server = "irc.gbaldraw.fun"
+    @port = 6697
     @nick = "gbaldraw-bridge"
     if Amber.env == :development
         @nick = "gbaldraw-bridge-dev"
