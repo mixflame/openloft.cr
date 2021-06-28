@@ -113,7 +113,9 @@ class Client
   def login
     return unless @response_count == 2
     ssl_socket.as(OpenSSL::SSL::Socket::Client) << "PASS #{password}\r\n"
+    ssl_socket.as(OpenSSL::SSL::Socket::Client).flush
     ssl_socket.as(OpenSSL::SSL::Socket::Client) << "NICK #{nick}\r\n"
+    ssl_socket.as(OpenSSL::SSL::Socket::Client).flush
     ssl_socket.as(OpenSSL::SSL::Socket::Client) << "USER #{user} 8 * :#{user}\r\n"
     ssl_socket.as(OpenSSL::SSL::Socket::Client).flush
     @logged_in = true
