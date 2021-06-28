@@ -2890,6 +2890,8 @@ $(function () {
             $("#chat_message").css("background-color", "black")
             $("#video_chat").css("background-color", "black")
             $("#video_chat").css("color", "white")
+            $(".nav").css("background-color", "black")
+            $(".nav").css("color", "white")
         } else {
             $("body").css("background-color", "white")
             $("body").css("color", "black")
@@ -2912,6 +2914,8 @@ $(function () {
             $("#chat_message").css("background-color", "white")
             $("#video_chat").css("background-color", "white")
             $("#video_chat").css("color", "black")
+            $(".nav").css("background-color", "white")
+            $(".nav").css("color", "black")
         }
         localStorage.setItem("dark_mode", checked)
     })
