@@ -39,7 +39,7 @@ class Client
         privmsg(response)
         join_channels
 
-        break if logged_in && version_sent && channels_joined
+        break if logged_in && channels_joined
       end
 
       while true
