@@ -101,7 +101,7 @@ class Client
     # channel = channel.gsub(":", "")
     name = response.to_s.split(":")[1].split(" ").first.split("!").first
     channel = parts.first.split(" ")[2]
-    if name.includes?("harmony-bridge")
+    if name.includes?("harmony-bridge") || name.includes?("Harmony Bridge Bot") || name.includes?("harmony-bridge-dev")
       return
     end
     name = "#{name}@#{server} #{channel}"
