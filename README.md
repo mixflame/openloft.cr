@@ -1,8 +1,8 @@
-# gbaldraw.cr
+# harmony.cr
 
 [![Amber Framework](https://img.shields.io/badge/using-amber_framework-orange.svg)](https://amberframework.org)
 
-This is Harmony Collaborative Editor 1.0 with call reconnection (better), a project written using [Amber](https://amberframework.org). Enjoy!
+This is Harmony Collaborative Editor 1.0 with call reconnection, using Amber/Crystal 1.0.0. Originally written in Ruby on Rails with ActionCable and ported to Crystal for speed. Featuring: HTML Chat, WebRTC Video/Audio, Collaborative Canvas, Collaborative Text Editor.
 
 Featuring discord and irc bridge bots.
 
@@ -24,6 +24,7 @@ To start your Amber server:
 2. Build executables with `shards build`
 3. Create and migrate your database with `bin/amber db create migrate`. Also see [creating the database](https://docs.amberframework.org/amber/guides/create-new-app#creating-the-database).
 4. Start Amber server with `bin/amber watch`
+5. Run redis-server
 
 Now you can visit http://localhost:3000/ from your browser.
 
@@ -41,7 +42,7 @@ crystal spec
 
 ## Contributing
 
-1. Fork it ( https://github.com/your-github-user/gbaldraw.cr/fork )
+1. Fork it ( https://github.com/mixflame/gbaldraw.cr/fork )
 2. Create your feature branch ( `git checkout -b my-new-feature` )
 3. Commit your changes ( `git commit -am 'Add some feature'` )
 4. Push to the branch ( `git push origin my-new-feature` )
@@ -49,4 +50,4 @@ crystal spec
 
 ## Contributors
 
-- [your-github-user](https://github.com/your-github-user) Jonathan Silverman - creator, maintainer
+- [mixflame](https://github.com/mixflame) Jonathan Silverman - creator, maintainer
