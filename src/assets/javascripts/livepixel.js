@@ -3053,23 +3053,37 @@ $(function () {
         }
     })
 
-    $('a[data-toggle="tab"]')[0].addEventListener("click", function(e) {
-        if(e.currentTarget.id != "call_tab-tab") {
-            if (document.pictureInPictureEnabled && !window.pip_mode) {
-                var videos = $("video");
-                for (var i = 0; i < videos.length; i++) {
-                    const v = videos[i];
-                    v.requestPictureInPicture()
+    var tabs = document.querySelectorAll('a[data-toggle="tab"]')
+    
+    for (let index = 0; index < tabs.length; index++) {
+        const element = tabs[index];
+        element.addEventListener("click", function(e) {
+            if(e.currentTarget.id != "call_tab-tab") {
+                if (document.pictureInPictureEnabled && !window.pip_mode) {
+                    var videos = $("video");
+                    for (var i = 0; i < videos.length; i++) {
+                        const v = videos[i];
+                        try {
+                            v.requestPictureInPicture()
+                        } catch(e) {
+                            console.log("Couldn't enable PiP mode. " + e.message);
+                        }
+                    }
+                    window.pip_mode = true
                 }
-                window.pip_mode = true
+            } else {
+                if (document.pictureInPictureEnabled && window.pip_mode) {
+                    try {
+                    document.exitPictureInPicture()
+                    } catch(e) {
+                        console.log("Couldn't disable PiP mode. " + e.message);
+                    }
+                    window.pip_mode = false
+                }
             }
-        } else {
-            if (document.pictureInPictureEnabled && window.pip_mode) {
-                document.exitPictureInPicture()
-                window.pip_mode = false
-            }
-        }
-    })
+        })
+    }
+  
 
 
     $("#cam-name").html(window.name);
