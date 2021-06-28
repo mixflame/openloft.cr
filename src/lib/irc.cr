@@ -33,15 +33,24 @@ class Client
 
         puts response
 
-        pong(response)
+        
 
         login
-        privmsg(response)
-        join_channels
 
-        break if logged_in && version_sent && channels_joined
+        pong(response)
+        # privmsg(response)
+        # sleep 10.seconds
+        
+
+        # puts "logged in: #{logged_in}"
+        # puts "version sent: #{version_sent}"
+        # puts "channels joined #{channels_joined}"
+
+        got_end_of_motd = response.includes?("376")
+
+        break if logged_in && got_end_of_motd
       end
-
+      join_channels
       while true
         Fiber.yield
         # sleep 0.1
@@ -166,7 +175,8 @@ class Client
   end
 
   def join_channels
-    # return unless version_sent || channels_joined
+    return if channels_joined
+    
     channels.each do |channel|
       ssl_socket.as(OpenSSL::SSL::Socket::Client) << "JOIN #{channel}\r\n"
       ssl_socket.as(OpenSSL::SSL::Socket::Client).flush
@@ -190,7 +200,7 @@ class Client
     @user = "harmony-bridge"
     @password = "none"
     if Amber.env == :development
-      @channels = ["#gbaldraw"]
+      @channels = ["#gbaldraw-dev"]
     else
       @channels = ["#gbaldraw"]
     end
