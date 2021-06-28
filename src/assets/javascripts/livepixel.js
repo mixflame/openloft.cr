@@ -3054,7 +3054,7 @@ $(function () {
         if(target != "call_tab") {
             if (document.pictureInPictureEnabled && !window.pip_mode) {
                 var videos = $("video");
-                for (let i = 0; i < videos.length; i++) {
+                for (var i = 0; i < videos.length; i++) {
                     const v = videos[i];
                     v.requestPictureInPicture()
                 }
