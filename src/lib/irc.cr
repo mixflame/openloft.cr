@@ -107,9 +107,7 @@ class Client
       redis.expire("chats", 7 * 24 * 3600)
     end
     ChatSocket.broadcast("message", "chat:", "message_new", {name: name, chat_message: message}.to_h)
-    if channel != "#8chan"
-      DiscordChannel.send([name, message])
-    end
+    DiscordChannel.send([name, message])
   end
 
   def login
