@@ -3053,7 +3053,7 @@ $(function () {
         }
     })
 
-    $('a[data-toggle="tab"]').on("click", function(e) {
+    $('a[data-toggle="tab"]')[0].addEventListener("click", function(e) {
         if(e.currentTarget.id != "call_tab-tab") {
             if (document.pictureInPictureEnabled && !window.pip_mode) {
                 var videos = $("video");
