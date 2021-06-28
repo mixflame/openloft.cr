@@ -1630,7 +1630,7 @@ window.notifyMe = function (message) {
         // check if permission is already granted
         if (Notification.permission === 'granted') {
             // show notification here
-            var notify = new Notification("Gbaldraw", {
+            var notify = new Notification("Harmony Collaborative Editor", {
                 body: message
             });
         } else {
@@ -1638,7 +1638,7 @@ window.notifyMe = function (message) {
             Notification.requestPermission().then(function (p) {
                 if (p === 'granted') {
                     // show notification here
-                    var notify = new Notification("Gbaldraw", {
+                    var notify = new Notification("Harmony Collaborative Editor", {
                         body: message
                     });
                 } else {
@@ -2301,7 +2301,7 @@ $(function () {
     }, 1000)
 
     // welcome message
-    // window.notifyMe("Welcome to Gbaldraw, " + name + "! All edits made will be seen live by all visitors of this site. Updates are persisted. Please consider buying an ad to support the development of this site.");
+    // window.notifyMe("Welcome to Harmony Collaborative Editor, " + name + "! All edits made will be seen live by all visitors of this site. Updates are persisted. Please consider buying an ad to support the development of this site.");
 
     // cam
     $("#input").val("cam");

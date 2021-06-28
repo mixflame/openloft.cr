@@ -153,6 +153,26 @@
       <div id="canvasDiv" style="background-image: linear-gradient(45deg, #808080 25%, transparent 25%), linear-gradient(-45deg, #808080 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #808080 75%), linear-gradient(-45deg, transparent 75%, #808080 75%); background-size: 20px 20px; background-position: 0 0, 0 10px, 10px -10px, -10px 0px;"></div>
     </div>
 
+    <div id="status_info">
+
+      <div id="status-holder">
+        status:
+        <div id="status">
+
+        </div>
+      </div>
+
+      <div id="ttl-holder">
+        <script>
+          window.t = <%= ttl %>;
+          window.original_ttl = <%= ttl %>;
+        </script>
+        <div id="ttl"></div>
+      </div>
+
+      <div id="counter"><%= counter %> views</div>
+
+    </div>
 
   </div>
   <div class="tab-pane fade" id="call_tab" role="tabpanel" aria-labelledby="call_tab-tab">
@@ -280,33 +300,3 @@
     </ul>
   </div>
 </div>
-
-
-
-<footer class="footer">
-
-  <div class="container">
-    <div id="status-holder">
-      status:
-      <div id="status">
-
-      </div>
-    </div>
-
-    <!-- <div id="dark-mode-holder" style="font-size: 10px; margin-top: -10px;">
-      <i class="fas fa-moon" style="padding-left: 10px; padding-right: 10px"></i>
-      <input type="checkbox" id="dark-mode" checked=true />
-    </div> -->
-
-    <div id="ttl-holder">
-      <script>
-        window.t = <%= ttl %>;
-        window.original_ttl = <%= ttl %>;
-      </script>
-      <div id="ttl"></div>
-    </div>
-
-    <div id="counter"><%= counter %> views</div>
-  </div>
-
-</footer>

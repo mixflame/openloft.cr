@@ -181,7 +181,6 @@ canvas {
 // }
 div#status-holder {
     display: inline;
-    float: left;
     margin-left: 20px;
 }
 
@@ -197,18 +196,6 @@ div#bgCanvasDiv {
     display: none;
 }
 
-div#dark-mode-holder {
-    display: inline;
-    float: left;
-    margin-left: 20px;
-    margin-right: 20px;
-}
-
-div#monero-holder {
-    display: inline;
-    float: right;
-    margin-right: 20px;
-}
 
 div#ttl {
     display: inline;
@@ -216,7 +203,6 @@ div#ttl {
 
 div#ttl-holder {
     display: inline;
-    float: left;
     margin-left: 20px;
 }
 
@@ -226,7 +212,6 @@ div.clear {
 
 div#counter {
     display: inline;
-    float: left;
     margin-left: 20px;
 }
 
@@ -359,6 +344,10 @@ a:visited {
     padding-right: 5px;
 }
 
+.nav {
+    background-color: white;
+}
+
 .feed-icon {
     background-image: url("/src/assets/images/Feed-icon.png");
     width: 200px;
@@ -393,14 +382,14 @@ a:visited {
 
 @media (max-width: 1280px) {
     #video_chat {
-        position: absolute;
+        // position: absolute;
         top: 7%;
         left: 0px;
         width: 100vw;
         height: 100vh;
     }
     #online_list {
-        position: absolute;
+        // position: absolute;
         top: 7%;
         left: 0px;
         min-height: 75vh;
@@ -409,21 +398,21 @@ a:visited {
         width: 25vw;
     }
     #chat_area {
-        position: absolute;
+        // position: absolute;
         top: 7%;
         left: 30%;
         min-height: 75vh;
         height: 75vh;
-        min-width: 75vw;
-        width: 75vw;
+        min-width: 69vw;
+        width: 69vw;
     }
     .chat_message_holder {
-        position: absolute;
+        // position: absolute;
         left: 0px;
         bottom: 0px;
     }
     #collaborative_text_holder {
-        position: absolute;
+        // position: absolute;
         top: 7%;
         left: 0px;
         bottom: 0px;
@@ -467,14 +456,14 @@ a:visited {
 
 @media (max-width: 375px) {
     #video_chat {
-        position: absolute;
+        // position: absolute;
         top: 17%;
         left: 0px;
         width: 100vw;
         height: 100vh;
     }
     #online_list {
-        position: absolute;
+        // position: absolute;
         top: 17%;
         left: 0px;
         min-height: 35vh;
@@ -483,21 +472,21 @@ a:visited {
         width: 25vw;
     }
     #chat_area {
-        position: absolute;
+        // position: absolute;
         top: 17%;
         left: 30%;
         min-height: 35vh;
         height: 35vh;
-        min-width: 75vw;
-        width: 75vw;
+        min-width: 69vw;
+        width: 69vw;
     }
     .chat_message_holder {
-        position: absolute;
+        // position: absolute;
         left: 0px;
         bottom: 0px;
     }
     #collaborative_text_holder {
-        position: absolute;
+        // position: absolute;
         top: 17%;
         left: 0px;
         bottom: 0px;
@@ -542,14 +531,14 @@ a:visited {
 
 
     #video_chat {
-        position: absolute;
+        // position: absolute;
         top: 7%;
         left: 0px;
         width: 100vw;
         height: 100vh;
     }
     #online_list {
-        position: absolute;
+        // position: absolute;
         top: 7%;
         left: 0px;
         min-height: 80vh;
@@ -558,21 +547,21 @@ a:visited {
         width: 25vw;
     }
     #chat_area {
-        position: absolute;
+        // position: absolute;
         top: 7%;
         left: 30%;
         min-height: 80vh;
         height: 80vh;
-        min-width: 75vw;
-        width: 75vw;
+        min-width: 69vw;
+        width: 69vw;
     }
     .chat_message_holder {
-        position: absolute;
+        // position: absolute;
         left: 0px;
         bottom: 0px;
     }
     #collaborative_text_holder {
-        position: absolute;
+        // position: absolute;
         top: 7%;
         left: 0px;
         bottom: 0px;
@@ -592,4 +581,13 @@ a:visited {
 
 .wm-overlay {
     pointer-events: none;
+}
+
+#status_info {
+    background-color: white;
+    color: black;
+    width: 100%;
+    height: 100%;
+    display: block;
+    clear: both;
 }
