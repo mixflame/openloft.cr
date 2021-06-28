@@ -3051,6 +3051,15 @@ $(function () {
         if (target == "chat_tab") {
             window.scroll_to_bottom();
         }
+        if(target != "call_tab") {
+            if (document.pictureInPictureEnabled) {
+                $("video").each((i, el) => { el.requestPictureInPicture() })
+            }
+        } else {
+            if (document.pictureInPictureEnabled) {
+                document.exitPictureInPicture()
+            }
+        }
     })
 
 
