@@ -14,7 +14,7 @@ class DiscordBot
             message = payload.content
             name = payload.author.username
 
-            if name.includes?("gbaldraw-bridge") || name.includes?("Harmony Collaborative Editor")
+            if name.includes?("harmony-bridge") || name.includes?("harmony-bridge-dev")
                 next
             end
             name = "#{name}@discord"

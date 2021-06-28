@@ -3,7 +3,7 @@ require "socket"
 require "openssl"
 
 class Client
-  getter version : String = "gbaldraw-bridge v0.0.2"
+  getter version : String = "harmony-bridge v0.0.2"
 
   property server : String = ""
   property port : Int32 = 0
@@ -92,7 +92,7 @@ class Client
     # channel = channel.gsub(":", "")
     name = response.to_s.split(":")[1].split(" ").first.split("!").first
     channel = parts.first.split(" ")[2]
-    if name.includes?("gbaldraw-bridge")
+    if name.includes?("harmony-bridge")
       return
     end
     name = "#{name}@#{server} #{channel}"
@@ -181,11 +181,11 @@ class Client
   def configure
     @server = "irc.gbaldraw.fun"
     @port = 6697
-    @nick = "gbaldraw-bridge"
+    @nick = "harmony-bridge"
     if Amber.env == :development
-        @nick = "gbaldraw-bridge-dev"
+        @nick = "harmony-bridge-dev"
     end
-    @user = "gbaldraw-bridge"
+    @user = "harmony-bridge"
     @password = "none"
     if Amber.env == :development
       @channels = ["#gbaldraw"]
