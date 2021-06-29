@@ -15,10 +15,10 @@ class LivepixelController < ApplicationController
   def parse_command
     # command = Slack::SlashCommand.from_request_body(request.body.to_s)
 
-    command = params["command"]
-    token = params["token"]
-    response_url = params["response_url"]
-    channel = params["channel"]
+    command = params["command"].to_s
+    token = params["token"].to_s
+    response_url = params["response_url"].to_s
+    channel = params["channel"].to_s
 
     # # create private room
 
