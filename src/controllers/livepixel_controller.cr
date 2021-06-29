@@ -28,6 +28,8 @@ class LivepixelController < ApplicationController
       api.post_message(message)
 
     end
+
+    ""
   
   end
 
