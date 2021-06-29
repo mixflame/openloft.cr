@@ -15,12 +15,12 @@ class LivepixelController < ApplicationController
   def parse_command
     # command = Slack::SlashCommand.from_request_body(request.body.to_s)
 
-    command = params["text"]
+    command = params["command"]
     token = params["token"]
 
     # # create private room
 
-    if command.includes?("/harmonize")
+    if command == "/harmonize"
 
       url = "https://gbaldraw.fun/canvas?room=#{UUID.random.to_s}"
 
