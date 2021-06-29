@@ -16,7 +16,6 @@ class LivepixelController < ApplicationController
     # command = Slack::SlashCommand.from_request_body(request.body.to_s)
 
     command = params["command"].to_s
-    channel = params["channel"].to_s
     response_url = params["response_url"].to_s
 
     # # create private room
@@ -25,9 +24,9 @@ class LivepixelController < ApplicationController
 
       url = "https://gbaldraw.fun/canvas?room=#{UUID.random.to_s}"
 
-      message = {text: "Harmony collaborative meeting launched. #{url}"}.to_h.to_json
+      message = {text: "Harmony collaborative meeting launched. #{url}"}.to_h
       headers = HTTP::Headers{"Content-Type" => "application/json"}
-      response = HTTP::Client.post(url, headers: headers, body: message)
+      response = HTTP::Client.post(url, headers: headers, body: JSON.stringify(message))
 
       # message.send_to_hook "#{redirect_url}&token=xoxb-2208532755014-2220375245923-6tqDaaFr8mg5KI9z0ej5b5jw"
       return response.body.to_s
