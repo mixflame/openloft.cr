@@ -34,7 +34,6 @@ Amber::Server.configure do
     websocket "/persistence", PersistenceSocket
     websocket "/canvas", CanvasSocket
     websocket "/text", TextSocket
-    post "/parse_command", LivepixelController, :parse_command
     get "/canvas", LivepixelController, :canvas
     post "/upload_to_imgur", LivepixelController, :upload_to_imgur
     post "/upload_to_scalable_press", LivepixelController, :upload_to_scalable_press
@@ -53,12 +52,13 @@ Amber::Server.configure do
     post "/create_order", LivepixelController, :create_order
     post "/capture_order", LivepixelController, :capture_order
     post "/upload", LivepixelController, :upload
-    get "/active_users", LivepixelController, :active_users
     get "/", LivepixelController, :landing
     get "/random_ad", LivepixelController, :random_ad
   end
 
   routes :api do
+    post "/parse_command", LivepixelController, :parse_command
+    get "/active_users", LivepixelController, :active_users
   end
 
   routes :static do
