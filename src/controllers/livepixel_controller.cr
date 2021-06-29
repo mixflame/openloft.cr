@@ -26,7 +26,7 @@ class LivepixelController < ApplicationController
       url = "https://gbaldraw.fun/canvas?room=#{UUID.random.to_s}"
 
       message = {text: "Harmony collaborative meeting launched. #{url}", token: "xoxb-2208532755014-2220375245923-6tqDaaFr8mg5KI9z0ej5b5jw"}.to_h.to_json
-      HTTP::Client.post(url, form: "payload=#{URI.encode message}")
+      response = HTTP::Client.post(url, form: "payload=#{URI.encode message}")
 
       # message.send_to_hook "#{redirect_url}&token=xoxb-2208532755014-2220375245923-6tqDaaFr8mg5KI9z0ej5b5jw"
       return response.body.to_s
