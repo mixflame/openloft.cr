@@ -26,8 +26,7 @@ class LivepixelController < ApplicationController
       url = "https://gbaldraw.fun/canvas?room=#{UUID.random.to_s}"
 
       message = Slack::Message.new("Harmony collaborative meeting launched. #{url}", channel: channel)
-      message.token = "xoxb-2208532755014-2220375245923-6tqDaaFr8mg5KI9z0ej5b5jw"
-      message.send_to_hook redirect_url
+      message.send_to_hook "#{redirect_url}&token=xoxb-2208532755014-2220375245923-6tqDaaFr8mg5KI9z0ej5b5jw"
 
       # api = Slack::API.new "xoxb-2208532755014-2220375245923-6tqDaaFr8mg5KI9z0ej5b5jw"
       # api.post_message(message)
