@@ -4,12 +4,32 @@ require "http"
 require "uri"
 require "base64"
 require "digest"
+require "slack"
 
 #paypal
 CLIENT_ID = "AXEHRTl5y4XYIOuuIJ7CT5TE5v0CLNViXwk7CD8F5DhAT6JTKoF9jWJMr71f5W_BsSS9gnp8hjSPunFL"
 CLIENT_SECRET = "ENuzq-_Qx1_N-wmaB_Io5ajTJAjucGzd3bqaKStziSksTfWJqkg-cNT4uIppBWIL4txlc9WEwGKjRvLq"
 
 class LivepixelController < ApplicationController
+
+  def parse_command
+    command = Slack::SlashCommand.from_request(request)
+    puts command.text
+
+    # create private room
+
+    if command.text.includes?("/harmonize")
+
+      url = "https://gbaldraw.fun/canvas?room=#{UUID.random.to_s}"
+
+      message = Slack::Message.new("Harmony collaborative meeting launched. #{url}", channel: "general")
+    
+      api = Slack::API.new "LuRMWDMiYuk1pNg5sj84nTcW"
+      api.post_message(message)
+
+    end
+  
+  end
 
   def landing
     render("landing.ecr")

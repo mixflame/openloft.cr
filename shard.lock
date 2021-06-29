@@ -38,7 +38,7 @@ shards:
 
   discordcr:
     git: https://github.com/shardlab/discordcr.git
-    version: 0.4.0+git.commit.df22ea8f9499756949dfa16ed629bd1724b77e05
+    version: 0.4.1
 
   email:
     git: https://github.com/arcage/crystal-email.git
@@ -131,6 +131,10 @@ shards:
   shell-table:
     git: https://github.com/luckyframework/shell-table.cr.git
     version: 0.9.3
+
+  slack:
+    git: https://github.com/russ/crystal_slack.git
+    version: 0.10.1+git.commit.4d948cd257270ad042ef72d95aad2f3dfafad7d2
 
   slang:
     git: https://github.com/jeromegn/slang.git
