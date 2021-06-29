@@ -17,6 +17,7 @@ class LivepixelController < ApplicationController
 
     command = params["command"]
     token = params["token"]
+    response_url = params["response_url"]
 
     # # create private room
 
@@ -26,8 +27,7 @@ class LivepixelController < ApplicationController
 
       message = Slack::Message.new("Harmony collaborative meeting launched. #{url}", channel: "general")
     
-      api = Slack::API.new token
-      api.post_message(message)
+      message.send_to_hook response_url
 
     end
 
