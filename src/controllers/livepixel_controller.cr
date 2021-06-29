@@ -25,15 +25,17 @@ class LivepixelController < ApplicationController
 
       url = "https://gbaldraw.fun/canvas?room=#{UUID.random.to_s}"
 
-      message = Slack::Message.new("Harmony collaborative meeting launched. #{url}", channel: channel)
-      message.send_to_hook "#{redirect_url}&token=xoxb-2208532755014-2220375245923-6tqDaaFr8mg5KI9z0ej5b5jw"
+      message = {message: "Harmony collaborative meeting launched. #{url}", channel: channel, token: "xoxb-2208532755014-2220375245923-6tqDaaFr8mg5KI9z0ej5b5jw"}
+      response = HTTP::Client.post(url, form: "payload=#{URI.encode message.to_json}")
 
+      # message.send_to_hook "#{redirect_url}&token=xoxb-2208532755014-2220375245923-6tqDaaFr8mg5KI9z0ej5b5jw"
+      return response.body.to_s
       # api = Slack::API.new "xoxb-2208532755014-2220375245923-6tqDaaFr8mg5KI9z0ej5b5jw"
       # api.post_message(message)
 
     end
 
-    ""
+    return ""
   
   end
 
