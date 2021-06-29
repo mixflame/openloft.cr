@@ -16,9 +16,8 @@ class LivepixelController < ApplicationController
     # command = Slack::SlashCommand.from_request_body(request.body.to_s)
 
     command = params["command"].to_s
-    token = params["token"].to_s
-    response_url = params["response_url"].to_s
     channel = params["channel"].to_s
+    redirect_url = params["redirect_url"].to_s
 
     # # create private room
 
@@ -27,8 +26,11 @@ class LivepixelController < ApplicationController
       url = "https://gbaldraw.fun/canvas?room=#{UUID.random.to_s}"
 
       message = Slack::Message.new("Harmony collaborative meeting launched. #{url}", channel: channel)
-    
-      message.send_to_hook response_url
+
+      message.send_to_hook redirect_url
+
+      # api = Slack::API.new "xoxb-2208532755014-2220375245923-6tqDaaFr8mg5KI9z0ej5b5jw"
+      # api.post_message(message)
 
     end
 
