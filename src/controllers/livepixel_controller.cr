@@ -40,7 +40,9 @@ class LivepixelController < ApplicationController
       response = client.post(uri.path)
 
       # message.send_to_hook "#{redirect_url}&token=xoxb-2208532755014-2220375245923-6tqDaaFr8mg5KI9z0ej5b5jw"
-      return response.body.to_s
+      if response.body.to_s == "ok"
+        return "Harmonization successful. Join at the link above."
+      end
       # api = Slack::API.new "xoxb-2208532755014-2220375245923-6tqDaaFr8mg5KI9z0ej5b5jw"
       # api.post_message(message)
 
