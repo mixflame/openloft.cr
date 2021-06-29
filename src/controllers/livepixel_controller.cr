@@ -17,7 +17,7 @@ class LivepixelController < ApplicationController
 
     command = params["command"].to_s
     channel = params["channel"].to_s
-    redirect_url = params["redirect_url"].to_s
+    response_url = params["response_url"].to_s
 
     # # create private room
 
