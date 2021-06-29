@@ -13,18 +13,20 @@ CLIENT_SECRET = "ENuzq-_Qx1_N-wmaB_Io5ajTJAjucGzd3bqaKStziSksTfWJqkg-cNT4uIppBWI
 class LivepixelController < ApplicationController
 
   def parse_command
-    command = Slack::SlashCommand.from_request(request)
-    puts command.text
+    # command = Slack::SlashCommand.from_request_body(request.body.to_s)
 
-    # create private room
+    command = params["text"]
+    token = params["token"]
 
-    if command.text.includes?("/harmonize")
+    # # create private room
+
+    if command.includes?("/harmonize")
 
       url = "https://gbaldraw.fun/canvas?room=#{UUID.random.to_s}"
 
       message = Slack::Message.new("Harmony collaborative meeting launched. #{url}", channel: "general")
     
-      api = Slack::API.new "LuRMWDMiYuk1pNg5sj84nTcW"
+      api = Slack::API.new token
       api.post_message(message)
 
     end
