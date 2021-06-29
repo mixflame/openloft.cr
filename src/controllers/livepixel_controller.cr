@@ -18,14 +18,15 @@ class LivepixelController < ApplicationController
     command = params["command"]
     token = params["token"]
     response_url = params["response_url"]
+    channel = params["channel"]
 
     # # create private room
 
-    if command.includes?("/harmonize")
+    if command.includes?("harmonize")
 
       url = "https://gbaldraw.fun/canvas?room=#{UUID.random.to_s}"
 
-      message = Slack::Message.new("Harmony collaborative meeting launched. #{url}", channel: "general")
+      message = Slack::Message.new("Harmony collaborative meeting launched. #{url}", channel: channel)
     
       message.send_to_hook response_url
 
