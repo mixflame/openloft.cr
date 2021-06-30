@@ -1,4 +1,4 @@
-name: gbaldraw.cr
+name: openloft.cr
 version: 0.1.0
 
 authors:
@@ -9,8 +9,8 @@ crystal: 0.35.0
 license: UNLICENSED
 
 targets:
-  gbaldraw.cr:
-    main: src/gbaldraw.cr.cr
+  openloft.cr:
+    main: src/openloft.cr.cr
 
   amber:
     main: lib/amber/src/amber/cli.cr

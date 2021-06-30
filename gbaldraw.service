@@ -1,13 +1,13 @@
 [Unit]
-Description=Run gbaldraw.cr executable for gbaldraw.fun
+Description=Run openloft.cr executable for gbaldraw.fun
 After=network.target
 
 [Service]
 Type=simple
 User=gbaldraw
-WorkingDirectory=/home/gbaldraw/gbaldraw.cr
+WorkingDirectory=/home/gbaldraw/openloft.cr
 Environment="AMBER_ENCRYPTION_KEY=odzCnBFRMFwITASkUq_cOThhaxDc0zkjYTM_67O15AM" "AMBER_ENV=production"
-ExecStart=/home/gbaldraw/gbaldraw.cr/bin/gbaldraw.cr
+ExecStart=/home/gbaldraw/openloft.cr/bin/openloft.cr
 Restart=always
 
 [Install]

@@ -10,9 +10,9 @@ watch:
     # commands will be joined with && (join them yourself if need || or ;)
     build_commands:
       - mkdir -p bin
-      - crystal build ./src/gbaldraw.cr.cr -o bin/gbaldraw.cr
+      - crystal build ./src/openloft.cr.cr -o bin/openloft.cr
     run_commands:
-      - bin/gbaldraw.cr
+      - bin/openloft.cr
     include:
       - ./config/**/*.cr
       - ./config/environments/*.yml

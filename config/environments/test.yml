@@ -1,6 +1,6 @@
 secret_key_base: tF_eFSt0Hiucm0bVZM3mDoBAKzFWFLCKs8YEUDIlvKM
 port: 3000
-name: gbaldraw.cr
+name: openloft.cr
 
 logging:
   severity: debug
@@ -15,7 +15,7 @@ process_count: 1
 # ssl_key_file:
 # ssl_cert_file:
 redis_url: "redis://127.0.0.1:6379"
-database_url: sqlite3:./db/gbaldraw.cr_test.db
+database_url: sqlite3:./db/openloft.cr_test.db
 auto_reload: false
 
 session:
