@@ -1,7 +1,7 @@
     <div align="center">
     <h1>Stats for <%= room == "" ? "Global Room" : room %></h1>
     <div class="box">
-    <h1>Harmony Collaborative Editor Stats</h1>
+    <h1>OpenLoft Collaborative Editor Stats</h1>
     <% if Amber.env == :development %>
     <p>(Serverwide) Connections: <%= Amber::WebSockets::ClientSockets.client_sockets.size %></p>
     <p>(Serverwide) Active users (open tabs): <%= Amber::WebSockets::ClientSockets.client_sockets.size / 4 %></p>

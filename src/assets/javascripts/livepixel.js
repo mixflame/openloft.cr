@@ -1203,7 +1203,7 @@ var redraw = function (bg, flatten) {
                         context.fillText(mpClickText[i], mpClickX[i], mpClickY[i]);
                     } else {
                         if (mpBrushStyle[i] && mpBrushStyle[i] == "chrome") {
-                            // harmony chrome brush
+                            // openloft chrome brush
                             var dx, dy, d;
 
 
@@ -1630,7 +1630,7 @@ window.notifyMe = function (message) {
         // check if permission is already granted
         if (Notification.permission === 'granted') {
             // show notification here
-            var notify = new Notification("Harmony Collaborative Editor", {
+            var notify = new Notification("OpenLoft Collaborative Editor", {
                 body: message
             });
         } else {
@@ -1638,7 +1638,7 @@ window.notifyMe = function (message) {
             Notification.requestPermission().then(function (p) {
                 if (p === 'granted') {
                     // show notification here
-                    var notify = new Notification("Harmony Collaborative Editor", {
+                    var notify = new Notification("OpenLoft Collaborative Editor", {
                         body: message
                     });
                 } else {
@@ -2286,7 +2286,7 @@ $(function () {
     }
 
     // welcome message
-    // window.notifyMe("Welcome to Harmony Collaborative Editor, " + name + "! All edits made will be seen live by all visitors of this site. Updates are persisted. Please consider buying an ad to support the development of this site.");
+    // window.notifyMe("Welcome to OpenLoft Collaborative Editor, " + name + "! All edits made will be seen live by all visitors of this site. Updates are persisted. Please consider buying an ad to support the development of this site.");
 
     // cam
     $("#input").val("cam");

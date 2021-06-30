@@ -1,8 +1,8 @@
-# harmony.cr
+# openloft.cr
 
 [![Amber Framework](https://img.shields.io/badge/using-amber_framework-orange.svg)](https://amberframework.org)
 
-This is Harmony Collaborative Editor 1.0 with call reconnection, using Amber/Crystal 1.0.0. Originally written in Ruby on Rails with ActionCable and ported to Crystal for speed. Featuring: HTML Chat, WebRTC Video/Audio, Collaborative Canvas, Collaborative Text Editor.
+This is OpenLoft Collaborative Editor 1.0 with call reconnection, using Amber/Crystal 1.0.0. Originally written in Ruby on Rails with ActionCable and ported to Crystal for speed. Featuring: HTML Chat, WebRTC Video/Audio, Collaborative Canvas, Collaborative Text Editor.
 
 Featuring discord and irc bridge bots.
 

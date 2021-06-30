@@ -3,14 +3,14 @@
 
     <channel>
 
-    <title>Harmony Collaborative Editor Gallery</title>
+    <title>OpenLoft Collaborative Editor Gallery</title>
     <link>https://gbaldraw.fun/gallery</link>
     <description>Internet created images</description>
     <language>en-us</language>
     <atom:link href="https://gbaldraw.fun/gallery_feed.xml" rel="self" type="application/rss+xml" />
 
     <image>
-        <title>Harmony Collaborative Editor Gallery</title>
+        <title>OpenLoft Collaborative Editor Gallery</title>
         <link>https://gbaldraw.fun/gallery</link>
         <url>https://i.imgur.com/<%= image_ids[image_ids.size - 1]%>.png</url>
         <width>144</width>
@@ -22,7 +22,7 @@
     <% image_ids.each do |image_id| %>
 
     <item>
-        <title>Harmony Collaborative Editor Image</title>
+        <title>OpenLoft Collaborative Editor Image</title>
         <pubDate><%= Time::Format::RFC_2822.format(Time.utc).to_s %></pubDate>
         <link>https://i.imgur.com/<%= image_id %>.png</link>
         <description></description>

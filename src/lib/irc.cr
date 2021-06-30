@@ -3,7 +3,7 @@ require "socket"
 require "openssl"
 
 class Client
-  getter version : String = "harmony-bridge v0.0.2"
+  getter version : String = "openloft-bridge v0.0.2"
 
   property server : String = ""
   property port : Int32 = 0
@@ -101,7 +101,7 @@ class Client
     # channel = channel.gsub(":", "")
     name = response.to_s.split(":")[1].split(" ").first.split("!").first
     channel = parts.first.split(" ")[2]
-    if name.includes?("harmony-bridge") || name.includes?("Harmony Bridge Bot") || name.includes?("harmony-bridge-dev")
+    if name.includes?("openloft-bridge") || name.includes?("OpenLoft Bridge Bot") || name.includes?("openloft-bridge-dev")
       return
     end
     name = "#{name}@#{server} #{channel}"
@@ -193,11 +193,11 @@ class Client
   def configure
     @server = "irc.gbaldraw.fun"
     @port = 6697
-    @nick = "harmony-bridge"
+    @nick = "openloft-bridge"
     if Amber.env == :development
-        @nick = "harmony-bridge-dev"
+        @nick = "openloft-bridge-dev"
     end
-    @user = "harmony-bridge"
+    @user = "openloft-bridge"
     @password = "none"
     if Amber.env == :development
       @channels = ["#gbaldraw-dev"]
