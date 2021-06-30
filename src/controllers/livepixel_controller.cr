@@ -20,9 +20,9 @@ class LivepixelController < ApplicationController
 
     # # create private room
 
-    if command.includes?("harmonize")
+    if command.includes?("makeloft")
 
-      url = "https://gbaldraw.fun/canvas?room=#{UUID.random.to_s}"
+      url = "https://openloft.org/canvas?room=#{UUID.random.to_s}"
 
       message = {text: "Join here: #{url}"}.to_h
       # headers = HTTP::Headers{"Content-Type" => "application/json"}
@@ -161,7 +161,7 @@ class LivepixelController < ApplicationController
 
     if ad == ""
       ad = File.read("./public/default_ad.base64").to_s
-      banner_link = "https://gbaldraw.fun/buy_ad"
+      banner_link = "https://openloft.org/buy_ad"
     end
 
     chats = ""
@@ -203,7 +203,7 @@ class LivepixelController < ApplicationController
 
     if ad == ""
       ad = File.read("./public/default_ad.base64").to_s
-      banner_link = "https://gbaldraw.fun/buy_ad"
+      banner_link = "https://openloft.org/buy_ad"
     end
     
     {ad: Sanitizer.process(ad), banner_link: Sanitizer.process(banner_link)}.to_h.to_json
@@ -367,14 +367,13 @@ class LivepixelController < ApplicationController
         random_file = File.open("public/#{save_name}", "w") do |file|
             file << File.open(path).gets_to_end
         end
-        file_url = "https://gbaldraw.fun/#{save_name}"
+        file_url = "https://openloft.org/#{save_name}"
       else
         response = HTTP::Client.get(file_url)
         save_name = "#{Random.rand(10000).to_i}.png"
         random_file = File.open("public/#{save_name}", "w") do |file|
             file << response.body
         end
-        # file_url = "https://gbaldraw.fun/#{save_name}"
       end
       puts path
   
@@ -501,7 +500,7 @@ class LivepixelController < ApplicationController
               formdata.field("product[id]", product_id)
               formdata.field("product[color]", color)
               formdata.field("design[type]", "dtg")
-              formdata.field("design[sides][front][artwork]", "https://gbaldraw.fun/#{design_id}.png")
+              formdata.field("design[sides][front][artwork]", "https://openloft.org/#{design_id}.png")
               formdata.field("design[sides][front][dimensions][width]", "14")
               formdata.field("design[sides][front][position][horizontal]", "C")
               formdata.field("design[sides][front][position][offset][top]", "0")
