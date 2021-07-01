@@ -25,7 +25,7 @@ class LivepixelController < ApplicationController
 
       url = "https://openloft.org/canvas?room=#{UUID.random.to_s}"
 
-      message = {text: "Join here: #{url}", channel: channel_id, response_type: "in_channel", token: "xoxb-2208532755014-2220375245923-6tqDaaFr8mg5KI9z0ej5b5jw"}.to_h
+      message = {text: "Join here: #{url}", channel: channel_id, response_type: "in_channel", as_user: true}.to_h
       # headers = HTTP::Headers{"Content-Type" => "application/json"}
       # response = HTTP::Client.post(url, headers: headers, body: JSON.stringify(message))
 
@@ -34,7 +34,7 @@ class LivepixelController < ApplicationController
       client = HTTP::Client.new uri
   
       client.before_request do |request|
-          request.headers["Authorization"] = "Bearer xoxb-2208532755014-2220375245923-6tqDaaFr8mg5KI9z0ej5b5jw"
+          request.headers["Authorization"] = "Bearer xoxb-2208532755014-2235711764308-8HLxfgiGdgTIYoHSBrI4AdR1"
           request.headers["Content-Type"] = "application/json"
           request.body = message.to_json
           request.content_length = request.body.to_s.bytesize
