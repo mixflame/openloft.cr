@@ -16,7 +16,7 @@ class LivepixelController < ApplicationController
     # command = Slack::SlashCommand.from_request_body(request.body.to_s)
 
     command = params["command"].to_s
-    response_url = params["response_url"].to_s
+    # response_url = params["response_url"].to_s
     # channel = params["channel"].to_s
 
     # # create private room
@@ -25,23 +25,23 @@ class LivepixelController < ApplicationController
 
       url = "https://openloft.org/canvas?room=#{UUID.random.to_s}"
 
-      message = {text: "Join here: #{url}"}.to_h
+      message = {text: "Join here: #{url}", response_type: "in_channel"}.to_h
       # headers = HTTP::Headers{"Content-Type" => "application/json"}
       # response = HTTP::Client.post(url, headers: headers, body: JSON.stringify(message))
 
-        uri = URI.parse(response_url)
+        # uri = URI.parse(response_url)
   
-        client = HTTP::Client.new uri
+        # client = HTTP::Client.new uri
     
-        client.before_request do |request|
-            request.headers["Content-Type"] = "application/json"
-            request.body = message.to_json
-            request.content_length = request.body.to_s.bytesize
-        end
-        response = client.post(uri.path)
+        # client.before_request do |request|
+        #     request.headers["Content-Type"] = "application/json"
+        #     request.body = message.to_json
+        #     request.content_length = request.body.to_s.bytesize
+        # end
+        # response = client.post(uri.path)
 
       # message.send_to_hook "#{redirect_url}&token=xoxb-2208532755014-2220375245923-6tqDaaFr8mg5KI9z0ej5b5jw"
-      return response.body.to_s
+      return message.to_json
       # api = Slack::API.new "xoxb-2208532755014-2220375245923-6tqDaaFr8mg5KI9z0ej5b5jw"
       # api.post_message(message)
 
