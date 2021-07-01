@@ -29,7 +29,7 @@ class LivepixelController < ApplicationController
       # headers = HTTP::Headers{"Content-Type" => "application/json"}
       # response = HTTP::Client.post(url, headers: headers, body: JSON.stringify(message))
 
-      uri = URI.parse(response_url)
+      uri = URI.parse("https://slack.com/api/chat.postMessage"))
 
       client = HTTP::Client.new uri
   
