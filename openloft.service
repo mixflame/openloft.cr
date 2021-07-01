@@ -5,9 +5,9 @@ After=network.target
 [Service]
 Type=simple
 User=gbaldraw
-WorkingDirectory=/home/gbaldraw/openloft.cr
+WorkingDirectory=/home/gbaldraw/gbaldraw.cr
 Environment="AMBER_ENCRYPTION_KEY=odzCnBFRMFwITASkUq_cOThhaxDc0zkjYTM_67O15AM" "AMBER_ENV=production"
-ExecStart=/home/gbaldraw/openloft.cr/bin/openloft.cr
+ExecStart=/home/gbaldraw/gbaldraw.cr/bin/openloft.cr
 Restart=always
 
 [Install]
