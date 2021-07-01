@@ -17,6 +17,7 @@ class LivepixelController < ApplicationController
 
     command = params["command"].to_s
     response_url = params["response_url"].to_s
+    channel = params["channel"].to_s
 
     # # create private room
 
@@ -24,11 +25,11 @@ class LivepixelController < ApplicationController
 
       url = "https://openloft.org/canvas?room=#{UUID.random.to_s}"
 
-      message = {text: "Join here: #{url}"}.to_h
+      message = {text: "Join here: #{url}", token: "xoxb-2208532755014-2220375245923-6tqDaaFr8mg5KI9z0ej5b5jw", channel: channel}.to_h
       # headers = HTTP::Headers{"Content-Type" => "application/json"}
       # response = HTTP::Client.post(url, headers: headers, body: JSON.stringify(message))
 
-      uri = URI.parse(response_url)
+      uri = URI.parse("https://slack.com/api/chat.postMessage")
 
       client = HTTP::Client.new uri
   
