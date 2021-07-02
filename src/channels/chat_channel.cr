@@ -25,6 +25,32 @@ class ChatChannel < Amber::WebSockets::Channel
       end
       ChatSocket.broadcast("join", message.as_h["topic"].to_s, "user_join", {join: true, nicks: nicks, name: data["name"].to_s}.to_h)
 
+
+      # alert slack https://slack.com/api/calls.participants.add
+
+      message = {
+        id: room,
+        users: [
+          {external_id: data["name"], display_name: data["name"]}
+        ]
+      }.to_h
+      headers = HTTP::Headers{"Content-Type" => "application/json"}
+  
+      uri = URI.parse("https://slack.com/api/calls.participants.add")
+  
+      client = HTTP::Client.new uri
+  
+      client.before_request do |request|
+          request.headers["Authorization"] = "Bearer xoxb-2208532755014-2235711764308-8HLxfgiGdgTIYoHSBrI4AdR1"
+          request.headers["Content-Type"] = "application/json"
+          request.body = message.to_json
+          request.content_length = request.body.to_s.bytesize
+      end
+      response = client.post(uri.path)
+
+      puts "calls.add: #{response.body.to_s}"
+
+
       # client_socket.socket.send({"event" => "message", "topic" => message["topic"].to_s, "subject" => "message_new", "payload" => {nicks: nicks}}.to_json)
       return
     end
@@ -81,6 +107,28 @@ class ChatChannel < Amber::WebSockets::Channel
     # not really a join, just use this message
     ChatSocket.broadcast("join", "chat:#{room}", "user_join", {join: false, nicks: nicks.to_a, name: name.to_s}.to_h)
 
+
+    message = {
+        id: room,
+        users: [
+          {external_id: name.to_s, display_name: name.to_s}
+        ]
+      }.to_h
+      headers = HTTP::Headers{"Content-Type" => "application/json"}
+  
+      uri = URI.parse("https://slack.com/api/calls.participants.remove")
+  
+      client = HTTP::Client.new uri
+  
+      client.before_request do |request|
+          request.headers["Authorization"] = "Bearer xoxb-2208532755014-2235711764308-8HLxfgiGdgTIYoHSBrI4AdR1"
+          request.headers["Content-Type"] = "application/json"
+          request.body = message.to_json
+          request.content_length = request.body.to_s.bytesize
+      end
+      response = client.post(uri.path)
+
+      puts "calls.remove: #{response.body.to_s}"
 
   end
 end
