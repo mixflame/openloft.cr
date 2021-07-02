@@ -2432,19 +2432,27 @@ $(function () {
             var w = screen.width;
             var h = screen.height;
 
+            $("#canvasDivHolder").css("width", w + "px");
+            $("#canvasDivHolder").css("height", h + "px");
+            $("#canvasDiv").css("width", w + "px");
+            $("#canvasDiv").css("height", h + "px");
             $("canvas").css("width", w + "px");
             $("canvas").css("height", h + "px");
         });
 
-        var w = screen.width;
-        var h = screen.height;
 
-        window.canvas_window.resize(w, h)
+        // var w = screen.width;
+        // var h = screen.height;
+
+        // window.canvas_window.resize(w, h)
+
+        $('.nav-tabs a[href="#canvas_tab"]').tab('show');
+
+
 
         //using HTML5 for fullscreen (only newest Chrome + FF)
 
-        $("canvas")[0].requestFullscreen(); //Firefox
-
+        $("#canvas_tab")[0].requestFullscreen(); //Firefox
 
 
 
