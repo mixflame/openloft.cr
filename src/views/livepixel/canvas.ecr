@@ -27,15 +27,15 @@
   <div class="tab-pane fade show active" id="canvas_tab" role="tabpanel" aria-labelledby="canvas_tab-tab">
   
 
-    <div id="toolbox" style="display: inline; font-size: 10px;">
-      <div id="last-colors">
+    <div id="toolbox" class="unselectable" style="display: inline; font-size: 10px;">
+      <div id="last-colors" class="unselectable">
         <% (0..15).each do |num| %>
           <div class="swatch" id="last-color-<%= num %>"></div>
         <% end %>
 
         <select name="palette-selector" id="palette-selector">
-          <option value="mac">Mac</option>
-          <option value="windows">Windows</option>
+          <option value="mac">Mac 16 color</option>
+          <option value="windows">Windows 16 color</option>
         </select>
       </div>
 
@@ -170,8 +170,8 @@
   </div>
 
   <div class="tab-pane fade show" id="chat_tab" role="tabpanel" aria-labelledby="chat_tab-tab">
-    <div id="chat_area_holder" class="unselectable">
-      <div id="online_list" class="unselectable" style="width: 30%; overflow: scroll; float: left;"><ul id="connected_users"></ul></div>
+    <div id="chat_area_holder">
+      <div id="online_list" style="width: 30%; overflow: scroll; float: left;"><ul id="connected_users"></ul></div>
       <div id="chat_area" name="chat_area" style="width: 70%; overflow: scroll; float: left; resize: both; max-width: 80%">
       <% chats.each do |c| -%>
       <p style='margin: 0px'>&lt<%= Sanitizer.process "#{JSON.parse(c.to_s)["name"]}" %>&gt <%= Sanitizer.process "#{JSON.parse(c.to_s)["chat_message"]}" %></p>
