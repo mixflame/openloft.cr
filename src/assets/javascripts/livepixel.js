@@ -2770,48 +2770,45 @@ $(function () {
             }
         })
 
-
-        $("#tshirt-uploader").click(function (e) {
-            e.preventDefault();
-            var dataURL = canvas.toDataURL();
-            if (!window.dontLog) console.log(dataURL);
-            var url = "/upload_to_scalable_press";
-            var base64ImageContent = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-            var blob = base64ToBlob(base64ImageContent, 'image/png');
-            var formData = new FormData();
-            formData.append('picture', blob);
-
-            const csrfToken = document.querySelector("[name=_csrf]").content;
-            const headers = {
-                "X-CSRF-TOKEN": csrfToken,
-                "Access-Control-Allow-Origin": "*"
-            }
-
-            $.ajax({
-                url: url,
-                headers: headers,
-                type: "POST",
-                cache: false,
-                contentType: false,
-                processData: false,
-                data: formData
-            })
-                .done(function (e) {
-                    var data = JSON.parse(e);
-
-                    console.log(data);
-
-                    window.open("/show_scalable_product_categories?designId=" + data["designId"])
-
-                });
-
-
-        })
-
-
-
-
     }
+
+
+    $("#tshirt-uploader").click(function (e) {
+        e.preventDefault();
+        var dataURL = canvas.toDataURL();
+        if (!window.dontLog) console.log(dataURL);
+        var url = "/upload_to_scalable_press";
+        var base64ImageContent = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+        var blob = base64ToBlob(base64ImageContent, 'image/png');
+        var formData = new FormData();
+        formData.append('picture', blob);
+
+        const csrfToken = document.querySelector("[name=_csrf]").content;
+        const headers = {
+            "X-CSRF-TOKEN": csrfToken,
+            "Access-Control-Allow-Origin": "*"
+        }
+
+        $.ajax({
+            url: url,
+            headers: headers,
+            type: "POST",
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: formData
+        })
+            .done(function (e) {
+                var data = JSON.parse(e);
+
+                console.log(data);
+
+                window.open("/show_scalable_product_categories?designId=" + data["designId"])
+
+            });
+
+
+    })
 
     window.textarea = document.getElementById("collaborative_text");
 
