@@ -43,7 +43,7 @@ class LivepixelController < ApplicationController
         "desktop_protocol_call_initiation_url" => url
       }.to_h
       headers = HTTP::Headers{"Content-Type" => "application/json"}
-      response = HTTP::Client.post(url, headers: headers, body: JSON.stringify(message))
+      response = HTTP::Client.post(url, headers: headers, body: message.to_json)
   
       uri = URI.parse(response_url)
   
@@ -65,7 +65,7 @@ class LivepixelController < ApplicationController
         "join_url" => url,
       }.to_h
       headers = HTTP::Headers{"Content-Type" => "application/json"}
-      response = HTTP::Client.post(url, headers: headers, body: JSON.stringify(message))
+      response = HTTP::Client.post(url, headers: headers, body: message.to_json)
   
       uri = URI.parse("https://slack.com/api/calls.add")
   
