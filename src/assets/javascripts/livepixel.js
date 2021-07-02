@@ -2428,9 +2428,9 @@ $(function () {
     // require("livepixel/somafm")
 
     $("#full-screen").click(function () {
-        $(window).bind("resize", function () {
-            var w = screen.width;
-            var h = screen.height;
+        $("#canvas_tab").bind("resize", function () {
+            var w = screen.width * 0.86;
+            var h = screen.height * 0.86;
 
             $("#canvasDivHolder").css("width", w + "px");
             $("#canvasDivHolder").css("height", h + "px");
@@ -2439,6 +2439,7 @@ $(function () {
             $("canvas").css("width", w + "px");
             $("canvas").css("height", h + "px");
         });
+        
 
 
         // var w = screen.width;
@@ -2453,8 +2454,6 @@ $(function () {
         //using HTML5 for fullscreen (only newest Chrome + FF)
 
         $("#canvas_tab")[0].requestFullscreen(); //Firefox
-
-
 
     })
 

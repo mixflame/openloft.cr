@@ -6,6 +6,9 @@
     <a class="nav-link active" id="canvas_tab-tab" data-toggle="tab" href="#canvas_tab" role="tab" aria-controls="canvas_tab" aria-selected="true">Canvas</a>
   </li>
   <li class="nav-item">
+    <a class="nav-link" id="chat_tab-tab" data-toggle="tab" href="#chat_tab" role="tab" aria-controls="chat_tab" aria-selected="true">Chat</a>
+  </li>
+  <li class="nav-item">
     <a class="nav-link" id="call_tab-tab" data-toggle="tab" href="#call_tab" role="tab" aria-controls="call_tab" aria-selected="false">Call</a>
   </li>
   <li class="nav-item">
@@ -20,6 +23,7 @@
 
 
 <div class="tab-content" id="myTabContent">
+
   <div class="tab-pane fade show active" id="canvas_tab" role="tabpanel" aria-labelledby="canvas_tab-tab">
   
 
@@ -163,6 +167,9 @@
 
     </div>
 
+  </div>
+
+  <div class="tab-pane fade show" id="chat_tab" role="tabpanel" aria-labelledby="chat_tab-tab">
     <div id="chat_area_holder" class="unselectable">
       <div id="online_list" class="unselectable" style="width: 30%; overflow: scroll; float: left;"><ul id="connected_users"></ul></div>
       <div id="chat_area" name="chat_area" style="width: 70%; overflow: scroll; float: left; resize: both; max-width: 80%">
@@ -187,8 +194,9 @@
         <p><div contenteditable="true" id="chat_message" name="chat_message" style="width: 95vw; border: lightblue 1px solid; display: inline-block;"></div><button class="btn btn-primary" style="display: inline-block; margin-top: -15px;" id="send_message">Send</button></p>
       </div>
     </div>
-
   </div>
+
+
   <div class="tab-pane fade" id="call_tab" role="tabpanel" aria-labelledby="call_tab-tab">
     <div id="video_chat" class="unselectable" style="float: left; display: inline;">
       <div id="center_holder">
