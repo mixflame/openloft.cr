@@ -16,38 +16,83 @@ class LivepixelController < ApplicationController
     # command = Slack::SlashCommand.from_request_body(request.body.to_s)
 
     command = params["command"].to_s
-    # response_url = params["response_url"].to_s
+    response_url = params["response_url"].to_s
     # channel = params["channel"].to_s
 
     # # create private room
 
-    if command.includes?("makeloft")
+    id = UUID.random.to_s
 
-      url = "https://openloft.org/canvas?room=#{UUID.random.to_s}"
+    url = "https://openloft.org/canvas?room=#{id}"
 
-      message = {text: "Join here: #{url}", response_type: "in_channel"}.to_h
-      # headers = HTTP::Headers{"Content-Type" => "application/json"}
-      # response = HTTP::Client.post(url, headers: headers, body: JSON.stringify(message))
+    # if command.includes?("makeloft")
 
-        # uri = URI.parse(response_url)
+
+    #   message = {text: "Join here: #{url}", response_type: "in_channel"}.to_h
+
+
+    #   # message.send_to_hook "#{redirect_url}&token=xoxb-2208532755014-2220375245923-6tqDaaFr8mg5KI9z0ej5b5jw"
+    #   return message.to_json
+    #   # api = Slack::API.new "xoxb-2208532755014-2220375245923-6tqDaaFr8mg5KI9z0ej5b5jw"
+    #   # api.post_message(message)
+
+    # else
+      message = {
+        "response_type" => "call",
+        "call_initiation_url" => url,
+        "desktop_protocol_call_initiation_url" => url
+      }.to_h
+      headers = HTTP::Headers{"Content-Type" => "application/json"}
+      response = HTTP::Client.post(url, headers: headers, body: JSON.stringify(message))
   
-        # client = HTTP::Client.new uri
-    
-        # client.before_request do |request|
-        #     request.headers["Content-Type"] = "application/json"
-        #     request.body = message.to_json
-        #     request.content_length = request.body.to_s.bytesize
-        # end
-        # response = client.post(uri.path)
+      uri = URI.parse(response_url)
+  
+      client = HTTP::Client.new uri
+  
+      client.before_request do |request|
+          request.headers["Content-Type"] = "application/json"
+          request.body = message.to_json
+          request.content_length = request.body.to_s.bytesize
+      end
+      response = client.post(uri.path)
 
-      # message.send_to_hook "#{redirect_url}&token=xoxb-2208532755014-2220375245923-6tqDaaFr8mg5KI9z0ej5b5jw"
-      return message.to_json
-      # api = Slack::API.new "xoxb-2208532755014-2220375245923-6tqDaaFr8mg5KI9z0ej5b5jw"
-      # api.post_message(message)
+      puts "quick ack: #{response.body.to_s}"
 
-    end
+      # https://slack.com/api/calls.add
 
-    
+      message = {
+        "external_unique_id" => id,
+        "join_url" => url,
+      }.to_h
+      headers = HTTP::Headers{"Content-Type" => "application/json"}
+      response = HTTP::Client.post(url, headers: headers, body: JSON.stringify(message))
+  
+      uri = URI.parse("https://slack.com/api/calls.add")
+  
+      client = HTTP::Client.new uri
+  
+      client.before_request do |request|
+          request.headers["Authorization"] = "Bearer xoxb-2208532755014-2235711764308-8HLxfgiGdgTIYoHSBrI4AdR1"
+          request.headers["Content-Type"] = "application/json"
+          request.body = message.to_json
+          request.content_length = request.body.to_s.bytesize
+      end
+      response = client.post(uri.path)
+
+      puts "calls.add: #{response.body.to_s}"
+
+    # end
+
+    message = {
+      text: "Join here: #{url}",
+      response_type: "in_channel",
+      blocks: [{
+        type: "call",
+        call_id: id,
+      }]
+    }.to_h
+
+    return message.to_json
   
   end
 
