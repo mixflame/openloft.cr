@@ -55,7 +55,7 @@ class LivepixelController < ApplicationController
 
     if type == "link_shared"
       # https://slack.com/api/calls.add
-      url = event[:links].to_a[0].as_h[:url].to_s
+      url = event[:links].as_a[0].as_h[:url].to_s
       id = url.split("=")[1].to_s
       puts "url: #{url} id: #{id}"
       message = {
