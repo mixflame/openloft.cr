@@ -31,7 +31,7 @@ class ChatChannel < Amber::WebSockets::Channel
       message = {
         id: redis.get("#{room}_slack_call_id").to_s,
         users: [
-          {external_id: data["name"], display_name: data["name"]}
+          {external_id: data["name"].to_s, display_name: data["name"].to_s}
         ]
       }.to_h
       headers = HTTP::Headers{"Content-Type" => "application/json"}
