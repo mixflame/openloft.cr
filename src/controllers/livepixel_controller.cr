@@ -76,6 +76,11 @@ class LivepixelController < ApplicationController
       end
       response = client.post(uri.path)
 
+      call_id = JSON.parse(response.body.to_s)["call"].as_h["id"].to_s
+
+      redis = Redis.new
+      redis.set("#{id}_slack_call_id", call_id)
+
       puts "calls.add: #{response.body.to_s}"
 
 
@@ -177,6 +182,11 @@ class LivepixelController < ApplicationController
           request.content_length = request.body.to_s.bytesize
       end
       response = client.post(uri.path)
+
+      call_id = JSON.parse(response.body.to_s)["call"].as_h["id"].to_s
+
+      redis = Redis.new
+      redis.set("#{id}_slack_call_id", call_id)
 
       puts "calls.add: #{response.body.to_s}"
 

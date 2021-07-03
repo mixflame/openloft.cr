@@ -29,7 +29,7 @@ class ChatChannel < Amber::WebSockets::Channel
       # alert slack https://slack.com/api/calls.participants.add
 
       message = {
-        id: room,
+        id: redis.get("#{room}_slack_call_id").to_s,
         users: [
           {external_id: data["name"], display_name: data["name"]}
         ]
@@ -48,7 +48,7 @@ class ChatChannel < Amber::WebSockets::Channel
       end
       response = client.post(uri.path)
 
-      puts "calls.add: #{response.body.to_s}"
+      puts "calls.participants.add: #{response.body.to_s}"
 
 
       # client_socket.socket.send({"event" => "message", "topic" => message["topic"].to_s, "subject" => "message_new", "payload" => {nicks: nicks}}.to_json)
