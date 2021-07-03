@@ -33,6 +33,7 @@ class LivepixelController < ApplicationController
     my_signature = "v0=" + OpenSSL::HMAC.hexdigest(:sha256, SLACK_SIGNING_SECRET, sig_basestring)
     puts "my signature: #{my_signature}"
     slack_signature = request.headers["X-Slack-Signature"]
+    puts "slack signature: #{slack_signature}"
     if my_signature != slack_signature
       # Signature mismatch.
       return
