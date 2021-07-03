@@ -57,6 +57,7 @@ class LivepixelController < ApplicationController
       # https://slack.com/api/calls.add
       url = event[:links][0].as_h[:url].to_s
       id = url.split("=")[1]
+      puts "url: #{url} id: #{id}"
       message = {
         "external_unique_id" => id,
         "join_url" => url,
