@@ -20,7 +20,7 @@ class LivepixelController < ApplicationController
     token = params[:token]
     challenge = params[:challenge]
     timestamp = request.headers["X-Slack-Request-Timestamp"]
-    if Math.abs(Time.utc - timestamp) > 60 * 5
+    if Math.abs(Time.utc.to_i - timestamp.to_i) > 60 * 5
       # The request timestamp is more than five minutes from local time.
       # It could be a replay attack, so let's ignore it.
       return
