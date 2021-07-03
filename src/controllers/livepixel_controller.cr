@@ -25,7 +25,7 @@ class LivepixelController < ApplicationController
       # It could be a replay attack, so let's ignore it.
       return
     end
-    sig_basestring = "v0:" + timestamp + ":" + request.body.gets_to_end.to_s
+    sig_basestring = "v0:" + timestamp + ":" + request.body.as(IO).gets_to_end.to_s
     puts "sig_basestring: #{sig_basestring}"
     # my_signature = 'v0=' + hmac.compute_hash_sha256(
     # slack_signing_secret,
