@@ -17,10 +17,17 @@ class LivepixelController < ApplicationController
 
 
   def event_subscription
-    token = params[:token]
-    challenge = params[:challenge]
-    event = params[:event]
-    type = params[:event][:type]
+    # token = params[:token]
+    # challenge = params[:challenge]
+    # event = params[:event]
+    # type = params[:type]
+    json = JSON.parse(request.body.as(IO).gets_to_end)
+    token = json["token"].to_s
+    challenge = json["challenge"].to_s
+    event = json["event"].as_h
+    type = json["type"].to_s
+    channel_id = event["channel"]["id"]
+
     timestamp = request.headers["X-Slack-Request-Timestamp"]
     if (Time.utc.to_unix - timestamp.to_i).abs > 60 * 5
       # The request timestamp is more than five minutes from local time.
@@ -48,8 +55,8 @@ class LivepixelController < ApplicationController
 
     if type == "link_shared"
       # https://slack.com/api/calls.add
-      url = params[:event][:links][0][:url]
-      id = URI.parse(url).query.split("=")[1]
+      url = event[:links][0].as_h[:url].to_s
+      id = URI.parse(url).query.as(String).split("=")[1]
       message = {
         "external_unique_id" => id,
         "join_url" => url,
