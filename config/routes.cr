@@ -57,6 +57,7 @@ Amber::Server.configure do
   end
 
   routes :api do
+    post "/event_subscription", LivepixelController, :event_subscription
     post "/parse_command", LivepixelController, :parse_command
     get "/active_users", LivepixelController, :active_users
   end
