@@ -25,20 +25,20 @@ class LivepixelController < ApplicationController
       # It could be a replay attack, so let's ignore it.
       return
     end
-    sig_basestring = "v0:" + timestamp + ":" + request.body.as(IO).gets_to_end.to_s
-    puts "sig_basestring: #{sig_basestring}"
-    # my_signature = 'v0=' + hmac.compute_hash_sha256(
-    # slack_signing_secret,
-    # sig_basestring
-    # ).hexdigest()
-    my_signature = "v0=" + OpenSSL::HMAC.hexdigest(:sha256, SLACK_SIGNING_SECRET, sig_basestring)
-    puts "my signature: #{my_signature}"
-    slack_signature = request.headers["X-Slack-Signature"]
-    puts "slack signature: #{slack_signature}"
-    if my_signature != slack_signature
-      # Signature mismatch.
-      return
-    end
+    # sig_basestring = "v0:" + timestamp + ":" + request.body.as(IO).gets_to_end.to_s
+    # puts "sig_basestring: #{sig_basestring}"
+    # # my_signature = 'v0=' + hmac.compute_hash_sha256(
+    # # slack_signing_secret,
+    # # sig_basestring
+    # # ).hexdigest()
+    # my_signature = "v0=" + OpenSSL::HMAC.hexdigest(:sha256, SLACK_SIGNING_SECRET, sig_basestring)
+    # puts "my signature: #{my_signature}"
+    # slack_signature = request.headers["X-Slack-Signature"]
+    # puts "slack signature: #{slack_signature}"
+    # if my_signature != slack_signature
+    #   # Signature mismatch.
+    #   return
+    # end
     if params[:token] != "wY55EsfU9iqwcupmK35SXck0"
       # Token mismatch.
       return
