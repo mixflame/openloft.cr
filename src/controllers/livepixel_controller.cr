@@ -20,17 +20,17 @@ class LivepixelController < ApplicationController
     token = params[:token]
     challenge = params[:challenge]
     timestamp = request.headers["X-Slack-Request-Timestamp"]
-    if Math.abs(Time.utc.to_i - timestamp.to_i) > 60 * 5
+    if (Time.utc.to_unix - timestamp.to_i).abs > 60 * 5
       # The request timestamp is more than five minutes from local time.
       # It could be a replay attack, so let's ignore it.
       return
     end
-    sig_basestring = "v0:" + timestamp + ":" + request_body
+    sig_basestring = "v0:" + timestamp + ":" + request.body.to_s
     # my_signature = 'v0=' + hmac.compute_hash_sha256(
     # slack_signing_secret,
     # sig_basestring
     # ).hexdigest()
-    my_signature = "v0=" + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha256"), SLACK_SIGNING_SECRET, sig_basestring)
+    my_signature = "v0=" + OpenSSL::HMAC.hexdigest(OpenSSL::Algorithm.new(5), SLACK_SIGNING_SECRET, sig_basestring)
     slack_signature = request.headers["X-Slack-Signature"]
     if my_signature != slack_signature
       # Signature mismatch.
@@ -40,6 +40,7 @@ class LivepixelController < ApplicationController
       # Token mismatch.
       return
     end
+    
     
     return {challenge: challenge}.to_json
   end
