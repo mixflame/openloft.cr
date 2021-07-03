@@ -31,10 +31,11 @@ class ChatChannel < Amber::WebSockets::Channel
       message = {
         id: redis.get("#{room}_slack_call_id").to_s,
         users: [
-          {external_id: data["name"].to_s, display_name: data["name"].to_s}
-        ]
+          {external_id: data["name"].to_s, display_name: data["name"].to_s}.to_h
+        ].to_a
       }.to_h
-      headers = HTTP::Headers{"Content-Type" => "application/json"}
+
+      puts message.inspect
   
       uri = URI.parse("https://slack.com/api/calls.participants.add")
   
