@@ -20,7 +20,7 @@ class LivepixelController < ApplicationController
     token = params[:token]
     challenge = params[:challenge]
     event = params[:event]
-    type = event[:type]
+    type = params[:event][:type]
     timestamp = request.headers["X-Slack-Request-Timestamp"]
     if (Time.utc.to_unix - timestamp.to_i).abs > 60 * 5
       # The request timestamp is more than five minutes from local time.
@@ -48,7 +48,7 @@ class LivepixelController < ApplicationController
 
     if type == "link_shared"
       # https://slack.com/api/calls.add
-      url = event[:links][0][:url]
+      url = params[:event][:links][0][:url]
       id = URI.parse(url).query.split("=")[1]
       message = {
         "external_unique_id" => id,
