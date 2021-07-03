@@ -19,6 +19,8 @@ class LivepixelController < ApplicationController
   def event_subscription
     token = params[:token]
     challenge = params[:challenge]
+    event = params[:event]
+    type = event[:type]
     timestamp = request.headers["X-Slack-Request-Timestamp"]
     if (Time.utc.to_unix - timestamp.to_i).abs > 60 * 5
       # The request timestamp is more than five minutes from local time.
@@ -42,6 +44,61 @@ class LivepixelController < ApplicationController
     if params[:token] != "wY55EsfU9iqwcupmK35SXck0"
       # Token mismatch.
       return
+    end
+
+    if type == "link_shared"
+      # https://slack.com/api/calls.add
+      url = event[:links][0][:url]
+      id = URI.parse(url).query.split("=")[1]
+      message = {
+        "external_unique_id" => id,
+        "join_url" => url,
+      }.to_h
+      headers = HTTP::Headers{"Content-Type" => "application/json"}
+  
+      uri = URI.parse("https://slack.com/api/calls.add")
+  
+      client = HTTP::Client.new uri
+  
+      client.before_request do |request|
+          request.headers["Authorization"] = "Bearer xoxb-2208532755014-2235711764308-8HLxfgiGdgTIYoHSBrI4AdR1"
+          request.headers["Content-Type"] = "application/json"
+          request.body = message.to_json
+          request.content_length = request.body.to_s.bytesize
+      end
+      response = client.post(uri.path)
+
+      puts "calls.add: #{response.body.to_s}"
+
+
+      # https://slack.com/api/chat.unfurl
+
+      message = {
+        "channel" => channel_id,
+        "ts" => event[:event_ts],
+        "unfurls" => { 
+          url => { 
+            "type": "call",
+            "call_id": id
+          }
+        },
+      }.to_h
+      headers = HTTP::Headers{"Content-Type" => "application/json"}
+  
+      uri = URI.parse("https://slack.com/api/chat.unfurl")
+  
+      client = HTTP::Client.new uri
+  
+      client.before_request do |request|
+          request.headers["Authorization"] = "Bearer xoxb-2208532755014-2235711764308-8HLxfgiGdgTIYoHSBrI4AdR1"
+          request.headers["Content-Type"] = "application/json"
+          request.body = message.to_json
+          request.content_length = request.body.to_s.bytesize
+      end
+      response = client.post(uri.path)
+
+      puts "chat.unfurl: #{response.body.to_s}"
+
     end
     
     
