@@ -56,7 +56,7 @@ class LivepixelController < ApplicationController
     if type == "link_shared"
       # https://slack.com/api/calls.add
       url = event[:links][0].as_h[:url].to_s
-      id = URI.parse(url).query.as(String).split("=")[1]
+      id = url.split("=")[1]
       message = {
         "external_unique_id" => id,
         "join_url" => url,
