@@ -13,7 +13,7 @@ window.setupChat = () => {
     }
     if (!window.dontLog) console.log("Connected to chat channel");
 
-    window.chat_channel.push("message_new", { online: true, name: window.name });
+    window.chat_channel.push("message_new", { online: true, name: window.name, room: window.room });
 
     window.start_pinging();
     setInterval(window.start_pinging, 3000);
