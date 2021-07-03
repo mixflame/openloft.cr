@@ -26,6 +26,7 @@ class LivepixelController < ApplicationController
       return
     end
     sig_basestring = "v0:" + timestamp + ":" + request.body.to_s
+    puts "sig_basestring: #{sig_basestring}"
     # my_signature = 'v0=' + hmac.compute_hash_sha256(
     # slack_signing_secret,
     # sig_basestring
