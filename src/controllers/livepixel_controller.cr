@@ -10,7 +10,39 @@ require "slack"
 CLIENT_ID = "AXEHRTl5y4XYIOuuIJ7CT5TE5v0CLNViXwk7CD8F5DhAT6JTKoF9jWJMr71f5W_BsSS9gnp8hjSPunFL"
 CLIENT_SECRET = "ENuzq-_Qx1_N-wmaB_Io5ajTJAjucGzd3bqaKStziSksTfWJqkg-cNT4uIppBWIL4txlc9WEwGKjRvLq"
 
+#slack
+SLACK_SIGNING_SECRET = "0a6d338cfca7bd0ef524a924aa56a536"
+
 class LivepixelController < ApplicationController
+
+
+  def event_subscription
+    token = params[:token]
+    challenge = params[:challenge]
+    timestamp = request.headers["X-Slack-Request-Timestamp"]
+    if Math.abs(Time.utc.to_s - timestamp) > 60 * 5
+      # The request timestamp is more than five minutes from local time.
+      # It could be a replay attack, so let's ignore it.
+      return
+    end
+    sig_basestring = "v0:" + timestamp + ":" + request_body
+    # my_signature = 'v0=' + hmac.compute_hash_sha256(
+    # slack_signing_secret,
+    # sig_basestring
+    # ).hexdigest()
+    my_signature = "v0=" + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha256"), SLACK_SIGNING_SECRET, sig_basestring)
+    slack_signature = request.headers["X-Slack-Signature"]
+    if my_signature != slack_signature
+      # Signature mismatch.
+      return
+    end
+    if params[:token] != "wY55EsfU9iqwcupmK35SXck0"
+      # Token mismatch.
+      return
+    end
+    
+    return {challenge: challenge}.to_json
+  end
 
   def parse_command
     # command = Slack::SlashCommand.from_request_body(request.body.to_s)
