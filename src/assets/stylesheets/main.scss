@@ -614,3 +614,8 @@ a:visited {
 .mejs__controls, .mejs__offscreen {
     display: none;
 }
+
+#theater_controls {
+    position: absolute;
+    z-index: 100000;
+}

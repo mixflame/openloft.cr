@@ -30,6 +30,7 @@ window.setuptheater = () => {
                 window.media_element.pause();
             } else if (data["event"] == "ended") {
                 window.media_element.pause();
+                
             } else if (data["event"] == "timeupdate") {
                 // window.media_element.pause();
                 window.media_element.setCurrentTime(data["time"]);
