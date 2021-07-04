@@ -65,7 +65,6 @@ window.setuptheater = () => {
             
             if (data["event"] == "load") {
                 console.log('loading video');
-                $('.nav-tabs a[href="#theater_tab"]').tab('show');
 
 
 
