@@ -3127,8 +3127,6 @@ $(function () {
 
     })
 
-    loadVideoPlayer();
-
 })
 
 window.loadVideoPlayer = function () {
@@ -3149,7 +3147,9 @@ window.loadVideoPlayer = function () {
                 // var isNative = /html5|native/i.test(media.rendererName);
 
                 // var isYoutube = ~media.rendererName.indexOf('youtube');
-                media.play();
+                if(!window.is_playing) {
+                    window.media_element.play();
+                }
                 
                 media.addEventListener("loadedmetadata", function (e) {
                     // console.log(e);
@@ -3162,21 +3162,25 @@ window.loadVideoPlayer = function () {
 
                 media.addEventListener('playing', function () {
                     // console.log("playing");
+                    window.is_playing = true;
                     theater_channel.push("message_new", { event: "playing", name: window.name, room: window.room });
                 });
 
                 media.addEventListener('play', function () {
                     // console.log("play");
+                    window.is_playing = true;
                     theater_channel.push("message_new", { event: "play", name: window.name, room: window.room });
                 });
 
                 media.addEventListener('pause', function () {
                     // console.log("pause");
+                    window.is_playing = false;
                     theater_channel.push("message_new", { event: "pause", name: window.name, room: window.room });
                 });
 
                 media.addEventListener('ended', function () {
                     // console.log("ended");
+                    window.is_playing = false;
                     theater_channel.push("message_new", { event: "ended", name: window.name, room: window.room });
                 });
 
@@ -3196,7 +3200,9 @@ window.loadVideoPlayer = function () {
                 });
 
                 media.addEventListener('canplay', function(e) {
-                    // media.play();
+                    if(!window.is_playing) {
+                        window.media_element.play();
+                    }
                     theater_channel.push("message_new", {event: "canplay", name: window.name, room: window.room, time: e.detail.target.getCurrentTime()});
 
                 });

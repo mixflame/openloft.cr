@@ -8,6 +8,7 @@ window.setuptheater = () => {
     if (window.theater_socket.channels.length == 0) {
         window.theater_channel = theater_socket.channel('theater:' + window.room)
         window.theater_channel.join()
+        loadVideoPlayer();
     }
     if (!window.dontLog) console.log("Connected to theater channel");
 
@@ -23,16 +24,18 @@ window.setuptheater = () => {
         }
         if (window.media_element != null) {
             if (data["event"] == "play") {
-                window.media_element.play();
+                
             } else if (data["event"] == "playing") {
-                window.media_element.play();
+                // window.media_element.play();
             } else if (data["event"] == "pause") {
                 window.media_element.pause();
             } else if (data["event"] == "ended") {
                 window.media_element.pause();
                 
             } else if (data["event"] == "timeupdate") {
-                // window.media_element.pause();
+                if(!window.is_playing) {
+                    window.media_element.play();
+                }
                 window.media_element.setCurrentTime(data["time"]);
                 // window.media_element.play();
             } else if (data["event"] == "progress") {
@@ -40,7 +43,9 @@ window.setuptheater = () => {
             } else if (data["event"] == "waiting") {
                 // window.media_element.setCurrentTime(data["time"]);
             } else if (data["event"] == "canplay") {
-                // window.media_element.pause();
+                if(!window.is_playing) {
+                    window.media_element.play();
+                }
                 window.media_element.setCurrentTime(data["time"]);
             } else if (data["event"] == "seeking") {
                 window.media_element.setCurrentTime(data["time"]);
@@ -74,7 +79,9 @@ window.setuptheater = () => {
                             // var isNative = /html5|native/i.test(media.rendererName);
 
                             // var isYoutube = ~media.rendererName.indexOf('youtube');
-                            media.play();
+                            if(!window.is_playing) {
+                                window.media_element.play();
+                            }
 
 
                             media.addEventListener("loadedmetadata", function (e) {
@@ -88,6 +95,7 @@ window.setuptheater = () => {
 
                             media.addEventListener('playing', function () {
                                 // console.log("playing");
+                                window.is_playing = true;
                                 theater_channel.push("message_new", { event: "playing", name: window.name, room: window.room });
                             });
 
@@ -98,11 +106,13 @@ window.setuptheater = () => {
 
                             media.addEventListener('pause', function () {
                                 // console.log("pause");
+                                window.is_playing = false;
                                 theater_channel.push("message_new", { event: "pause", name: window.name, room: window.room });
                             });
 
                             media.addEventListener('ended', function () {
                                 // console.log("ended");
+                                window.is_playing = false;
                                 theater_channel.push("message_new", { event: "ended", name: window.name, room: window.room });
                             });
 
