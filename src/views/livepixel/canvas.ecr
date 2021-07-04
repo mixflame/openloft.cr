@@ -17,6 +17,9 @@
   <li class="nav-item">
     <a class="nav-link" id="links_tab-tab" data-toggle="tab" href="#links_tab" role="tab" aria-controls="links_tab" aria-selected="false">Tools</a>
   </li>
+  <li class="nav-item">
+    <a class="nav-link" id="theater_tab-tab" data-toggle="tab" href="#theater_tab" role="tab" aria-controls="theater_tab" aria-selected="false">Theater</a>
+  </li>
 </ul>
 
 
@@ -295,4 +298,25 @@
       </li>
     </ul>
   </div>
+
+  <div class="tab-pane fade" id="theater_tab" role="tabpanel" aria-labelledby="theater_tab-tab">
+    <div id="theater_holder">
+      <video class="youtube-video" controls data-yt=""></video>
+      <div id="theater_controls">
+        <p>URL: <input type="text" id="theater_url" /> <button id="theater_url_button">load</button></p>
+        <button id="theater_play">Play</button>
+        <button id="theater_pause">Pause</button>
+        <button id="theater_mute">Mute</button>
+        <button id="theater_unmute">Unmute</button>
+
+        <div id="theater_volume_holder">
+          <input type="range" min="0.0" max="1.0" value="1.0" step="0.01" class="slider" id="theater_volume">
+        </div>
+      
+      </div>
+
+    </div>
+  </div>
+
+
 </div>

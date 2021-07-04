@@ -26,6 +26,7 @@ require("./channels/canvas_channel")
 require("./channels/chat_channel")
 require("./channels/persistence_channel")
 require("./channels/text_channel")
+require("./channels/theater_channel")
 
 import { library, dom } from "@fortawesome/fontawesome-svg-core";
 import { faEyeDropper, 
@@ -57,3 +58,6 @@ library.add(faRulerCombined);
 
 
 dom.watch();
+
+require("mediaelement");
+window.MediaElement = MediaElement;

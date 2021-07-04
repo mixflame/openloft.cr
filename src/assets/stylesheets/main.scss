@@ -3,6 +3,9 @@ $secondary: #dddddd;
 @import '~bootstrap/scss/bootstrap';
 @import "stats";
 @import "buy_ad";
+// @import "../../../node_modules/mediaelement/src/css/mediaelementplayer-legacy.css";
+
+
 .navbar {
     position: static;
     display: block;
@@ -589,4 +592,25 @@ a:visited {
     width: 100%;
     display: block;
     clear: both;
+}
+
+.youtube-video {
+    width: 100vw;
+    height: 100vh;
+}
+
+#theater_holder {
+
+    width: 100vw;
+    height: 100vh;
+    background-color: #fff;
+}
+
+#theater_controls {
+    width: 100vw;
+    background-color: #fff;
+}
+
+.mejs__controls, .mejs__offscreen {
+    display: none;
 }
