@@ -292,30 +292,30 @@ window.connectVideo = function (videoIncluded = true) {
     $("#local-video").click(function (e) {
         if (!window.dontLog) console.log("video clicked")
 
-            // window.previous_height = $("#local-video").css("height");
-            // window.previous_width = $("#local-video").css("width");
-            // $("#local-video").css("height", "1024px");
-            // $("#local-video").css("width", "1024px");
+        // window.previous_height = $("#local-video").css("height");
+        // window.previous_width = $("#local-video").css("width");
+        // $("#local-video").css("height", "1024px");
+        // $("#local-video").css("width", "1024px");
 
-            if (document.pictureInPictureEnabled && !window.pip_mode) {
-                var videos = $("#local-video");
-                for (var i = 0; i < videos.length; i++) {
-                    const v = videos[i];
-                    try {
-                        v.requestPictureInPicture()
-                    } catch(e) {
-                        console.log("Couldn't enable PiP mode. " + e.message);
-                    }
-                }
-                window.pip_mode = true
-            } else if (document.pictureInPictureEnabled && window.pip_mode) {
+        if (document.pictureInPictureEnabled && !window.pip_mode) {
+            var videos = $("#local-video");
+            for (var i = 0; i < videos.length; i++) {
+                const v = videos[i];
                 try {
-                document.exitPictureInPicture()
-                } catch(e) {
-                    console.log("Couldn't disable PiP mode. " + e.message);
+                    v.requestPictureInPicture()
+                } catch (e) {
+                    console.log("Couldn't enable PiP mode. " + e.message);
                 }
-                window.pip_mode = false
             }
+            window.pip_mode = true
+        } else if (document.pictureInPictureEnabled && window.pip_mode) {
+            try {
+                document.exitPictureInPicture()
+            } catch (e) {
+                console.log("Couldn't disable PiP mode. " + e.message);
+            }
+            window.pip_mode = false
+        }
 
     })
 
@@ -554,25 +554,25 @@ const createPC = (userId, isOffer, n) => {
     const element = document.createElement("video");
     $(element).click(function () {
         if (!window.dontLog) console.log("video clicked")
-            if (document.pictureInPictureEnabled && !window.pip_mode) {
-                var videos = $(this);
-                for (var i = 0; i < videos.length; i++) {
-                    const v = videos[i];
-                    try {
-                        v.requestPictureInPicture()
-                    } catch(e) {
-                        console.log("Couldn't enable PiP mode. " + e.message);
-                    }
-                }
-                window.pip_mode = true
-            } else if (document.pictureInPictureEnabled && window.pip_mode) {
+        if (document.pictureInPictureEnabled && !window.pip_mode) {
+            var videos = $(this);
+            for (var i = 0; i < videos.length; i++) {
+                const v = videos[i];
                 try {
-                document.exitPictureInPicture()
-                } catch(e) {
-                    console.log("Couldn't disable PiP mode. " + e.message);
+                    v.requestPictureInPicture()
+                } catch (e) {
+                    console.log("Couldn't enable PiP mode. " + e.message);
                 }
-                window.pip_mode = false
             }
+            window.pip_mode = true
+        } else if (document.pictureInPictureEnabled && window.pip_mode) {
+            try {
+                document.exitPictureInPicture()
+            } catch (e) {
+                console.log("Couldn't disable PiP mode. " + e.message);
+            }
+            window.pip_mode = false
+        }
 
 
     })
@@ -1402,7 +1402,7 @@ var tap = function (e) {
     // mouseX = scaledPositionX(mouseX);
     // mouseY = scaledPositionY(mouseY);
 
-    
+
 
     // $("#brush-size").val(force * 35);
     // curSize = $("#brush-size").val();
@@ -1484,7 +1484,7 @@ var tapDrag = function (e) {
     // mouseX = scaledPositionX(mouseX);
     // mouseY = scaledPositionY(mouseY);
 
-    
+
 
     // $("#brush-size").val(force * 35);
     // curSize = $("#brush-size").val();
@@ -2466,7 +2466,7 @@ $(function () {
             $("canvas").css("width", w + "px");
             $("canvas").css("height", h + "px");
         });
-        
+
 
 
         // var w = screen.width;
@@ -3085,18 +3085,18 @@ $(function () {
     })
 
     var tabs = document.querySelectorAll('a[data-toggle="tab"]')
-    
+
     for (let index = 0; index < tabs.length; index++) {
         const element = tabs[index];
-        element.addEventListener("click", function(e) {
-            if(e.currentTarget.id != "call_tab-tab") {
+        element.addEventListener("click", function (e) {
+            if (e.currentTarget.id != "call_tab-tab") {
                 if (document.pictureInPictureEnabled && !window.pip_mode) {
                     var videos = $("video");
                     for (var i = 0; i < videos.length; i++) {
                         const v = videos[i];
                         try {
                             v.requestPictureInPicture()
-                        } catch(e) {
+                        } catch (e) {
                             console.log("Couldn't enable PiP mode. " + e.message);
                         }
                     }
@@ -3105,8 +3105,8 @@ $(function () {
             } else {
                 if (document.pictureInPictureEnabled && window.pip_mode) {
                     try {
-                    document.exitPictureInPicture()
-                    } catch(e) {
+                        document.exitPictureInPicture()
+                    } catch (e) {
                         console.log("Couldn't disable PiP mode. " + e.message);
                     }
                     window.pip_mode = false
@@ -3114,12 +3114,12 @@ $(function () {
             }
         })
     }
-  
+
 
 
     $("#cam-name").html(window.name);
 
-    $("#theater_url_button").click(function() {
+    $("#theater_url_button").click(function () {
         $(".youtube-video").attr("src", $("#theater_url").val());
         theater_channel.push("message_new", { event: "load", url: $("#theater_url").val(), room: window.room, name: window.name });
 
@@ -3131,117 +3131,123 @@ $(function () {
 
 })
 
-window.loadVideoPlayer = function() {
+window.loadVideoPlayer = function () {
 
     if ($(".youtube-video").attr("src") == "") {
         return;
     }
 
-    $(".youtube-video").mediaelementplayer({
-        // Configuration
-        stretching: "fill",
-        success: function(media) {
-            window.media_element = media;
-            // var isNative = /html5|native/i.test(media.rendererName);
-     
-            // var isYoutube = ~media.rendererName.indexOf('youtube');
+    if (window.media_element) {
+        window.media_element.setSrc($(".youtube-video").attr("src"));
+    } else {
 
-            // media.play();
-            // theater_channel.push("message_new", {event: "play", name: window.name, room: window.room});
-     
-            media.addEventListener("loadedmetadata", function(e) {
-                console.log(e);
-            });
+        $(".youtube-video").mediaelementplayer({
+            // Configuration
+            stretching: "fill",
+            success: function (media) {
+                window.media_element = media;
+                // var isNative = /html5|native/i.test(media.rendererName);
 
-            media.addEventListener('load', function (e) {
-                console.log("load");
-                theater_channel.push("message_new", { event: "load", url: e.detail.target.getSrc(), room: window.room, name: window.name });
-            });
+                // var isYoutube = ~media.rendererName.indexOf('youtube');
 
-            media.addEventListener('playing', function() {
-                console.log("playing");
-                theater_channel.push("message_new", {event: "playing", name: window.name, room: window.room});
-            });
+                // media.play();
+                // theater_channel.push("message_new", {event: "play", name: window.name, room: window.room});
 
-            media.addEventListener('play', function() {
-                console.log("play");
-                theater_channel.push("message_new", {event: "play", name: window.name, room: window.room});
-            });
+                media.addEventListener("loadedmetadata", function (e) {
+                    console.log(e);
+                });
 
-            media.addEventListener('pause', function() {
-                console.log("pause");
-                theater_channel.push("message_new", {event: "pause", name: window.name, room: window.room});
-            });
+                media.addEventListener('load', function (e) {
+                    console.log("load");
+                    theater_channel.push("message_new", { event: "load", url: e.detail.target.getSrc(), room: window.room, name: window.name });
+                });
 
-            media.addEventListener('ended', function() {
-                console.log("ended");
-                theater_channel.push("message_new", {event: "ended", name: window.name, room: window.room});
-            });
+                media.addEventListener('playing', function () {
+                    console.log("playing");
+                    theater_channel.push("message_new", { event: "playing", name: window.name, room: window.room });
+                });
 
-            media.addEventListener('timeupdate', function(e) {
-                console.log(e);
-                // theater_channel.push("message_new", {event: "timeupdate", name: window.name, room: window.room, time: e.detail.target.getCurrentTime()});
-            });
+                media.addEventListener('play', function () {
+                    console.log("play");
+                    theater_channel.push("message_new", { event: "play", name: window.name, room: window.room });
+                });
 
-            media.addEventListener('progress', function(e) {
-                console.log("progress");
-                theater_channel.push("message_new", {event: "progress", name: window.name, room: window.room, time: e.detail.target.getCurrentTime()});
-            });
+                media.addEventListener('pause', function () {
+                    console.log("pause");
+                    theater_channel.push("message_new", { event: "pause", name: window.name, room: window.room });
+                });
 
-            media.addEventListener('waiting', function() {
-                console.log("waiting");
-                theater_channel.push("message_new", {event: "waiting", name: window.name, room: window.room});
-            });
+                media.addEventListener('ended', function () {
+                    console.log("ended");
+                    theater_channel.push("message_new", { event: "ended", name: window.name, room: window.room });
+                });
 
-            // media.addEventListener('canplay', function() {
-            //     console.log("canplay");
-            //     theater_channel.push("message_new", {event: "canplay", name: window.name, room: window.room});
-            // });
+                media.addEventListener('timeupdate', function (e) {
+                    console.log(e);
+                    // theater_channel.push("message_new", {event: "timeupdate", name: window.name, room: window.room, time: e.detail.target.getCurrentTime()});
+                });
 
-            media.addEventListener('seeking', function(e) {
-                console.log(e);
-                theater_channel.push("message_new", {event: "seeking", name: window.name, room: window.room, time: e.detail.target.getCurrentTime()});
-            });
+                media.addEventListener('progress', function (e) {
+                    console.log("progress");
+                    theater_channel.push("message_new", { event: "progress", name: window.name, room: window.room, time: e.detail.target.getCurrentTime() });
+                });
 
-            media.addEventListener('seeked', function(e) {
-                console.log(e);
-                theater_channel.push("message_new", {event: "seeked", name: window.name, room: window.room, time: e.detail.target.getCurrentTime()});
+                media.addEventListener('waiting', function () {
+                    console.log("waiting");
+                    theater_channel.push("message_new", { event: "waiting", name: window.name, room: window.room });
+                });
 
-            });
+                // media.addEventListener('canplay', function() {
+                //     console.log("canplay");
+                //     theater_channel.push("message_new", {event: "canplay", name: window.name, room: window.room});
+                // });
 
-            media.addEventListener('volumechange',  function(e) {
-                console.log(e);
-                // theater_channel.push("message_new", {event: "volumechange", name: window.name, room: window.room, volume: e.detail.target.getVolume()});
-            });
+                media.addEventListener('seeking', function (e) {
+                    console.log(e);
+                    theater_channel.push("message_new", { event: "seeking", name: window.name, room: window.room, time: e.detail.target.getCurrentTime() });
+                });
 
-            media.addEventListener("captionschange", function(e) {
-                console.log(e);
-            });
+                media.addEventListener('seeked', function (e) {
+                    console.log(e);
+                    theater_channel.push("message_new", { event: "seeked", name: window.name, room: window.room, time: e.detail.target.getCurrentTime() });
 
-            $("#theater_play").click(function() {
-                window.media_element.play();
-            });
-    
-            $("#theater_pause").click(function() {
-                window.media_element.pause();
-            });
-    
-            $("#theater_mute").click(function() {
-                window.media_element.muted = true;
-            });
-    
-            $("#theater_unmute").click(function() {
-                window.media_element.muted = false;
-            });
-    
-    
-            $("#theater_volume")[0].addEventListener("input", function() {
-                window.media_element.setVolume(this.value);
-            });
+                });
 
-            $("#theater_volume").val(0.5);
-        }
-    });
+                media.addEventListener('volumechange', function (e) {
+                    console.log(e);
+                    // theater_channel.push("message_new", {event: "volumechange", name: window.name, room: window.room, volume: e.detail.target.getVolume()});
+                });
+
+                media.addEventListener("captionschange", function (e) {
+                    console.log(e);
+                });
+
+                $("#theater_play").click(function () {
+                    window.media_element.play();
+                });
+
+                $("#theater_pause").click(function () {
+                    window.media_element.pause();
+                });
+
+                $("#theater_mute").click(function () {
+                    window.media_element.muted = true;
+                });
+
+                $("#theater_unmute").click(function () {
+                    window.media_element.muted = false;
+                });
+
+
+                $("#theater_volume")[0].addEventListener("input", function () {
+                    window.media_element.setVolume(this.value);
+                });
+
+                $("#theater_volume").val(0.5);
+            }
+        });
+
+    }
 
 }
 
