@@ -125,6 +125,8 @@ window.setuptheater = () => {
                     $("#theater_volume")[0].addEventListener("input", function() {
                         window.media_element.setVolume(this.value);
                     });
+
+                    $("#theater_volume").val(0.5);
                 }
             });
 

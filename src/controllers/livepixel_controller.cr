@@ -288,9 +288,13 @@ class LivepixelController < ApplicationController
 
   def canvas
     # Sanitizer = Sanitize::Policy::HTMLSanitizer.basic
+
     random_number = Random.rand(10000).to_i
     room = params[:room] rescue ""
     redis = Redis.new("127.0.0.1", 6379)
+
+    media_url = redis.get("#{room}_media_url")
+
     if room == ""
       ttl = redis.ttl("packets")
     else

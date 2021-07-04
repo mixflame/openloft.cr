@@ -3,6 +3,12 @@ class TheaterChannel < Amber::WebSockets::Channel
   end
 
   def handle_message(client_socket, message)
+    data = message.as_h["payload"].as_h
+    room = data["room"].to_s rescue ""
+    if data.has_key?("url") && data["event"] == "load"
+      redis = Redis.new
+      redis.set("#{room}_media_url", data["url"].to_s)
+    end
     rebroadcast!(message)
   end
 
