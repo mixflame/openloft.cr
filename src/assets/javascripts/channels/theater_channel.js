@@ -53,6 +53,7 @@ window.setuptheater = () => {
                 window.media_element.setCurrentTime(data["time"]);
             } else if (data["event"] == "volumechange") {
                 $("#theater_volume").val(data["volume"]);
+                window.media_element.setVolume(data["volume"]);
             } else if (data["event"] == "captionschange") {
                 // window.media_element.setCurrentTime(data["time"]);
             }
