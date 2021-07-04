@@ -44,7 +44,6 @@ window.setuptheater = () => {
         } else if (data["event"] == "canplay") {
             // window.media_element.pause();
             window.media_element.setCurrentTime(data["time"]);
-            window.media_element.play();
         } else if (data["event"] == "seeking") {
             window.media_element.setCurrentTime(data["time"]);
         } else if (data["event"] == "seeked") {
@@ -119,10 +118,9 @@ window.setuptheater = () => {
                             theater_channel.push("message_new", { event: "waiting", name: window.name, room: window.room });
                         });
 
-                        // media.addEventListener('canplay', function () {
-                        //     console.log("canplay");
-                        //     theater_channel.push("message_new", { event: "canplay", name: window.name, room: window.room });
-                        // });
+                        media.addEventListener('canplay', function () {
+                            window.media_element.play();
+                        });
 
                         media.addEventListener('seeking', function (e) {
                             // console.log(e);
