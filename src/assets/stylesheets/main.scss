@@ -619,3 +619,8 @@ a:visited {
     position: absolute;
     z-index: 100000;
 }
+
+#theater{
+    user-select: none;
+    pointer-events: none;
+}
