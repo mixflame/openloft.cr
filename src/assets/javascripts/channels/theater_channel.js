@@ -21,7 +21,39 @@ window.setuptheater = () => {
         if (data["name"] == window.name) {
             return;
         }
-        if (data["event"] == "load") {
+        // if (window.media_element == null) {
+            //     return;
+            // }
+
+        if (data["event"] == "play") {
+            window.media_element.play();
+        } else if(data["event"] == "playing") {
+            window.media_element.play();
+        } else if (data["event"] == "pause") {
+            window.media_element.pause();
+        } else if (data["event"] == "ended") {
+            window.media_element.pause();
+        } else if (data["event"] == "timeupdate") {
+            // window.media_element.pause();
+            window.media_element.setCurrentTime(data["time"]);
+            // window.media_element.play();
+        } else if (data["event"] == "progress") {
+            window.media_element.setCurrentTime(data["time"]);
+        } else if (data["event"] == "waiting") {
+            // window.media_element.setCurrentTime(data["time"]);
+        } else if (data["event"] == "canplay") {
+            // window.media_element.pause();
+            window.media_element.setCurrentTime(data["time"]);
+            window.media_element.play();
+        } else if (data["event"] == "seeking") {
+            window.media_element.setCurrentTime(data["time"]);
+        } else if (data["event"] == "seeked") {
+            window.media_element.setCurrentTime(data["time"]);
+        } else if (data["event"] == "volumechange") {
+            // window.media_element.setVolume(data["volume"]);
+        } else if (data["event"] == "captionschange") {
+            // window.media_element.setCurrentTime(data["time"]);
+        } else if (data["event"] == "load") {
             console.log('loading video');
             $('.nav-tabs a[href="#theater_tab"]').tab('show');
 
@@ -44,46 +76,46 @@ window.setuptheater = () => {
                         // var isYoutube = ~media.rendererName.indexOf('youtube');
 
                         media.addEventListener("loadedmetadata", function (e) {
-                            console.log(e);
+                            // console.log(e);
                         });
 
                         media.addEventListener('load', function (e) {
-                            console.log("load");
+                            // console.log("load");
                             theater_channel.push("message_new", { event: "load", url: e.detail.target.getSrc(), room: window.room, name: window.name });
                         });
 
                         media.addEventListener('playing', function () {
-                            console.log("playing");
+                            // console.log("playing");
                             theater_channel.push("message_new", { event: "playing", name: window.name, room: window.room });
                         });
 
                         media.addEventListener('play', function () {
-                            console.log("play");
+                            // console.log("play");
                             theater_channel.push("message_new", { event: "play", name: window.name, room: window.room });
                         });
 
                         media.addEventListener('pause', function () {
-                            console.log("pause");
+                            // console.log("pause");
                             theater_channel.push("message_new", { event: "pause", name: window.name, room: window.room });
                         });
 
                         media.addEventListener('ended', function () {
-                            console.log("ended");
+                            // console.log("ended");
                             theater_channel.push("message_new", { event: "ended", name: window.name, room: window.room });
                         });
 
                         media.addEventListener('timeupdate', function (e) {
-                            console.log(e);
+                            // console.log(e);
                             // theater_channel.push("message_new", { event: "timeupdate", name: window.name, room: window.room, time: e.detail.target.getCurrentTime() });
                         });
 
                         media.addEventListener('progress', function (e) {
-                            console.log("progress");
+                            // console.log("progress");
                             theater_channel.push("message_new", { event: "progress", name: window.name, room: window.room, time: e.detail.target.getCurrentTime() });
                         });
 
                         media.addEventListener('waiting', function () {
-                            console.log("waiting");
+                            // console.log("waiting");
                             theater_channel.push("message_new", { event: "waiting", name: window.name, room: window.room });
                         });
 
@@ -93,23 +125,23 @@ window.setuptheater = () => {
                         // });
 
                         media.addEventListener('seeking', function (e) {
-                            console.log(e);
+                            // console.log(e);
                             theater_channel.push("message_new", { event: "seeking", name: window.name, room: window.room, time: e.detail.target.getCurrentTime() });
                         });
 
                         media.addEventListener('seeked', function (e) {
-                            console.log(e);
+                            // console.log(e);
                             theater_channel.push("message_new", { event: "seeked", name: window.name, room: window.room, time: e.detail.target.getCurrentTime() });
 
                         });
 
                         media.addEventListener('volumechange', function (e) {
-                            console.log("volumechange");
+                            // console.log("volumechange");
                             // theater_channel.push("message_new", { event: "volumechange", name: window.name, room: window.room, volume: e.detail.target.getVolume() });
                         });
 
                         media.addEventListener("captionschange", function () {
-                            console.log("captionschange");
+                            // console.log("captionschange");
                             theater_channel.push("message_new", { event: "seeked", name: window.name, room: window.room, time: e.detail.target.getCurrentTime() });
                         });
 
@@ -141,35 +173,7 @@ window.setuptheater = () => {
 
                 return;
             }
-            if (window.media_element == null) {
-                return;
-            }
-
-            if (data["event"] == "play") {
-
-                window.media_element.play();
-
-            } else if (data["event"] == "pause") {
-                window.media_element.pause();
-            } else if (data["event"] == "ended") {
-                window.media_element.pause();
-            } else if (data["event"] == "timeupdate") {
-                // window.media_element.setCurrentTime(data["time"]);
-            } else if (data["event"] == "progress") {
-                window.media_element.setCurrentTime(data["time"]);
-            } else if (data["event"] == "waiting") {
-                window.media_element.setCurrentTime(data["time"]);
-            } else if (data["event"] == "canplay") {
-                window.media_element.setCurrentTime(data["time"]);
-            } else if (data["event"] == "seeking") {
-                window.media_element.setCurrentTime(data["time"]);
-            } else if (data["event"] == "seeked") {
-                window.media_element.setCurrentTime(data["time"]);
-            } else if (data["event"] == "volumechange") {
-                // window.media_element.setVolume(data["volume"]);
-            } else if (data["event"] == "captionschange") {
-                window.media_element.setCurrentTime(data["time"]);
-            }
+            
 
         }
     })
