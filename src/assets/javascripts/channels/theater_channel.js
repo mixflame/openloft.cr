@@ -52,7 +52,7 @@ window.setuptheater = () => {
             } else if (data["event"] == "seeked") {
                 window.media_element.setCurrentTime(data["time"]);
             } else if (data["event"] == "volumechange") {
-                // window.media_element.setVolume(data["volume"]);
+                $("#theater_volume").val(data["volume"]);
             } else if (data["event"] == "captionschange") {
                 // window.media_element.setCurrentTime(data["time"]);
             }
@@ -148,7 +148,6 @@ window.setuptheater = () => {
 
                             media.addEventListener('volumechange', function (e) {
                                 // console.log("volumechange");
-                                // theater_channel.push("message_new", { event: "volumechange", name: window.name, room: window.room, volume: e.detail.target.getVolume() });
                             });
 
                             media.addEventListener("captionschange", function () {
@@ -174,6 +173,7 @@ window.setuptheater = () => {
 
                             $("#theater_volume")[0].addEventListener("input", function () {
                                 window.media_element.setVolume(this.value);
+                                theater_channel.push("message_new", { event: "volumechange", name: window.name, room: window.room, volume: this.value });
                             });
 
                             $("#theater_volume").val(0.5);
