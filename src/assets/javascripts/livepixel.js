@@ -3129,9 +3129,9 @@ $(function () {
             stretching: "fill",
             success: function(media) {
                 window.media_element = media;
-                var isNative = /html5|native/i.test(media.rendererName);
+                // var isNative = /html5|native/i.test(media.rendererName);
          
-                var isYoutube = ~media.rendererName.indexOf('youtube');
+                // var isYoutube = ~media.rendererName.indexOf('youtube');
 
                 // media.play();
                 // theater_channel.push("message_new", {event: "play", name: window.name, room: window.room});

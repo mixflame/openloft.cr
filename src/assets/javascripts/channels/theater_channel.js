@@ -32,9 +32,9 @@ window.setuptheater = () => {
                 stretching: "fill",
                 success: function (media) {
                     window.media_element = media;
-                    var isNative = /html5|native/i.test(media.rendererName);
+                    // var isNative = /html5|native/i.test(media.rendererName);
 
-                    var isYoutube = ~media.rendererName.indexOf('youtube');
+                    // var isYoutube = ~media.rendererName.indexOf('youtube');
 
                     media.addEventListener("loadedmetadata", function (e) {
                         console.log(e);
