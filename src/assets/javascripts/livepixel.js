@@ -275,7 +275,7 @@ window.connectVideo = function (videoIncluded = true) {
     if (!navigator.mediaDevices) return;
     navigator.mediaDevices
         .getUserMedia({
-            audio: true,
+            audio: {echoCancellation: true, noiseCancellation: true},
             video: videoIncluded,
         })
         .then((stream) => {
@@ -341,7 +341,7 @@ window.connectVideo = function (videoIncluded = true) {
 
             navigator.mediaDevices
                 .getUserMedia({
-                    audio: true,
+                    audio: {echoCancellation: true, noiseCancellation: true},
                     video: true,
                 })
                 .then(function (stream) {
@@ -396,7 +396,7 @@ const updateStreamSource = function () {
     var audio_type = $("#audio_inputs").val();
 
     const videoConstraints = {};
-    const audioConstraints = {};
+    const audioConstraints = {echoCancellation: true, noiseCancellation: true};
     if (type === '') {
         videoConstraints.facingMode = 'environment';
     } else {
