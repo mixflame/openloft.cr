@@ -24,19 +24,23 @@ window.setuptheater = () => {
         }
         if (window.media_element != null) {
             if (data["event"] == "play") {
-                
+                if(!window.is_playing) {
+                    window.media_element.play();
+                }
             } else if (data["event"] == "playing") {
-                // window.media_element.play();
+                if(!window.is_playing) {
+                    window.media_element.play();
+                }
             } else if (data["event"] == "pause") {
                 window.media_element.pause();
             } else if (data["event"] == "ended") {
                 window.media_element.pause();
                 
             } else if (data["event"] == "timeupdate") {
-                // if(!window.is_playing) {
-                //     window.media_element.play();
-                // }
-                // window.media_element.setCurrentTime(data["time"]);
+                if(!window.is_playing) {
+                    window.media_element.play();
+                }
+                window.media_element.setCurrentTime(data["time"]);
                 // window.media_element.play();
             } else if (data["event"] == "progress") {
                 window.media_element.setCurrentTime(data["time"]);
@@ -133,7 +137,9 @@ window.setuptheater = () => {
                             });
 
                             media.addEventListener('canplay', function () {
-                                // window.media_element.play();
+                                if(!window.is_playing) {
+                                    window.media_element.play();
+                                }
                             });
 
                             media.addEventListener('seeking', function (e) {
