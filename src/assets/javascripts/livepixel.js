@@ -3149,7 +3149,7 @@ window.loadVideoPlayer = function () {
                 // var isNative = /html5|native/i.test(media.rendererName);
 
                 // var isYoutube = ~media.rendererName.indexOf('youtube');
-
+                media.play();
                 
                 media.addEventListener("loadedmetadata", function (e) {
                     // console.log(e);
@@ -3196,7 +3196,7 @@ window.loadVideoPlayer = function () {
                 });
 
                 media.addEventListener('canplay', function(e) {
-                    media.play();
+                    // media.play();
                     theater_channel.push("message_new", {event: "canplay", name: window.name, room: window.room, time: e.detail.target.getCurrentTime()});
 
                 });

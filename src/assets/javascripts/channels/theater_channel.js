@@ -74,6 +74,8 @@ window.setuptheater = () => {
                             // var isNative = /html5|native/i.test(media.rendererName);
 
                             // var isYoutube = ~media.rendererName.indexOf('youtube');
+                            media.play();
+
 
                             media.addEventListener("loadedmetadata", function (e) {
                                 // console.log(e);
@@ -120,7 +122,7 @@ window.setuptheater = () => {
                             });
 
                             media.addEventListener('canplay', function () {
-                                window.media_element.play();
+                                // window.media_element.play();
                             });
 
                             media.addEventListener('seeking', function (e) {
