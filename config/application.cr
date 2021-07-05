@@ -69,7 +69,7 @@ Amber::Server.instance.pubsub_adapter = Amber::WebSockets::Adapters::RedisAdapte
 
 # # hack
 
-# puts "using #{Amber::Server.pubsub_adapter}"
+puts "using #{Amber::Server.pubsub_adapter}"
 
 # REDIS = Redis.new
 
