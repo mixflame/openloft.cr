@@ -62,26 +62,36 @@ window.setuptheater = () => {
                 }
                 
             } else if (data["event"] == "waiting") {
-                window.media_element.setCurrentTime(data["time"]);
-                window.theater_load_time = data["time"];
+                if(parseInt(data["time"]) > parseInt(window.media_element.getCurrentTime()) && !window.ended) {
+                    window.media_element.setCurrentTime(data["time"]);
+                    window.theater_load_time = data["time"];
+                }
             } else if (data["event"] == "canplay") {
                 if(!window.is_playing && !window.ended) {
                     window.media_element.play();
                 }
-                window.media_element.setCurrentTime(data["time"]);
-                window.theater_load_time = data["time"];
+                if(parseInt(data["time"]) > parseInt(window.media_element.getCurrentTime()) && !window.ended) {
+                    window.media_element.setCurrentTime(data["time"]);
+                    window.theater_load_time = data["time"];
+                }
             } else if (data["event"] == "seeking") {
-                window.media_element.setCurrentTime(data["time"]);
-                window.theater_load_time = data["time"];
+                if(parseInt(data["time"]) > parseInt(window.media_element.getCurrentTime()) && !window.ended) {
+                    window.media_element.setCurrentTime(data["time"]);
+                    window.theater_load_time = data["time"];
+                }
             } else if (data["event"] == "seeked") {
-                window.media_element.setCurrentTime(data["time"]);
-                window.theater_load_time = data["time"];
+                if(parseInt(data["time"]) > parseInt(window.media_element.getCurrentTime()) && !window.ended) {
+                    window.media_element.setCurrentTime(data["time"]);
+                    window.theater_load_time = data["time"];
+                }
             } else if (data["event"] == "volumechange") {
                 $("#theater_volume").val(data["volume"]);
                 window.media_element.setVolume(data["volume"]);
             } else if (data["event"] == "captionschange") {
-                window.media_element.setCurrentTime(data["time"]);
-                window.theater_load_time = data["time"];
+                if(parseInt(data["time"]) > parseInt(window.media_element.getCurrentTime()) && !window.ended) {
+                    window.media_element.setCurrentTime(data["time"]);
+                    window.theater_load_time = data["time"];
+                }
             }
             
             if (data["event"] == "load") {
@@ -104,7 +114,6 @@ window.setuptheater = () => {
                             // var isNative = /html5|native/i.test(media.rendererName);
                             media_element.muted = true;
 
-                            window.media_element.setCurrentTime(window.theater_load_time || 0);
                             // var isYoutube = ~media.rendererName.indexOf('youtube');
                             if(!window.is_playing && !window.ended) {
                                 window.media_element.play();
@@ -124,28 +133,28 @@ window.setuptheater = () => {
                                 // console.log("playing");
                                 window.is_playing = true;
                                 window.ended = false;
-                                theater_channel.push("message_new", { event: "playing", name: window.name, room: window.room, userId: window.userId });
+                                theater_channel.push("message_new", { event: "playing", name: window.name, room: window.room, userId: window.userId, time: e.detail.target.getCurrentTime() });
                             });
 
                             media.addEventListener('play', function () {
                                 // console.log("play");
                                 window.is_playing = true;
                                 window.ended = false;
-                                theater_channel.push("message_new", { event: "play", name: window.name, room: window.room, userId: window.userId });
+                                theater_channel.push("message_new", { event: "play", name: window.name, room: window.room, userId: window.userId, time: e.detail.target.getCurrentTime() });
                             });
 
                             media.addEventListener('pause', function () {
                                 // console.log("pause");
                                 window.is_playing = false;
                                 window.ended = true;
-                                theater_channel.push("message_new", { event: "pause", name: window.name, room: window.room, userId: window.userId });
+                                theater_channel.push("message_new", { event: "pause", name: window.name, room: window.room, userId: window.userId, time: e.detail.target.getCurrentTime() });
                             });
 
                             media.addEventListener('ended', function () {
                                 // console.log("ended");
                                 window.is_playing = false;
                                 window.ended = true;
-                                theater_channel.push("message_new", { event: "ended", name: window.name, room: window.room, userId: window.userId });
+                                theater_channel.push("message_new", { event: "ended", name: window.name, room: window.room, userId: window.userId, time: e.detail.target.getCurrentTime() });
                             });
 
                             media.addEventListener('timeupdate', function (e) {
@@ -160,7 +169,7 @@ window.setuptheater = () => {
 
                             media.addEventListener('waiting', function () {
                                 // console.log("waiting");
-                                theater_channel.push("message_new", { event: "waiting", name: window.name, room: window.room, userId: window.userId });
+                                theater_channel.push("message_new", { event: "waiting", name: window.name, room: window.room, userId: window.userId, time: e.detail.target.getCurrentTime() });
                             });
 
                             media.addEventListener('canplay', function () {

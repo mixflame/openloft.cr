@@ -3147,7 +3147,6 @@ window.loadVideoPlayer = function () {
                 // var isNative = /html5|native/i.test(media.rendererName);
                 media_element.muted = true;
                 // var isYoutube = ~media.rendererName.indexOf('youtube');
-                media_element.setCurrentTime(window.theater_load_time || 0);
                 if(!window.is_playing && !window.ended) {
                     window.media_element.play();
                 }
@@ -3158,35 +3157,35 @@ window.loadVideoPlayer = function () {
 
                 media.addEventListener('load', function (e) {
                     // console.log("load");
-                    theater_channel.push("message_new", { event: "load", url: e.detail.target.getSrc(), room: window.room, name: window.name, userId: window.userId });
+                    theater_channel.push("message_new", { event: "load", url: e.detail.target.getSrc(), room: window.room, name: window.name, userId: window.userId, time: window.media_element.getCurrentTime() });
                 });
 
                 media.addEventListener('playing', function () {
                     // console.log("playing");
                     window.is_playing = true;
                     window.ended = false;
-                    theater_channel.push("message_new", { event: "playing", name: window.name, room: window.room, userId: window.userId });
+                    theater_channel.push("message_new", { event: "playing", name: window.name, room: window.room, userId: window.userId, time: window.media_element.getCurrentTime() });
                 });
 
                 media.addEventListener('play', function () {
                     // console.log("play");
                     window.is_playing = true;
                     window.ended = false;
-                    theater_channel.push("message_new", { event: "play", name: window.name, room: window.room, userId: window.userId });
+                    theater_channel.push("message_new", { event: "play", name: window.name, room: window.room, userId: window.userId, time: window.media_element.getCurrentTime() });
                 });
 
                 media.addEventListener('pause', function () {
                     // console.log("pause");
                     window.is_playing = false;
                     window.ended = true;
-                    theater_channel.push("message_new", { event: "pause", name: window.name, room: window.room, userId: window.userId });
+                    theater_channel.push("message_new", { event: "pause", name: window.name, room: window.room, userId: window.userId, time: window.media_element.getCurrentTime() });
                 });
 
                 media.addEventListener('ended', function () {
                     // console.log("ended");
                     window.is_playing = false;
                     window.ended = true;
-                    theater_channel.push("message_new", { event: "ended", name: window.name, room: window.room, userId: window.userId });
+                    theater_channel.push("message_new", { event: "ended", name: window.name, room: window.room, userId: window.userId, time: window.media_element.getCurrentTime() });
                 });
 
                 media.addEventListener('timeupdate', function (e) {
