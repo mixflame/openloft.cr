@@ -3147,6 +3147,7 @@ window.loadVideoPlayer = function () {
                 // var isNative = /html5|native/i.test(media.rendererName);
                 media_element.muted = true;
                 // var isYoutube = ~media.rendererName.indexOf('youtube');
+                media_element.setCurrentTime(window.theater_load_time || 0);
                 if(!window.is_playing && !window.ended) {
                     window.media_element.play();
                 }
@@ -3190,7 +3191,7 @@ window.loadVideoPlayer = function () {
 
                 media.addEventListener('timeupdate', function (e) {
                     // console.log(e);
-                    theater_channel.push("message_new", {event: "timeupdate", name: window.name, room: window.room, time: e.detail.target.getCurrentTime()});
+                    theater_channel.push("message_new", {event: "timeupdate", name: window.name, room: window.room, time: e.detail.target.getCurrentTime(), userId: window.userId });
                 });
 
                 media.addEventListener('progress', function (e) {

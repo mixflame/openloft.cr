@@ -19,10 +19,9 @@ window.setuptheater = () => {
         if (data["room"] != window.room) {
             return;
         }
-        if (data["userId"] == window.userId) {
+        if (data["name"] == window.name) {
             return;
         }
-        if (window.media_element != null) {
             if (data["event"] == "play") {
                 if(!window.is_playing && !window.ended) {
                     window.media_element.play();
@@ -37,38 +36,53 @@ window.setuptheater = () => {
                 window.media_element.pause();
                 
             } else if (data["event"] == "timeupdate") {
+                console.log("got time update");
+                if(!window.is_playing && !window.ended) {
+                    window.media_element.pause();
+                }
+                if(parseInt(data["time"]) > parseInt(window.media_element.getCurrentTime()) && !window.ended) {
+                    window.media_element.setCurrentTime(data["time"]);
+                    window.theater_load_time = data["time"];
+                }
                 if(!window.is_playing && !window.ended) {
                     window.media_element.play();
                 }
-                if(parseInt(data["time"]) > window.media_element.getCurrentTime() + 0.5) {
-                    window.media_element.setCurrentTime(data["time"]);
-                }
+
                 // window.media_element.play();
             } else if (data["event"] == "progress") {
                 if(!window.is_playing && !window.ended) {
+                    window.media_element.pause();
+                }
+                if(parseInt(data["time"]) > parseInt(window.media_element.getCurrentTime()) && !window.ended) {
+                    window.media_element.setCurrentTime(data["time"]);
+                    window.theater_load_time = data["time"];
+                }
+                if(!window.is_playing && !window.ended) {
                     window.media_element.play();
                 }
-                if(parseInt(data["time"]) > window.media_element.getCurrentTime() + 0.5) {
-                    window.media_element.setCurrentTime(data["time"]);
-                }
+                
             } else if (data["event"] == "waiting") {
-                // window.media_element.setCurrentTime(data["time"]);
+                window.media_element.setCurrentTime(data["time"]);
+                window.theater_load_time = data["time"];
             } else if (data["event"] == "canplay") {
                 if(!window.is_playing && !window.ended) {
                     window.media_element.play();
                 }
                 window.media_element.setCurrentTime(data["time"]);
+                window.theater_load_time = data["time"];
             } else if (data["event"] == "seeking") {
                 window.media_element.setCurrentTime(data["time"]);
+                window.theater_load_time = data["time"];
             } else if (data["event"] == "seeked") {
                 window.media_element.setCurrentTime(data["time"]);
+                window.theater_load_time = data["time"];
             } else if (data["event"] == "volumechange") {
                 $("#theater_volume").val(data["volume"]);
                 window.media_element.setVolume(data["volume"]);
             } else if (data["event"] == "captionschange") {
-                // window.media_element.setCurrentTime(data["time"]);
+                window.media_element.setCurrentTime(data["time"]);
+                window.theater_load_time = data["time"];
             }
-        }
             
             if (data["event"] == "load") {
                 console.log('loading video');
@@ -136,7 +150,7 @@ window.setuptheater = () => {
 
                             media.addEventListener('timeupdate', function (e) {
                                 // console.log(e);
-                                // theater_channel.push("message_new", { event: "timeupdate", name: window.name, room: window.room, time: e.detail.target.getCurrentTime() });
+                                theater_channel.push("message_new", { event: "timeupdate", name: window.name, room: window.room, time: e.detail.target.getCurrentTime(), userId: window.userId  });
                             });
 
                             media.addEventListener('progress', function (e) {
@@ -214,6 +228,7 @@ window.setuptheater = () => {
         console.log(data);
         window.media_element.setSrc(data.url);
         window.theater_load_time = data.time;
+        window.media_element.setCurrentTime(window.theater_load_time);
         if(!window.is_playing && !window.ended) {
             window.media_element.play();
         }
