@@ -23,11 +23,11 @@ window.setuptheater = () => {
             return;
         }
             if (data["event"] == "play") {
-                if(!window.is_playing && !window.ended) {
+                if(!window.is_playing) {
                     window.media_element.play();
                 }
             } else if (data["event"] == "playing") {
-                if(!window.is_playing && !window.ended) {
+                if(!window.is_playing) {
                     window.media_element.play();
                 }
             } else if (data["event"] == "pause") {
@@ -37,9 +37,7 @@ window.setuptheater = () => {
                 
             } else if (data["event"] == "timeupdate") {
                 console.log("got time update");
-                if(!window.is_playing && !window.ended) {
-                    window.media_element.pause();
-                }
+                // window.media_element.pause();
                 if(parseInt(data["time"]) > parseInt(window.media_element.getCurrentTime()) && !window.ended) {
                     window.media_element.setCurrentTime(data["time"]);
                     window.theater_load_time = data["time"];
@@ -47,7 +45,6 @@ window.setuptheater = () => {
                 if(!window.is_playing && !window.ended) {
                     window.media_element.play();
                 }
-
                 // window.media_element.play();
             } else if (data["event"] == "progress") {
                 if(!window.is_playing && !window.ended) {
