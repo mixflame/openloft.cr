@@ -8,7 +8,13 @@ class TheaterChannel < Amber::WebSockets::Channel
     if data.has_key?("url") && data["event"] == "load"
       redis = Redis.new
       redis.set("#{room}_media_url", data["url"].to_s)
+      SessionSocket.broadcast("join", message.as_h["topic"].to_s, "user_join", {time: redis.get("#{room}_media_time").to_f, url: redis.get("#{room}_media_url").to_s}.to_h)
     end
+    if data.has_key?("event") && data["event"] == "timeupdate"
+      redis = Redis.new
+      redis.set("#{room}_media_time", data["time"].to_s)
+    end
+
     rebroadcast!(message)
   end
 
