@@ -3145,7 +3145,7 @@ window.loadVideoPlayer = function () {
             success: function (media) {
                 window.media_element = media;
                 // var isNative = /html5|native/i.test(media.rendererName);
-
+                media_element.muted = true;
                 // var isYoutube = ~media.rendererName.indexOf('youtube');
                 if(!window.is_playing && !window.ended) {
                     window.media_element.play();
