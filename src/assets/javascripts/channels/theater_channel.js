@@ -23,14 +23,20 @@ window.setuptheater = () => {
             return;
         }
             if (data["event"] == "play") {
-                window.media_element.setCurrentTime(data["time"]);
-                window.theater_load_time = data["time"];
+                if(parseFloat(data["time"]) > parseFloat(window.media_element.getCurrentTime())) {
+                    console.log("setting time");
+                    window.media_element.setCurrentTime(data["time"]);
+                    window.theater_load_time = data["time"];
+                }
                 if(!window.is_playing) {
                     window.media_element.play();
                 }
             } else if (data["event"] == "playing") {
-                window.media_element.setCurrentTime(data["time"]);
-                window.theater_load_time = data["time"];
+                if(parseFloat(data["time"]) > parseFloat(window.media_element.getCurrentTime())) {
+                    console.log("setting time");
+                    window.media_element.setCurrentTime(data["time"]);
+                    window.theater_load_time = data["time"];
+                }
                 if(!window.is_playing) {
                     window.media_element.play();
                 }
@@ -41,10 +47,11 @@ window.setuptheater = () => {
                 
             } else if (data["event"] == "timeupdate") {
                 console.log("got time update");
-                if(window.is_playing && !window.ended) {
-                    window.media_element.pause();
-                }
-                if(parseInt(data["time"]) > parseInt(window.media_element.getCurrentTime()) && !window.ended) {
+                // if(window.is_playing && !window.ended) {
+                //     window.media_element.pause();
+                // }
+                if(parseFloat(data["time"]) > parseFloat(window.media_element.getCurrentTime())) {
+                    console.log("setting time");
                     window.media_element.setCurrentTime(data["time"]);
                     window.theater_load_time = data["time"];
                 }
@@ -56,7 +63,7 @@ window.setuptheater = () => {
                 if(!window.is_playing && !window.ended) {
                     window.media_element.pause();
                 }
-                if(parseInt(data["time"]) > parseInt(window.media_element.getCurrentTime() + 0.5) && !window.ended) {
+                if(parseFloat(data["time"]) > parseFloat(window.media_element.getCurrentTime())) {
                     window.media_element.setCurrentTime(data["time"]);
                     window.theater_load_time = data["time"];
                 }
@@ -65,7 +72,7 @@ window.setuptheater = () => {
                 }
                 
             } else if (data["event"] == "waiting") {
-                if(parseInt(data["time"]) > parseInt(window.media_element.getCurrentTime() + 0.5) && !window.ended) {
+                if(parseFloat(data["time"]) > parseFloat(window.media_element.getCurrentTime())) {
                     window.media_element.setCurrentTime(data["time"]);
                     window.theater_load_time = data["time"];
                 }
@@ -73,17 +80,17 @@ window.setuptheater = () => {
                 if(!window.is_playing && !window.ended) {
                     window.media_element.play();
                 }
-                if(parseInt(data["time"]) > parseInt(window.media_element.getCurrentTime() + 0.5) && !window.ended) {
+                if(parseFloat(data["time"]) > parseFloat(window.media_element.getCurrentTime())) {
                     window.media_element.setCurrentTime(data["time"]);
                     window.theater_load_time = data["time"];
                 }
             } else if (data["event"] == "seeking") {
-                if(parseInt(data["time"]) > parseInt(window.media_element.getCurrentTime() + 0.5) && !window.ended) {
+                if(parseFloat(data["time"]) > parseFloat(window.media_element.getCurrentTime())) {
                     window.media_element.setCurrentTime(data["time"]);
                     window.theater_load_time = data["time"];
                 }
             } else if (data["event"] == "seeked") {
-                if(parseInt(data["time"]) > parseInt(window.media_element.getCurrentTime() + 0.5) && !window.ended) {
+                if(parseFloat(data["time"]) > parseFloat(window.media_element.getCurrentTime())) {
                     window.media_element.setCurrentTime(data["time"]);
                     window.theater_load_time = data["time"];
                 }
@@ -91,7 +98,7 @@ window.setuptheater = () => {
                 $("#theater_volume").val(data["volume"]);
                 window.media_element.setVolume(data["volume"]);
             } else if (data["event"] == "captionschange") {
-                if(parseInt(data["time"]) > parseInt(window.media_element.getCurrentTime()) && !window.ended) {
+                if(parseFloat(data["time"]) > parseFloat(window.media_element.getCurrentTime())) {
                     window.media_element.setCurrentTime(data["time"]);
                     window.theater_load_time = data["time"];
                 }
@@ -215,12 +222,12 @@ window.setuptheater = () => {
 
                             $("#theater_mute").click(function () {
                                 window.media_element.muted = true;
-                                theater_channel.push("message_new", { event: "mute", name: window.name, room: window.room, time: e.detail.target.getCurrentTime(), userId: window.userId });
+                                theater_channel.push("message_new", { event: "mute", name: window.name, room: window.room, time: window.media_element.getCurrentTime(), userId: window.userId });
                             });
 
                             $("#theater_unmute").click(function () {
                                 window.media_element.muted = false;
-                                theater_channel.push("message_new", { event: "unmute", name: window.name, room: window.room, time: e.detail.target.getCurrentTime(), userId: window.userId });
+                                theater_channel.push("message_new", { event: "unmute", name: window.name, room: window.room, time: window.media_element.getCurrentTime(), userId: window.userId });
                             });
 
                             $("#theater_volume")[0].addEventListener("input", function () {
