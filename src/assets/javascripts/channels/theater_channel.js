@@ -129,9 +129,9 @@ window.setuptheater = () => {
                             media_element.muted = true;
 
                             // var isYoutube = ~media.rendererName.indexOf('youtube');
-                            if(!window.is_playing && !window.ended) {
-                                window.media_element.play();
-                            }
+                            // if(!window.is_playing && !window.ended) {
+                            //     window.media_element.play();
+                            // }
 
 
                             media.addEventListener("loadedmetadata", function (e) {
@@ -187,9 +187,9 @@ window.setuptheater = () => {
                             });
 
                             media.addEventListener('canplay', function () {
-                                if(!window.is_playing && !window.ended) {
-                                    window.media_element.play();
-                                }
+                                // if(!window.is_playing && !window.ended) {
+                                //     window.media_element.play();
+                                // }
                             });
 
                             media.addEventListener('seeking', function (e) {
