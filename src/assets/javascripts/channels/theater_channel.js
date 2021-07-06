@@ -41,8 +41,10 @@ window.setuptheater = () => {
                 
             } else if (data["event"] == "timeupdate") {
                 console.log("got time update");
-                // window.media_element.pause();
-                if(parseInt(data["time"]) > parseInt(window.media_element.getCurrentTime() + 0.5) && !window.ended) {
+                if(window.is_playing && !window.ended) {
+                    window.media_element.pause();
+                }
+                if(parseInt(data["time"]) > parseInt(window.media_element.getCurrentTime()) && !window.ended) {
                     window.media_element.setCurrentTime(data["time"]);
                     window.theater_load_time = data["time"];
                 }
