@@ -2977,22 +2977,37 @@ $(function () {
     document.addEventListener("pagehide", function (e) {
         e.stopPropagation();
         // try {window.camera_session.leave();} catch(e) { console.log(e) }
+
+
         try { window.canvas_channel.leave(); } catch (e) { console.log(e) }
         try { window.chat_channel.leave(); } catch (e) { console.log(e) }
         try { window.persistence_channel.leave(); } catch (e) { console.log(e) }
         try { window.text_channel.leave(); } catch (e) { console.log(e) }
-
+        try { window.theater_channel.leave(); } catch (e) { console.log(e) }
+        window.canvas_socket.close()
+        window.chat_socket.close()
+        window.persistence_socket.close()
+        window.text_socket.close()
+        window.theater_channel.close()
         // handleLeaveSession();
     })
 
     document.addEventListener("unload", function (e) {
         e.stopPropagation();
         // try {window.camera_session.leave();} catch(e) { console.log(e) }
+
+
         try { window.canvas_channel.leave(); } catch (e) { console.log(e) }
         try { window.chat_channel.leave(); } catch (e) { console.log(e) }
         try { window.persistence_channel.leave(); } catch (e) { console.log(e) }
         try { window.text_channel.leave(); } catch (e) { console.log(e) }
+        try { window.theater_channel.leave(); } catch (e) { console.log(e) }
 
+        window.canvas_socket.close()
+        window.chat_socket.close()
+        window.persistence_socket.close()
+        window.text_socket.close()
+        window.theater_channel.close()
         // handleLeaveSession();
     })
 
