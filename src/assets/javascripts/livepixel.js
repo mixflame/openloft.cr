@@ -2956,7 +2956,7 @@ $(function () {
         $("#dark_mode").prop("checked", dark_mode);
     $("#dark_mode").change();
 
-    if(window.location.origin.includes("localhost"))
+    if(!window.location.origin.includes("localhost"))
         $("#join-button").click();
 
 
