@@ -23,10 +23,14 @@ window.setuptheater = () => {
             return;
         }
             if (data["event"] == "play") {
+                window.media_element.setCurrentTime(data["time"]);
+                window.theater_load_time = data["time"];
                 if(!window.is_playing) {
                     window.media_element.play();
                 }
             } else if (data["event"] == "playing") {
+                window.media_element.setCurrentTime(data["time"]);
+                window.theater_load_time = data["time"];
                 if(!window.is_playing) {
                     window.media_element.play();
                 }
