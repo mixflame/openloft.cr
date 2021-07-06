@@ -38,7 +38,7 @@ window.setuptheater = () => {
             } else if (data["event"] == "timeupdate") {
                 console.log("got time update");
                 // window.media_element.pause();
-                if(parseInt(data["time"]) > parseInt(window.media_element.getCurrentTime()) && !window.ended) {
+                if(parseInt(data["time"]) > parseInt(window.media_element.getCurrentTime() + 0.5) && !window.ended) {
                     window.media_element.setCurrentTime(data["time"]);
                     window.theater_load_time = data["time"];
                 }
@@ -50,7 +50,7 @@ window.setuptheater = () => {
                 if(!window.is_playing && !window.ended) {
                     window.media_element.pause();
                 }
-                if(parseInt(data["time"]) > parseInt(window.media_element.getCurrentTime()) && !window.ended) {
+                if(parseInt(data["time"]) > parseInt(window.media_element.getCurrentTime() + 0.5) && !window.ended) {
                     window.media_element.setCurrentTime(data["time"]);
                     window.theater_load_time = data["time"];
                 }
@@ -59,7 +59,7 @@ window.setuptheater = () => {
                 }
                 
             } else if (data["event"] == "waiting") {
-                if(parseInt(data["time"]) > parseInt(window.media_element.getCurrentTime()) && !window.ended) {
+                if(parseInt(data["time"]) > parseInt(window.media_element.getCurrentTime() + 0.5) && !window.ended) {
                     window.media_element.setCurrentTime(data["time"]);
                     window.theater_load_time = data["time"];
                 }
@@ -67,17 +67,17 @@ window.setuptheater = () => {
                 if(!window.is_playing && !window.ended) {
                     window.media_element.play();
                 }
-                if(parseInt(data["time"]) > parseInt(window.media_element.getCurrentTime()) && !window.ended) {
+                if(parseInt(data["time"]) > parseInt(window.media_element.getCurrentTime() + 0.5) && !window.ended) {
                     window.media_element.setCurrentTime(data["time"]);
                     window.theater_load_time = data["time"];
                 }
             } else if (data["event"] == "seeking") {
-                if(parseInt(data["time"]) > parseInt(window.media_element.getCurrentTime()) && !window.ended) {
+                if(parseInt(data["time"]) > parseInt(window.media_element.getCurrentTime() + 0.5) && !window.ended) {
                     window.media_element.setCurrentTime(data["time"]);
                     window.theater_load_time = data["time"];
                 }
             } else if (data["event"] == "seeked") {
-                if(parseInt(data["time"]) > parseInt(window.media_element.getCurrentTime()) && !window.ended) {
+                if(parseInt(data["time"]) > parseInt(window.media_element.getCurrentTime() + 0.5) && !window.ended) {
                     window.media_element.setCurrentTime(data["time"]);
                     window.theater_load_time = data["time"];
                 }
