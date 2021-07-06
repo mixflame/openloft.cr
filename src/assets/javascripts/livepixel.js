@@ -1440,7 +1440,7 @@ var tap = function (e) {
         addClick(mouseX, mouseY, false, false, name, curColor, curSize, curText, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle, curBrushStyle, count);
     else
         addClick(mouseX, mouseY, false, false, name, curColor, curSize, undefined, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle, curBrushStyle, count);
-    if (getTotalSizeOfCanvas() > 2000) {
+    if (getTotalSizeOfCanvas() > 200) {
         window.redraw(true, true);
         // window.redraw(false, false);
     } else {
@@ -1562,7 +1562,7 @@ var tapDrag = function (e) {
             addClick(mouseX, mouseY, true, false, name, curColor, curSize, curText, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle, curBrushStyle, count);
         else
             addClick(mouseX, mouseY, true, false, name, curColor, curSize, undefined, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle, curBrushStyle, count);
-        if (getTotalSizeOfCanvas() > 2000) {
+        if (getTotalSizeOfCanvas() > 200) {
             window.redraw(true, true);
             // window.redraw(false, false);
         } else {
