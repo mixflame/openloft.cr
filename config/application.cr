@@ -71,7 +71,7 @@ Amber::Server.pubsub_adapter = Amber::WebSockets::Adapters::RedisAdapter
 
 # puts "using #{Amber::Server.pubsub_adapter}"
 
-redis = REDIS
+REDIS = Redis.new("127.0.0.1", 6379)
 
 Sanitizer = Sanitize::Policy::Whitelist.new(Policy)
 
