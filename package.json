@@ -38,6 +38,7 @@
     "bootstrap": "^4.2.1",
     "jquery": "^3.3.1",
     "mediaelement": "^4.2.16",
+    "node-polyglot": "^2.4.0",
     "page-lifecycle": "^0.1.2",
     "popcorn-js": "menismu/popcorn-js",
     "popper.js": "^1.14.6",

@@ -61,3 +61,9 @@ dom.watch();
 
 require("mediaelement");
 window.MediaElement = MediaElement;
+
+import Polyglot from "node-polyglot"
+window.polyglot = Polyglot;
+window.i18n = new Polyglot();
+
+// pass context.local from citrine-18n to window.i18n.locale
