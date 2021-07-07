@@ -2,7 +2,7 @@ class ChatChannel < Amber::WebSockets::Channel
   def handle_joined(client_socket, message)
     puts "chat joined"
     puts message
-    # redis = Redis.new("127.0.0.1", 6379)
+    # redis = REDIS
     # room = message["topic"].to_s.split(":").last
   end
 
@@ -14,7 +14,7 @@ class ChatChannel < Amber::WebSockets::Channel
     # Sanitizer = Sanitize::Policy::HTMLSanitizer.basic
     if(data.has_key?("online") && data["online"] == true)
       data["name"] = JSON::Any.new(Sanitizer.process(data["name"].to_s))
-      redis = Redis.new("127.0.0.1", 6379)
+      redis = REDIS
       # ids = redis.hkeys("online_#{room}").map { |i| i.to_s }.to_a
 
       redis.hset("online_#{room}", client_socket.as(Amber::WebSockets::ClientSocket).id, data["name"].to_s)
@@ -71,7 +71,7 @@ class ChatChannel < Amber::WebSockets::Channel
     end
 
     if room == "" || room == nil
-      redis = Redis.new("127.0.0.1", 6379)
+      redis = REDIS
       redis.rpush "chats", data.to_json
       if redis.ttl("chats") == -1
         redis.expire("chats", 7 * 24 * 3600)
@@ -84,7 +84,7 @@ class ChatChannel < Amber::WebSockets::Channel
 
       DiscordChannel.send([data["name"].to_s, policy.process(data["chat_message"].to_s)])
     else
-      redis = Redis.new("127.0.0.1", 6379)
+      redis = REDIS
       redis.rpush "chats_#{room}", data.to_json
       if redis.ttl("chats_#{room}") == -1
         redis.expire("chats_#{room}", 7 * 24 * 3600)
@@ -97,7 +97,7 @@ class ChatChannel < Amber::WebSockets::Channel
   def handle_leave(client_socket)
     puts "chat left"
 
-    redis = Redis.new("127.0.0.1", 6379)
+    redis = REDIS
     room = redis.hget("id_in_room", client_socket.as(Amber::WebSockets::ClientSocket).id).to_s
     name = redis.hget("online_#{room}", client_socket.as(Amber::WebSockets::ClientSocket).id).to_s
     redis.hdel("id_in_room", client_socket.as(Amber::WebSockets::ClientSocket).id)

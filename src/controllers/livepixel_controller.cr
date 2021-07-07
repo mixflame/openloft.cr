@@ -78,7 +78,7 @@ class LivepixelController < ApplicationController
 
       call_id = JSON.parse(response.body.to_s)["call"].as_h["id"].to_s
 
-      redis = Redis.new
+      redis = REDIS
       redis.set("#{id}_slack_call_id", call_id)
 
       puts "calls.add: #{response.body.to_s}"
@@ -185,7 +185,7 @@ class LivepixelController < ApplicationController
 
       call_id = JSON.parse(response.body.to_s)["call"].as_h["id"].to_s
 
-      redis = Redis.new
+      redis = REDIS
       redis.set("#{id}_slack_call_id", call_id)
 
       puts "calls.add: #{response.body.to_s}"
@@ -211,7 +211,7 @@ class LivepixelController < ApplicationController
 
 
   def gallery
-    redis = Redis.new("127.0.0.1", 6379)
+    redis = REDIS
 
     image_ids = redis.lrange("gallery", 0, -1)
 
@@ -219,7 +219,7 @@ class LivepixelController < ApplicationController
   end
 
   def gallery_feed
-    redis = Redis.new("127.0.0.1", 6379)
+    redis = REDIS
 
     image_ids = redis.lrange("gallery", 0, -1)
     respond_with do
@@ -231,7 +231,7 @@ class LivepixelController < ApplicationController
   # imgur client id 3e035ba859d6add
   def upload_to_imgur
 
-    redis = Redis.new("127.0.0.1", 6379)
+    redis = REDIS
 
     path = params.files["picture"].file.path
 
@@ -281,7 +281,7 @@ class LivepixelController < ApplicationController
     room = params[:room]
     puts "room: #{room}"
     raise "cant clear global canvas" if params[:room].blank? || params[:room].nil?
-    redis = Redis.new("127.0.0.1", 6379)
+    redis = REDIS
     redis.del("packets_#{room}")
     CanvasSocket.broadcast("message", "canvas:#{room}", "message_new", {clear: true}.to_h)
   end
@@ -291,7 +291,7 @@ class LivepixelController < ApplicationController
 
     random_number = Random.rand(10000).to_i
     room = params[:room] rescue ""
-    redis = Redis.new("127.0.0.1", 6379)
+    redis = REDIS
 
     media_url = redis.get("#{room}_media_url")
 
@@ -342,7 +342,7 @@ class LivepixelController < ApplicationController
   end
 
   def random_ad
-    redis = Redis.new("127.0.0.1", 6379)
+    redis = REDIS
     # Sanitizer = Sanitize::Policy::HTMLSanitizer.basic
     ad = ""
     banner_link = ""
@@ -369,7 +369,7 @@ class LivepixelController < ApplicationController
 
   def stats
     room = params[:room] rescue nil
-    redis = Redis.new("127.0.0.1", 6379)
+    redis = REDIS
     if room == "" || room == nil
       redis_packets_str = "packets"
       amt_packets = redis.llen(redis_packets_str)
@@ -457,7 +457,7 @@ class LivepixelController < ApplicationController
 
       email = json["payer"]["email_address"]
   
-      redis = Redis.new("127.0.0.1", 6379)
+      redis = REDIS
       redis.hset("completed_orders", email, id)
   
       response.body.to_json
@@ -480,7 +480,7 @@ class LivepixelController < ApplicationController
       email = params[:email]
       link = params[:link]
       order_id = params[:order_id]
-      redis = Redis.new("127.0.0.1", 6379)
+      redis = REDIS
       paid = redis.hget("completed_orders", email)
       puts paid
       if paid != nil
@@ -509,7 +509,7 @@ class LivepixelController < ApplicationController
 
     def upload_to_scalable_press
 
-      redis = Redis.new("127.0.0.1", 6379)
+      redis = REDIS
   
       file_url = params["file_url"] rescue ""
 
@@ -699,7 +699,7 @@ class LivepixelController < ApplicationController
 
     def get_scalable_quote
 
-      redis = Redis.new("127.0.0.1", 6379)
+      redis = REDIS
 
       product_id = params["product_id"]
       design_id = params["design_id"]
@@ -779,7 +779,7 @@ class LivepixelController < ApplicationController
     end
 
     def place_scalable_order
-      redis = Redis.new("127.0.0.1", 6379)
+      redis = REDIS
       
       product_id = params["product_id"]
 
@@ -800,7 +800,7 @@ class LivepixelController < ApplicationController
 
       email = json["payer"]["email_address"]
   
-      redis = Redis.new("127.0.0.1", 6379)
+      redis = REDIS
       redis.hset("completed_tshirt_orders", email, id)
   
       
@@ -830,7 +830,7 @@ class LivepixelController < ApplicationController
 
     def receipt
       transaction_id = params["transaction_id"]
-      redis = Redis.new("127.0.0.1", 6379)
+      redis = REDIS
       order_id = redis.hget("scalable_order_ids", transaction_id)
 
       url = URI.parse("https://api.scalablepress.com/v3/event?orderId=#{order_id}")

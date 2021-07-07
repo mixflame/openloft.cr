@@ -10,7 +10,7 @@ struct ChatSocket < Amber::WebSockets::ClientSocket
   # @@uuid : String = UUID.random.to_s
 
   # def self.do_dispatch(event : String, topic : String, subject : String, payload : String)
-  #   publisher : redis = Redis.new("127.0.0.1", 6379)(url: Amber.settings.redis_url)
+  #   publisher : redis = REDIS(url: Amber.settings.redis_url)
 
   #   message = {"event" => event,"topic" => topic,"subject" => subject,"payload" => payload}
 

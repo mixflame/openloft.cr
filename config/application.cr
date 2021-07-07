@@ -71,23 +71,23 @@ Amber::Server.pubsub_adapter = Amber::WebSockets::Adapters::RedisAdapter
 
 # puts "using #{Amber::Server.pubsub_adapter}"
 
-# REDIS = Redis.new
+redis = REDIS
 
 Sanitizer = Sanitize::Policy::Whitelist.new(Policy)
 
-IrcChannel = Channel(Array(String)).new
+# IrcChannel = Channel(Array(String)).new
 
-require "../src/lib/irc"
+# require "../src/lib/irc"
 
-spawn do
-  client = Client.new
-end
+# spawn do
+#   client = Client.new
+# end
 
-DiscordChannel = Channel(Array(String)).new
+# DiscordChannel = Channel(Array(String)).new
 
-require "../src/lib/discord"
+# require "../src/lib/discord"
 
-spawn do
-  discord_client = DiscordBot.new
-end
+# spawn do
+#   discord_client = DiscordBot.new
+# end
 
