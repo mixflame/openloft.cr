@@ -2,7 +2,7 @@ version: 2.0
 shards:
   amber:
     git: https://github.com/mixflame/amber.git
-    version: 1.0.0rc2+git.commit.1ecfc38bf0f498408aae87852d88668d73713799
+    version: 1.0.0rc2+git.commit.6197b558a61a0e35f31510c4efbc0aac29d3f8bb
 
   amber_router:
     git: https://github.com/amberframework/amber-router.git
