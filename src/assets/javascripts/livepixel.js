@@ -1440,7 +1440,7 @@ var tap = function (e) {
         addClick(mouseX, mouseY, false, false, name, curColor, curSize, curText, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle, curBrushStyle, count);
     else
         addClick(mouseX, mouseY, false, false, name, curColor, curSize, undefined, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle, curBrushStyle, count);
-    if (getTotalSizeOfCanvas() > 2000) {
+    if (getTotalSizeOfCanvas() > 200) {
         window.redraw(true, true);
         // window.redraw(false, false);
     } else {
@@ -1562,7 +1562,7 @@ var tapDrag = function (e) {
             addClick(mouseX, mouseY, true, false, name, curColor, curSize, curText, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle, curBrushStyle, count);
         else
             addClick(mouseX, mouseY, true, false, name, curColor, curSize, undefined, undefined, curLineJoin, curShapeType, curShapeWidth, curShapeHeight, curShapeFill, curShapeAngle, curBrushStyle, count);
-        if (getTotalSizeOfCanvas() > 2000) {
+        if (getTotalSizeOfCanvas() > 200) {
             window.redraw(true, true);
             // window.redraw(false, false);
         } else {
@@ -2956,7 +2956,9 @@ $(function () {
         $("#dark_mode").prop("checked", dark_mode);
     $("#dark_mode").change();
 
-    $("#join-button").click();
+    if(!window.location.origin.includes("localhost"))
+        $("#join-button").click();
+
 
 
     var pageVisibility = document.visibilityState;
@@ -2975,22 +2977,37 @@ $(function () {
     document.addEventListener("pagehide", function (e) {
         e.stopPropagation();
         // try {window.camera_session.leave();} catch(e) { console.log(e) }
+
+
         try { window.canvas_channel.leave(); } catch (e) { console.log(e) }
         try { window.chat_channel.leave(); } catch (e) { console.log(e) }
         try { window.persistence_channel.leave(); } catch (e) { console.log(e) }
         try { window.text_channel.leave(); } catch (e) { console.log(e) }
-
+        try { window.theater_channel.leave(); } catch (e) { console.log(e) }
+        window.canvas_socket.close()
+        window.chat_socket.close()
+        window.persistence_socket.close()
+        window.text_socket.close()
+        window.theater_channel.close()
         // handleLeaveSession();
     })
 
     document.addEventListener("unload", function (e) {
         e.stopPropagation();
         // try {window.camera_session.leave();} catch(e) { console.log(e) }
+
+
         try { window.canvas_channel.leave(); } catch (e) { console.log(e) }
         try { window.chat_channel.leave(); } catch (e) { console.log(e) }
         try { window.persistence_channel.leave(); } catch (e) { console.log(e) }
         try { window.text_channel.leave(); } catch (e) { console.log(e) }
+        try { window.theater_channel.leave(); } catch (e) { console.log(e) }
 
+        window.canvas_socket.close()
+        window.chat_socket.close()
+        window.persistence_socket.close()
+        window.text_socket.close()
+        window.theater_channel.close()
         // handleLeaveSession();
     })
 
@@ -3145,11 +3162,11 @@ window.loadVideoPlayer = function () {
             success: function (media) {
                 window.media_element = media;
                 // var isNative = /html5|native/i.test(media.rendererName);
-                media_element.muted = true;
+                // media_element.muted = true;
                 // var isYoutube = ~media.rendererName.indexOf('youtube');
-                if(!window.is_playing && !window.ended) {
-                    window.media_element.play();
-                }
+                // if(!window.is_playing && !window.ended) {
+                //     window.media_element.play();
+                // }
                 
                 media.addEventListener("loadedmetadata", function (e) {
                     // console.log(e);
@@ -3190,35 +3207,35 @@ window.loadVideoPlayer = function () {
 
                 media.addEventListener('timeupdate', function (e) {
                     // console.log(e);
-                    theater_channel.push("message_new", {event: "timeupdate", name: window.name, room: window.room, time: e.detail.target.getCurrentTime(), userId: window.userId });
+                    theater_channel.push("message_new", {event: "timeupdate", name: window.name, room: window.room, time: window.media_element.getCurrentTime(), userId: window.userId });
                 });
 
                 media.addEventListener('progress', function (e) {
                     // console.log("progress");
-                    theater_channel.push("message_new", { event: "progress", name: window.name, room: window.room, time: e.detail.target.getCurrentTime(), userId: window.userId });
+                    theater_channel.push("message_new", { event: "progress", name: window.name, room: window.room, time: window.media_element.getCurrentTime(), userId: window.userId });
                 });
 
                 media.addEventListener('waiting', function () {
                     // console.log("waiting");
-                    theater_channel.push("message_new", { event: "waiting", name: window.name, room: window.room, time: e.detail.target.getCurrentTime(), userId: window.userId });
+                    theater_channel.push("message_new", { event: "waiting", name: window.name, room: window.room, time: window.media_element.getCurrentTime(), userId: window.userId });
                 });
 
                 media.addEventListener('canplay', function(e) {
-                    if(!window.is_playing && !window.ended) {
-                        window.media_element.play();
-                    }
-                    theater_channel.push("message_new", {event: "canplay", name: window.name, room: window.room, time: e.detail.target.getCurrentTime(), userId: window.userId});
+                    // if(!window.is_playing && !window.ended) {
+                    //     window.media_element.play();
+                    // }
+                    theater_channel.push("message_new", {event: "canplay", name: window.name, room: window.room, time: window.media_element.getCurrentTime(), userId: window.userId});
 
                 });
 
                 media.addEventListener('seeking', function (e) {
                     console.log(e);
-                    theater_channel.push("message_new", { event: "seeking", name: window.name, room: window.room, time: e.detail.target.getCurrentTime(), userId: window.userId });
+                    theater_channel.push("message_new", { event: "seeking", name: window.name, room: window.room, time: window.media_element.getCurrentTime(), userId: window.userId });
                 });
 
                 media.addEventListener('seeked', function (e) {
                     console.log(e);
-                    theater_channel.push("message_new", { event: "seeked", name: window.name, room: window.room, time: e.detail.target.getCurrentTime(), userId: window.userId });
+                    theater_channel.push("message_new", { event: "seeked", name: window.name, room: window.room, time: window.media_element.getCurrentTime(), userId: window.userId });
 
                 });
 
@@ -3241,12 +3258,12 @@ window.loadVideoPlayer = function () {
 
                 $("#theater_mute").click(function () {
                     window.media_element.muted = true;
-                    theater_channel.push("message_new", { event: "mute", name: window.name, room: window.room, time: e.detail.target.getCurrentTime(), userId: window.userId });
+                    theater_channel.push("message_new", { event: "mute", name: window.name, room: window.room, time: window.media_element.getCurrentTime(), userId: window.userId });
                 });
 
                 $("#theater_unmute").click(function () {
                     window.media_element.muted = false;
-                    theater_channel.push("message_new", { event: "unmute", name: window.name, room: window.room, time: e.detail.target.getCurrentTime(), userId: window.userId });
+                    theater_channel.push("message_new", { event: "unmute", name: window.name, room: window.room, time: window.media_element.getCurrentTime(), userId: window.userId });
                 });
 
 

@@ -4,10 +4,10 @@
     <h1>OpenLoft Collaborative Editor Stats</h1>
     <% if Amber.env == :development %>
     <p>(Serverwide) Connections: <%= Amber::WebSockets::ClientSockets.client_sockets.size %></p>
-    <p>(Serverwide) Active users (open tabs): <%= Amber::WebSockets::ClientSockets.client_sockets.size / 4 %></p>
+    <p>(Serverwide) Active users (open tabs): <%= Amber::WebSockets::ClientSockets.client_sockets.size / 6 %></p>
     <% else %>
     <p>(Serverwide) Connections: <%= Amber::WebSockets::ClientSockets.client_sockets.size %></p>
-    <p>(Serverwide) Active users (number of open tabs): <%= Amber::WebSockets::ClientSockets.client_sockets.size / 4 %></p>
+    <p>(Serverwide) Active users (number of open tabs): <%= Amber::WebSockets::ClientSockets.client_sockets.size / 6 %></p>
     <% end %>
     <p>Points in the canvas: <%= redis.llen(redis_packets_str) %></p>
     <p>All time number of visitors to site: <%= redis.get("counter") %></p>

@@ -8,7 +8,7 @@ class DiscordBot
 
     def initialize
 
-        @discord_client = Discord::Client.new(token: "Bot ODQ2NjQ0MDk4NTQ2NjYzNDQ0.YKygwg.teJ_tvts0WouRNvwinjtVKE8bIE", client_id: 846644098546663444_u64)
+        @discord_client = Discord::Client.new(token: "Bot BOT_API_KEY", client_id: 0_u64)
 
         @discord_client.on_message_create do |payload|
             message = payload.content
