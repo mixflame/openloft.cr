@@ -4,7 +4,7 @@
     <% if room == "" || room == nil %>
       <title>OpenLoft Collaborative Editor</title>
     <% else %>
-      <title>Private Room</title>
+      <title><%= REDIS.hget("room_names", room) rescue "Private Room" %></title>
     <% end %>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />

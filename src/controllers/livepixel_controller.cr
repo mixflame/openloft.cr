@@ -194,6 +194,8 @@ class LivepixelController < ApplicationController
   end
 
   def landing
+    redis = REDIS
+    public_rooms = redis.lrange "public_rooms", 0, -1
     render("landing.ecr")
   end
 
@@ -324,6 +326,11 @@ class LivepixelController < ApplicationController
       else
         chats = redis.lrange("chats_#{params[:room]}", 0, -1)
       end
+    end
+
+    if params.has_key?("public") && params[:public] == "true"
+      redis.lpush "public_rooms", params[:room].to_s
+      redis.hset "room_names", params[:room].to_s, params[:name].to_s
     end
 
     render "canvas.ecr", layout: "gbaldraw.ecr"
