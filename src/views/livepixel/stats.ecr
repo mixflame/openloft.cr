@@ -29,11 +29,11 @@
         </ol>
     </div>
     <div class="boxu">
-    <h1>All time drawers</h1>
+    <!-- <h1>All time drawers</h1> -->
         <ol>
-        <% all_time.values.sort {|a,b| b.to_i rescue 0 <=> a.to_i rescue 0}.each do |n| %>
-            <li><strong><%= all_time.key_for?(n.to_s).to_s.gsub(/[kK]ike/i, "****").gsub(/[nN]igger/i, "******") rescue "Anonymous" %></strong> - <%= n %> points</li>
-        <% end %>
+        <% #all_time.values.sort {|a,b| b.to_i rescue 0 <=> a.to_i rescue 0}.each do |n| %>
+            <li><strong><%= #all_time.key_for?(n.to_s).to_s.gsub(/[kK]ike/i, "****").gsub(/[nN]igger/i, "******") rescue "Anonymous" %></strong> - <%= # n %> points</li>
+        <% #end %>
         </ol>
     </div>
   </div>
