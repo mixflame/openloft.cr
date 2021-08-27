@@ -33,7 +33,7 @@
     <p>Since 11/3/2020</p>  
         <ol>
         <% all_time.values.sort {|a,b| b.to_i <=> a.to_i}.each do |n| %>
-            <li><strong><%= all_time.key_for?(n.to_s).to_s.gsub(/[kK]ike/i, "****").gsub(/[nN]igger/i, "******") rescue "Anonymous" %></strong> - <%= n rescue "" %> points</lo>
+            <li><strong><%= all_time.key_for?(n.to_s).to_s.gsub(/[kK]ike/i, "****").gsub(/[nN]igger/i, "******") rescue "Anonymous" %></strong> - <%= n rescue "" %> points</li>
         <% end %>
         </ol>
     </div>
