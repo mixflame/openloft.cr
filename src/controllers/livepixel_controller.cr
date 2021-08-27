@@ -385,9 +385,9 @@ class LivepixelController < ApplicationController
     end
     names = packets.map { |p| JSON.parse(p.to_s)["name"] }.uniq
     points = {} of String => String
-    names.each { |n| points[n.to_s] = packets.reject {|pa| JSON.parse(pa.to_s)["name"] != n}.size.to_s }
+    names.each { |n| points[n.to_s] = packets.reject {|pa| JSON.parse(pa.to_s)["name"] != n}.size.to_s rescue "" }
     layers = {} of String => String
-    names.each { |n| layers[n.to_s] = packets.select {|pac| js = JSON.parse(pac.to_s); js["name"] == n && js.as_h.has_key?("dragging") && js["dragging"] == false}.size.to_s }
+    names.each { |n| layers[n.to_s] = packets.select {|pac| js = JSON.parse(pac.to_s); js["name"] == n && js.as_h.has_key?("dragging") && js["dragging"] == false}.size.to_s rescue "" }
     all_layers = 0
     layers.each do |layer|
       all_layers += layer[1].to_i
