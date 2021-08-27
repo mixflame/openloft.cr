@@ -24,7 +24,7 @@
     <h1>Todays drawers</h1>
         <ol>
         <% names[0...10].each do |n| %>
-            <li><strong><%= n.to_s.gsub(/[kK]ike/i, "****").gsub(/[nN]igger/i, "******") %></strong> - <%= points[n] %> points - <%= layers[n] %> layers</li>
+            <li><strong><%= n.to_s.gsub(/[kK]ike/i, "****").gsub(/[nN]igger/i, "******") rescue "Anonymous" %></strong> - <%= points[n] rescue 0 %> points - <%= layers[n] rescue 0 %> layers</li>
         <% end %>
         </ol>
     </div>
@@ -33,7 +33,7 @@
     <p>Since 11/3/2020</p>  
         <ol>
         <% all_time.values.sort {|a,b| b.to_i <=> a.to_i}[0...10].each do |n| %>
-            <li><strong><%= all_time.key_for?(n.to_s).to_s.gsub(/[kK]ike/i, "****").gsub(/[nN]igger/i, "******") %></strong> - <%= n %> points</lo>
+            <li><strong><%= all_time.key_for?(n.to_s).to_s.gsub(/[kK]ike/i, "****").gsub(/[nN]igger/i, "******") rescue "Anonymous" %></strong> - <%= n rescue 0 %> points</lo>
         <% end %>
         </ol>
     </div>
