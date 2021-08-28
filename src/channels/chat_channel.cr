@@ -42,7 +42,7 @@ class ChatChannel < Amber::WebSockets::Channel
       client = HTTP::Client.new uri
   
       client.before_request do |request|
-          request.headers["Authorization"] = "Bearer SLACK_ID_TOKEN"
+          request.headers["Authorization"] = "Bearer #{Amber.settings.secrets["SLACK_ID_TOKEN"]}"
           request.headers["Content-Type"] = "application/json"
           request.body = message.to_json
           request.content_length = request.body.to_s.bytesize
@@ -122,7 +122,7 @@ class ChatChannel < Amber::WebSockets::Channel
       client = HTTP::Client.new uri
   
       client.before_request do |request|
-          request.headers["Authorization"] = "Bearer SLACK_ID_TOKEN"
+          request.headers["Authorization"] = "Bearer #{Amber.settings.secrets["SLACK_ID_TOKEN"]}"
           request.headers["Content-Type"] = "application/json"
           request.body = message.to_json
           request.content_length = request.body.to_s.bytesize

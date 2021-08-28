@@ -7,11 +7,11 @@ require "digest"
 require "slack"
 
 #paypal
-CLIENT_ID = "PAYPAL_CLIENT_ID"
-CLIENT_SECRET = "PAYPAL_CLIENT_SECRET"
+CLIENT_ID = Amber.settings.secrets["PAYPAL_CLIENT_ID"]
+CLIENT_SECRET = Amber.settings.secrets["PAYPAL_CLIENT_SECRET"]
 
 #slack
-SLACK_SIGNING_SECRET = "SLACK_SIGNING_SECRET"
+SLACK_SIGNING_SECRET = Amber.settings.secrets["SLACK_SIGNING_SECRET"]
 
 class LivepixelController < ApplicationController
 
@@ -69,7 +69,7 @@ class LivepixelController < ApplicationController
       client = HTTP::Client.new uri
   
       client.before_request do |request|
-          request.headers["Authorization"] = "Bearer SLACK_ID_TOKEN"
+          request.headers["Authorization"] = "Bearer #{Amber.settings.secrets["SLACK_ID_TOKEN"]}"
           request.headers["Content-Type"] = "application/json"
           request.body = message.to_json
           request.content_length = request.body.to_s.bytesize
@@ -103,7 +103,7 @@ class LivepixelController < ApplicationController
       client = HTTP::Client.new uri
   
       client.before_request do |request|
-          request.headers["Authorization"] = "Bearer SLACK_ID_TOKEN"
+          request.headers["Authorization"] = "Bearer #{Amber.settings.secrets["SLACK_ID_TOKEN"]}"
           request.headers["Content-Type"] = "application/json"
           request.body = message.to_json
           request.content_length = request.body.to_s.bytesize
@@ -164,7 +164,7 @@ class LivepixelController < ApplicationController
       client = HTTP::Client.new uri
   
       client.before_request do |request|
-          request.headers["Authorization"] = "Bearer SLACK_ID_TOKEN"
+          request.headers["Authorization"] = "Bearer #{Amber.settings.secrets["SLACK_ID_TOKEN"]}"
           request.headers["Content-Type"] = "application/json"
           request.body = message.to_json
           request.content_length = request.body.to_s.bytesize
@@ -565,7 +565,7 @@ class LivepixelController < ApplicationController
         client = HTTP::Client.new url
   
         client.before_request do |request|
-            request.headers["Authorization"] = "Basic #{Base64.strict_encode("SCALABLE_PRESS_TOKEN")}"
+            request.headers["Authorization"] = "Basic #{Base64.strict_encode("#{Amber.settings.secrets["SCALABLE_PRESS_TOKEN"]}")}"
             request.headers["Content-Type"] = scalable_channel.receive
             request.body = reader.gets_to_end
             request.content_length = request.body.to_s.bytesize
@@ -599,7 +599,7 @@ class LivepixelController < ApplicationController
 
       client = HTTP::Client.new(url)
       client.before_request do |request|
-        request.headers["Authorization"] = "Basic #{Base64.strict_encode("SCALABLE_PRESS_TOKEN")}"
+        request.headers["Authorization"] = "Basic #{Base64.strict_encode("#{Amber.settings.secrets["SCALABLE_PRESS_TOKEN"]}")}"
       end
       response = client.get "/v2/categories"
 
@@ -619,7 +619,7 @@ class LivepixelController < ApplicationController
 
       client = HTTP::Client.new(url)
       client.before_request do |request|
-        request.headers["Authorization"] = "Basic #{Base64.strict_encode("SCALABLE_PRESS_TOKEN")}"
+        request.headers["Authorization"] = "Basic #{Base64.strict_encode("#{Amber.settings.secrets["SCALABLE_PRESS_TOKEN"]}")}"
       end
       response = client.get "/v2/categories/#{category_id}"
 
@@ -670,7 +670,7 @@ class LivepixelController < ApplicationController
         client = HTTP::Client.new url
   
         client.before_request do |request|
-            request.headers["Authorization"] = "Basic #{Base64.strict_encode("SCALABLE_PRESS_TOKEN")}"
+            request.headers["Authorization"] = "Basic #{Base64.strict_encode("#{Amber.settings.secrets["SCALABLE_PRESS_TOKEN"]}")}"
             request.headers["Content-Type"] = scalable_channel.receive
             request.body = reader.gets_to_end
             request.content_length = request.body.to_s.bytesize
@@ -720,7 +720,7 @@ class LivepixelController < ApplicationController
       client = HTTP::Client.new(url)
       body_string = "type=dtg&products[0][id]=#{product_id}&products[0][color]=#{color}&products[0][quantity]=#{quantity}&products[0][size]=#{size}&address[name]=#{name}&address[address1]=#{address}&address[city]=#{city}&address[state]=#{state}&address[zip]=#{zipcode}&designId=#{design_id}"
       client.before_request do |request|
-        request.headers["Authorization"] = "Basic #{Base64.strict_encode("SCALABLE_PRESS_TOKEN")}"
+        request.headers["Authorization"] = "Basic #{Base64.strict_encode("#{Amber.settings.secrets["SCALABLE_PRESS_TOKEN"]}")}"
         request.headers["Content-Type"] = "application/x-www-form-urlencoded"
       end
       
@@ -808,7 +808,7 @@ class LivepixelController < ApplicationController
       client = HTTP::Client.new(url)
       body_string = "orderToken=#{order_token}"
       client.before_request do |request|
-        request.headers["Authorization"] = "Basic #{Base64.strict_encode("SCALABLE_PRESS_TOKEN")}"
+        request.headers["Authorization"] = "Basic #{Base64.strict_encode("#{Amber.settings.secrets["SCALABLE_PRESS_TOKEN"]}")}"
         request.headers["Content-Type"] = "application/x-www-form-urlencoded"
       end
       
@@ -833,7 +833,7 @@ class LivepixelController < ApplicationController
 
       client = HTTP::Client.new(url)
       client.before_request do |request|
-        request.headers["Authorization"] = "Basic #{Base64.strict_encode("SCALABLE_PRESS_TOKEN")}"
+        request.headers["Authorization"] = "Basic #{Base64.strict_encode("#{Amber.settings.secrets["SCALABLE_PRESS_TOKEN"]}")}"
       end
       
       response = client.get "/v3/event?orderId=#{order_id}"
