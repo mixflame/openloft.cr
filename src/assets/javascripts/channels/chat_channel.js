@@ -38,7 +38,7 @@ window.setupChat = () => {
                 clearInterval(window.timer[data["name"]]);
             }
             window.timer[data["name"]] = setInterval(() => {
-                console.log(window.last_ping[data["name"]] < Date.now() - (5000))
+                // console.log(window.last_ping[data["name"]] < Date.now() - (5000))
                 if (window.last_ping[data["name"]] < Date.now() - (5000)) {
                     $(".online-" + data["name"]).remove()
                     window.nicks = arrayRemove(window.nicks, data["name"]);
