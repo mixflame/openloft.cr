@@ -16,7 +16,7 @@ window.setupChat = () => {
     window.chat_channel.push("message_new", { online: true, name: window.name, room: window.room });
 
     window.start_pinging();
-    setInterval(window.start_pinging, 3000);
+    setInterval(window.start_pinging, 1000);
 
     chat_channel.on('message_new', (data) => {
         console.log(data);
@@ -29,10 +29,19 @@ window.setupChat = () => {
             for (const nick in window.nicks) {
                 if (Object.hasOwnProperty.call(window.nicks, nick)) {
                     const n = window.nicks[nick];
-                    window.last_ping[n] = Date.now();
                     $("#connected_users").html($("#connected_users").html() + `<li class='online-${n}'>${n}</li>`)
                 }
             }
+            if (window.timer[data["name"]] != undefined && window.timer[data["name"]] != null) {
+                clearInterval(window.timer[data["name"]]);
+            }
+            window.timer[data["name"]] = setInterval(() => {
+                console.log(window.last_ping[data["name"]] < Date.now() - (5000))
+                if (window.last_ping[data["name"]] < Date.now() - (5000)) {
+                    $(".online-" + data["name"]).remove()
+                    window.nicks = arrayRemove(window.nicks, data["name"]);
+                }
+            }, 2000);
             return;
         }
 
@@ -88,23 +97,24 @@ window.setupChat = () => {
 
 
 
-        $("#connected_users").html("");
-        for (const nick in window.nicks) {
-            if (Object.hasOwnProperty.call(window.nicks, nick)) {
-                const n = window.nicks[nick];
-                window.last_ping[n] = Date.now();
-                if (window.timer[n] != undefined && window.timer[n] != null) {
-                    clearInterval(window.timer[n]);
-                }
-                window.timer[n] = setInterval(() => {
-                    if (window.last_ping[n] < Date.now() - (60000)) {
-                        $(".online-" + n).remove()
-                        window.nicks = arrayRemove(window.nicks, n);
-                    }
-                }, 3000);
-                $("#connected_users").html($("#connected_users").html() + `<li class='online-${n}'>${n}</li>`)
-            }
-        }
+        // $("#connected_users").html("");
+        // for (const nick in window.nicks) {
+        //     if (Object.hasOwnProperty.call(window.nicks, nick)) {
+        //         const n = window.nicks[nick];
+        //         window.last_ping[n] = Date.now();
+        //         if (window.timer[n] != undefined && window.timer[n] != null) {
+        //             clearInterval(window.timer[n]);
+        //         }
+        //         window.timer[n] = setInterval(() => {
+        //             console.log(window.last_ping[n] < Date.now() - (3000))
+        //             if (window.last_ping[n] < Date.now() - (3000)) {
+        //                 $(".online-" + n).remove()
+        //                 window.nicks = arrayRemove(window.nicks, n);
+        //             }
+        //         }, 5000);
+        //         $("#connected_users").html($("#connected_users").html() + `<li class='online-${n}'>${n}</li>`)
+        //     }
+        // }
 
 
         var parent = $("#connected_users")[0],

@@ -2201,7 +2201,7 @@ $(function () {
 
     $("#name").val(name);
 
-    $("#name").keyup(function () {
+    $("#name").change(function () {
         if ($("#name").val() != undefined && $("#name").val() != "" && $("#name").val().length < 30 && $("#name").val().match(/^[a-z0-9]+$/i)) {
             name = $("#name").val()
             window.name = name;
