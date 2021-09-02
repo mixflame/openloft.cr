@@ -37,6 +37,7 @@
         <% end %>
 
         <select name="palette-selector" id="palette-selector">
+          Palette:
           <option value="mac">Mac 16 color</option>
           <option value="windows">Windows 16 color</option>
         </select>
@@ -46,11 +47,19 @@
 
       
       <div id="color_tool" class="tool unselectable">
+        Color:
         <i class="fas fa-palette" style="padding-left: 10px; padding-right: 10px;" title="Color" id="color_icon"></i>
         <input type="color" id="color" value="#000000" />
       </div>
 
+      <!-- <div id="picture_tool" class="tool unselectable" style="visibility: hidden">
+          Picture:
+          <input type='checkbox' id='picture_tool' value='' />
+          <input type="text" id="url" />
+      </div> -->
+
       <div id="brush_type_tool" class="tool unselectable" style="border-left: none;">
+        Brush shape:
       <i class="fas fa-ruler-combined" style="padding-left: 10px; padding-right: 10px;" title="Line Join" id="brush_type_icon"></i>
         <select name="brush_type" id="brush_type">
           <option value="round">Round</option>
@@ -60,6 +69,7 @@
       </div>
 
         <div id="brush_style_tool" class="tool unselectable" style="border-left: none;">
+        Brush style:
       <i class="fas fa-paint-brush" style="padding-left: 10px; padding-right: 10px;" title="Brush Type" id="brush_type_icon"></i>
         <select name="brush_style" id="brush_style">
           <option value="none">None</option>
@@ -70,6 +80,7 @@
 
       
       <div id="size_tool" class="tool unselectable" style="border-left: none;">
+        Brush Size:
         <i class="fas fa-ruler" style="padding-left: 10px; padding-right: 10px" title="Size" id="brush_size_icon"></i>
         rand: <input type="checkbox" id="random-brush-size" checked=false>
         <input style="width: 50px;" type="range" min="1" max="35" value="3" class="slider" id="brush-size">
@@ -77,14 +88,16 @@
 
 
 
-      <div id="name_changer" class="tool unselectable" style="border-left: none;"><strong style="padding-left: 10px; padding-right: 10px"></strong> <input style="width: 100px;" type="text" id="name" maxlength=30 /></div>
+      <div id="name_changer" class="tool unselectable" style="border-left: none;">Name: <strong style="padding-left: 10px; padding-right: 10px"></strong> <input style="width: 100px;" type="text" id="name" maxlength=30 /></div>
 
       <div id="rainbow-pen-tool" class="tool unselectable" style="border-left: none;">
+        Rainbow Pen:
         <i class="fas fa-rainbow" style="padding-left: 10px; padding-right: 10px" title="Rainbow" id="rainbow_icon"></i>
         <input type="checkbox" id="rainbow" checked=false>
       </div>
 
       <div id="rainbow-pen-tool-style" class="tool unselectable" style="border-left: none;">
+        Rainbow Theme:
         <select name="themes" id="themes">
           <option value="rain">Rainbow</option>
           <option value="camo">Camoflauge</option>
@@ -108,6 +121,7 @@
       </div>
 
       <div id="shape_tool" class="tool unselectable" style="border-left: none;">
+        Shape:
         <i class="fas fa-shapes" style="padding-left: 10px; padding-right: 10px" title="Shape Tool" id="shape_tool_icon"></i>
         fill: <input type="checkbox" id="shape_fill" checked=false>
         <select name="shape_type" id="shape_type">
@@ -123,27 +137,32 @@
       </div>
 
       <div id="text-tool-holder" class="tool unselectable" style="border-left: none;">
+        Text:
         <i class="fas fa-paragraph" style="padding-left: 10px; padding-right: 10px" title="Text" id="text_tool_icon"></i>
         <input type="checkbox" id="text-tool" checked=false>
         <input style="width: 100px;" type="text" id="text-to-write" maxlength=100 />
       </div>
 
       <div id="eyedropper-tool" class="tool unselectable" style="border-left: none;">
+        Eyedropper:
         <i class="fas fa-eye-dropper" style="padding-left: 10px; padding-right: 10px" title="Eyedropper" id="eyedropper_icon"></i>
         <input type="checkbox" id="eyedropper" checked=false>
       </div>
 
       <div id="eraser_tool" class="tool unselectable" style="border-left: none;">
+        Eraser:
         <i class="fas fa-eraser" style="padding-left: 10px; padding-right: 10px" title="Eraser" id="eraser_icon"></i>
         <input type="checkbox" id="eraser" checked=false>
       </div>
 
       <div id="paintbucket_tool" class="tool unselectable" style="border-left: none;">
+        Paint Bucket:
         <i class="fas fa-fill" style="padding-left: 10px; padding-right: 10px" title="Paint bucket" id="paintbucket_icon"></i>
         <input type="checkbox" id="paintbucket" checked=false>
       </div>
 
       <div id="undo_tool" class="tool unselectable" style="border-left: none;">
+        Undo:
         <i class="fas fa-undo" style="padding-left: 10px; padding-right: 10px" title="Undo" id="undo_icon"></i>
         <button class="btn btn-secondary btn-sm" id="undo">Undo</button>
       </div>
