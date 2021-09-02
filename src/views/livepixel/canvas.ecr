@@ -20,6 +20,11 @@
   <li class="nav-item">
     <a class="nav-link" id="theater_tab-tab" data-toggle="tab" href="#theater_tab" role="tab" aria-controls="theater_tab" aria-selected="false">Theater</a>
   </li>
+  <% if ad != "" && banner_link != "" %>
+    <div id="gbaldvertisement">
+      <a href="<%= Sanitizer.process(banner_link) %>" id="gbaldvertisement_link" target="_new"><img id="gbaldvertisement_img" src="data:image/png;base64,<%= Sanitizer.process(ad) %>"></a>
+    </div>
+  <% end %>
 </ul>
 
 
@@ -222,11 +227,6 @@
   <div class="tab-pane fade" id="call_tab" role="tabpanel" aria-labelledby="call_tab-tab">
     <div id="video_chat" class="unselectable" style="float: left; display: inline;">
       <div id="center_holder">
-        <% if ad != "" && banner_link != "" %>
-            <div id="gbaldvertisement">
-              <a href="<%= Sanitizer.process(banner_link) %>" id="gbaldvertisement_link" target="_new"><img id="gbaldvertisement_img" src="data:image/png;base64,<%= Sanitizer.process(ad) %>"></a>
-            </div>
-        <% end %>
 
         <div class="clear"></div>
 
