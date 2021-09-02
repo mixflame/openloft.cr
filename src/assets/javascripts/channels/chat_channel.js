@@ -22,6 +22,8 @@ window.setupChat = () => {
         console.log(data);
 
         if (data["ping"]) {
+            // update cam name
+            $("#remoteVideoContainer-" + data["user_id"] + " > p").html(data["name"]);
             window.last_ping[data['name']] = Date.now();
             if (!window.nicks.includes(data["name"]))
                 window.nicks.push(data["name"]);

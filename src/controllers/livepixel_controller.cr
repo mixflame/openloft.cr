@@ -279,7 +279,7 @@ class LivepixelController < ApplicationController
   def canvas
     # Sanitizer = Sanitize::Policy::HTMLSanitizer.basic
 
-    random_number = Random.rand(10000).to_i
+    random_number = Random.rand(2000000).to_i
     room = params[:room] rescue ""
     redis = REDIS
 

@@ -1721,6 +1721,8 @@ window.scroll_to_bottom = function () {
 
 $(function () {
 
+    window.userId = $("#current-user")[0].innerHTML;
+
     // reset the color picker (FF fix)
     $("#color").val("#000000");
     $("#eyedropper").prop("checked", false);
@@ -2206,6 +2208,7 @@ $(function () {
             name = $("#name").val()
             window.name = name;
             localStorage.setItem("name", name);
+            $("#cam-name").html(window.name);
         } else {
             $("#name").val(name);
         }
@@ -3309,5 +3312,5 @@ window.gotDevices = (mediaDevices) => {
 
 
 window.start_pinging = () => {
-    if (window.chat_channel) window.chat_channel.push("message_new", { name: window.name, ping: true, room: room });
+    if (window.chat_channel) window.chat_channel.push("message_new", { name: window.name, ping: true, room: room, user_id: window.userId });
 }
