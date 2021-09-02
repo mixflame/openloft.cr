@@ -331,7 +331,9 @@ class LivepixelController < ApplicationController
     if params.has_key?("public") && params[:public] == "true"
       redis.lrem "public_rooms", 0, params[:room].to_s
       redis.lpush "public_rooms", params[:room].to_s
-      redis.hset "room_names", params[:room].to_s, params[:name].to_s
+      unless redis.hget "room_names", params[:room].to_s
+        redis.hset "room_names", params[:room].to_s, params[:name].to_s
+      end
     end
 
     render "canvas.ecr", layout: "gbaldraw.ecr"
