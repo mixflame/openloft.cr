@@ -2920,7 +2920,7 @@ $(function () {
             $(".nav").css("background-color", "black")
             $(".nav").css("color", "white")
         } else {
-            $("body").css("background-color", "white")
+            $("body").css("background-color", "aliceblue")
             $("body").css("color", "black")
             $(".wm-content").css("background-color", "white")
             $(".wm-content").css("color", "black")
