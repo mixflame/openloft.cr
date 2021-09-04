@@ -3140,6 +3140,8 @@ $(function () {
 
     })
 
+    $('.nav-tabs a[href="#call_tab"]').tab('show');
+
 })
 
 window.loadVideoPlayer = function () {
