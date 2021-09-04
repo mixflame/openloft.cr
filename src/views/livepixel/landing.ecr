@@ -3,9 +3,10 @@
     <img src="/OpenLoft.png" />
     <p><strong>By using this site you agree to the <a href="/tos.html">Terms of Service</a> and <a href="/privacy_policy">Privacy Policy</a></strong></p>
     <div id="welcome_links" class="mt-3 mb-3">
-      <p class="d-inline mr-3"><a href="#" id="private_room">Create private room</a></p>
-      <p class="d-inline mr-3"><a href="#" id="public_room">Create public room</a></p>
-      <ul id="public_rooms">
+      <p class="d-inline mr-3"><button class="btn btn-primary" id="private_room">Create private room</button></p>
+      <p class="d-inline mr-3"><button class="btn btn-primary" id="public_room">Create public room</button></p>
+      <ul style="padding: 10px" id="public_rooms">
+      <strong>Public Rooms</strong>
       <% public_rooms.each do |room| %>
         <li><a href="/canvas?room=<%= room %>" class="room_links"><%= redis.hget "room_names", room.to_s %></a></li>
       <% end %>
