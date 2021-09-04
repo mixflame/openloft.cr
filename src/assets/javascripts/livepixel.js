@@ -2939,7 +2939,7 @@ $(function () {
             $("#online_list").css("background-color", "white")
             $("#online_list").css("color", "black")
             $("#chat_message").css("background-color", "white")
-            $("#video_chat").css("background-color", "white")
+            $("#video_chat").css("background-color", "aliceblue")
             $("#video_chat").css("color", "black")
             $(".nav").css("background-color", "white")
             $(".nav").css("color", "black")
