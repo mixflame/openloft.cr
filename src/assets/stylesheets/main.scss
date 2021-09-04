@@ -298,8 +298,9 @@ a:visited {
     // float: left;
     // height: 33px;
     color: black;
-    border: black 1px solid;
-    width: 100%;
+    border-bottom: black 1px solid;
+    border-right: black 1px solid;
+    // width: 100%;
     padding: 3px;
     padding-left: 1px;
     padding-right: 1px;
@@ -313,8 +314,9 @@ a:visited {
     padding-bottom: 5px;
     padding-right: 2px;
     background-color: $secondary;
-    width: 100%;
-    border: black 1px solid;
+    border-bottom: black 1px solid;
+    border-right: black 1px solid;
+    // width: 100%;
     // width: 50%;
 }
 
@@ -349,6 +351,10 @@ a:visited {
 
 .nav {
     background-color: white;
+}
+
+.nav-tabs {
+    border-bottom: 1px black solid;
 }
 
 .feed-icon {
