@@ -4,7 +4,7 @@
   crossorigin="anonymous"></script>
 
 
-<div id="welcome_box" class="text-dark bg-white">
+<div id="welcome_box" class="text-dark bg-white" style="z-index: 5000; position: absolute;">
   <div id="welcome_content" class="mx-auto p-3" style="width: 74.37%">
     <img src="/OpenLoft.png" />
     <p><strong>By using this site you agree to the <a href="/tos.html">Terms of Service</a> and <a href="/privacy_policy">Privacy Policy</a></strong></p>
@@ -35,6 +35,7 @@
       template.clone().removeAttr('id').css({
         top: (Math.random() * 100) + '%',
         left: (Math.random() * 100) + '%',
+        zIndex: 3000,
         webkitAnimationDelay: (Math.random() * sparkle) + 's',
         mozAnimationDelay: (Math.random() * sparkle) + 's'
       }).addClass(size).appendTo(body);
