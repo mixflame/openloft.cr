@@ -644,16 +644,16 @@ body {
     background-size: auto;
     background-position: center center;
     background-image: none;
-    }
+}
     
     #starshine {
-      position: absolute;
+    //   position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       z-index: 1;
-      overflow: hidden;
+      overflow: scroll;
     }    
         
     .shine {

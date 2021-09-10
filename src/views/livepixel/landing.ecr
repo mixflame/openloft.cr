@@ -26,15 +26,15 @@
   $(function() {
    var body = $('#starshine'),
       template = $('.template.shine'),
-      stars =  500,
+      stars =  1000,
       sparkle = 20;
   
     
     var size = 'small';
     var createStar = function() {
       template.clone().removeAttr('id').css({
-        top: (Math.random() * 100) + '%',
-        left: (Math.random() * 100) + '%',
+        top: (Math.random() * $(document).height()) + "px",
+        left: (Math.random() * $(document).width()) + "px",
         zIndex: 3000,
         webkitAnimationDelay: (Math.random() * sparkle) + 's',
         mozAnimationDelay: (Math.random() * sparkle) + 's'
