@@ -48,7 +48,7 @@ class CanvasChannel < Amber::WebSockets::Channel
         redis.expire("packets", 7 * 24 * 3600)
         redis.incr("balda_counter")
       end
-      redis.hincrby("all_time", data["name"], 1) if data.has_key?("name")
+      # redis.hincrby("all_time", data["name"], 1) if data.has_key?("name") # exploitable by changing values
       CanvasSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", data)
     else
       redis = REDIS

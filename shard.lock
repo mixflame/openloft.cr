@@ -2,7 +2,7 @@ version: 2.0
 shards:
   amber:
     git: https://github.com/mixflame/amber.git
-    version: 1.0.0rc2+git.commit.377407405008109b27cf450fafb102dba99869b7
+    version: 1.0.0rc2+git.commit.6ee7ab8989cced4564add951cb7b5525451e5f86
 
   amber_router:
     git: https://github.com/amberframework/amber-router.git
@@ -117,8 +117,8 @@ shards:
     version: 0.7.2
 
   redis:
-    git: https://github.com/mixflame/crystal-redis.git
-    version: 2.8.3+git.commit.b6e03f033abea2cef492ab64ee80f48440b4e357
+    git: https://github.com/stefanwille/crystal-redis.git
+    version: 2.8.2+git.commit.40761b21957beee1cd026d1a960aa36cb639aa67
 
   sanitize:
     git: https://github.com/straight-shoota/sanitize.git
