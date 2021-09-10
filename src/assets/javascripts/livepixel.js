@@ -3105,12 +3105,14 @@ $(function () {
             if (e.currentTarget.id != "call_tab-tab") {
                 if (document.pictureInPictureEnabled && !window.pip_mode) {
                     var videos = $("video");
-                    for (var i = 0; i < videos.length; i++) {
-                        const v = videos[i];
-                        try {
-                            v.requestPictureInPicture()
-                        } catch (e) {
-                            console.log("Couldn't enable PiP mode. " + e.message);
+                    if(videos.length > 2) {
+                        for (var i = 0; i < videos.length; i++) {
+                            const v = videos[i];
+                            try {
+                                v.requestPictureInPicture()
+                            } catch (e) {
+                                console.log("Couldn't enable PiP mode. " + e.message);
+                            }
                         }
                     }
                     window.pip_mode = true
