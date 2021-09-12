@@ -77,9 +77,9 @@ window.setuptheater = () => {
                     window.theater_load_time = data["time"];
                 }
             } else if (data["event"] == "canplay") {
-                if(!window.is_playing && !window.ended) {
-                    window.media_element.play();
-                }
+                // if(!window.is_playing && !window.ended) {
+                //     window.media_element.play();
+                // }
                 if(parseFloat(data["time"]) > parseFloat(window.media_element.getCurrentTime())) {
                     window.media_element.setCurrentTime(data["time"]);
                     window.theater_load_time = data["time"];
