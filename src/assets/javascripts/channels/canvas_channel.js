@@ -12,18 +12,18 @@ window.setupCanvas = () => {
 
     window.canvas_channel.on('message_new', (data) => {
         // console.log(data);
-        if (data["clear"] == true) {
-            if (!window.dontLog) console.log("clearing");
-            window.mpLayerOrder = [];
-            window.mpClickHash = {};
-            window.mpNameHash = {};
-            window.context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
-            // window.context.fillStyle = "#FFFFFF";
-            // window.context.fillRect(0, 0, 1180, 690);
-            var destCtx = window.bgCanvas.getContext('2d');
-            destCtx.drawImage(window.canvas, 0, 0);
-            return false;
-        }
+        // if (data["clear"] == true) {
+        //     if (!window.dontLog) console.log("clearing");
+        //     window.mpLayerOrder = [];
+        //     window.mpClickHash = {};
+        //     window.mpNameHash = {};
+        //     window.context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
+        //     // window.context.fillStyle = "#FFFFFF";
+        //     // window.context.fillRect(0, 0, 1180, 690);
+        //     var destCtx = window.bgCanvas.getContext('2d');
+        //     destCtx.drawImage(window.canvas, 0, 0);
+        //     return false;
+        // }
 
         if (data['undo'] == true) {
             // set values to backups
