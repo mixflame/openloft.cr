@@ -38,6 +38,11 @@
   }
   
   /* Nav links */
+  .nav-item {
+    padding: 10px !important;
+    font-weight: 500 !important;
+    color: #FDF4D6 !important;
+  }
   .nav-item:hover,
   .nav-item:focus {
     color: #fff !important;

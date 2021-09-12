@@ -39,8 +39,6 @@
   
   /* Nav links */
   .nav-item {
-    position: relative !important;
-    display: inline-block !important;
     padding: 10px !important;
     font-weight: 500 !important;
     color: #EBBAE8 !important;

@@ -375,9 +375,6 @@ a:visited {
     user-select: none;
 }
 
-#video_chat {
-    padding: 10px;
-}
 
 #video_chat > #center_holder {
     margin: 0 auto;
@@ -718,6 +715,10 @@ body {
         width: 100%;
         bottom: 0;
         background-color: white;
+    }
+
+    .navbar-fixed-bottom > * {
+        padding: 5px;
     }
 
     #gbaldvertisement {
