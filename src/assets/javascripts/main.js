@@ -40,7 +40,12 @@ import { faEyeDropper,
     faUndo, 
     faPaintBrush, 
     faShapes,
-    faRulerCombined } from "@fortawesome/free-solid-svg-icons";
+    faRulerCombined,
+    faComment,
+    faVideo,
+    faFileAlt,
+    faCog,
+    faTv     } from "@fortawesome/free-solid-svg-icons";
 
 
 library.add(faEyeDropper);
@@ -55,6 +60,11 @@ library.add(faUndo);
 library.add(faPaintBrush);
 library.add(faShapes);
 library.add(faRulerCombined);
+library.add(faComment);
+library.add(faFileAlt);
+library.add(faCog);
+library.add(faTv);
+library.add(faVideo);
 
 
 dom.watch();

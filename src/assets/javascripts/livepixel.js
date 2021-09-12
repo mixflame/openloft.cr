@@ -1721,6 +1721,8 @@ window.scroll_to_bottom = function () {
 
 $(function () {
 
+    $('[data-toggle="tooltip"]').tooltip()
+
     window.userId = $("#current-user")[0].innerHTML;
 
     // reset the color picker (FF fix)
