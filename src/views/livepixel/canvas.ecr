@@ -313,6 +313,15 @@
       <li class="nav-item nav-item-end">
         <a href="#" class="nav-link" id="full-screen">full screen</a>
       </li>
+      <p>Theme: 
+      <select id="theme_select">
+        <% Dir.entries("#{File.dirname(Amber.path)}/../public/stylesheets/themes").each do |filename| %>
+          <% if filename.includes?(".css") %>
+            <option value="<%= filename %>" <% if filename == session["theme"] || session["theme"].nil? && filename == "main.css" %>selected="selected"<% end %>><%= filename %></option>
+          <% end %>
+        <% end %>
+      </select>
+      </p>
     </ul>
   </div>
 

@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href='/dist/main.bundle.css?version=<%= File.info("public/dist/main.bundle.css").modification_time.to_unix.to_s %>'>
+    <% theme_path = session["theme"].nil? ? "main.css" : session["theme"] %>
+    <link id="theme_link" rel="stylesheet" href="/stylesheets/themes/<%= theme_path %>" />
     <link rel="apple-touch-icon" href="/favicon.png">
     <link rel="icon" href="/favicon.png">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
