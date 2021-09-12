@@ -2,9 +2,9 @@
  * Globals
  */
  body {
-    background-color: white !important;
+    background-color: #252525 !important;
     font-family: "Helvetica Neue", "Verdana", Arial, sans-serif !important;
-    color: #555 !important;
+    color: #EEEEEE !important;
   }
   
   h1, .h1,
@@ -16,7 +16,7 @@
     margin-top: 0 !important;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
     font-weight: normal !important;
-    color: #333 !important;
+    color: #DFDFDF !important;
   }
   
   /*
@@ -32,13 +32,12 @@
    * Masthead for nav
    */
   .masthead {
-    background-color: #B8382F !important;
+    background-color: #919191 !important;
     -webkit-box-shadow: inset 0 -2px 5px rgba(0,0,0,.1) !important;
             box-shadow: inset 0 -2px 5px rgba(0,0,0,.1) !important;
   }
   
   /* Nav links */
-
   .nav-item:hover,
   .nav-item:focus {
     color: #fff !important;
@@ -47,7 +46,7 @@
   
   /* Active state gets a caret at the bottom */
   .nav .active {
-    color: #DF9138 !important;
+    color: #696969 !important;
   }
   .nav .active:after {
     position: absolute !important;
@@ -57,6 +56,7 @@
     height: 0 !important;
     margin-left: -5px !important;
     vertical-align: middle !important;
+    content: " " !important;
     border-right: 5px solid transparent !important;
     border-bottom: 5px solid !important;
     border-left: 5px solid transparent !important;
@@ -75,7 +75,7 @@
   }
   
   .post {
-    background: #ddd !important;
+    background: #2C2C2C !important;
     margin: 20px !important;
     padding: 30px !important;
     width: 100% !important;
@@ -101,4 +101,16 @@
   
   #topic_holder {
     display: inline !important;
+  }
+
+  .panel {
+      background-color: #252525 !important;
+  }
+
+  #theme_select {
+      color: #000000 !important;
+  }
+
+  #message {
+      color: #000000 !important;
   }

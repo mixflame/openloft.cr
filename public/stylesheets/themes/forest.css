@@ -2,9 +2,9 @@
  * Globals
  */
  body {
-    background-color: white !important;
-    font-family: "Helvetica Neue", "Verdana", Arial, sans-serif !important;
-    color: #555 !important;
+    background-color: #B5D3AE !important;
+    font-family: Georgia, "Times New Roman", Times, serif !important;
+    color: #313131 !important;
   }
   
   h1, .h1,
@@ -16,7 +16,7 @@
     margin-top: 0 !important;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
     font-weight: normal !important;
-    color: #333 !important;
+    color: #222222 !important;
   }
   
   /*
@@ -32,13 +32,12 @@
    * Masthead for nav
    */
   .masthead {
-    background-color: #B8382F !important;
+    background-color: #122E09 !important;
     -webkit-box-shadow: inset 0 -2px 5px rgba(0,0,0,.1) !important;
             box-shadow: inset 0 -2px 5px rgba(0,0,0,.1) !important;
   }
   
   /* Nav links */
-
   .nav-item:hover,
   .nav-item:focus {
     color: #fff !important;
@@ -47,7 +46,7 @@
   
   /* Active state gets a caret at the bottom */
   .nav .active {
-    color: #DF9138 !important;
+    color: #38A446 !important;
   }
   .nav .active:after {
     position: absolute !important;
@@ -57,6 +56,7 @@
     height: 0 !important;
     margin-left: -5px !important;
     vertical-align: middle !important;
+    content: " " !important;
     border-right: 5px solid transparent !important;
     border-bottom: 5px solid !important;
     border-left: 5px solid transparent !important;

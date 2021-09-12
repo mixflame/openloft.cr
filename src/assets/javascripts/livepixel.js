@@ -3142,7 +3142,7 @@ $(function () {
             dataType: "json"
         })
         .done(function (e) {
-            $("[name*=_csrf]").replaceWith(e['csrf']);
+            // $("[name*=_csrf]").replaceWith(e['csrf']);
         });
       })
 
