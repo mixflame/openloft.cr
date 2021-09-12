@@ -2922,29 +2922,7 @@ $(function () {
             $(".nav").css("background-color", "black")
             $(".nav").css("color", "white")
         } else {
-            $("body").css("background-color", "white")
-            $("body").css("color", "black")
-            $(".wm-content").css("background-color", "white")
-            $(".wm-content").css("color", "black")
-            $(".nav-item").css("background-color", "white")
-            $(".nav-item").css("color", "black")
-            $("textarea").css("background-color", "white")
-            $("textarea").css("color", "black")
-            $(".tool").css("background-color", "white")
-            $(".tool").css("color", "black")
-            $("#last-colors").css("background-color", "white")
-            $("#last-colors").css("color", "black")
-            $("#text_color").val("#000000");
-            $("#text_color").change();
-            $("#chat_area").css("background-color", "white")
-            $("#chat_area").css("color", "black")
-            $("#online_list").css("background-color", "white")
-            $("#online_list").css("color", "black")
-            $("#chat_message").css("background-color", "white")
-            $("#video_chat").css("background-color", "aliceblue")
-            $("#video_chat").css("color", "black")
-            $(".nav").css("background-color", "white")
-            $(".nav").css("color", "black")
+            $("#theme_select").change();
         }
         localStorage.setItem("dark_mode", checked)
     })
@@ -2952,7 +2930,7 @@ $(function () {
     var dark_mode = localStorage.getItem("dark_mode");
     if (dark_mode == "true")
         $("#dark_mode").prop("checked", dark_mode);
-    $("#dark_mode").change();
+    
 
     if(!window.location.origin.includes("localhost"))
         $("#join-button").click();
@@ -3143,6 +3121,33 @@ $(function () {
         loadVideoPlayer();
 
     })
+
+    $("#theme_select").change(function(e){
+        var selected_theme = $("#theme_select").val();
+        // set current theme
+        $("#theme_link").prop("href", "/stylesheets/themes/" + selected_theme);
+        var csrf = document.querySelector("[name=_csrf]").content;
+        const headers = {
+            "content-type": "application/json",
+            "X-CSRF-TOKEN": csrf,
+        }
+        $.ajax({
+            url: "/change_theme",
+            headers: headers,
+            type: "POST",
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: JSON.stringify({ theme: selected_theme }),
+            dataType: "json"
+        })
+        .done(function (e) {
+            e = JSON.parse(e);
+            $("[name*=_csrf]").replaceWith(e['csrf']);
+        });
+      })
+
+    $("#dark_mode").change();
 
     $('.nav-tabs button[href="#call_tab"]').tab('show');
 

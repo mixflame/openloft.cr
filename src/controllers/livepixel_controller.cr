@@ -847,4 +847,10 @@ class LivepixelController < ApplicationController
       render("receipt.ecr")
     end
 
+
+    def change_theme
+      session["theme"] = params["theme"].to_s
+      {error: "success", csrf: csrf_tag}.to_json
+    end
+
 end

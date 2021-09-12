@@ -55,6 +55,7 @@ Amber::Server.configure do
     post "/upload", LivepixelController, :upload
     get "/", LivepixelController, :landing
     get "/random_ad", LivepixelController, :random_ad
+    post "/change_theme", LivepixelController, :change_theme
   end
 
   routes :api do
