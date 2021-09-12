@@ -70,7 +70,7 @@ var urlParams = new URLSearchParams(window.location.search);
 window.room = urlParams.get('room');
 
 function setMediaBitrates(sdp) {
-    return setMediaBitrate(setMediaBitrate(sdp, "video", 96), "audio", 50);
+    return setMediaBitrate(setMediaBitrate(sdp, "video", 320), "audio", 192);
 }
 
 function setMediaBitrate(sdp, media, bitrate) {
