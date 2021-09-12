@@ -1721,7 +1721,7 @@ window.scroll_to_bottom = function () {
 
 $(function () {
 
-    $('[data-toggle="tooltip"]').tooltip()
+    $('[data-toggle="tab"]').tooltip()
 
     window.userId = $("#current-user")[0].innerHTML;
 
