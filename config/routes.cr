@@ -46,7 +46,7 @@ Amber::Server.configure do
     get "/receipt", LivepixelController, :receipt
     get "/gallery", LivepixelController, :gallery
     get "/gallery_feed", LivepixelController, :gallery_feed
-    get "/clear_canvas", LivepixelController, :clear_canvas
+    # get "/clear_canvas", LivepixelController, :clear_canvas
     get "/stats", LivepixelController, :stats
     get "/privacy_policy", LivepixelController, :privacy_policy
     get "/buy_ad", LivepixelController, :buy_ad

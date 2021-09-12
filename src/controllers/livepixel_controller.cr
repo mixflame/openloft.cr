@@ -267,14 +267,14 @@ class LivepixelController < ApplicationController
     
   end
 
-  def clear_canvas
-    room = params[:room]
-    puts "room: #{room}"
-    raise "cant clear global canvas" if params[:room].blank? || params[:room].nil?
-    redis = REDIS
-    redis.del("packets_#{room}")
-    CanvasSocket.broadcast("message", "canvas:#{room}", "message_new", {clear: true}.to_h)
-  end
+  # def clear_canvas
+  #   room = params[:room]
+  #   puts "room: #{room}"
+  #   raise "cant clear global canvas" if params[:room].blank? || params[:room].nil?
+  #   redis = REDIS
+  #   redis.del("packets_#{room}")
+  #   CanvasSocket.broadcast("message", "canvas:#{room}", "message_new", {clear: true}.to_h)
+  # end
 
   def canvas
     # Sanitizer = Sanitize::Policy::HTMLSanitizer.basic
