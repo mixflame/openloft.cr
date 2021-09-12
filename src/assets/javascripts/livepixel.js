@@ -2479,7 +2479,7 @@ $(function () {
 
         // window.canvas_window.resize(w, h)
 
-        $('.nav-tabs a[href="#canvas_tab"]').tab('show');
+        $('.nav-tabs button[href="#canvas_tab"]').tab('show');
 
 
 
@@ -3144,7 +3144,7 @@ $(function () {
 
     })
 
-    $('.nav-tabs a[href="#call_tab"]').tab('show');
+    $('.nav-tabs button[href="#call_tab"]').tab('show');
 
 })
 
