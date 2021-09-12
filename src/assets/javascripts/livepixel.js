@@ -2894,42 +2894,6 @@ $(function () {
             window.persistence_socket._reconnect()
         }, window.persistence_socket._reconnectInterval())
     }
-
-    $("#dark_mode").change(function (e) {
-        const checked = $("#dark_mode").is(":checked");
-        if (checked) {
-            $("body").css("background-color", "black")
-            $("body").css("color", "white")
-            $(".wm-content").css("background-color", "black")
-            $(".wm-content").css("color", "white")
-            $(".nav-item").css("background-color", "black")
-            $(".nav-item").css("color", "white")
-            $("textarea").css("background-color", "black")
-            $("textarea").css("color", "white")
-            $(".tool").css("background-color", "black")
-            $(".tool").css("color", "white")
-            $("#last-colors").css("background-color", "black")
-            $("#last-colors").css("color", "white")
-            $("#text_color").val("#ffffff");
-            $("#text_color").change();
-            $("#chat_area").css("background-color", "black")
-            $("#chat_area").css("color", "white")
-            $("#online_list").css("background-color", "black")
-            $("#online_list").css("color", "white")
-            $("#chat_message").css("background-color", "black")
-            $("#video_chat").css("background-color", "black")
-            $("#video_chat").css("color", "white")
-            $(".nav").css("background-color", "black")
-            $(".nav").css("color", "white")
-        } else {
-            $("#theme_select").change();
-        }
-        localStorage.setItem("dark_mode", checked)
-    })
-
-    var dark_mode = localStorage.getItem("dark_mode");
-    if (dark_mode == "true")
-        $("#dark_mode").prop("checked", dark_mode);
     
 
     if(!window.location.origin.includes("localhost"))
@@ -3146,7 +3110,7 @@ $(function () {
         });
       })
 
-    $("#dark_mode").change();
+    $("#theme_select").change();
 
     $('.nav-tabs button[href="#call_tab"]').tab('show');
 
