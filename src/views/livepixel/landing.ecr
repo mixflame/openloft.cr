@@ -63,8 +63,7 @@
 
   document.getElementById("public_room").onclick = function() {
         var name = prompt("Public room name", "Enter a name for your public room");
-        var code = Math.random().toString(36).substring(2, 7) + Math.random().toString(36).substring(2, 7);
-        window.location =  "/canvas?room=" + code + "&public=true&name=" + name;
+        window.location =  "/o/" + name;
         return false;
       };
 
