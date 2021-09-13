@@ -4,8 +4,6 @@
 
 This is OpenLoft Collaborative Editor 1.0 with call reconnection, using Amber/Crystal 1.0.0. Originally written in Ruby on Rails with ActionCable and ported to Crystal for speed. Featuring: HTML Chat, WebRTC Video/Audio, Collaborative Canvas, Collaborative Text Editor.
 
-Featuring discord and irc bridge bots.
-
 ## Getting Started
 
 These instructions will get a copy of this project running on your machine for development and testing purposes.
