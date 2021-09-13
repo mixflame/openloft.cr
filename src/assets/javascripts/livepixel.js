@@ -857,7 +857,7 @@ const broadcastData = (data) => {
     data["room"] = room;
 
 
-    fetch("sessions", {
+    fetch("/sessions", {
         method: "POST",
         body: JSON.stringify(data),
         headers,
