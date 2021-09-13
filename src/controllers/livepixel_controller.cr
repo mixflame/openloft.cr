@@ -339,6 +339,13 @@ class LivepixelController < ApplicationController
     render "canvas.ecr", layout: "gbaldraw.ecr"
   end
 
+  def shorten_link
+    redis = REDIS
+    room_name = request.url.gsub("\/o\/", "").to_s
+    room_id = redis.hgetall("room_names").key_for(room_name).to_s
+    redirect_to("/canvas", params: { "room" => room_id }.to_h)
+  end
+
   def random_ad
     redis = REDIS
     # Sanitizer = Sanitize::Policy::HTMLSanitizer.basic
