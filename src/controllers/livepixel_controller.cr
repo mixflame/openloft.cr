@@ -343,12 +343,65 @@ class LivepixelController < ApplicationController
     redis = REDIS
     room_name = request.url.gsub("\/o\/", "").to_s
     room_id = redis.hgetall("room_names").key_for(room_name).to_s rescue ""
-    if room_id != ""
-      redirect_to("/canvas", params: { "room" => room_id }.to_h)
-    else
+    if room_id == ""
       room_id = "#{Random.new.hex(5)}#{Random.new.hex(5)}"
-      redirect_to("/canvas", params: { "room" => room_id, "public" => "true", "name" => room_name }.to_h)
     end
+    random_number = Random.rand(2000000).to_i
+    room = room_id rescue ""
+    redis = REDIS
+
+    media_url = redis.get("#{room}_media_url")
+
+    if room == ""
+      ttl = redis.ttl("packets")
+    else
+      ttl = redis.ttl("packets_#{room}")
+    end
+    counter = redis.incr("counter")
+
+    ad = ""
+    banner_link = ""
+    while ad == ""
+      order_id = redis.srandmember("banner_order_ids").to_s
+      break if order_id == ""
+      ad = redis.get(order_id) || ""
+      banner_link = redis.get("#{order_id}_link") || ""
+      if ad == ""
+        redis.srem("banner_order_ids", order_id)
+      else
+        break
+      end
+    end
+
+    if ad == ""
+      ad = File.read("./public/default_ad.base64").to_s
+      banner_link = "https://openloft.org/buy_ad"
+    end
+
+    chats = ""
+    if room == ""
+      amt_packets = redis.llen("chats")
+      if amt_packets >= 100
+        chats = redis.lrange("chats", -100, -1)
+      else
+        chats = redis.lrange("chats", 0, -1)
+      end
+    else
+      amt_packets = redis.llen("chats_#{room}")
+      if amt_packets >= 100
+        chats = redis.lrange("chats_#{room}", -100, -1)
+      else
+        chats = redis.lrange("chats_#{room}", 0, -1)
+      end
+    end
+
+    redis.lrem "public_rooms", 0, room.to_s
+    redis.lpush "public_rooms", room.to_s
+    unless redis.hget "room_names", room.to_s
+      redis.hset "room_names", room.to_s, room_name
+    end
+
+    render "canvas.ecr", layout: "gbaldraw.ecr"
   end
 
   def random_ad
