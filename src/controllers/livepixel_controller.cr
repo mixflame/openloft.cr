@@ -346,7 +346,7 @@ class LivepixelController < ApplicationController
     if room_id != ""
       redirect_to("/canvas", params: { "room" => room_id }.to_h)
     else
-      room_id = "#{Random.rand(2000000).to_s(36)[2..15].to_s}#{Random.rand(2000000).to_s(36)[2..15].to_s}"
+      room_id = "#{Random.new.hex(5)}#{Random.new.hex(5)}"
       redirect_to("/canvas", params: { "room" => room_id, "public" => "true", "name" => room_name }.to_h)
     end
   end
