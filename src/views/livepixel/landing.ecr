@@ -56,14 +56,14 @@
   
 
   document.getElementById("private_room").onclick = function() {
-        var code = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        var code = Math.random().toString(36).substring(2, 7) + Math.random().toString(36).substring(2, 7);
         window.location = "/canvas?room=" + code;
         return false;
       };
 
   document.getElementById("public_room").onclick = function() {
         var name = prompt("Public room name", "Enter a name for your public room");
-        var code = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        var code = Math.random().toString(36).substring(2, 7) + Math.random().toString(36).substring(2, 7);
         window.location =  "/canvas?room=" + code + "&public=true&name=" + name;
         return false;
       };

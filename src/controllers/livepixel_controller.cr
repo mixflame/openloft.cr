@@ -342,8 +342,13 @@ class LivepixelController < ApplicationController
   def shorten_link
     redis = REDIS
     room_name = request.url.gsub("\/o\/", "").to_s
-    room_id = redis.hgetall("room_names").key_for(room_name).to_s
-    redirect_to("/canvas", params: { "room" => room_id }.to_h)
+    room_id = redis.hgetall("room_names").key_for(room_name).to_s rescue ""
+    if room_id != ""
+      redirect_to("/canvas", params: { "room" => room_id }.to_h)
+    else
+      room_id = "#{Random.rand(2000000).to_s(36)[2..15].to_s}#{Random.rand(2000000).to_s(36)[2..15].to_s}"
+      redirect_to("/canvas", params: { "room" => room_id, "public" => "true", "name" => room_name }.to_h)
+    end
   end
 
   def random_ad
