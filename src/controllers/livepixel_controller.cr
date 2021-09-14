@@ -460,9 +460,9 @@ class LivepixelController < ApplicationController
       all_layers += layer[1].to_i rescue 0
     end
     names = names.sort { |a,b| points[b.to_s].to_i rescue 0 <=> points[a.to_s].to_i rescue 0}
-    # all_time = {} of String => String
-    # redis.hgetall("all_time").each_slice(2) { |drawer| all_time[drawer[0].to_s] = drawer[1].to_s rescue "" }
-    # puts all_time
+    all_time = {} of String => String
+    all_time = redis.hgetall("all_time")
+    puts all_time
     render("stats.ecr", layout: "stats.ecr")
   end
 
