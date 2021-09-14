@@ -85,7 +85,7 @@ Amber::Server.configure do |settings|
   # a digital signature as you might imagine from the name, the private key should be
   # ``closely guarded.
   #
-  settings.ssl_key_file = ENV["SSL_KEY_FILE"] if ENV["SSL_KEY_FILE"]?
+  # settings.ssl_key_file = ENV["SSL_KEY_FILE"] if ENV["SSL_KEY_FILE"]?
   #
   #
   # SSL Cert File: This represents the signed certificate file. SSL Certificates are
@@ -93,7 +93,7 @@ Amber::Server.configure do |settings|
   # details. When installed on a web server, it activates the padlock and the https
   # protocol and allows secure connections from a web server to a browser.
   #
-  settings.ssl_cert_file = ENV["SSL_CERT_FILE"] if ENV["SSL_CERT_FILE"]?
+  # settings.ssl_cert_file = ENV["SSL_CERT_FILE"] if ENV["SSL_CERT_FILE"]?
   #
   #
   # Session: A Hash that specifies the session storage mechanism, expiration and key to be used
