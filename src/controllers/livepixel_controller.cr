@@ -566,9 +566,10 @@ class LivepixelController < ApplicationController
       # create base64 image from uploaded_io
     end
 
-    def active_users
-      {active_users: (Amber::WebSockets::ClientSockets.client_sockets.size / 6).to_f.round(0).to_i }.to_h.to_json
-    end
+    # not safe with respect to user stalking
+    # def active_users
+    #   {active_users: (Amber::WebSockets::ClientSockets.client_sockets.size / 6).to_f.round(0).to_i }.to_h.to_json
+    # end
 
     def upload_to_scalable_press
 
