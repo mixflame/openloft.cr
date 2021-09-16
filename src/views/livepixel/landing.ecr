@@ -48,8 +48,11 @@
   });
 
   document.getElementById("public_room").onclick = function() {
-        var name = prompt("Room name", "Enter a name for your room");
-        window.location =  "/o/" + name;
+        var room_name;
+        while (room_name == undefined || room_name == "" || room_name.length > 30 || !room_name.match(/^[a-z0-9]+$/i)) {
+            room_name = prompt("Room name", "Enter a name for your room");
+        }
+        window.location =  "/o/" + room_name;
         return false;
       };
 
