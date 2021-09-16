@@ -9,14 +9,7 @@
     <img src="/OpenLoft.png" />
     <p><strong>By using this site you agree to the <a href="/tos.html">Terms of Service</a> and <a href="/privacy_policy">Privacy Policy</a></strong></p>
     <div id="welcome_links" class="mt-3 mb-3">
-      <p class="d-inline mr-3"><button class="btn btn-primary" id="private_room">Create private room</button></p>
-      <p class="d-inline mr-3"><button class="btn btn-primary" id="public_room">Create public room</button></p>
-      <ul style="padding: 10px" id="public_rooms">
-      <strong>Public Rooms</strong>
-      <% public_rooms.each do |room| %>
-        <li><a href="/canvas?room=<%= room %>" class="room_links"><%= redis.hget "room_names", room.to_s %></a></li>
-      <% end %>
-      </ul>
+      <p class="d-inline mr-3"><button class="btn btn-primary" id="public_room">Create room</button></p>
     </div>
   </div>
 </div>
@@ -53,16 +46,9 @@
       createStar();
     } 
   });
-  
-
-  document.getElementById("private_room").onclick = function() {
-        var code = Math.random().toString(36).substring(2, 7) + Math.random().toString(36).substring(2, 7);
-        window.location = "/canvas?room=" + code;
-        return false;
-      };
 
   document.getElementById("public_room").onclick = function() {
-        var name = prompt("Public room name", "Enter a name for your public room");
+        var name = prompt("Room name", "Enter a name for your room");
         window.location =  "/o/" + name;
         return false;
       };
