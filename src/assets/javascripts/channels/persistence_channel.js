@@ -8,9 +8,6 @@ function uuidv4() {
 
 var uuid = uuidv4();
 
-var urlParams = new URLSearchParams(window.location.search);
-var room = urlParams.get('room');
-
 
 window.setupPersistence = () => {
     console.log("connected to /persistence")

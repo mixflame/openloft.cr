@@ -66,8 +66,7 @@ function scaledPositionY(y) {
 }
 
 
-var urlParams = new URLSearchParams(window.location.search);
-window.room = urlParams.get('room');
+window.room = window.location.toString().split("\/o\/")[1];
 
 function setMediaBitrates(sdp) {
     return setMediaBitrate(setMediaBitrate(sdp, "video", 320), "audio", 192);
@@ -850,9 +849,6 @@ const broadcastData = (data) => {
         "content-type": "application/json",
         "X-CSRF-TOKEN": csrfToken,
     });
-
-    var urlParams = new URLSearchParams(window.location.search);
-    var room = urlParams.get('room');
 
     data["room"] = room;
 

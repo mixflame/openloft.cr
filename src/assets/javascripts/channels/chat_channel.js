@@ -1,7 +1,5 @@
 import Amber from 'amber';
 
-var urlParams = new URLSearchParams(window.location.search);
-var room = urlParams.get('room');
 
 window.timer = {};
 
