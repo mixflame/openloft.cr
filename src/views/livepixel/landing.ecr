@@ -11,6 +11,7 @@
     <div id="welcome_links" class="mt-3 mb-3">
       <p class="d-inline mr-3"><button class="btn btn-primary" id="public_room">Create room</button></p>
     </div>
+    <p>Users online: <%= (Amber::WebSockets::ClientSockets.client_sockets.size / 6).to_i %></p>
   </div>
 </div>
 
