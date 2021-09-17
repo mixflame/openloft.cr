@@ -65,7 +65,9 @@ function scaledPositionY(y) {
     return scaleY * y;
 }
 
-window.room = window.location.href.split("\/o\/")[1];
+
+var urlParams = new URLSearchParams(window.location.search);
+window.room = urlParams.get('room');
 
 function setMediaBitrates(sdp) {
     return setMediaBitrate(setMediaBitrate(sdp, "video", 320), "audio", 192);

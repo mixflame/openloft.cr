@@ -8,9 +8,8 @@ function uuidv4() {
 
 var uuid = uuidv4();
 
-// var urlParams = new URLSearchParams(window.location.search);
-// var room = urlParams.get('room');
-var room = window.location.href.split("\/o\/")[1];
+var urlParams = new URLSearchParams(window.location.search);
+var room = urlParams.get('room');
 
 
 window.setupPersistence = () => {

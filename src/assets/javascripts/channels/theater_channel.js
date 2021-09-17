@@ -1,5 +1,8 @@
 import Amber from 'amber';
 
+var urlParams = new URLSearchParams(window.location.search);
+var room = urlParams.get('room');
+
 window.setuptheater = () => {
     console.log("connected to /theater")
     if (window.theater_socket.channels.length == 0) {
