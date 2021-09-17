@@ -1,5 +1,7 @@
 <noscript>Please enable Javascript to use this website!</noscript>
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5635406451990999"
+     crossorigin="anonymous"></script>
 
 <ul class="nav nav-tabs device-small" id="myTab" role="tablist">
   <li class="nav-item">
@@ -20,11 +22,6 @@
   <li class="nav-item">
     <button class="nav-link" id="links_tab-tab" data-toggle="tab" title="Settings" href="#links_tab" role="tab" aria-controls="links_tab" aria-selected="false"><i class="fas fa-cog" style="padding-left: 10px; padding-right: 10px;"></i></button>
   </li>
-  <% if ad != "" && banner_link != "" %>
-    <div id="gbaldvertisement">
-      <a href="<%= Sanitizer.process(banner_link) %>" id="gbaldvertisement_link" target="_new"><img id="gbaldvertisement_img" src="data:image/png;base64,<%= Sanitizer.process(ad) %>"></a>
-    </div>
-  <% end %>
 </ul>
 
 
@@ -301,7 +298,7 @@
         <a href="/stats?room=<%= room %>" class="nav-link" target="_blank">stats</a>
       </li>
       <li class="nav-item">
-        <a href="/buy_ad" class="nav-link" target="_blank">advertise here</a>
+        <a href="/buy_ad" style="display: none" class="nav-link" target="_blank">advertise here</a>
       <!-- </li>
       <li class="nav-item">
         <a href="#" class="nav-link" id="clear_canvas">clear canvas</a>
