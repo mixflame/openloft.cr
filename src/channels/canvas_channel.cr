@@ -72,10 +72,10 @@ class CanvasChannel < Amber::WebSockets::Channel
       end
       redis.rpush "packets_#{room}", data.to_json
       # puts "TTL packets: #{redis.ttl("packets_#{room}")}"
-      # if redis.ttl("packets_#{room}") == -1
-      #   redis.expire("packets_#{room}", 24 * 3600 * 7)
-      #   redis.incr("balda_counter")
-      # end
+      if redis.ttl("packets_#{room}") == -1
+        # redis.expire("packets_#{room}", 24 * 3600 * 7)
+        redis.incr("balda_counter")
+      end
       CanvasSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", data)
     end
   end
