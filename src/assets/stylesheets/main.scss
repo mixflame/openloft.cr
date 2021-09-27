@@ -343,6 +343,11 @@ a:visited {
 
 .nav-link {
     text-decoration: none;
+    border-bottom: 1px solid black !important;
+}
+
+.active {
+    border-bottom: none !important;
 }
 
 .nav-item-end {
