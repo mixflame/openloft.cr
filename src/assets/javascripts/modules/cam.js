@@ -1,5 +1,6 @@
 import {setMediaBitrate, setMediaBitrates} from "./set_media_bitrates" 
 import {toggleCamera, toggleMic} from "./toggle_camera_mic" 
+import { startCount, stopCount } from "./timer";
 import Amber from 'amber';
 
 const JOIN_ROOM = "JOIN_ROOM";
@@ -251,6 +252,7 @@ export function setupSession() {
 
 export async function handleJoinSession() {
     if (!window.dontLog) console.log("joining session")
+    startCount();
     if (window.camera_session == null || window.camera_session == undefined) {
         window.camera_socket = new Amber.Socket('/session')
         camera_socket.connect()
@@ -278,6 +280,7 @@ export async function handleJoinSession() {
 };
 
 export function handleLeaveSession() {
+    stopCount();
     for (let user in pcPeers) {
         pcPeers[user].close();
     }
