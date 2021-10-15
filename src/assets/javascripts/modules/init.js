@@ -5,6 +5,79 @@ import Amber from 'amber';
 import { EmojiButton } from '@joeattardi/emoji-button';
 import { gotDevices } from "./cam";
 
+// variables
+window.curColor = "#000000";
+window.curSize = "1";
+window.curLineJoin = "round";
+window.curShapeType = "none";
+window.curShapeWidth = "200";
+window.curShapeHeight = "200";
+window.curShapeFill = false;
+window.curShapeAngle = "160";
+window.curBrushStyle = "none";
+var oldSize;
+window.oldSize = oldSize;
+window.mpClickHash = {};
+window.mpNameHash = {};
+window.mpLayerOrder = [];
+window.backupMpClickHash = {};
+window.backupMpNameHash = {};
+window.backupMpLayerOrder = [];
+// window.curColor = curColor;
+var paint;
+window.paint = paint;
+var context;
+window.context = context;
+var canvas;
+window.canvas = canvas;
+// var bgCanvas;
+var colorsUsed = [];
+window.colorsUsed = colorsUsed;
+
+window.canvas = canvas;
+var scale = 1;
+window.scale = scale;
+window.disabled = true;
+window.locked = false;
+
+window.last_ping = {};
+window.polite_arr = [];
+window.nicks = [];
+
+window.count = 0;
+window.points = [];
+
+
+window.camos = ["#604439", "#9e9a75", "#1c222e", "#41533b", "#554840"];
+window.bluesky = ["#ffffff", "#a3b7ff", "#5189ff", "#2458c5", "#09175c"];
+window.summerwave = ["#03385a", "#1b6a82", "#51d7d8", "#a95d23", "#351b07"];
+window.relaxing = ["#ff0039", "#d00f64", "#a21f90", "#742ebc", "#463ee8"];
+window.sunrise = ["#ffffff", "#ffc501", "#ff9700", "#fe0000", "#2b3a41"];
+window.pink_sunrise = ["#23049d", "#aa2ee6", "#ff79cd", "#ffdf6b"];
+window.beige_sky = ["#f0ebcc", "#3d84b8", "#344fa1", "#3f3697"];
+window.oldschool_pixel = ["#caf7e3", "#edffec", "#f6dfeb", "#e4bad4"];
+window.orange_sunrise = ["#72147e", "#f21170", "#fa9905", "#ff5200"];
+window.gray_horizon = ["#393e46", "#00adb5", "#aad8d3", "#eeeeee"];
+window.purple_sunset = ["#ffc996", "#ff8474", "#9f5f80", "#583d72"];
+window.early_morning = ["#fcecdd", "#ffc288", "#fea82f", "#ff6701"];
+window.crimson_night = ["#eeebdd", "#ce1212", "#810000", "#1b1717"];
+window.twilight_forest = ["#98ddca", "#d5ecc2", "#ffd3b4", "#ffaaa7"];
+window.forest_moon = ["#feffde", "#ddffbc", "#91c788", "#52734d"];
+window.burnt_sun = ["#864000", "#d44000", "#ff7a00", "#ffefcf"];
+window.before_night = ["#2b2e4a", "#e84545", "#903749", "#53354a"];
+
+
+window.mouseBrushPt = [];
+window.should_draw_brush = true;
+
+window.curText = "";
+
+window.last_key_was_tab = false
+window.first_tab = false
+window.tab_query = ""
+window.tab_completion_index = 0
+window.match_index = 0
+
 
 export function init() {
 
