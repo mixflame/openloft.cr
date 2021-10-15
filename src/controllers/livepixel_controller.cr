@@ -570,9 +570,9 @@ class LivepixelController < ApplicationController
       redis = REDIS
       {
         active_users: (Amber::WebSockets::ClientSockets.client_sockets.size / 6).to_f.round(0).to_i,
-        visitors: redis.get("counter"),
-        canvases: redis.get("balda_counter"),
-        keys: redis.keys("*").size,
+        visitors: redis.get("counter").to_i,
+        canvases: redis.get("balda_counter").to_i,
+        keys: redis.keys("*").size.to_i,
         
       }.to_h.to_json
     end
