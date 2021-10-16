@@ -1,8 +1,10 @@
 export function startCount()
 {
 	window.call_timer = setInterval(count,1000);
-    $("#chat_message").text(`${$("#realtime").text()} entered the call`);
-    $("#send_message").click();
+    if(window.chat_channel){
+        $("#chat_message").text(`${$("#realtime").text()} entered the call`);
+        $("#send_message").click();
+    }
 }
 
 export function stopCount()
