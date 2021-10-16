@@ -71,30 +71,35 @@ window.connectVideo = function (videoIncluded = true) {
     $("#local-video").click(function (e) {
         if (!window.dontLog) console.log("video clicked")
 
-        // window.previous_height = $("#local-video").css("height");
-        // window.previous_width = $("#local-video").css("width");
-        // $("#local-video").css("height", "1024px");
-        // $("#local-video").css("width", "1024px");
-
-        if (document.pictureInPictureEnabled && !window.pip_mode) {
-            var videos = $("#local-video");
-            for (var i = 0; i < videos.length; i++) {
-                const v = videos[i];
-                try {
-                    v.requestPictureInPicture()
-                } catch (e) {
-                    console.log("Couldn't enable PiP mode. " + e.message);
-                }
-            }
-            window.pip_mode = true
-        } else if (document.pictureInPictureEnabled && window.pip_mode) {
-            try {
-                document.exitPictureInPicture()
-            } catch (e) {
-                console.log("Couldn't disable PiP mode. " + e.message);
-            }
-            window.pip_mode = false
+        if($("#local-video").css("height") != "1024px"){
+            window.previous_height = $("#local-video").css("height");
+            window.previous_width = $("#local-video").css("width");
+            $("#local-video").css("height", "1024px");
+            $("#local-video").css("width", "1024px");
+        } else {
+            $("#local-video").css("height", window.previous_height);
+            $("#local-video").css("width", window.previous_width);
         }
+
+        // if (document.pictureInPictureEnabled && !window.pip_mode) {
+        //     var videos = $("#local-video");
+        //     for (var i = 0; i < videos.length; i++) {
+        //         const v = videos[i];
+        //         try {
+        //             v.requestPictureInPicture()
+        //         } catch (e) {
+        //             console.log("Couldn't enable PiP mode. " + e.message);
+        //         }
+        //     }
+        //     window.pip_mode = true
+        // } else if (document.pictureInPictureEnabled && window.pip_mode) {
+        //     try {
+        //         document.exitPictureInPicture()
+        //     } catch (e) {
+        //         console.log("Couldn't disable PiP mode. " + e.message);
+        //     }
+        //     window.pip_mode = false
+        // }
 
     })
 
@@ -335,25 +340,35 @@ export function createPC(userId, isOffer, n) {
     const element = document.createElement("video");
     $(element).click(function () {
         if (!window.dontLog) console.log("video clicked")
-        if (document.pictureInPictureEnabled && !window.pip_mode) {
-            var videos = $(this);
-            for (var i = 0; i < videos.length; i++) {
-                const v = videos[i];
-                try {
-                    v.requestPictureInPicture()
-                } catch (e) {
-                    console.log("Couldn't enable PiP mode. " + e.message);
-                }
-            }
-            window.pip_mode = true
-        } else if (document.pictureInPictureEnabled && window.pip_mode) {
-            try {
-                document.exitPictureInPicture()
-            } catch (e) {
-                console.log("Couldn't disable PiP mode. " + e.message);
-            }
-            window.pip_mode = false
+        
+        if($(element).css("height") != "1024px"){
+            window.previous_height = $(element).css("height");
+            window.previous_width = $(element).css("width");
+            $(element).css("height", "1024px");
+            $(element).css("width", "1024px");
+        } else {
+            $(element).css("height", window.previous_height);
+            $(element).css("width", window.previous_width);
         }
+        // if (document.pictureInPictureEnabled && !window.pip_mode) {
+        //     var videos = $(this);
+        //     for (var i = 0; i < videos.length; i++) {
+        //         const v = videos[i];
+        //         try {
+        //             v.requestPictureInPicture()
+        //         } catch (e) {
+        //             console.log("Couldn't enable PiP mode. " + e.message);
+        //         }
+        //     }
+        //     window.pip_mode = true
+        // } else if (document.pictureInPictureEnabled && window.pip_mode) {
+        //     try {
+        //         document.exitPictureInPicture()
+        //     } catch (e) {
+        //         console.log("Couldn't disable PiP mode. " + e.message);
+        //     }
+        //     window.pip_mode = false
+        // }
 
 
     })
