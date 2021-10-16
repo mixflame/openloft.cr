@@ -72,13 +72,11 @@ window.connectVideo = function (videoIncluded = true) {
         if (!window.dontLog) console.log("video clicked")
 
         if($("#local-video").css("height") != "1024px"){
-            window.previous_height = $("#local-video").css("height");
-            window.previous_width = $("#local-video").css("width");
             $("#local-video").css("height", "1024px");
             $("#local-video").css("width", "1024px");
         } else {
-            $("#local-video").css("height", window.previous_height);
-            $("#local-video").css("width", window.previous_width);
+            $("#local-video").css("height", "100%");
+            $("#local-video").css("width", "100%");
         }
 
         // if (document.pictureInPictureEnabled && !window.pip_mode) {
@@ -342,13 +340,11 @@ export function createPC(userId, isOffer, n) {
         if (!window.dontLog) console.log("video clicked")
         
         if($(element).css("height") != "1024px"){
-            window.previous_height = $(element).css("height");
-            window.previous_width = $(element).css("width");
             $(element).css("height", "1024px");
             $(element).css("width", "1024px");
         } else {
-            $(element).css("height", window.previous_height);
-            $(element).css("width", window.previous_width);
+            $(element).css("height", "100%");
+            $(element).css("width", "100%");
         }
         // if (document.pictureInPictureEnabled && !window.pip_mode) {
         //     var videos = $(this);
