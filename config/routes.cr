@@ -35,7 +35,7 @@ Amber::Server.configure do
     websocket "/canvas", CanvasSocket
     websocket "/text", TextSocket
     websocket "/theater", TheaterSocket
-    get "/canvas", LivepixelController, :canvas
+    # get "/canvas", LivepixelController, :canvas
     post "/upload_to_imgur", LivepixelController, :upload_to_imgur
     post "/upload_to_scalable_press", LivepixelController, :upload_to_scalable_press
     get "/show_scalable_product_categories", LivepixelController, :show_scalable_product_categories

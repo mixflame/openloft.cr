@@ -276,130 +276,49 @@ class LivepixelController < ApplicationController
   #   CanvasSocket.broadcast("message", "canvas:#{room}", "message_new", {clear: true}.to_h)
   # end
 
-  def canvas
-    # Sanitizer = Sanitize::Policy::HTMLSanitizer.basic
-
-    random_number = Random.rand(2000000).to_i
-    room = params[:room] rescue ""
-    redis = REDIS
-
-    media_url = redis.get("#{room}_media_url")
-
-    if room == ""
-      ttl = redis.ttl("packets")
-    else
-      ttl = redis.ttl("packets_#{room}")
-    end
-    counter = redis.incr("counter")
-
-    ad = ""
-    banner_link = ""
-    while ad == ""
-      order_id = redis.srandmember("banner_order_ids").to_s
-      break if order_id == ""
-      ad = redis.get(order_id) || ""
-      banner_link = redis.get("#{order_id}_link") || ""
-      if ad == ""
-        redis.srem("banner_order_ids", order_id)
-      else
-        break
-      end
-    end
-
-    if ad == ""
-      ad = File.read("./public/default_ad.base64").to_s
-      banner_link = "https://openloft.org/buy_ad"
-    end
-
-    chats = ""
-    if room == ""
-      amt_packets = redis.llen("chats")
-      if amt_packets >= 100
-        chats = redis.lrange("chats", -100, -1)
-      else
-        chats = redis.lrange("chats", 0, -1)
-      end
-    else
-      amt_packets = redis.llen("chats_#{params[:room]}")
-      if amt_packets >= 100
-        chats = redis.lrange("chats_#{params[:room]}", -100, -1)
-      else
-        chats = redis.lrange("chats_#{params[:room]}", 0, -1)
-      end
-    end
-
-    if params.has_key?("public") && params[:public] == "true"
-      redis.lrem "public_rooms", 0, params[:room].to_s
-      redis.lpush "public_rooms", params[:room].to_s
-      unless redis.hget "room_names", params[:room].to_s
-        redis.hset "room_names", params[:room].to_s, params[:name].to_s
-      end
-    end
-
-    render "canvas.ecr", layout: "gbaldraw.ecr"
-  end
-
   def shorten_link
     redis = REDIS
-    room_name = request.url.gsub("\/o\/", "").to_s
-    room_id = redis.hgetall("room_names").key_for(room_name).to_s rescue ""
-    if room_id == ""
-      room_id = "#{Random.new.hex(5)}#{Random.new.hex(5)}"
-    end
+    room_name = request.url.split("\/o\/").last.to_s
+    # room_id = redis.hgetall("room_names").key_for(room_name).to_s
+    # if room_id == ""
+    #   room_id = "#{Random.new.hex(5)}#{Random.new.hex(5)}"
+    # end
     random_number = Random.rand(2000000).to_i
-    room = room_id rescue ""
+    room = room_name
     redis = REDIS
 
     media_url = redis.get("#{room}_media_url")
 
-    if room == ""
-      ttl = redis.ttl("packets")
-    else
-      ttl = redis.ttl("packets_#{room}")
-    end
+    ttl = redis.ttl("packets_#{room}")
     counter = redis.incr("counter")
 
-    ad = ""
-    banner_link = ""
-    while ad == ""
-      order_id = redis.srandmember("banner_order_ids").to_s
-      break if order_id == ""
-      ad = redis.get(order_id) || ""
-      banner_link = redis.get("#{order_id}_link") || ""
-      if ad == ""
-        redis.srem("banner_order_ids", order_id)
-      else
-        break
-      end
-    end
+    # ad = ""
+    # banner_link = ""
+    # while ad == ""
+    #   order_id = redis.srandmember("banner_order_ids").to_s
+    #   break if order_id == ""
+    #   ad = redis.get(order_id) || ""
+    #   banner_link = redis.get("#{order_id}_link") || ""
+    #   if ad == ""
+    #     redis.srem("banner_order_ids", order_id)
+    #   else
+    #     break
+    #   end
+    # end
 
-    if ad == ""
-      ad = File.read("./public/default_ad.base64").to_s
-      banner_link = "https://openloft.org/buy_ad"
-    end
+    # if ad == ""
+    #   ad = File.read("./public/default_ad.base64").to_s
+    #   banner_link = "https://openloft.org/buy_ad"
+    # end
 
-    chats = ""
-    if room == ""
-      amt_packets = redis.llen("chats")
-      if amt_packets >= 100
-        chats = redis.lrange("chats", -100, -1)
-      else
-        chats = redis.lrange("chats", 0, -1)
-      end
-    else
-      amt_packets = redis.llen("chats_#{room}")
-      if amt_packets >= 100
-        chats = redis.lrange("chats_#{room}", -100, -1)
-      else
-        chats = redis.lrange("chats_#{room}", 0, -1)
-      end
-    end
+    chats = redis.lrange("chats_#{room}", 0, -1)
+    puts "chats.size #{chats.inspect}"
 
-    redis.lrem "public_rooms", 0, room.to_s
-    redis.lpush "public_rooms", room.to_s
-    unless redis.hget "room_names", room.to_s
-      redis.hset "room_names", room.to_s, room_name
-    end
+    # redis.lrem "public_rooms", 0, room.to_s
+    # redis.lpush "public_rooms", room.to_s
+    # unless redis.hget "room_names", room.to_s
+    #   redis.hset "room_names", room.to_s, room_name
+    # end
 
     render "canvas.ecr", layout: "gbaldraw.ecr"
   end
@@ -452,9 +371,9 @@ class LivepixelController < ApplicationController
     end
     names = packets.map { |p| JSON.parse(p.to_s)["name"] }.uniq
     points = {} of String => String
-    names.each { |n| points[n.to_s] = packets.reject {|pa| JSON.parse(pa.to_s)["name"] != n}.size.to_s rescue "" }
+    names.each { |n| points[n.to_s] = packets.reject {|pa| JSON.parse(pa.to_s)["name"] != n}.size.to_s }
     layers = {} of String => String
-    names.each { |n| layers[n.to_s] = packets.select {|pac| js = JSON.parse(pac.to_s); js["name"] == n && js.as_h.has_key?("dragging") && js["dragging"] == false}.size.to_s rescue "" }
+    names.each { |n| layers[n.to_s] = packets.select {|pac| js = JSON.parse(pac.to_s); js["name"] == n && js.as_h.has_key?("dragging") && js["dragging"] == false}.size.to_s }
     all_layers = 0
     layers.each do |layer|
       all_layers += layer[1].to_i rescue 0
@@ -581,7 +500,7 @@ class LivepixelController < ApplicationController
 
       redis = REDIS
   
-      file_url = params["file_url"] rescue ""
+      file_url = params["file_url"]
 
       path = ""
       save_name = ""
@@ -755,7 +674,7 @@ class LivepixelController < ApplicationController
         puts response.body
 
         json = JSON.parse(response.body.to_s).as_h
-        mockup = json["url"] rescue ""
+        mockup = json["url"]
 
         product = JSON.parse(HTTP::Client.get("https://api.scalablepress.com/v2/products/#{product_id}").body).as_h
 

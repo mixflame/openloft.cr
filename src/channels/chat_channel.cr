@@ -10,7 +10,7 @@ class ChatChannel < Amber::WebSockets::Channel
     # puts message
     data = message.as_h["payload"].as_h
     msg = message.as_h
-    room = data["room"].to_s rescue ""
+    room = data["room"].to_s
     # Sanitizer = Sanitize::Policy::HTMLSanitizer.basic
     if(data.has_key?("online") && data["online"] == true)
       data["name"] = JSON::Any.new(Sanitizer.process(data["name"].to_s))
@@ -70,28 +70,13 @@ class ChatChannel < Amber::WebSockets::Channel
       data["chat_message"] = JSON::Any.new(" #{data["chat_message"].to_s.gsub("<br/>", "").squeeze(' ').to_s}")
     end
 
-    if room == "" || room == nil
-      redis = REDIS
-      redis.rpush "chats", data.to_json
-      if redis.ttl("chats") == -1
-        redis.expire("chats", 7 * 24 * 3600)
-      end
-      msg["payload"] = JSON::Any.new(data)
-      ChatSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", msg["payload"].as_h)
-      # client.say("#gbaldraw", "<#{data["name"]}> #{data["chat_message"]}")
-      policy = Sanitize::Policy::Text.new
-      # IrcChannel.send([data["name"].to_s, policy.process(data["chat_message"].to_s)])
-
-      # DiscordChannel.send([data["name"].to_s, policy.process(data["chat_message"].to_s)])
-    else
-      redis = REDIS
-      redis.rpush "chats_#{room}", data.to_json
-      if redis.ttl("chats_#{room}") == -1
-        redis.expire("chats_#{room}", 7 * 24 * 3600)
-      end
-      msg["payload"] = JSON::Any.new(data)
-      ChatSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", msg["payload"].as_h)
+    redis = REDIS
+    redis.rpush "chats_#{room}", data.to_json
+    if redis.ttl("chats_#{room}") == -1
+      redis.expire("chats_#{room}", 7 * 24 * 3600)
     end
+    msg["payload"] = JSON::Any.new(data)
+    ChatSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", msg["payload"].as_h)
   end
 
   def handle_leave(client_socket)
