@@ -1391,7 +1391,7 @@ export function init() {
 
     $("#online_list").css("height", $("#chat_area").height());
 
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    $('button[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         //this method is very important and e.target below refers to current element which is equal to "this"
         var target = $(e.target).attr('aria-controls') // newly activated tab
         //fetch any of the data from target element and use it to change the url or content
@@ -1401,38 +1401,38 @@ export function init() {
         }
     })
 
-    var tabs = document.querySelectorAll('a[data-toggle="tab"]')
+    // var tabs = document.querySelectorAll('button[data-toggle="tab"]')
 
-    for (let index = 0; index < tabs.length; index++) {
-        const element = tabs[index];
-        element.addEventListener("click", function (e) {
-            if (e.currentTarget.id != "call_tab-tab") {
-                if (document.pictureInPictureEnabled && !window.pip_mode) {
-                    var videos = $("video");
-                    if(videos.length > 2) {
-                        for (var i = 0; i < videos.length; i++) {
-                            const v = videos[i];
-                            try {
-                                v.requestPictureInPicture()
-                            } catch (e) {
-                                console.log("Couldn't enable PiP mode. " + e.message);
-                            }
-                        }
-                    }
-                    window.pip_mode = true
-                }
-            } else {
-                if (document.pictureInPictureEnabled && window.pip_mode) {
-                    try {
-                        document.exitPictureInPicture()
-                    } catch (e) {
-                        console.log("Couldn't disable PiP mode. " + e.message);
-                    }
-                    window.pip_mode = false
-                }
-            }
-        })
-    }
+    // for (let index = 0; index < tabs.length; index++) {
+    //     const element = tabs[index];
+    //     element.addEventListener("click", function (e) {
+    //         if (e.currentTarget.id != "call_tab-tab") {
+    //             if (document.pictureInPictureEnabled && !window.pip_mode) {
+    //                 var videos = $("video");
+    //                 if(videos.length > 2) {
+    //                     for (var i = 0; i < videos.length; i++) {
+    //                         const v = videos[i];
+    //                         try {
+    //                             v.requestPictureInPicture()
+    //                         } catch (e) {
+    //                             console.log("Couldn't enable PiP mode. " + e.message);
+    //                         }
+    //                     }
+    //                 }
+    //                 window.pip_mode = true
+    //             }
+    //         } else {
+    //             if (document.pictureInPictureEnabled && window.pip_mode) {
+    //                 try {
+    //                     document.exitPictureInPicture()
+    //                 } catch (e) {
+    //                     console.log("Couldn't disable PiP mode. " + e.message);
+    //                 }
+    //                 window.pip_mode = false
+    //             }
+    //         }
+    //     })
+    // }
 
 
 
@@ -1473,5 +1473,7 @@ export function init() {
     $("#theme_select").change();
 
     $('.nav-tabs button[href="#call_tab"]').tab('show');
+
+    scroll_to_bottom();
 
 }
