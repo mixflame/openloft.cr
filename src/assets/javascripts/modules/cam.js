@@ -71,7 +71,7 @@ window.connectVideo = function (videoIncluded = true) {
     $("#local-video").click(function (e) {
         if (!window.dontLog) console.log("video clicked")
 
-        if(Math.round($(element).height()) != 1024){
+        if(Math.round($("#local-video").height()) != 1024){
             $("#local-video").css("height", "1024px");
             $("#local-video").css("width", "1024px");
         } else {
