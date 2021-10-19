@@ -17,6 +17,9 @@
 
 // Created by https://www.mindynamics.com
 
+import shareon from 'shareon';
+shareon();
+
 var smallDevice = window.matchMedia("(max-width: 1280px)").matches;
 
 window.isTabletOrPhone = smallDevice; ///(iphone|ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/.test(userAgent);

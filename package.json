@@ -43,6 +43,7 @@
     "popcorn-js": "menismu/popcorn-js",
     "popper.js": "^1.14.6",
     "pressure": "^2.2.0",
+    "shareon": "^1.6.2",
     "ts-loader": "^9.2.2",
     "typescript": "^4.3.2",
     "ventus": "mixflame/ventus"

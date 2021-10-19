@@ -539,6 +539,7 @@ export function init() {
     });
 
     $("#site_link").val(window.location);
+    $(".shareon").data("url", window.location);
 
     $("#copy_link").click(function () {
         var copyText = document.getElementById("site_link");
