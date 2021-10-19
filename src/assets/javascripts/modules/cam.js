@@ -71,7 +71,7 @@ window.connectVideo = function (videoIncluded = true) {
     $("#local-video").click(function (e) {
         if (!window.dontLog) console.log("video clicked")
 
-        if($("#local-video").css("height") != "1024px"){
+        if(Math.round($(element).height()) != 1024){
             $("#local-video").css("height", "1024px");
             $("#local-video").css("width", "1024px");
         } else {
@@ -339,7 +339,7 @@ export function createPC(userId, isOffer, n) {
     $(element).click(function () {
         if (!window.dontLog) console.log("video clicked")
         
-        if($(element).css("height") != "1024px"){
+        if(Math.round($(element).height()) != 1024){
             $(element).css("height", "1024px");
             $(element).css("width", "1024px");
         } else {
