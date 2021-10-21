@@ -371,8 +371,8 @@ export function createPC(userId, isOffer, n) {
     element.id = `video-${userId}`
     element.autoplay = "autoplay";
     element.playsInline = true;
-    $(element).css("height", "100%");
-    $(element).css("width", "100%");
+    $(element).css("height", "340px");
+    $(element).css("width", "280px");
     const container = document.createElement("div");
     const p = document.createElement("p");
     p.innerHTML = n;
@@ -396,11 +396,11 @@ export function createPC(userId, isOffer, n) {
         var el = e.currentTarget;
         toggleMic($("#video-" + $(el).prop("user_id"))[0].srcObject, audio_mute);
     })
-    container.append(video_mute);
-    container.append(audio_mute);
+    // container.append(video_mute); // these are kinda autistic
+    // container.append(audio_mute);
 
     container.id = `remoteVideoContainer-${userId}`;
-    container.style = "float: left; display: inline; width: 25%; height: 25%; padding-left: 10px;"
+    container.style = "float: left; display: inline; padding-left: 10px;"
     remoteVideoContainer.appendChild(container);
 
     $(container).addClass(`remoteVideoContainer-${userId}`);

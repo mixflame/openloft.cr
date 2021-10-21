@@ -228,34 +228,36 @@
           <span id="current-user"><%= random_number %></span>
         </div>
 
-        <div id="remote-video-container"></div>
-        <div id="local-video-container" style="float: left; width: 25%; height: 25%;">
+        <div id="local-video-container" style="float: left; width: 340px; height: 280px; padding-right: 10px;">
           <p id="cam-name"></p>
           <video id="local-video" autoplay playsinline style="width: 100%; height: 100%; padding-left: 10px;"></video>
+          <div style="clear: both"></div>
         </div>
+        <div id="remote-video-container"></div>
+        
 
         <div class="clear"></div>
 
         <div class="navbar-fixed-bottom">
-          <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Input
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">camera</a>
-              <a class="dropdown-item" href="#">screen</a>
-            </div>
-            <select id="input" style="display: none">
-              <option value="cam" selected>camera</option>
-              <option value="screen">screen</option>
-            </select>
-          </div>
-
-          <span id="realtime">0:00:00</span>
 
           <p style="display: none"><select id="cameras"></select><select id="audio_inputs"></select></p>
 
           <div id="cam_buttons_holder" style="padding-top: 10px;">
+            <div class="dropdown" style="display: inline">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Input
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">camera</a>
+                <a class="dropdown-item" href="#">screen</a>
+              </div>
+              <select id="input" style="display: none">
+                <option value="cam" selected>camera</option>
+                <option value="screen">screen</option>
+              </select>
+            </div>
+
+            <span style="display: inline" id="realtime">0:00:00</span>
             <button class="btn btn-primary" id="join-button">Join with Video</button>
             <button class="btn btn-primary" id="join-audio-button">Join with Audio</button>
             <button class="btn btn-secondary" id="leave-button">Hang up</button>
