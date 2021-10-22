@@ -490,7 +490,7 @@ class LivepixelController < ApplicationController
       {
         active_users: (Amber::WebSockets::ClientSockets.client_sockets.size / 6).to_f.round(0).to_i,
         visitors: redis.get("counter").as(String).to_i,
-        canvases: redis.get("balda_counter").as(String).to_i,
+        canvases: redis.keys("*").reject { |k| !k.to_s.includes?("packets") }.size.to_i,
         keys: redis.keys("*").size.to_i,
         
       }.to_h.to_json
