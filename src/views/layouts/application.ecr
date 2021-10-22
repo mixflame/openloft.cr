@@ -14,7 +14,6 @@
     <%= csrf_metatag %>
     <link rel="manifest" href="/manifest.json">
     <meta name="propeller" content="031bb6dc821fcd8892a33224f1bd1e63">
-    <script>(function(s,u,z,p){s.src=u,s.setAttribute('data-zone',z),p.appendChild(s);})(document.createElement('script'),'https://iclickcdn.com/tag.min.js',4609695,document.body||document.documentElement)</script>
   </head>
   <body class="bg-gradient" id="starshine" style="z-index: -1000;">
       <div class="template shine"></div>
@@ -31,5 +30,7 @@
       </div>
 
       <%- if Amber.settings.auto_reload? -%><script src="/js/client_reload.js"></script><%- end -%>
+  
+      <script>(function(s,u,z,p){s.src=u,s.setAttribute('data-zone',z),p.appendChild(s);})(document.createElement('script'),'https://iclickcdn.com/tag.min.js',4609695,document.body||document.documentElement)</script>
   </body>
 </html>

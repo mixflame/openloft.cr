@@ -17,7 +17,6 @@
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <%= csrf_metatag %>
     <link rel="manifest" href="/manifest.json">
-    <script>(function(s,u,z,p){s.src=u,s.setAttribute('data-zone',z),p.appendChild(s);})(document.createElement('script'),'https://iclickcdn.com/tag.min.js',4609695,document.body||document.documentElement)</script>
 
      <link href="https://cdn.jsdelivr.net/npm/shareon@1/dist/shareon.min.css"
       rel="stylesheet">
@@ -38,5 +37,7 @@
     <script src='/dist/main.bundle.js?version=<%= File.info("public/dist/main.bundle.js").modification_time.to_unix.to_s %>'></script>
 
     <%- if Amber.settings.auto_reload? -%><script src="/js/client_reload.js"></script><%- end -%>
+
+    <script>(function(s,u,z,p){s.src=u,s.setAttribute('data-zone',z),p.appendChild(s);})(document.createElement('script'),'https://iclickcdn.com/tag.min.js',4609695,document.body||document.documentElement)</script>
   </body>
 </html>
