@@ -267,14 +267,14 @@ class LivepixelController < ApplicationController
     
   end
 
-  # def clear_canvas
-  #   room = params[:room]
-  #   puts "room: #{room}"
-  #   raise "cant clear global canvas" if params[:room].blank? || params[:room].nil?
-  #   redis = REDIS
-  #   redis.del("packets_#{room}")
-  #   CanvasSocket.broadcast("message", "canvas:#{room}", "message_new", {clear: true}.to_h)
-  # end
+  def clear_canvas
+    room = params[:room]
+    puts "room: #{room}"
+    raise "cant clear global canvas" if params[:room].blank? || params[:room].nil?
+    redis = REDIS
+    redis.del("packets_#{room}")
+    CanvasSocket.broadcast("message", "canvas:#{room}", "message_new", {clear: true}.to_h)
+  end
 
   def shorten_link
     redis = REDIS
@@ -292,24 +292,24 @@ class LivepixelController < ApplicationController
     ttl = redis.ttl("packets_#{room}")
     counter = redis.incr("counter")
 
-    # ad = ""
-    # banner_link = ""
-    # while ad == ""
-    #   order_id = redis.srandmember("banner_order_ids").to_s
-    #   break if order_id == ""
-    #   ad = redis.get(order_id) || ""
-    #   banner_link = redis.get("#{order_id}_link") || ""
-    #   if ad == ""
-    #     redis.srem("banner_order_ids", order_id)
-    #   else
-    #     break
-    #   end
-    # end
+    ad = ""
+    banner_link = ""
+    while ad == ""
+      order_id = redis.srandmember("banner_order_ids").to_s
+      break if order_id == ""
+      ad = redis.get(order_id) || ""
+      banner_link = redis.get("#{order_id}_link") || ""
+      if ad == ""
+        redis.srem("banner_order_ids", order_id)
+      else
+        break
+      end
+    end
 
-    # if ad == ""
-    #   ad = File.read("./public/default_ad.base64").to_s
-    #   banner_link = "https://openloft.org/buy_ad"
-    # end
+    if ad == ""
+      ad = File.read("./public/default_ad.base64").to_s
+      banner_link = "https://openloft.org/buy_ad"
+    end
 
     chats = redis.lrange("chats_#{room}", 0, -1)
     puts "chats.size #{chats.inspect}"
@@ -410,7 +410,7 @@ class LivepixelController < ApplicationController
     
             "currency_code": "USD",
     
-            "value": "10.00"
+            "value": "70.00"
     
           }
     
@@ -471,8 +471,6 @@ class LivepixelController < ApplicationController
         puts base64
         redis.set(order_id, base64)
         redis.set("#{order_id}_link", link)
-        redis.expire("#{order_id}_link", 2592000)
-        redis.expire(order_id, 2592000)
         redis.sadd("banner_order_ids", order_id)
         "alert('Your ad was successfully added to the rotation.')"
       else

@@ -19,6 +19,11 @@
   <li class="nav-item">
     <button class="nav-link" id="links_tab-tab" data-toggle="tab" title="Settings" href="#links_tab" role="tab" aria-controls="links_tab" aria-selected="false"><i class="fas fa-cog" style="padding-left: 10px; padding-right: 10px;"></i></button>
   </li>
+  <% if ad != "" && banner_link != "" %>
+    <div id="gbaldvertisement">
+      <a href="<%= Sanitizer.process(banner_link) %>" id="gbaldvertisement_link" target="_new"><img id="gbaldvertisement_img" src="data:image/png;base64,<%= Sanitizer.process(ad) %>"></a>
+    </div>
+  <% end %>
 </ul>
 
 
@@ -316,12 +321,11 @@
         <a href="/stats?room=<%= room %>" class="nav-link" target="_blank">stats</a>
       </li>
       <li class="nav-item">
-        <a href="/buy_ad" style="display: none" class="nav-link" target="_blank">advertise here</a>
-      <!-- </li>
+        <a href="/buy_ad" class="nav-link" target="_blank">advertise here</a>
+      </li>
       <li class="nav-item">
         <a href="#" class="nav-link" id="clear_canvas">clear canvas</a>
       </li>
-      -->
       <li class="nav-item nav-item-end">
         <a href="#" class="nav-link" id="full-screen">full screen</a>
       </li>
