@@ -1473,8 +1473,6 @@ export function init() {
 
     $("#theme_select").change();
 
-    $('.nav-tabs button[href="#call_tab"]').tab('show');
-
     scroll_to_bottom();
 
 }
