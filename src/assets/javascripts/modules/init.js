@@ -1473,6 +1473,4 @@ export function init() {
 
     $("#theme_select").change();
 
-    scroll_to_bottom();
-
 }
