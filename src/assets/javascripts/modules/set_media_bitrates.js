@@ -1,5 +1,5 @@
 export function setMediaBitrates(sdp) {
-    return setMediaBitrate(setMediaBitrate(sdp, "video", 320), "audio", 192);
+    return setMediaBitrate(setMediaBitrate(sdp, "video", 192), "audio", 128);
 }
 
 export function setMediaBitrate(sdp, media, bitrate) {
