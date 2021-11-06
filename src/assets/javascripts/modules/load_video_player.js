@@ -73,9 +73,10 @@ export function loadVideoPlayer() {
                 });
 
                 media.addEventListener('canplay', function(e) {
-                    // if(!window.is_playing && !window.ended) {
-                    //     window.media_element.play();
-                    // }
+                    console.log("canplay");
+                    if(!window.is_playing && !window.ended) {
+                        window.media_element.play();
+                    }
                     theater_channel.push("message_new", {event: "canplay", name: window.name, room: window.room, time: window.media_element.getCurrentTime(), userId: window.userId});
 
                 });
