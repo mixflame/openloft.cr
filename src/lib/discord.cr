@@ -26,9 +26,9 @@ class DiscordBot
             # message = " [#{Time.utc.month}/#{Time.utc.day}/#{Time.utc.year} #{Time.utc.hour}:#{Time.utc.minute}:#{Time.utc.second}] #{message}"
             redis = REDIS
             redis.rpush "chats", {name: name, chat_message: message, room: nil}.to_h.to_json
-            if redis.ttl("chats") == -1
-              redis.expire("chats", 7 * 24 * 3600)
-            end
+            # if redis.ttl("chats") == -1
+            #   redis.expire("chats", 7 * 24 * 3600)
+            # end
             ChatSocket.broadcast("message", "chat:", "message_new", {name: name, chat_message: message}.to_h)
             IrcChannel.send([name, message])
         end

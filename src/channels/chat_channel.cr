@@ -72,9 +72,9 @@ class ChatChannel < Amber::WebSockets::Channel
 
     redis = REDIS
     redis.rpush "chats_#{room}", data.to_json
-    if redis.ttl("chats_#{room}") == -1
-      redis.expire("chats_#{room}", 7 * 24 * 3600)
-    end
+    # if redis.ttl("chats_#{room}") == -1
+    #   redis.expire("chats_#{room}", 7 * 24 * 3600)
+    # end
     msg["payload"] = JSON::Any.new(data)
     ChatSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", msg["payload"].as_h)
   end

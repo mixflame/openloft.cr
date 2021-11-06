@@ -72,6 +72,19 @@ dom.watch();
 require("mediaelement");
 window.MediaElement = MediaElement;
 
+require("mediaelement/build/renderers/dailymotion")
+require("mediaelement/build/renderers/facebook")
+require("mediaelement/build/renderers/soundcloud") // will work in production
+require("mediaelement/build/renderers/twitch")
+require("mediaelement/build/renderers/vimeo")
+require("mediaelement/build/renderers/youtube")
+
+
+
+
+
+
+
 import Polyglot from "node-polyglot"
 window.polyglot = Polyglot;
 window.i18n = new Polyglot();
