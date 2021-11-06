@@ -122,7 +122,7 @@ export function loadVideoPlayer() {
 
                 $("#theater_volume")[0].addEventListener("input", function (e) {
                     window.media_element.setVolume(this.value);
-                    theater_channel.push("message_new", { event: "volumechange", name: window.name, room: window.room, volume: this.value, userId: window.userId });
+                    // theater_channel.push("message_new", { event: "volumechange", name: window.name, room: window.room, volume: this.value, userId: window.userId });
                 });
 
                 $("#theater_volume").val(0.5);
