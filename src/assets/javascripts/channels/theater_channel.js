@@ -219,12 +219,12 @@ window.setuptheater = () => {
 
                             $("#theater_mute").click(function () {
                                 window.media_element.muted = true;
-                                theater_channel.push("message_new", { event: "mute", name: window.name, room: window.room, time: window.media_element.getCurrentTime(), userId: window.userId });
+                                // theater_channel.push("message_new", { event: "mute", name: window.name, room: window.room, time: window.media_element.getCurrentTime(), userId: window.userId });
                             });
 
                             $("#theater_unmute").click(function () {
                                 window.media_element.muted = false;
-                                theater_channel.push("message_new", { event: "unmute", name: window.name, room: window.room, time: window.media_element.getCurrentTime(), userId: window.userId });
+                                // theater_channel.push("message_new", { event: "unmute", name: window.name, room: window.room, time: window.media_element.getCurrentTime(), userId: window.userId });
                             });
 
                             $("#theater_volume")[0].addEventListener("input", function () {
