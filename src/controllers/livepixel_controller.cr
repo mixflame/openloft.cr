@@ -380,8 +380,8 @@ class LivepixelController < ApplicationController
     end
     names = names.sort { |a,b| points[b.to_s].to_i rescue 0 <=> points[a.to_s].to_i rescue 0}
     all_time = {} of String => String
-    all_time = redis.hgetall("all_time")
-    puts all_time
+    # all_time = redis.hgetall("all_time")
+    # puts all_time
     render("stats.ecr", layout: "stats.ecr")
   end
 
