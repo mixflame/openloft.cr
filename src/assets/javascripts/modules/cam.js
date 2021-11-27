@@ -39,7 +39,9 @@ window.disconnectVideo = function () {
 }
 
 window.connectVideo = function (videoIncluded = true) {
-
+    if(room == "gbalda") {
+        return;
+    }
     window.video_connected = true;
     // setInterval(() => {
     //   $("video").each((i, e) => { if(e.duration != Infinity) $(e).parent().remove() })
