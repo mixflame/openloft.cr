@@ -15,6 +15,14 @@ SLACK_SIGNING_SECRET = Amber.settings.secrets["SLACK_SIGNING_SECRET"]
 
 class LivepixelController < ApplicationController
 
+  def ping
+    redis = REDIS
+    redis.rpush("livepixel_ping", request.hostname.to_s)
+    {
+      status: "ok"
+    }.to_json
+  end
+
 
   def event_subscription
     # token = params[:token]

@@ -28,6 +28,7 @@ Amber::Server.configure do
   end
 
   routes :web do
+    get "/ping", LivepixelController, :ping
     post "/sessions", SessionsController, :create
     websocket "/session", SessionSocket
     websocket "/chat", ChatSocket
