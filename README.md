@@ -4,7 +4,7 @@
 
 This is OpenLoft Collaborative Editor with call reconnection, using Amber/Crystal. Originally written in Ruby on Rails with ActionCable and ported to Crystal for speed. Featuring: HTML Chat, WebRTC Video/Audio, Collaborative Canvas, Collaborative Text Editor, Shared Video Player.
 
-Join our IRC: irc.gbaldraw.fun #gbaldraw (+SSL 6697)
+Help: irc.libera.chat #openloft 
 
 ## Getting Started
 
