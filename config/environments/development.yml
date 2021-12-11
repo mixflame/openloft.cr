@@ -40,8 +40,8 @@ secrets:
   REDIS_PASSWORD: 1234 
   discord_token: ODQ2NjQ0MDk4NTQ2NjYzNDQ0.YKygwg.teJ_tvts0WouRNvwinjtVKE8bIE
   discord_client_id: 846644098546663444
-  ircbot_enabled: true
-  discord_enabled: true
+  ircbot_enabled: false
+  discord_enabled: false
   server: irc.libera.chat
   user: openloft
   nick: openloft-bridge-dev
