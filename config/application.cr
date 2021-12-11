@@ -75,19 +75,24 @@ REDIS = Redis.new(host: "127.0.0.1", port: 6379, password: Amber.settings.secret
 
 Sanitizer = Sanitize::Policy::Whitelist.new(Policy)
 
-# IrcChannel = Channel(Array(String)).new
+IrcChannel = Channel(Array(String)).new
 
-# require "../src/lib/irc"
+require "../src/lib/irc"
 
-# spawn do
-#   client = Client.new
-# end
+spawn do
+  if Amber.settings.secrets["ircbot_enabled"] == true
+    client = Client.new(Amber.settings.secrets["ircbot"])
+  end
+end
 
-# DiscordChannel = Channel(Array(String)).new
+DiscordChannel = Channel(Array(String)).new
 
-# require "../src/lib/discord"
+require "../src/lib/discord"
 
-# spawn do
-#   discord_client = DiscordBot.new
-# end
+spawn do
+  if Amber.settings.secrets["discord_enabled"]
+    discord_client = DiscordBot.new(Amber.settings.secrets["discord_token"], Amber.settings.secrets["discord_client_id"].to_u64)
+  end
+  
+end
 

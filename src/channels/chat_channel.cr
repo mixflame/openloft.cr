@@ -77,6 +77,10 @@ class ChatChannel < Amber::WebSockets::Channel
     # end
     msg["payload"] = JSON::Any.new(data)
     ChatSocket.broadcast("message", message.as_h["topic"].to_s, "message_new", msg["payload"].as_h)
+    if room == "gbalda"
+      IrcChannel.send([data["name"].to_s, Sanitizer.process(data["chat_message"].to_s)])
+      DiscordChannel.send([data["name"].to_s, Sanitizer.process(data["chat_message"].to_s)])
+    end
   end
 
   def handle_leave(client_socket)
@@ -92,7 +96,7 @@ class ChatChannel < Amber::WebSockets::Channel
 
     # not really a join, just use this message
     ChatSocket.broadcast("join", "chat:#{room}", "user_join", {join: false, nicks: nicks.to_a, name: name.to_s}.to_h)
-
+    # maybe some notification for IRC and discord
 
     message = {
         id: room,

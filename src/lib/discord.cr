@@ -6,9 +6,9 @@ require "discordcr"
 class DiscordBot
 
 
-    def initialize
+    def initialize(discord_token, discord_client_id)
 
-        @discord_client = Discord::Client.new(token: "Bot BOT_API_KEY", client_id: 0_u64)
+        @discord_client = Discord::Client.new(token: "Bot #{discord_token}", client_id: discord_client_id)
 
         @discord_client.on_message_create do |payload|
             message = payload.content
@@ -25,11 +25,11 @@ class DiscordBot
             message = Sanitizer.process(message.to_s)
             # message = " [#{Time.utc.month}/#{Time.utc.day}/#{Time.utc.year} #{Time.utc.hour}:#{Time.utc.minute}:#{Time.utc.second}] #{message}"
             redis = REDIS
-            redis.rpush "chats", {name: name, chat_message: message, room: nil}.to_h.to_json
+            redis.rpush "chats_gbalda", {name: name, chat_message: message, room: nil}.to_h.to_json
             # if redis.ttl("chats") == -1
             #   redis.expire("chats", 7 * 24 * 3600)
             # end
-            ChatSocket.broadcast("message", "chat:", "message_new", {name: name, chat_message: message}.to_h)
+            ChatSocket.broadcast("message", "chat:gbalda", "message_new", {name: name, chat_message: message}.to_h)
             IrcChannel.send([name, message])
         end
 

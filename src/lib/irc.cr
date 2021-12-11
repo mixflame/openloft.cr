@@ -19,8 +19,8 @@ class Client
 
   property ssl_socket : (OpenSSL::SSL::Socket::Client | Nil) = nil
   
-  def initialize
-    configure
+  def initialize(config)
+    configure(config["server"], config["nick"], config["user"], config["password"], config["channels"])
     while true
       @tcp_client = TCPSocket.new(server, port)
       @ssl_socket = OpenSSL::SSL::Socket::Client.new(tcp_client, OpenSSL::SSL::Context::Client.new, true)
@@ -115,7 +115,7 @@ class Client
     # if redis.ttl("chats") == -1
     #   redis.expire("chats", 7 * 24 * 3600)
     # end
-    ChatSocket.broadcast("message", "chat:", "message_new", {name: name, chat_message: message}.to_h)
+    ChatSocket.broadcast("message", "chat:gbalda", "message_new", {name: name, chat_message: message}.to_h)
     DiscordChannel.send([name, message])
   end
 
@@ -190,19 +190,13 @@ class Client
     ssl_socket.as(OpenSSL::SSL::Socket::Client).flush
   end
 
-  def configure
-    @server = "irc.gbaldraw.fun"
+  def configure(server, nick, user, password, channel)
+    @server = server
     @port = 6697
-    @nick = "openloft-bridge"
-    if Amber.env == :development
-        @nick = "openloft-bridge-dev"
-    end
-    @user = "openloft-bridge"
-    @password = "none"
-    if Amber.env == :development
-      @channels = ["#gbaldraw-dev"]
-    else
-      @channels = ["#gbaldraw"]
-    end
+    @nick = nick
+    @user = user
+    @password = password
+    @channels = [] of String
+    @channels << channel
   end
 end
