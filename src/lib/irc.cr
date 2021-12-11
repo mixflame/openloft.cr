@@ -19,8 +19,8 @@ class Client
 
   property ssl_socket : (OpenSSL::SSL::Socket::Client | Nil) = nil
   
-  def initialize(config)
-    configure(config["server"], config["nick"], config["user"], config["password"], config["channels"])
+  def initialize(server, nick, user, password, channel)
+    configure(server, nick, user, password, channel)
     while true
       @tcp_client = TCPSocket.new(server, port)
       @ssl_socket = OpenSSL::SSL::Socket::Client.new(tcp_client, OpenSSL::SSL::Context::Client.new, true)

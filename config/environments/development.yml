@@ -42,8 +42,8 @@ secrets:
   discord_client_id: 846644098546663444
   ircbot_enabled: true
   discord_enabled: true
-  ircbot:
-    server: irc.libera.chat
-    port: 6697
-    nickname: openloft-bridge
-    channel: "#openloft"
+  server: irc.libera.chat
+  user: openloft
+  nickname: openloft-bridge
+  password:
+  channel: "#openloft"
