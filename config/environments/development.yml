@@ -17,11 +17,6 @@ process_count: 1
 redis_url: "redis://127.0.0.1:6379"
 database_url: sqlite3:./db/openloft.cr_development.db
 auto_reload: true
-ircbot:
-  server: irc.libera.chat
-  port: 6697
-  nickname: openloft-bridge
-  channel: "#openloft"
 
 session:
   key: amber.session
@@ -47,3 +42,8 @@ secrets:
   discord_client_id: 846644098546663444
   ircbot_enabled: true
   discord_enabled: true
+  ircbot:
+    server: irc.libera.chat
+    port: 6697
+    nickname: openloft-bridge
+    channel: "#openloft"
