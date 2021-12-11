@@ -80,7 +80,7 @@ IrcChannel = Channel(Array(String)).new
 require "../src/lib/irc"
 
 spawn do
-  if Amber.settings.secrets["ircbot_enabled"] == true
+  if Amber.settings.secrets["ircbot_enabled"]
     client = Client.new(Amber.settings.secrets["server"], Amber.settings.secrets["nick"], Amber.settings.secrets["user"], Amber.settings.secrets["password"], Amber.settings.secrets["channel"])
   end
 end

@@ -44,6 +44,6 @@ secrets:
   discord_enabled: true
   server: irc.libera.chat
   user: openloft
-  nickname: openloft-bridge
+  nick: openloft-bridge
   password:
   channel: "#openloft"
