@@ -202,6 +202,7 @@ class LivepixelController < ApplicationController
   end
 
   def landing
+    locale = @locale
     redis = REDIS
     public_rooms = redis.lrange "public_rooms", 0, -1
     render("landing.ecr")
@@ -284,7 +285,8 @@ class LivepixelController < ApplicationController
     CanvasSocket.broadcast("message", "canvas:#{room}", "message_new", {clear: true}.to_h)
   end
 
-  def shorten_link
+  def shorten_link #canvas
+    locale = @locale
     redis = REDIS
     room_name = request.url.split("\/o\/").last.to_s
     # room_id = redis.hgetall("room_names").key_for(room_name).to_s

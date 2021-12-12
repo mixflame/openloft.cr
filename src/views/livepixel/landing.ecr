@@ -7,10 +7,11 @@
 <div id="welcome_box" class="text-dark bg-white" style="z-index: 5000; position: absolute;">
   <div id="welcome_content" class="mx-auto p-3" style="width: 74.37%">
     <img src="/OpenLoft.png" />
-    <p><strong>By using this site you agree to the <a href="/tos.html">Terms of Service</a> and <a href="/privacy_policy">Privacy Policy</a></strong></p>
+    <p>Locale: <%= locale %></p>
+    <p><strong><%= I18n.translate("agree") %> <a href="/tos.html"><%= I18n.translate("terms") %></a> and <a href="/privacy_policy"><%= I18n.translate("privacy_policy") %></a></strong></p>
     <div id="welcome_links" class="mt-3 mb-3">
-      <p class="d-inline mr-3"><button class="btn btn-primary" id="gbalda_room">Global Canvas</button></p>
-      <p class="d-inline mr-3"><button class="btn btn-primary" id="public_room">Create room</button></p>
+      <p class="d-inline mr-3"><button class="btn btn-primary" id="gbalda_room"><%= I18n.translate("global") %></button></p>
+      <p class="d-inline mr-3"><button class="btn btn-primary" id="public_room"><%= I18n.translate("create") %></button></p>
     </div>
     <p>Users online: <%= (Amber::WebSockets::ClientSockets.client_sockets.size / 6).to_i %></p>
   </div>
@@ -52,7 +53,7 @@
   document.getElementById("public_room").onclick = function() {
         var room_name;
         while (room_name == undefined || room_name == "" || room_name.length > 30 || !room_name.match(/^[a-z0-9]+$/i)) {
-            room_name = prompt("Room name", "Enter a name for your room");
+            room_name = prompt("Room name", '<%= I18n.translate("enter") %>');
         }
         window.location =  "/o/" + room_name;
         return false;
