@@ -7,13 +7,13 @@
 <div id="welcome_box" class="text-dark bg-white" style="z-index: 5000; position: absolute;">
   <div id="welcome_content" class="mx-auto p-3" style="width: 74.37%">
     <img src="/OpenLoft.png" />
-    <p>Locale: <%= locale %></p>
+    <p><%= I18n.translate("locale") %>: <%= locale %></p>
     <p><strong><%= I18n.translate("agree") %> <a href="/tos.html"><%= I18n.translate("terms") %></a> and <a href="/privacy_policy"><%= I18n.translate("privacy_policy") %></a></strong></p>
     <div id="welcome_links" class="mt-3 mb-3">
-      <p class="d-inline mr-3"><button class="btn btn-primary" id="gbalda_room"><%= I18n.translate("global") %></button></p>
       <p class="d-inline mr-3"><button class="btn btn-primary" id="public_room"><%= I18n.translate("create") %></button></p>
+      <p class="d-inline mr-3"><button class="btn btn-primary" id="gbalda_room"><%= I18n.translate("global") %></button></p>
     </div>
-    <p>Users online: <%= (Amber::WebSockets::ClientSockets.client_sockets.size / 6).to_i %></p>
+    <p><%= I18n.translate("online") %>: <%= (Amber::WebSockets::ClientSockets.client_sockets.size / 6).to_i %></p>
   </div>
 </div>
 

@@ -6,3 +6,80 @@ global: Global Canvas
 create: Create Room
 enter: Enter a name for your room
 javascript: Please enable Javascript to use this website!
+multi: Multi User Drawing
+chat: Chat
+video_call: Video Call
+multi_user: Multi User Editor
+theater: Theater
+links: Links
+color: Color
+brush_shape: Brush Shape
+brush_style: Brush Style
+brush_size: Brush Size
+rainbow_pen: Rainbow Pen
+rainbow_theme: Rainbow Theme
+rainbow: Rainbow
+camoflauge: Camoflauge
+blue_sky: Blue Sky
+summer_wave: Summer Wave
+relaxing: Relaxing
+sunrise: Sunrise
+pink_sunrise: Pink Sunrise
+beige_sky: Beige Sky
+oldschool_pixel: Oldschool Pixel
+orange_sunrise: Orange Sunrise
+purple_sunset: Purple Sunset
+gray_horizon: Gray Horizon
+early_morning: Early Morning
+crimson_night: Crimson Night
+twilight_forest: Twilight Forest
+forest_moon: Forest Moon
+burnt_sun: Burnt Sun
+before_night: Before Night
+shape: Shape
+none: None
+rectangle: Rectangle
+circle: Circle
+triangle: Triangle
+text: Text
+eyedropper: Eyedropper
+eraser: Eraser
+paintbucket: Paintbucket
+undo: Undo
+status: Status
+views: views
+bold: bold
+italic: italic
+link: link
+gif: gif
+image: image
+html: html
+emoji: emoji
+send: Send
+locale: Locale
+online: Users online
+input: Input
+camera: Camera
+screen: Screen
+join_with_video: Join with Video
+join_with_audio: Join with Audio
+hangup: Hang Up
+mute_my_microphone: Mute Microphone
+stop_my_camera: Stop Camera
+volume: Volume
+copy: Copy link to this room
+order: Order canvas print
+download_canvas: Download Canvas
+add_image_to_gallery: Add Image to Gallery
+gallery: Gallery
+discord: Discord
+stats: Site Statistics
+advertise_here: Advertise here
+clear_canvas: Clear the Canvas
+full_screen: Fullscreen mode
+theme: Theme
+load: Load
+play: Play
+pause: Pause
+mute: Mute
+unmute: Unmute
