@@ -5,6 +5,7 @@ require "uri"
 require "base64"
 require "digest"
 require "slack"
+require "crypto/bcrypt/password"
 
 #paypal
 CLIENT_ID = Amber.settings.secrets["PAYPAL_CLIENT_ID"]
@@ -19,6 +20,7 @@ class LivepixelController < ApplicationController
     username = params[:username]
     password = params[:password]
     if REDIS.get("#{username}_password").nil?
+      password = Crypto::Bcrypt::Password.create(password, cost: 10).to_s
       REDIS.set("#{username}_password", password)
       session[:username] = username
       {success: true}.to_json
@@ -31,7 +33,8 @@ class LivepixelController < ApplicationController
   def login
     username = params[:username]
     password = params[:password]
-    if password == REDIS.get("#{username}_password")
+    redis_password = Crypto::Bcrypt::Password.new(REDIS.get("#{username}_password").to_s)
+    if redis_password.verify(password)
       session[:username] = username
       {success: true}.to_json
     else
