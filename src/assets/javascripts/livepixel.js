@@ -68,9 +68,10 @@ const dontLog = false;
 window.dontLog = dontLog;
 
 var name = localStorage.getItem("name");
-while (name == undefined || name == "" || name.length > 30 || !name.match(/^[a-z0-9]+$/i)) {
-    name = prompt("What is your name? (alphanumeric, less than 30 characters, no spaces, no cursewords)");
-}
+// while (name == undefined || name == "" || name.length > 30 || !name.match(/^[a-z0-9]+$/i)) {
+//     name = prompt("What is your name? (alphanumeric, less than 30 characters, no spaces, no cursewords)");
+// }
+name = $("#username").html();
 localStorage.setItem("name", name);
 window.name = name;
 

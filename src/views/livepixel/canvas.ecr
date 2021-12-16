@@ -1,5 +1,7 @@
 <noscript><%= I18n.translate("javascript") %></noscript>
 
+<span id="username" style="display: none" %><%= session[:username] %></span>
+
 <ul class="nav nav-tabs device-small" id="myTab" role="tablist">
   <li class="nav-item">
     <button class="nav-link active" id="canvas_tab-tab" data-toggle="tab" title='<%= I18n.translate("multi") %>' href="#canvas_tab" role="tab" aria-controls="canvas_tab" aria-selected="true"><i class="fas fa-palette" style="padding-left: 10px; padding-right: 10px;"></i></button>

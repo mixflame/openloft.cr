@@ -8,16 +8,71 @@
   <div id="welcome_content" class="mx-auto p-3" style="width: 74.37%">
     <img src="/OpenLoft.png" />
     <p><%= I18n.translate("locale") %>: <%= locale %></p>
-    <p><strong><%= I18n.translate("agree") %> <a href="/tos.html"><%= I18n.translate("terms") %></a> and <a href="/privacy_policy"><%= I18n.translate("privacy_policy") %></a></strong></p>
-    <div id="welcome_links" class="mt-3 mb-3">
-      <p class="d-inline mr-3"><button class="btn btn-primary" id="public_room"><%= I18n.translate("create") %></button></p>
-      <p class="d-inline mr-3"><button class="btn btn-primary" id="gbalda_room"><%= I18n.translate("global") %></button></p>
-    </div>
+    <p><%= flash[:notice] %></p>
+    <p>
+    <% if session[:username].nil? %>
+      <input type="text" id="username" placeholder="Username" />
+      <input type="password" id="password" placeholder="Password" />
+      <button id="signup_button" class="btn btn-primary">Signup</button>
+      <button id="login_button" class="btn btn-primary">Login</button>
+    </p>
+    <% else %>
+      <p>Welcome, <%= session[:username] %>!</p>
+      <button id="logout_button" class="btn btn-primary">Logout</button>
+      <p><strong><%= I18n.translate("agree") %> <a href="/tos.html"><%= I18n.translate("terms") %></a> and <a href="/privacy_policy"><%= I18n.translate("privacy_policy") %></a></strong></p>
+      <div id="welcome_links" class="mt-3 mb-3">
+        <p class="d-inline mr-3"><button class="btn btn-primary" id="public_room"><%= I18n.translate("create") %></button></p>
+        <p class="d-inline mr-3"><button class="btn btn-primary" id="gbalda_room"><%= I18n.translate("global") %></button></p>
+      </div>
+    <% end %>
     <p><%= I18n.translate("online") %>: <%= (Amber::WebSockets::ClientSockets.client_sockets.size / 6).to_i %></p>
   </div>
 </div>
 
   <script>
+
+  $("#signup_button").click(function() {
+     const csrfToken = document.querySelector("[name=_csrf]").content;
+        const headers = {
+            "X-CSRF-TOKEN": csrfToken,
+            "Access-Control-Allow-Origin": "*"
+        }
+    $.ajax("/signup", { method: "POST", headers: headers,  data: {username: $("#username").val(), password: $("#password").val()} }).done(function(data){
+      data = JSON.parse(data);
+      if (data.success == true) {
+        window.location = "/"
+      } else {
+        alert("Username has been used before.")
+      }
+    });
+  });
+
+  $("#login_button").click(function() {
+    const csrfToken = document.querySelector("[name=_csrf]").content;
+        const headers = {
+            "X-CSRF-TOKEN": csrfToken,
+            "Access-Control-Allow-Origin": "*"
+        }
+    $.ajax("/login", { method: "POST", headers: headers,  data: {username: $("#username").val(), password: $("#password").val()} }).done(function(data){
+      data = JSON.parse(data);
+      if (data.success == true) {
+        window.location = "/"
+      } else {
+        alert("Username or password incorrect.")
+      }
+    });
+  })
+
+  $("#logout_button").click(function() {
+    const csrfToken = document.querySelector("[name=_csrf]").content;
+        const headers = {
+            "X-CSRF-TOKEN": csrfToken,
+            "Access-Control-Allow-Origin": "*"
+        }
+    $.ajax("/logout", { method: "POST", headers: headers }).done(function(data){
+      window.location = "/"
+    });
+  })
 
   $(function() {
    var body = $('#starshine'),
@@ -50,6 +105,7 @@
     } 
   });
 
+  <% if !session[:username].nil? %>
   document.getElementById("public_room").onclick = function() {
         var room_name;
         while (room_name == undefined || room_name == "" || room_name.length > 30 || !room_name.match(/^[a-z0-9]+$/i)) {
@@ -64,5 +120,6 @@
         window.location =  "/o/" + room_name;
         return false;
       };
+  <% end %>
 
   </script>

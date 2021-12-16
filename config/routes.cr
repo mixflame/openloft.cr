@@ -58,6 +58,9 @@ Amber::Server.configure do
     get "/random_ad", LivepixelController, :random_ad
     post "/change_theme", LivepixelController, :change_theme
     get "/o/*", LivepixelController, :shorten_link
+    post "/login", LivepixelController, :login
+    post "/signup", LivepixelController, :signup
+    post "/logout", LivepixelController, :logout
   end
 
   routes :api do

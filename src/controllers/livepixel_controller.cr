@@ -15,6 +15,35 @@ SLACK_SIGNING_SECRET = Amber.settings.secrets["SLACK_SIGNING_SECRET"]
 
 class LivepixelController < ApplicationController
 
+  def signup
+    username = params[:username]
+    password = params[:password]
+    if REDIS.get("#{username}_password").nil?
+      REDIS.set("#{username}_password", password)
+      session[:username] = username
+      {success: true}.to_json
+    else
+      {success: false}.to_json
+    end
+  end
+  
+  
+  def login
+    username = params[:username]
+    password = params[:password]
+    if password == REDIS.get("#{username}_password")
+      session[:username] = username
+      {success: true}.to_json
+    else
+      {success: false}.to_json
+    end
+  end
+
+  def logout
+    session.delete(:username)
+    {success: true}.to_json
+  end
+
   def ping
     redis = REDIS
     redis.rpush("livepixel_ping", request.hostname.to_s)
