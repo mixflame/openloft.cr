@@ -101,6 +101,6 @@ Amber::Server.configure do |settings|
   # "amber.session". The store can be `encrypted_cookie`, `signed_cookie` or `redis`. Expires
   # when set to 0 means this is indefinitely and is expressed in seconds.
   #
-  # settings.session = { "key" => "amber.session", "store" => "signed_cookie", "expires" => 0 }
+  settings.session = { "key" => "openloft.session", "store" => "signed_cookie", "expires" => 0 }
   #
 end

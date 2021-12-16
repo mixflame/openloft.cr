@@ -8,4 +8,5 @@ class ApplicationController < Amber::Controller::Base
   before_action do
     all { @locale = HTTP::Server::Context.new(request, response).locale }
   end
+
 end
