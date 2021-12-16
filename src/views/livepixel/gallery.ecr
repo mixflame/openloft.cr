@@ -1,16 +1,16 @@
-<h1>OpenLoft Collaborative Editor Gallery</h1>
-<p><%= image_ids.size %> images in the gallery</p>
-<p>To add an image to the gallery, click "upload canvas to imgur" at the top of the canvas drawing page.</p>
+<h1><%= I18n.translate("gallery") %></h1>
+<p><%= image_ids.size %> <%= I18n.translate("images_in_gallery") %></p>
+<p><%= I18n.translate("to_add") %></p>
 <p>
 <% image_ids.each do |image_id| %>
 
 <p><a href="https://i.imgur.com/<%= image_id %>.png" name="<%= image_id %>" target=_blank><img style="width: 25%; height: 25%; padding: 5px;" src="https://i.imgur.com/<%= image_id %>.png" /></a></p>
 
-<p><a href="#" style="display: none" id="order-<%= image_id %>" class="order-link">Order Print</a></p>
+<p><a href="#" style="display: none" id="order-<%= image_id %>" class="order-link"><%= I18n.translate("order_print") %></a></p>
 
 <% end %>
 </p>
 
 <a href="/gallery_feed.xml"><img width=50 height=50 src="/dist/images/Feed-icon.png" /></a>
 
-<a href="/" target=_blank>Back to OpenLoft Collaborative Editor</a>
+<a href="/" target=_blank><%= I18n.translate("back_to_openloft") %></a>

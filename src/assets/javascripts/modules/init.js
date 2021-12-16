@@ -1258,7 +1258,7 @@ export function init() {
     
 
     if(!window.location.origin.includes("localhost"))
-        $("#join-button").click();
+        $("#join-audio-button").click();
 
 
 
@@ -1473,12 +1473,6 @@ export function init() {
 
     $("#theme_select").change();
 
-    $('.nav-tabs button[href="#call_tab"]').tab('show');
-
-    if(room == "gbalda") {
-        $("#call_tab").remove();
-        $("#call_tab-tab").remove();
-        $('.nav-tabs button[href="#canvas_tab"]').tab('show');
-    }
+    // $('.nav-tabs button[href="#call_tab"]').tab('show');
 
 }

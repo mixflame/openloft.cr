@@ -4,25 +4,25 @@
 
     <div align="center">
     <div id="text">
-    <h1>Buy an ad on this site</h1>
-    <p>Seventy dollars ($70.00) and they never expire.</p>
-    <p>Banners are chosen at random in a mix with other banners.</p>
-    <p>Banners are displayed on the front page (canvas) of this site.</p>
-    <p>Banner must be 468 x 60 pixels or smaller.</p>
-    <p>Banner cannot be larger than 2mb.</p>
-    <p>Banners with objectionable content will be removed.</p>
+    <h1><%= I18n.translate("buy_ad") %></h1>
+    <p><%= I18n.translate("price") %></p>
+    <p><%= I18n.translate("chosen") %></p>
+    <p><%= I18n.translate("displayed") %></p>
+    <p><%= I18n.translate("size") %></p>
+    <p><%= I18n.translate("file_size") %></p>
+    <p><%= I18n.translate("offensize") %></p>
     <hr />
-    <p style="color: red">Select an image and a url to link to, and then pay using the Paypal links that will become activated after configuring your ad.</p>
-    <p><strong style="color: lightblue">Make sure to double check your image and link before paying.</strong></p>
+    <p style="color: red"><%= I18n.translate("select") %></p>
+    <p><strong style="color: lightblue"><%= I18n.translate("doublecheck") %></strong></p>
 
    <p>
         <form id="upload_form" enctype="multipart/form-data" action="/upload" accept-charset="UTF-8" data-remote="true" method="post">
             <p>
-                <label for="banner">Banner image: </label>
+                <label for="banner"><%= I18n.translate("banner_image") %>: </label>
                 <input type="file" name="banner" id="banner" onchange="if (jQuery('#banner').val() != '' && jQuery('#link').val() != '') { jQuery('#paypal-button-container').css('pointer-events', '');  jQuery('#paypal-button-container').css('opacity', ''); } if(jQuery('#banner')[0].files[0].size > 2048000) { alert('Image file size too big, limit 2mb.'); jQuery('#banner').val(''); } let img = new Image(); img.src = window.URL.createObjectURL(jQuery('#banner')[0].files[0]); img.onload = function() { if(img.width > 468 || img.height > 60) { alert('Image must be 468x60 pixels or smaller.'); jQuery('#banner').val(''); } };" />
             </p>
             <p>
-                <label for="link">Banner link: </label>
+                <label for="link"><%= I18n.translate("banner_link") %>: </label>
                 <input type="text" name="link" id="link" value="" onkeyup="if (jQuery('#banner').val() != '' && jQuery('#link').val() != '') { jQuery('#paypal-button-container').css('pointer-events', '');  jQuery('#paypal-button-container').css('opacity', ''); }" />
             </p>
             <input type="hidden" name="order_id" id="order_id" value="" />

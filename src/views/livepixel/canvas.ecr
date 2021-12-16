@@ -327,10 +327,14 @@
         <a href="#" class="nav-link" id="full-screen"><%= I18n.translate("full_screen") %></a>
       </li>
       <p><%= I18n.translate("theme") %>: 
-      <select id="theme_select">
+      <select id='theme_select'>
         <% Dir.entries("#{File.dirname(Amber.path)}/../public/stylesheets/themes").each do |filename| %>
           <% if filename.includes?(".css") %>
-            <option value="<%= filename %>" <% if filename == session["theme"] || session["theme"].nil? && filename == "main.css" %>selected="selected"<% end %>><%= filename %></option>
+            <% if filename == session["theme"] || session["theme"].nil? && filename == "main.css" %>
+              <option value='<%= filename %>' selected="selected"><%= filename %></option>
+            <% else %>
+              <option value='<%= filename %>'><%= filename %></option>
+            <% end %>
           <% end %>
         <% end %>
       </select>

@@ -73,7 +73,7 @@ download_canvas: Download Canvas
 add_image_to_gallery: Add Image to Gallery
 gallery: Gallery
 discord: Discord
-stats: Site Statistics
+stats: Statistics
 advertise_here: Advertise here
 clear_canvas: Clear the Canvas
 full_screen: Fullscreen mode
@@ -83,3 +83,36 @@ play: Play
 pause: Pause
 mute: Mute
 unmute: Unmute
+buy_ad: Buy an ad on this site
+price: Banner ads are $70 and they never are never removed from rotation.
+chosen: Banners are chosen at random in a mix with other banners.
+displayed: Banners are displayed on the front page (canvas) of this site.
+size: Banner must be 468 x 60 pixels or smaller.
+file_size: Banner cannot be larger than 2mb.
+offensize: Offensive banners will be removed.
+select: Select an image and a url to link to, and then pay using the Paypal links that will become activated after configuring your ad.
+doublecheck: Make sure to double check your image and link before paying.
+banner_image: Banner image
+banner_link: Banner link
+images_in_gallery: images in gallery
+to_add: To add an image to the gallery, click "upload canvas to imgur" at the top of the canvas drawing page.
+order_print: Order Print
+back_to_openloft: Back to OpenLoft Collaborative Editor
+privacy_policy: Privacy Policy
+no_censorship: No censorship
+no_tracking: No tracking
+no_personal_information: No collection of personal information
+no_foreign_trackers: No foreign tracking libraries
+minimal_library_usage: Minimal to none usage of 3rd party libraries
+no_illegal_usage: Illegal usage of this site is prohibited
+serverwide_connections: (Serverwide) Connections
+active_users: (Serverwide) Active users (open tabs)
+points: Points
+all_time_visitors: All time number of visitors to site
+layers: Layers
+canvas_expires_in: Canvas expires in
+number_of_canvases: Number of canvases
+keys: Keys in database
+canvases_that_exist: Canvases that exist
+todays_drawers: Todays Drawers
+seconds: Seconds

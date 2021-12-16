@@ -1,26 +1,26 @@
     <div align="center">
     <h1>Stats for <%= room == "" ? "Global Room" : room %></h1>
     <div class="box">
-    <h1>OpenLoft Collaborative Editor Stats</h1>
+    <h1><%= I18n.translate("stats") %></h1>
     <% if Amber.env == :development %>
-    <p>(Serverwide) Connections: <%= Amber::WebSockets::ClientSockets.client_sockets.size %></p>
-    <p>(Serverwide) Active users (open tabs): <%= Amber::WebSockets::ClientSockets.client_sockets.size / 6 %></p>
+    <p><%= I18n.translate("serverwide_connections") %>: <%= Amber::WebSockets::ClientSockets.client_sockets.size %></p>
+    <p><%= I18n.translate("active_users") %>: <%= Amber::WebSockets::ClientSockets.client_sockets.size / 6 %></p>
     <% end %>
-    <p>Points in the canvas: <%= redis.llen(redis_packets_str) rescue 0 %></p>
-    <p>All time number of visitors to site: <%= redis.get("counter") rescue 0 %></p>
-    <p>Layers in the canvas: <%= all_layers %></p>
-    <p>Canvas expires in: <%= redis.ttl(redis_packets_str) %> seconds</p>
-    <p>Number of canvases on server: <%= redis.keys("*").reject { |k| !k.to_s.includes?("packets") }.size.to_i %></p>
-    <p>Keys in database: <%= redis.keys("*").size rescue 0 %></p>
-    <p>Canvases that exist: <%= redis.keys("*").reject { |a| (a =~ /packets/) != 0}.size rescue 0 %></p>
+    <p><%= I18n.translate("points") %>: <%= redis.llen(redis_packets_str) rescue 0 %></p>
+    <p><%= I18n.translate("all_time_visitors") %>: <%= redis.get("counter") rescue 0 %></p>
+    <p><%= I18n.translate("layers") %>: <%= all_layers %></p>
+    <p><%= I18n.translate("canvas_expires_in") %>: <%= redis.ttl(redis_packets_str) %> <%= I18n.translate("seconds") %></p>
+    <p><%= I18n.translate("number_of_canvases") %>: <%= redis.keys("*").reject { |k| !k.to_s.includes?("packets") }.size.to_i %></p>
+    <p><%= I18n.translate("keys") %>: <%= redis.keys("*").size rescue 0 %></p>
+    <p><%= I18n.translate("canvases_that_exist") %>: <%= redis.keys("*").reject { |a| (a =~ /packets/) != 0}.size rescue 0 %></p>
     </div>
 
 
   <div class="boxu">
-    <h1>Todays drawers</h1>
+    <h1><%= I18n.translate("todays_drawers") %></h1>
         <ol>
         <% names.each do |n| %>
-            <li><strong><%= n.to_s rescue "Anonymous" %></strong> - <%= points[n] %> points - <%= layers[n] %> layers</li>
+            <li><strong><%= n.to_s rescue "Anonymous" %></strong> - <%= points[n] %> <%= I18n.translate("points") %> - <%= layers[n] %> <%= I18n.translate("layers") %></li>
         <% end %>
         </ol>
     </div>
